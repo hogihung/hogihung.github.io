@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ruby | Old Guy, New Trick]]></title>
+  <link href="http://hogihung.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://hogihung.github.io/"/>
+  <updated>2014-02-20T00:20:04-05:00</updated>
+  <id>http://hogihung.github.io/</id>
+  <author>
+    <name><![CDATA[Ho Gi Hung]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Ruby, RVM, Cmd Line SheBang!]]></title>
+    <link href="http://hogihung.github.io/blog/2014/02/12/command_line_apps_rvm/"/>
+    <updated>2014-02-12T10:56:35-05:00</updated>
+    <id>http://hogihung.github.io/blog/2014/02/12/command_line_apps_rvm</id>
+    <content type="html"><![CDATA[<p>I ran across this tip while reading the book <em>&ldquo;Build Awesome Command-Line Applications
+in Ruby 2,&rdquo;</em> by David Bryant Copeland.  Although most of the code I&rsquo;ve been practicing
+has been Ruby on Rails, at my day job we utilize a lot of command line applications.  I&rsquo;m on a mission to add Ruby to our toolbox which currently is Perl and shell scripts.</p>
+
+<p>For a recent project I needed a command line application that could take a CSV
+file as an input, extract out some data, and create a new pipe (|) delimted text
+file.  I use RVM on my personal laptop and desktop, so I installed it on our
+company server.  At that time, Ruby was at version 1.93.  Not too long after, I
+added 2.0.0 and 2.1.0.  But my application was written in 1.93.  It is a simple
+application so the version shouldn&rsquo;t matter.  But in case it does, you may find
+value in this tip.</p>
+
+<p>If you are a RVM user, and type the command &lsquo;which ruby&rsquo; at the command line, you
+may get something similar to:</p>
+
+<p><code>
+/Users/jfhogarty/.rvm/rubies/ruby-2.1.0/bin/ruby
+</code></p>
+
+<p>You can use that as the first line of your ruby script:
+```</p>
+
+<h1>!/Users/jfhogarty/.rvm/rubies/ruby-2.1.0/bin/ruby</h1>
+
+<p>```</p>
+
+<p>However, if you want your script to use whatever the current version of Ruby is,
+or if Ruby is in a different location on a machine other than yours, you can use this syntax:</p>
+
+<p>```</p>
+
+<h1>!/usr/bin/env ruby</h1>
+
+<p>```</p>
+
+<p>This tip is found on page 4, in the section: &ldquo;Shebang: How the Systems Knows an App Is A Ruby Script&rdquo;</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Blog | Old Guy, New Trick]]></title>
+  <link href="http://hogihung.github.io/blog/categories/blog/atom.xml" rel="self"/>
+  <link href="http://hogihung.github.io/"/>
+  <updated>2014-02-20T00:20:04-05:00</updated>
+  <id>http://hogihung.github.io/</id>
+  <author>
+    <name><![CDATA[Ho Gi Hung]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Almost Free Blog]]></title>
+    <link href="http://hogihung.github.io/blog/2014/02/19/almost_free_blog/"/>
+    <updated>2014-02-19T20:55:00-05:00</updated>
+    <id>http://hogihung.github.io/blog/2014/02/19/almost_free_blog</id>
+    <content type="html"><![CDATA[<p>Would you like to have your own super cool blog but don&rsquo;t want to go through the hassel of setting up WordPress?  Or maybe you don&rsquo;t have your own hosting service like DreamHost but still want a blog.  Are you bummed out since Apple killed off iWeb?</p>
+
+<p>Well the good news is there is a nice solution for us programmers.  And it can be free if you don&rsquo;t want a custom domain name.  For this site, the only cost was purchasing the domain name &ndash; oldguynewtrick.com.  I&rsquo;m a fan of Hover for domain registration (<a href="http://hover.com">http://hover.com</a>) This site is powered by the Open Source application called Octopress (<a href="http://octopress.org">http://octopress.org</a>) and hosted, for FREE, on GitHub.</p>
+
+<p>If you don&rsquo;t have a GitHub account, and you are a programmer, what the heck are you waiting for?  You can get a free GitHub account, hop on over to <a href="http://github.com">http://github.com</a>  (There are paid versions as well.)</p>
+
+<p>In a future posting I will go over the steps that I performed in order to setup an Octopress powered site on GitHub.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Code & Coffee (2)]]></title>
+    <link href="http://hogihung.github.io/blog/2014/02/18/Coffee_And_Code/"/>
+    <updated>2014-02-18T19:10:15-05:00</updated>
+    <id>http://hogihung.github.io/blog/2014/02/18/Coffee_And_Code</id>
+    <content type="html"><![CDATA[<p>My journey to learn Ruby and Rails started almost one year ago.  I&rsquo;m embarrased to admit, aside from a couple of lunch meetings, I&rsquo;ve been traveling down this road on my own.  Being new to the language and community, plus the fact that I&rsquo;m an introvert, I found it hard to get out and meet fellow programmers.</p>
+
+<p>Near the end of last year I decided to try and conquer my fear and looking back on it, I probably should have started with a smaller introduction to the Ruby community.  In November of last year I attended Ruby Conf 2013 in Miami, Florida.  Don&rsquo;t get me wrong, I enjoyed almost everything about my experience there.  But I felt so out of place.  I went by myself and had no clue on what to expect.</p>
+
+<p>After my experience with Ruby Conf, I decided that I need to take a more gentle approach to entering the fabulous programming community.  I looked up RubyJax since I live in Jacksonville, FL.  I saw that they host many events &ndash; most at the Hash Rocket office at Jax Beach.</p>
+
+<p>So I&rsquo;ve signed up for as many meet ups as I could, which include <em>&ldquo;Code and Coffee.&rdquo;</em>  This was hard for me on a couple of levels.  First, I still feel inadequate as new member of the Ruby community.  Second, I work from home and am really not a morning person.  To get up at 6:15am so I have time to shower and drive to Jax Beach is a bit tough.  It was especially tough for me today, my second Code &amp; Coffee, because I was not feeling 100%.  I enjoyed going last week but in my mind it was clear I was the new guy and I felt really dumb as I was surrounded by so many great programmers.</p>
+
+<p>Then something happened.  At this second Code &amp; Coffee, I wasn&rsquo;t the new guy anymore.  A new member showed up, I believe his name was Michael, and I was able to talk with him and give some advice based on my experience as a new person to the Ruby community.  I hadn&rsquo;t realized how far I have come in my journey.  Don&rsquo;t get me wrong, I still have far to go, but when that light bulb went off in my head, it really brightened my day.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Programming | Old Guy, New Trick]]></title>
+  <link href="http://hogihung.github.io/blog/categories/programming/atom.xml" rel="self"/>
+  <link href="http://hogihung.github.io/"/>
+  <updated>2014-02-20T00:20:04-05:00</updated>
+  <id>http://hogihung.github.io/</id>
+  <author>
+    <name><![CDATA[Ho Gi Hung]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Almost Free Blog]]></title>
+    <link href="http://hogihung.github.io/blog/2014/02/19/almost_free_blog/"/>
+    <updated>2014-02-19T20:55:00-05:00</updated>
+    <id>http://hogihung.github.io/blog/2014/02/19/almost_free_blog</id>
+    <content type="html"><![CDATA[<p>Would you like to have your own super cool blog but don&rsquo;t want to go through the hassel of setting up WordPress?  Or maybe you don&rsquo;t have your own hosting service like DreamHost but still want a blog.  Are you bummed out since Apple killed off iWeb?</p>
+
+<p>Well the good news is there is a nice solution for us programmers.  And it can be free if you don&rsquo;t want a custom domain name.  For this site, the only cost was purchasing the domain name &ndash; oldguynewtrick.com.  I&rsquo;m a fan of Hover for domain registration (<a href="http://hover.com">http://hover.com</a>) This site is powered by the Open Source application called Octopress (<a href="http://octopress.org">http://octopress.org</a>) and hosted, for FREE, on GitHub.</p>
+
+<p>If you don&rsquo;t have a GitHub account, and you are a programmer, what the heck are you waiting for?  You can get a free GitHub account, hop on over to <a href="http://github.com">http://github.com</a>  (There are paid versions as well.)</p>
+
+<p>In a future posting I will go over the steps that I performed in order to setup an Octopress powered site on GitHub.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[To Book or Not to Book]]></title>
+    <link href="http://hogihung.github.io/blog/2014/02/19/book_or_ebooks/"/>
+    <updated>2014-02-19T18:13:25-05:00</updated>
+    <id>http://hogihung.github.io/blog/2014/02/19/book_or_ebooks</id>
+    <content type="html"><![CDATA[<p>While the focus, and majority of posts I plan on making, will revolve around the world of Ruby and web devlopement, my journey began with <em>&ldquo;Programming in Objective-C,&rdquo;</em> by Stephen G. Kochan.  While still persuing iOS and Objective-C knowledge, I also got <em>&ldquo;iOS Programming The Big Nerd Ranch Guide,&rdquo;</em> by Joe Conway &amp; Aaron Hillegass.  Shortly after I grabbed <em>&ldquo;Objective-C Programming The Big Nerd Ranch Guide,&rdquo;</em> by Aaron Hillegass.</p>
+
+<p>Wadding through those books I quickly realized that I had a huge lack of knowledge, and though I really wanted to write iPhone apps, I needed to reboot and try a different approach.  I found an online course via iTunes-U which used the next book I purchased &ndash; <em>&ldquo;The Art &amp; Science of Java, An Introduction to Computer Science,&rdquo;</em> by Eric S. Roberts.  This book is used with the online course I subscribed to in iTunes, and by far the most expensive book I have purchased!  While reading that book, and following the course, I realized another gap in knowledge.  A lot of buzzwords were flying at me &ndash; OOP, Object Oriented Design, UML, Singleton, Design Patterns, etc.  So I did a little research on Amazon, and grabbed two new books by Head First &ndash; <em>&ldquo;Object-Oriented Analysis &amp; Design,&rdquo;</em> by McLaughlin, Pollice &amp; West and <em>&ldquo;Design Patterns,&rdquo;</em> by Freeman &amp; Freeman.  The Head First books used Java in their examples and I thought things were coming together. My Rails journey actually started because of <em>&ldquo;Object-Oriented Analysis &amp; Design&rdquo;</em> book.</p>
+
+<p>Alrighty, lets now dive into the here and now.  My first Ruby/Rails book, and the one I would first suggest to anyone new to Rails, was <em>&ldquo;Ruby on Rails Tutorial,&rdquo;</em> by Michael Hartl.  This book won&rsquo;t be the end of your journey, but should give one enough to get a good understanding.  I plan on re-reading this book after I get through some others.  The next book I grabbed was probably way above my level, but I really enjoyed how this person thinks after watching some of her videos &ndash; <em>&ldquo;Practical Object-Oriented Design In Ruby,&rdquo;</em> by Sandi Metz.  Though a bit over my head for a good chunk of the book, I still found it very useful and I think I will understand more of what she wrote as I learn and experience more code.</p>
+
+<p>The next book I got was <em>&ldquo;Agile Web Development with Rails 3.2,&rdquo;</em> by Sam Ruby, Dave Thomas, and David Heinemeier Hansson.  I found this to be very useful for filling in some gaps I had from the Rails Tuts book.  I happened to notice after I bought the book that a newer version would come out later in the year.  So I pre-ordered <em>&ldquo;Agile Web Development with Rails 4,&rdquo;</em> by the same trio.  I have not ready beyond the first chapter of this book yet.</p>
+
+<p>One thing I was noticing from my reading experience of the two Rails books and the POODR book, I lacked some basic knowledge of the underlying language &ndash; Ruby.  So I grabbed <em>&ldquo;The Ruby Way,&rdquo;</em> by Hal Fulton.  I&rsquo;ve finished about half of the book and it cleared some things up for me.  I do use it as a reference from time-to-time and do want to get back into it for the second half.  Note I think this is the oldest of the Ruby/Rails books I have, so it isn&rsquo;t current.  But the majority of what you would read should still be relevant.</p>
+
+<p>It might just be me, but I&rsquo;ve found that frequently I need information from multiple sources in order for me to understand certain topics.  So while <em>&ldquo;The Ruby Way&rdquo;</em> is very comprehensive, I picked up <em>&ldquo;The Ruby Programming Language,&rdquo;</em> by David Flanagan &amp; Yukikiro Matsumoto.  This book covered Ruby 1.8 and 1.9 so it was a little more up to date than the previous mentioned book.  Where as those first two book on Ruby will give you the meat of the language, I found this next book to be the sauce &ndash; <em>&ldquo;Eloquent Ruby,&rdquo;</em> by Russ Olsen.</p>
+
+<p>I skipped a book, and in all honesty, I don&rsquo;t remember where in the order of books purchased that this one occurred.  I&rsquo;ve only read the first chapter and I like the book, but my mindset isn&rsquo;t ready for it.  I&rsquo;ll probably get virtually whipped for saying that, but I will revisit this book &ndash; <em>&ldquo;The RSpec Book,&rdquo;</em> by David Chelimsky.  For those new to Ruby and don&rsquo;t understand why I would be whipped, I&rsquo;ve found that the Ruby/Rails community is heavily into testing &ndash; BDD (behaviour driven-development) or TDD (test driven-devlopment).  I know this is an area I need to focus on!</p>
+
+<p>Winding down there are a few more books.  I picked up the next book because I wanted more information on creating command line Ruby applications, so I purchased <em>&ldquo;Build Awesome Command-Line Applications in Ruby 2,&rdquo;</em> by David Bryant Copeland.  I really am enjoying this book and I&rsquo;m applying some of the things I&rsquo;ve learned to how I code work related stuff in Perl.</p>
+
+<p>Although not directly related to Ruby or Rails, I picked up <em>&ldquo;The Little Book on CoffeeScript,&rdquo;</em> by Alex MacCaw.  They were not kidding, it is little!  I can&rsquo;t really say anything good about this book yet as I was disappointed at its size when it arrived.  I tossed it aside to read some other time &ndash; maybe on a rainy day.  The other non-directly related book I am enjoying is &ndash; <em>&ldquo;Practical Vim,&rdquo;</em> by Drew Neil.  I&rsquo;ve always admirred people who are awesome at the command line and in tools like Vim.  I&rsquo;m not one of them.  My preferred editor is Sublime Text, but I really want to learn Vim.  This book is good, and Drew produces some cool screencasts &ndash; <a href="http://vimcasts.org.">http://vimcasts.org.</a></p>
+
+<p>Down to my last two physical books as of 2/19/2014 &ndash; <em>&ldquo;Ruby Under a Microscope,&rdquo;</em> by Pat Shaughnessy and <em>&ldquo;Seven Databases in Seven Weeks,&rdquo;</em> by Eric Redmond and Jim R. Wilson.  <em>&ldquo;Ruby Under a Microscope&rdquo;</em> is probably not a good fit for someone new to Ruby, but I&rsquo;m finding it absolutely enjoyable.  Sure there are things above my head, but I am able to digest most of the information and it actually helps me understand the language better.  I just received the Seven Databases book and haven&rsquo;t had a chance to read it yet.</p>
+
+<p>All of the above are physical books I&rsquo;ve purchased in my persuit of learning to code.  I&rsquo;ve also purchases a few eBooks which I will list next.  I&rsquo;m not a huge fan of eBooks related to programming as I find the formatting tends to get screwed up when the authors try to show code blocks.  With that said, on my Kindle I have:  <em>&ldquo;Confident Ruby,&rdquo;</em> by Avdi Grimm, <em>&ldquo;Professional JavaScript for Web Developers,&rdquo;</em> by Nicholas C. Zakas, and <em>&ldquo;CoffeeScript Programming with jQuery, Rails and Node.js,&rdquo;</em> by Michael Erasmus.</p>
+
+<p>There are two other books, and I wasn&rsquo;t going to inlude them, but just in case you want books on CakePHP or PHP Zend Framework, I strongly urge you TO STAY AWAY from: <em>&ldquo;Easy PHP Websites with The Zend Framework,&rdquo;</em> by W. Jason Gilmore, and <em>&ldquo;CakePHP 1.3 Application Development Cookbook,&rdquo;</em> by Mario Iglesias.  These two books are horrible!</p>
+
+<h2>Apology</h2>
+
+<p>When I first skechted out the list of books in my arsenal, it didn&rsquo;t look to be to long.  But as we can see from the above, when I wrapped words around the book names, this post got pretty long.  So I apologize for that.  I will make a great effort going forward to keep my posts shorter.  If needed, break up a long topic into multiple posts.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Dissect A Method]]></title>
+    <link href="http://hogihung.github.io/blog/2014/02/16/dissect_a_method/"/>
+    <updated>2014-02-16T22:20:25-05:00</updated>
+    <id>http://hogihung.github.io/blog/2014/02/16/dissect_a_method</id>
+    <content type="html"><![CDATA[<p>I recently purchased a copy of &ldquo;Confident Ruby&rdquo; by Avdi Grimm.  I have not gotten
+far in the book yet, but I am enjoying it.  In the chapter titled &ldquo;Use built-in
+conversion functions&rdquo; I came across a block of code that made me pause.  Being a
+new recruit of the Ruby Army, I only have a grasp on the basics.  The method that
+I have below probably makes sense to an experienced Rubyist, and other programming
+veterans, but to me it didn&rsquo;t.  I wanted to know exactly what each line of code
+meant, and what was going on.</p>
+
+<p><code>
+def pretty_int(value)
+  decimal = Integer(value).to_s
+  leader  = decimal.slice!(0, decimal.length % 3)
+  decimal.gsub!(/\d{3}(?!$)/,'\0,')
+  decimal = nil if decimal.empty?
+  leader  = nil if leader.empty?
+  [leader,decimal].compact.join(",")
+end
+</code></p>
+
+<p>First we are setting a variable, decimal, equal to the result of passing whatever we submitted for &lsquo;value&rsquo; to the conversion function, Integer, which then gets converted to a string via the to_s method.</p>
+
+<p>We can confirm that decimal is a string if we add a little code after that first line above:</p>
+
+<p><code>
+  decimal = Integer(value).to_s
+  puts "Class of decimal: #{decimal.class}"
+</code></p>
+
+<p>Simulated:
+<code>
+2.1.0 :001 &gt; decimal = Integer(400).to_s
+ =&gt; "400"
+2.1.0 :002 &gt; decimal.class
+ =&gt; String
+2.1.0 :003 &gt;
+</code></p>
+
+<p>Looking back at our original six lines of code, the first one is understandable.  The next two, the ones with slice! and gsub! I&rsquo;m not so sure about.  The only thing I know for sure is that when we have a method with the bang character ! that means we are changing the value in place, it modifies the receiver.  Let&rsquo;s jump over these two lines of code for the moment.</p>
+
+<p>The next two lines, the ones with the if condition, I understand.  What they are saying is that if decimal is empty (true), then set decimal equal to nil.  The same goes for leader, if leader is empty, set it to nil.  Methods that have a question mark ? should return a boolean &ndash; either true or false.</p>
+
+<p><code>
+  decimal = nil if decimal.empty?
+  leader  = nil if leader.empty?
+</code></p>
+
+<p>The last line of code in this method is bringing our data together, formatting the number to use a comma after the value of leader if we have a value in decimal as well.</p>
+
+<p>Ok, so we nailed down the first line of the method and the last three.  Now what is going on in lines two and three?</p>
+
+<p><code>
+  #...
+  leader  = decimal.slice!(0, decimal.length % 3)
+  decimal.gsub!(/\d{3}(?!$)/,'\0,')
+</code></p>
+
+<p>It looks like we are trying to set a value of something to the leader variable by performing some actions on the decimal variable.  In the above code we are passing a starting position of 0 to the slice! method and an ending postion of decimal.length % 3.  Let&rsquo;s try this out using irb:</p>
+
+<p><code>
+2.1.0 :011 &gt; decimal = Integer(6234).to_s
+ =&gt; "6234"
+2.1.0 :012 &gt; decimal.length % 3
+ =&gt; 1
+2.1.0 :013 &gt; decimal.slice!(0,1)
+ =&gt; "6"
+2.1.0 :014 &gt;
+</code>
+From the example above, leader would be set to a value of &ldquo;6&rdquo;.  Let&rsquo;s try another example using a smaller number:</p>
+
+<p><code>
+2.1.0 :016 &gt; decimal = Integer(49).to_s
+ =&gt; "49"
+2.1.0 :017 &gt; decimal.length % 3
+ =&gt; 2
+2.1.0 :018 &gt; decimal.slice!(0,2)
+ =&gt; "49"
+2.1.0 :019 &gt;
+</code></p>
+
+<p>What the heck, let&rsquo;s throw one more example, this time using a bigger number:</p>
+
+<p><code>
+2.1.0 :019 &gt; decimal = Integer(1032578).to_s
+ =&gt; "1032578"
+2.1.0 :020 &gt; decimal.length % 3
+ =&gt; 1
+2.1.0 :021 &gt; decimal.slice!(0,1)
+ =&gt; "1"
+2.1.0 :022 &gt;
+</code></p>
+
+<p>Seems like this is making sense.  Lets put one more example up, this time tying things together so we can see both decimal and leader:</p>
+
+<p><code>
+2.1.0 :001 &gt; decimal = Integer(4794).to_s
+ =&gt; "4794"
+2.1.0 :002 &gt; decimal.length
+ =&gt; 4
+2.1.0 :003 &gt; decimal.length % 3
+ =&gt; 1
+2.1.0 :004 &gt; leader = decimal.slice!(0,1)
+ =&gt; "4"
+2.1.0 :005 &gt; decimal
+ =&gt; "794"
+2.1.0 :006 &gt;
+</code></p>
+
+<p>Ah!  So we now have leader set to &ldquo;4&rdquo; and decimal has been sliced down to &ldquo;794&rdquo;.  Recall that the method name is pretty_int and the purpose of this method is to make numbers look pretty.  In other words, we want our numbers to have commas where appropriate.  So in the example of submitting 4794, we want our method to return a value of 4,794.  If our submitted number is smaller, we don&rsquo;t need the comma, and if the number is larger, say 1032578, we would like it to be formatted as:  1,032,578.</p>
+
+<p>We are almost there &ndash; just need to figure out how that other line of code works.  We can have a safe assumption that gsub will do a substitution.  But exactly how is this code suppose to work.  Lets look at it again:</p>
+
+<p><code>
+  decimal.gsub!(/\d{3}(?!$)/,'\0,')
+</code></p>
+
+<p>Let&rsquo;s drop back into irb and see if we can make some sense of this:</p>
+
+<p><code>
+2.1.0 :001 &gt; decimal = Integer(4793).to_s
+ =&gt; "4793"
+2.1.0 :002 &gt; leader = decimal.slice!(0, decimal.length % 3)
+ =&gt; "4"
+2.1.0 :003 &gt; decimal.gsub!(/\d{3}(?!$)/,'\0,')
+ =&gt; nil
+2.1.0 :004 &gt; decimal
+ =&gt; "793"
+2.1.0 :005 &gt; leader
+ =&gt; "4"
+2.1.0 :006 &gt; [leader,decimal].compact.join(",")
+ =&gt; "4,793"
+2.1.0 :007 &gt;
+</code></p>
+
+<p>I have a basic understanding of what is going on, but I&rsquo;m still not very comfortable with Regular Expressions, which is what we are passing to the slice! method above.  How about another example?</p>
+
+<p><code>
+2.1.0 :007 &gt; decimal = Integer(1249580).to_s
+ =&gt; "1249580"
+2.1.0 :008 &gt; leader = decimal.slice!(0, decimal.length % 3)
+ =&gt; "1"
+2.1.0 :009 &gt; decimal.gsub!(/\d{3}(?!$)/,'\0,')
+ =&gt; "249,580"
+2.1.0 :010 &gt; [leader,decimal].compact.join(",")
+ =&gt; "1,249,580"
+2.1.0 :011 &gt;
+</code></p>
+
+<p>Think I&rsquo;m almost there with my understanding.  I&rsquo;m going to take a look at one more example using irb:</p>
+
+<p><code>
+2.1.0 :011 &gt; decimal = Integer(56752).to_s
+ =&gt; "56752"
+2.1.0 :012 &gt; leader = decimal.slice!(0, decimal.length % 3)
+ =&gt; "56"
+2.1.0 :013 &gt; decimal.gsub!(/\d{3}(?!$)/,'\0,')
+ =&gt; nil
+2.1.0 :014 &gt; decimal
+ =&gt; "752"
+2.1.0 :015 &gt; leader
+ =&gt; "56"
+2.1.0 :016 &gt; [leader,decimal].compact.join(",")
+ =&gt; "56,752"
+2.1.0 :017 &gt;
+</code></p>
+
+<p>Once the slice! operation has completed, we have part of our number stored in leader and the remainder in decimal.  For every group of more than 3 numbers in decimal, we will do a substitution and insert a comma.  I know what is happening, but I&rsquo;m still having a hard time properly describing what is going on, and how it knows where to place the commas.  I&rsquo;ll need to bone up on RegEx!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Take Your Education, Online!]]></title>
+    <link href="http://hogihung.github.io/blog/2014/02/10/online_education/"/>
+    <updated>2014-02-10T19:10:15-05:00</updated>
+    <id>http://hogihung.github.io/blog/2014/02/10/online_education</id>
+    <content type="html"><![CDATA[<p>In my quest for knowledge, I&rsquo;ve come across a myraid of good online resources.  In today&rsquo;s blog I will share with you what sites I have found to be useful &ndash; some are free and some are not.</p>
+
+<p>After struggling a bit in my pursuit of creating my idea using the Zend PHP framework, I bumped into a guy, Shay, who pointed me in the direction of Rails.  I remember clearly two sites he told me to check out:</p>
+
+<p><a href="http://railscasts.com">http://railscasts.com</a> and <a href="http://tryruby.org">http://tryruby.org</a></p>
+
+<p>Upon completing the tryruby online course I believe it suggested that I visit the site:  <a href="http://railsforzombies.org.">http://railsforzombies.org.</a>  Both the tryruby.org and railsforzombies.org sites are products of <a href="http://codeschool.com.">http://codeschool.com.</a>  Code School has both free and pay-for content.  After completing their free courses, and viewing some of the free episodes of Code TV, I signed up for a yearly membership.</p>
+
+<p>Another site I ran into was <a href="https://peepcode.com/.">https://peepcode.com/.</a>  I liked what I saw with some of their free episodes and I signed up for a year membership.  Shortly after, Peep Code was picked up by Plural Sight and my membership was transferred at no additional cost.  This was a great deal!  I got access to everything I had previously at Peep Code, plus a ton of new great content at Plural Sight.</p>
+
+<p>I&rsquo;ve also viewed some of the free content at <a href="http://teamtreehouse.com/.">http://teamtreehouse.com/.</a>  I like what I have seen so far, but have not yet signed up for their service.  They are a bit more pricey than Code School and Plural Sight.  Part of the reason I&rsquo;m holding off with Treehouse is because I&rsquo;m seriously considering a boot camp.</p>
+
+<p>Boot Camps &ndash; There are both physical and online boot camps available.  I work full time and don&rsquo;t really want to travel to New York or San Francisco at this time.  So in my search of online education, I&rsquo;ve narrowed down three that look promising &ndash; <a href="http://bloc.io,">http://bloc.io,</a> <a href="http://gotealeaf.com">http://gotealeaf.com</a> and <a href="http://thinkful.com.">http://thinkful.com.</a>  So far bloc.io is my first choice, but I need to reach out to Tea Leaf Academy for more information.</p>
+
+<p>Wrapping up, I want to share a few more resources.  Although these are not directly related to Ruby or Rails, they do fit in with expanding ones education in programming.  First, I really want to get better with Vim and you can watch free screencasts on vim over at: <a href="http://vimcasts.org/">http://vimcasts.org/</a></p>
+
+<p>I&rsquo;m still not very comfortable around JavaScript and CoffeeScript so I like these two sites:  <a href="http://coffeescript.org">http://coffeescript.org</a> and <a href="http://jsforcats.com/">http://jsforcats.com/</a></p>
+]]></content>
+  </entry>
+  
+</feed>
