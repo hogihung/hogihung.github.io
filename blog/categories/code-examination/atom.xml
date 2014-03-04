@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Code-Examination | Old Guy, New Trick]]></title>
+  <link href="http://hogihung.github.io/blog/categories/code-examination/atom.xml" rel="self"/>
+  <link href="http://hogihung.github.io/"/>
+  <updated>2014-03-04T07:45:48-05:00</updated>
+  <id>http://hogihung.github.io/</id>
+  <author>
+    <name><![CDATA[Ho Gi Hung]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Dissect A Method - Part II]]></title>
+    <link href="http://hogihung.github.io/blog/2014/02/24/dissect-a-method-part-ii/"/>
+    <updated>2014-02-24T20:48:10-05:00</updated>
+    <id>http://hogihung.github.io/blog/2014/02/24/dissect-a-method-part-ii</id>
+    <content type="html"><![CDATA[<p>About a week ago I created the &ldquo;Dissect A Method&rdquo; post.  Near the end of that post
+I felt like I left things hanging.  So I&rsquo;m going to try and clear things up.  I ended that post mostly because I wasn&rsquo;t comfortable with what is going on in the line of code that looks like this:</p>
+
+<p><code>
+decimal.gsub!(/\d{3}(?!$)/,'\0,')
+</code></p>
+
+<p>I did a some research &ndash; a little dive into the API, <a href="http://apidock.com/ruby/String/gsub">http://apidock.com/ruby/String/gsub</a> and a trip over to a cool RegEx site, <a href="http://rubular.com/">http://rubular.com/</a></p>
+
+<p>If you would like follow along, go to the rubular site and enter the following into the text box for &lsquo;Your regular expression:&rsquo;</p>
+
+<p><code>
+\d{3}(?!$)
+</code></p>
+
+<p>In the text box for &lsquo;Your test string:&rsquo; we will try a few different values.  Go ahead and test a few numbers, one at a time, e.g. 45789  AND  1024  AND  54 AND  5251350</p>
+
+<p>Observe your results in the &lsquo;Match result:&rsquo; text box.  So the beginning of our regex is composed of \d{3} which says that we are looking for 3 digits &ndash; any number 0 thru 9.  The next part is what had me stuck.  I seemed to recall that the $ meant End of line, and we can confirm that by looking at the RegEx quick reference on the rubular site.</p>
+
+<p>But what heck is this ?! stuff?  These two characters mean Negative lookahead.  So we are going to the end of the line of the string and then looking <em>backwards</em> to get a group of three digits.</p>
+
+<p>Ok, so what does that last part mean, the &lsquo;\0,&rsquo; ?  Taking a look on the apidock site, I found an explanation &ndash; Interpolating.  For example:</p>
+
+<p>```</p>
+
+<h1>replace /ll/ with itself</h1>
+
+<p>&lsquo;hello&rsquo;.gsub(/ll/, &lsquo;\0&rsquo;) # returns &lsquo;hello&rsquo;
+&lsquo;hello&rsquo;.gsub(/ll/, &ldquo;\0&rdquo;) # returns &lsquo;he\000o&rsquo;
+```</p>
+
+<p>Putting the pieces together, if matched, we would grab some digits, and replace them with the same digits <em>plus</em> a comma, thus helping us to create a pretty integer.</p>
+
+<p>Using a combination of the rubular site, and irb, try out the example for the number 1249580.  As we will see in the irb shortly, the first digit will be extracted as the leader.  So in rubular, just enter the number 249580.  Notice how in rubular the digits 249 are highlighted.  These numbers will have themselves replaced with 249, once we do the interpolating.</p>
+
+<p>Ok, lets take this to the irb!</p>
+
+<p><code>
+2.1.0 :001 &gt; decimal = Integer(1249580).to_s
+ =&gt; "1249580"
+2.1.0 :002 &gt; leader = decimal.slice!(0, decimal.length % 3)
+ =&gt; "1"
+2.1.0 :003 &gt; decimal.gsub!(/\d{3}(?!$)/,'\0,')
+ =&gt; "249,580"
+2.1.0 :004 &gt; decimal = nil if decimal.empty?
+ =&gt; nil
+2.1.0 :005 &gt; leader  = nil if leader.empty?
+ =&gt; nil
+2.1.0 :006 &gt;
+2.1.0 :007 &gt;   [leader,decimal].compact.join(",")
+ =&gt; "1,249,580"
+2.1.0 :008 &gt;
+</code></p>
+
+<p>I hope this follow up post has helped to illustrate how all the components of our original method of dissection work.  Going through the research and stepping through a few examples has helped me a lot.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Dissect A Method]]></title>
+    <link href="http://hogihung.github.io/blog/2014/02/16/dissect_a_method/"/>
+    <updated>2014-02-16T22:20:25-05:00</updated>
+    <id>http://hogihung.github.io/blog/2014/02/16/dissect_a_method</id>
+    <content type="html"><![CDATA[<p>I recently purchased a copy of &ldquo;Confident Ruby&rdquo; by Avdi Grimm.  I have not gotten
+far in the book yet, but I am enjoying it.  In the chapter titled &ldquo;Use built-in
+conversion functions&rdquo; I came across a block of code that made me pause.  Being a
+new recruit of the Ruby Army, I only have a grasp on the basics.  The method that
+I have below probably makes sense to an experienced Rubyist, and other programming
+veterans, but to me it didn&rsquo;t.  I wanted to know exactly what each line of code
+meant, and what was going on.</p>
+
+<p><code>
+def pretty_int(value)
+  decimal = Integer(value).to_s
+  leader  = decimal.slice!(0, decimal.length % 3)
+  decimal.gsub!(/\d{3}(?!$)/,'\0,')
+  decimal = nil if decimal.empty?
+  leader  = nil if leader.empty?
+  [leader,decimal].compact.join(",")
+end
+</code></p>
+
+<p>First we are setting a variable, decimal, equal to the result of passing whatever we submitted for &lsquo;value&rsquo; to the conversion function, Integer, which then gets converted to a string via the to_s method.</p>
+
+<p>We can confirm that decimal is a string if we add a little code after that first line above:</p>
+
+<p><code>
+  decimal = Integer(value).to_s
+  puts "Class of decimal: #{decimal.class}"
+</code></p>
+
+<p>Simulated:
+<code>
+2.1.0 :001 &gt; decimal = Integer(400).to_s
+ =&gt; "400"
+2.1.0 :002 &gt; decimal.class
+ =&gt; String
+2.1.0 :003 &gt;
+</code></p>
+
+<p>Looking back at our original six lines of code, the first one is understandable.  The next two, the ones with slice! and gsub! I&rsquo;m not so sure about.  The only thing I know for sure is that when we have a method with the bang character ! that means we are changing the value in place, it modifies the receiver.  Let&rsquo;s jump over these two lines of code for the moment.</p>
+
+<p>The next two lines, the ones with the if condition, I understand.  What they are saying is that if decimal is empty (true), then set decimal equal to nil.  The same goes for leader, if leader is empty, set it to nil.  Methods that have a question mark ? should return a boolean &ndash; either true or false.</p>
+
+<p><code>
+  decimal = nil if decimal.empty?
+  leader  = nil if leader.empty?
+</code></p>
+
+<p>The last line of code in this method is bringing our data together, formatting the number to use a comma after the value of leader if we have a value in decimal as well.</p>
+
+<p>Ok, so we nailed down the first line of the method and the last three.  Now what is going on in lines two and three?</p>
+
+<p><code>
+  #...
+  leader  = decimal.slice!(0, decimal.length % 3)
+  decimal.gsub!(/\d{3}(?!$)/,'\0,')
+</code></p>
+
+<p>It looks like we are trying to set a value of something to the leader variable by performing some actions on the decimal variable.  In the above code we are passing a starting position of 0 to the slice! method and an ending postion of decimal.length % 3.  Let&rsquo;s try this out using irb:</p>
+
+<p><code>
+2.1.0 :011 &gt; decimal = Integer(6234).to_s
+ =&gt; "6234"
+2.1.0 :012 &gt; decimal.length % 3
+ =&gt; 1
+2.1.0 :013 &gt; decimal.slice!(0,1)
+ =&gt; "6"
+2.1.0 :014 &gt;
+</code>
+From the example above, leader would be set to a value of &ldquo;6&rdquo;.  Let&rsquo;s try another example using a smaller number:</p>
+
+<p><code>
+2.1.0 :016 &gt; decimal = Integer(49).to_s
+ =&gt; "49"
+2.1.0 :017 &gt; decimal.length % 3
+ =&gt; 2
+2.1.0 :018 &gt; decimal.slice!(0,2)
+ =&gt; "49"
+2.1.0 :019 &gt;
+</code></p>
+
+<p>What the heck, let&rsquo;s throw one more example, this time using a bigger number:</p>
+
+<p><code>
+2.1.0 :019 &gt; decimal = Integer(1032578).to_s
+ =&gt; "1032578"
+2.1.0 :020 &gt; decimal.length % 3
+ =&gt; 1
+2.1.0 :021 &gt; decimal.slice!(0,1)
+ =&gt; "1"
+2.1.0 :022 &gt;
+</code></p>
+
+<p>Seems like this is making sense.  Lets put one more example up, this time tying things together so we can see both decimal and leader:</p>
+
+<p><code>
+2.1.0 :001 &gt; decimal = Integer(4794).to_s
+ =&gt; "4794"
+2.1.0 :002 &gt; decimal.length
+ =&gt; 4
+2.1.0 :003 &gt; decimal.length % 3
+ =&gt; 1
+2.1.0 :004 &gt; leader = decimal.slice!(0,1)
+ =&gt; "4"
+2.1.0 :005 &gt; decimal
+ =&gt; "794"
+2.1.0 :006 &gt;
+</code></p>
+
+<p>Ah!  So we now have leader set to &ldquo;4&rdquo; and decimal has been sliced down to &ldquo;794&rdquo;.  Recall that the method name is pretty_int and the purpose of this method is to make numbers look pretty.  In other words, we want our numbers to have commas where appropriate.  So in the example of submitting 4794, we want our method to return a value of 4,794.  If our submitted number is smaller, we don&rsquo;t need the comma, and if the number is larger, say 1032578, we would like it to be formatted as:  1,032,578.</p>
+
+<p>We are almost there &ndash; just need to figure out how that other line of code works.  We can have a safe assumption that gsub will do a substitution.  But exactly how is this code suppose to work.  Lets look at it again:</p>
+
+<p><code>
+  decimal.gsub!(/\d{3}(?!$)/,'\0,')
+</code></p>
+
+<p>Let&rsquo;s drop back into irb and see if we can make some sense of this:</p>
+
+<p><code>
+2.1.0 :001 &gt; decimal = Integer(4793).to_s
+ =&gt; "4793"
+2.1.0 :002 &gt; leader = decimal.slice!(0, decimal.length % 3)
+ =&gt; "4"
+2.1.0 :003 &gt; decimal.gsub!(/\d{3}(?!$)/,'\0,')
+ =&gt; nil
+2.1.0 :004 &gt; decimal
+ =&gt; "793"
+2.1.0 :005 &gt; leader
+ =&gt; "4"
+2.1.0 :006 &gt; [leader,decimal].compact.join(",")
+ =&gt; "4,793"
+2.1.0 :007 &gt;
+</code></p>
+
+<p>I have a basic understanding of what is going on, but I&rsquo;m still not very comfortable with Regular Expressions, which is what we are passing to the slice! method above.  How about another example?</p>
+
+<p><code>
+2.1.0 :007 &gt; decimal = Integer(1249580).to_s
+ =&gt; "1249580"
+2.1.0 :008 &gt; leader = decimal.slice!(0, decimal.length % 3)
+ =&gt; "1"
+2.1.0 :009 &gt; decimal.gsub!(/\d{3}(?!$)/,'\0,')
+ =&gt; "249,580"
+2.1.0 :010 &gt; [leader,decimal].compact.join(",")
+ =&gt; "1,249,580"
+2.1.0 :011 &gt;
+</code></p>
+
+<p>Think I&rsquo;m almost there with my understanding.  I&rsquo;m going to take a look at one more example using irb:</p>
+
+<p><code>
+2.1.0 :011 &gt; decimal = Integer(56752).to_s
+ =&gt; "56752"
+2.1.0 :012 &gt; leader = decimal.slice!(0, decimal.length % 3)
+ =&gt; "56"
+2.1.0 :013 &gt; decimal.gsub!(/\d{3}(?!$)/,'\0,')
+ =&gt; nil
+2.1.0 :014 &gt; decimal
+ =&gt; "752"
+2.1.0 :015 &gt; leader
+ =&gt; "56"
+2.1.0 :016 &gt; [leader,decimal].compact.join(",")
+ =&gt; "56,752"
+2.1.0 :017 &gt;
+</code></p>
+
+<p>Once the slice! operation has completed, we have part of our number stored in leader and the remainder in decimal.  For every group of more than 3 numbers in decimal, we will do a substitution and insert a comma.  I know what is happening, but I&rsquo;m still having a hard time properly describing what is going on, and how it knows where to place the commas.  I&rsquo;ll need to bone up on RegEx!</p>
+]]></content>
+  </entry>
+  
+</feed>
