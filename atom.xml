@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-03-04T21:58:33-05:00</updated>
+  <updated>2014-03-04T22:25:33-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -35,6 +35,27 @@
 <p>Customer Service need not be hard.  I&rsquo;m not saying the customer is always right.  But the customer pays the bills.  In the case of Amex, I would have been ok if all they had said was: &ldquo;&hellip;no problem, I&rsquo;ll stop that transaction for you.&rdquo;  Reversing the penalty would have been a bonus, but I&rsquo;d be ok with them just stopping the offending transaction.</p>
 
 <p>Amex, you&rsquo;ve lost a long time customer.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Slice of Raspberry Pi]]></title>
+    <link href="http://hogihung.github.io/blog/2014/03/01/slice-of-raspberry-pi/"/>
+    <updated>2014-03-01T08:53:44-05:00</updated>
+    <id>http://hogihung.github.io/blog/2014/03/01/slice-of-raspberry-pi</id>
+    <content type="html"><![CDATA[<p>Us geeks love our gadgets.  I had heard just bits and pieces about something called a Raspberry Pi.  I hadn&rsquo;t given much thought to it at first.  A brief glance at a web page or two but it didn&rsquo;t interest me at that time.  I was having a hard time picturing what I could do with it.</p>
+
+<p>What peaked my interest was a re-introduction to the Pi, and other similar devices, at Ruby Conf 2013 (Miami.)  The gadgets like the Raspberry Pi were used in some of the conference talks.  I also got hooked on the Sphero, but is another story.</p>
+
+<p>After Ruby Conf I started researching the Pi some more.  I came across a site that seemed to have a lot about the Raspberry Pi, and other geek related topics &ndash; <a href="http://www.element14.com/community/community/raspberry-pi/getstartedwithpi?ICID=getstartpi-videodoc5-getstartedlink">http://www.element14.com/community/community/raspberry-pi/getstartedwithpi?ICID=getstartpi-videodoc5-getstartedlink</a></p>
+
+<p>I watched some of the videos on the element14 site and my brain was invigorated.  The wheels started spinning.  So I ordered one of the Raspberry Pi Starter Pack.  In addition to the Pi, it came with a memory card, jumpers, USB WiFi, bread board, etc.  I grabbed mine from a site I found on the element14 page &ndash; <a href="http://www.adafruit.com/category/105">http://www.adafruit.com/category/105</a>  I added on the USB Wifi and a cool ruler.</p>
+
+<p>I&rsquo;ve only just begun to tinker with it, but so far it has been fun.  Using the NOOB tool, I loaded up a 4GB card with the Pi version of the XBMC.</p>
+
+<p>I plan on doing some more experimentation.  I picked up 4 new SD cards, two 8GB and two 16GB so I can try different loads and setups.  Plus I&rsquo;m getting the kids involved so they can learn a little bit of geeky stuff.</p>
+
+<p>Recommendation &ndash; grab a slice of pie, Raspberry Pi!</p>
 ]]></content>
   </entry>
   
