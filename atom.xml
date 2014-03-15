@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-03-05T22:35:31-05:00</updated>
+  <updated>2014-03-15T18:03:16-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,35 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[First Week At Bloc]]></title>
+    <link href="http://hogihung.github.io/blog/2014/03/15/first-week-at-bloc/"/>
+    <updated>2014-03-15T19:46:34-04:00</updated>
+    <id>http://hogihung.github.io/blog/2014/03/15/first-week-at-bloc</id>
+    <content type="html"><![CDATA[<p>About two weeks ago I was trying to decide which on-line web developer education solution I would enroll in.  The decision was not easy.  Along with the weekly time requirements, roughly 25 hours per week, the financial cost is nothing to shrug off.  In the end I choose Bloc (<a href="http://www.bloc.io">http://www.bloc.io</a>)</p>
+
+<p>My training at Bloc started this past Monday, March 10th.  The Bloc course runs about 12 weeks, broken down into four segments:</p>
+
+<pre><code>1.  Environment Setup / Programming with Ruby
+2.  Rails Foundation
+3.  Features/Testing/Javascript
+4.  Project Challenges
+</code></pre>
+
+<p>I&rsquo;ve just finished item 1 &ndash; Environment Setup / Programming with Ruby.  When I read the description of this section my first thought was, &ldquo;this should be easy.&rdquo;  I have been exploring Ruby and Rails for almost a year.  I&rsquo;ve installed RVM on several computers, worked with GitHub and Heroku, as well as several introductory tutorials.</p>
+
+<p>And many of sub-sections in this first track were a nice and quick completion for me.  But, through each sub-section, I did learn something new.  For example, while working on setting up an app on Heroku, I learned how to add support for New Relic.  I&rsquo;ve seen ads and mention of New Relic a lot while learning Rails but never took a look at it.  Now I&rsquo;ve had a nice gentle introduction.</p>
+
+<p>There are 20 sub-section to Environment Setup / Programming with Ruby.  I felt good and confident as I traversed through them one by one.  I was slowed down briefly in sub-section 14 &ndash; Arrays.  One of the exercises there introduced me to new code and techniques I had not yet experienced.  I love learning new stuff!</p>
+
+<p>As I rounded out this section, I found myself staring at my nemesis &ndash; Blocks.  I don&rsquo;t know why, but I seem to have a mental <em>block</em> when it comes to Blocks (as well as Procs and Lambdas.)  This section took me a bit and I had to reach out for help.</p>
+
+<p>In the Bloc program, each student has a mentor.  We have around 3 calls a week with our mentors.  When I got stuck it was after I had last talked with my mentor.  Not a problem &ndash; Bloc also has a staffed on-line chat room.  I popped in to the chat room and asked a question.  One of the staff there gave me a nudge.  After about 30 minutes I was still stuck.  I had gotten further, but still hadn&rsquo;t solved the problem.  Another question/discussion in the chat room and it became clear.  I was able to complete the lesson.  <strong>Happy Dance!</strong></p>
+
+<p>I look forward to my next call with my mentor (tomorrow) and starting my next section &ndash; Rails Foundation.  As I progress through each section I&rsquo;ll return here to provide updates.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Bad CS vs Good CS]]></title>
