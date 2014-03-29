@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Education | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/education/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-03-15T18:03:16-04:00</updated>
+  <updated>2014-03-29T11:18:16-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Week 2 and a half at Bloc]]></title>
+    <link href="http://hogihung.github.io/blog/2014/03/29/week-2-and-a-half-at-bloc/"/>
+    <updated>2014-03-29T10:02:23-04:00</updated>
+    <id>http://hogihung.github.io/blog/2014/03/29/week-2-and-a-half-at-bloc</id>
+    <content type="html"><![CDATA[<p>The first week of my training at Bloc went by very fast. For the most part it was a review of information/knowledge I had already gained, but was still worth it.  I had wanted to create another blog post earlier, but the completion of the second block took longer than I had anticipated.</p>
+
+<p>So here we are, about about 2.5 weeks in. The second block, titled Rails Foundation, should take one about 40 hours.  At least that is the estimated time for completion.  If I wasn&rsquo;t working full-time, maybe I could have completed this block in one week.</p>
+
+<p>The Rails Foundation block is composed of 20 checkpoints.  We learned a lot of concepts, and habits in those checkpoints.  There was some review for me, for example the lesson introduced the Devise gem.  I&rsquo;ve played with this a little bit so had some comfort with that checkpoint.  Though I did learn some new things related to Devise.</p>
+
+<p>A totally new experience for me was when did the Authorization checkpoint, and was introduced to the Pundit gem.  I would say that Pundit is a little bit like CanCan.  I&rsquo;ve dabbled with CanCan a little bit, but I find Pundit to be pretty good.  I&rsquo;ll have a tough choice to make when it comes time for my Capstone project.  Should I go with Pundit, or revist CanCan (or CanCanCan.)</p>
+
+<p>Another topic that I found useful, because it helped me with a task at my day job, was the lesson on Seeding.  While our main environment at work is Perl, I&rsquo;m slowing trying to sneak in some Ruby and Rails.  Leveraging some of the knowledge gained in the Seeding lesson, I was able to expand on that knowledge and compose my first rake task for populating my models with data in CSV files.  Ok, I&rsquo;m a bit off topic, steer back John!</p>
+
+<p>There were two area where my progress slowed to a crawl in the second block.  The first was related to uploading images.  Recently Bloc added a Rails 4.x track and it looks like some of the lesson code examples are missing.  I wasn&rsquo;t able to see my Choose File option for uploading an image.  A trip to the Chat Room and a small wait for my turn, and my issue was solved by Xander.  Xander is great!  Everytime I&rsquo;ve had a question, he seems to be in the chat room and helps me out.</p>
+
+<p>The second area I had trouble with was nesting.  I&rsquo;ll admit that I&rsquo;m still 100% solid with what I&rsquo;ve learned about nesting, but I&rsquo;m confident things will become clearer as I see and utilize more code.  During one of the lessons related to this nesting of Topics, Posts and Comments, I got stuck real bad.  I went to the chat room for help, but it was just at the time for that shift to end for the day.  Xander stayed for a few minutes and helped a lot.  But I was still stuck.</p>
+
+<p>I was worried that all the changes I had made may have broken something.  So I fired off an email to my mentor to let him know I was stuck and to be prepared for a nice long chat the next day when we were scheduled to meet.  We meet the next day and he helped get me fixed in less than 5 minutes.  My eyes were so focused around the code and didn&rsquo;t &ldquo;see&rdquo; the code.  I had several silly mistakes.  For example I used the plural version instead of singular for a particular item/method.  Or I had a misplaced period.  And other issue, I had the order of a ) and a period mixed up.  Simple things for the trained eye.  It was great to have the mentor there to help me through what I thought was a major <em>fsk</em> up on my part.</p>
+
+<p>Needless to say, I made some more punctuation type mistakes on the remaing checkpoints in this block.  But since I suffered so much earlier in the block, I was much more aware of what to look for.  The hard part for me now is when I see an error message, and know basically what is wrong, I don&rsquo;t yet have the experience to provide the solution.  But I&rsquo;m eagerly working at improving my problem solution skills.  :)</p>
+
+<p>As I write this post, again about 2.5, well maybe 2.75 weeks in, I&rsquo;m now on the third Block &ndash; Features / Testing / Javascript.  This block is also estimated to take 40 hours.  There are 10 checkpoints and I&rsquo;ve completed the first 4 so far.  But now I&rsquo;m really entering an area of unfamiliarity.  Upcoming in this block is RSpec and Ajax.  Two areas that have close to zero amount of knowledge and experience.</p>
+
+<p>Stay tuned for my next update.  This coming week I will be going to Ancient City Ruby so I&rsquo;m not sure if I&rsquo;ll have the time to complete the third block.  But once I have completed it, I will post my thoughts here.</p>
+
+<p>Happy Learning!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[First Week At Bloc]]></title>
@@ -39,6 +70,8 @@
 <p>In the Bloc program, each student has a mentor.  We have around 3 calls a week with our mentors.  When I got stuck it was after I had last talked with my mentor.  Not a problem &ndash; Bloc also has a staffed on-line chat room.  I popped in to the chat room and asked a question.  One of the staff there gave me a nudge.  After about 30 minutes I was still stuck.  I had gotten further, but still hadn&rsquo;t solved the problem.  Another question/discussion in the chat room and it became clear.  I was able to complete the lesson.  <strong>Happy Dance!</strong></p>
 
 <p>I look forward to my next call with my mentor (tomorrow) and starting my next section &ndash; Rails Foundation.  As I progress through each section I&rsquo;ll return here to provide updates.</p>
+
+<p>Happy Learning!</p>
 ]]></content>
   </entry>
   
