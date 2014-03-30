@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-03-29T11:18:16-04:00</updated>
+  <updated>2014-03-29T20:26:57-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,95 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[My First Rake Task]]></title>
+    <link href="http://hogihung.github.io/blog/2014/03/29/my-first-rake-task/"/>
+    <updated>2014-03-29T20:13:12-04:00</updated>
+    <id>http://hogihung.github.io/blog/2014/03/29/my-first-rake-task</id>
+    <content type="html"><![CDATA[<p>At my day job we primarly use Perl for both our scripting and tool type applications as well as using it with a splatter of PHP for some of our web page applications.  I&rsquo;m trying to get Ruby, and Rails, in the door and see if I can convert others over to Ruby.  I must confess, it is a steep upward battle.</p>
+
+<p>However, I do have a web application on our development server and am preparing to deploy it to production.  It is a fairly simple web application that has three models and will enable us to manage the data elements of our Out-of-Band equipment and the connected devices.</p>
+
+<p>When I first started the development, I manually created some test records.  Then I added a handful more via the seeds.rb file.  But when it came time to populating the database with real data, I needed a better solution.  I had compiled some data in Excel files with over 400 out-of-band devices and over 5,000 connected devices.  No way I was going to manually enter all of those.</p>
+
+<p>This was earlier in the week, and luckily I was able to ask some of the gurus at our weekly Code &amp; Coffee how I could tackle this.  Micah suggested I use the CSV library in Ruby and see about populating the data that way.  He gave me a great nudge in the right direction.</p>
+
+<p>I was fumbling around looking for answers when I saw some information about creating rake tasks.  So I studied up, and created the following rake file:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require 'csv'
+</span><span class='line'>
+</span><span class='line'>oobs_file = "/path/to/file/oob_devices.CSV"
+</span><span class='line'>devices_file = "/path/to/file/connected_devices.CSV"
+</span><span class='line'>
+</span><span class='line'>namespace :oob_import do
+</span><span class='line'>  task :oobs =&gt; :environment do
+</span><span class='line'>    Oob.delete_all
+</span><span class='line'>    CSV.foreach(oobs_file, headers: true) do |row|
+</span><span class='line'>      p row
+</span><span class='line'>      Oob.create!(row.to_hash)
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  task :devices =&gt; :environment do
+</span><span class='line'>    Device.delete_all
+</span><span class='line'>    CSV.foreach(devices_file, headers: true) do |row|
+</span><span class='line'>      oob = Oob.find_by_name("#{row[0]}")
+</span><span class='line'>      oob.devices.create!(name: "#{row[1]}", pri_port: "#{row[2]}", active: "#{row[3]}", updated_by: "#{row[4]}")
+</span><span class='line'>
+</span><span class='line'>      p "Oob_ID: #{oob.id}, name: #{row[1]}, pri_port: #{row[2]}, active: #{row[3]}, updated_by: #{row[4]}"
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  task :all =&gt; [:oobs, :devices] do
+</span><span class='line'>    puts "Refreshing Oob and Device Models"
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To import my data, I executed the rake task as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake oob_import:oobs
+</span><span class='line'>rake oob_import:devices</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I could have used the taks, <em>oob_import:all</em> but I wanted to work in two steps so I could watch for errors and fix things while I was building this file.</p>
+
+<p>I can&rsquo;t properly convey the joy and happiness I felt when I saw this new tool work!  It really made my day, especially as it took me a couple of hours of research, trial and error.  But this will make things really easy for me when I move the application to production.</p>
+
+<p>Note that I have the code that starts with &ldquo;p&rdquo; in there so I have a nice visual of how the task is running.  If you don&rsquo;t need that visual confirmation, you could remove those two lines of code.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Week 2 and a half at Bloc]]></title>

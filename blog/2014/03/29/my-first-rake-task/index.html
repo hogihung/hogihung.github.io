@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Dissect A Method - Part II - Old Guy, New Trick</title>
+  <title>My First Rake Task - Old Guy, New Trick</title>
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="About a week ago I created the &ldquo;Dissect A Method&rdquo; post. Near the end of that post
-I felt like I left things hanging. So I&rsquo;m going &hellip;">
+  <meta name="description" content="At my day job we primarly use Perl for both our scripting and tool type applications as well as using it with a splatter of PHP for some of our web &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ I felt like I left things hanging. So I&rsquo;m going &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hogihung.github.io/blog/2014/02/24/dissect-a-method-part-ii/">
+  <link rel="canonical" href="http://hogihung.github.io/blog/2014/03/29/my-first-rake-task/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -69,7 +68,7 @@ I felt like I left things hanging. So I&rsquo;m going &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Dissect a Method - Part II</h1>
+      <h1 class="entry-title">My First Rake Task</h1>
     
     
       <p class="meta">
@@ -85,49 +84,22 @@ I felt like I left things hanging. So I&rsquo;m going &hellip;">
   
 
 
-<time datetime="2014-02-24T20:48:10-05:00" pubdate data-updated="true">Feb 24<span>th</span>, 2014</time>
+<time datetime="2014-03-29T20:13:12-04:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>About a week ago I created the &ldquo;Dissect A Method&rdquo; post.  Near the end of that post
-I felt like I left things hanging.  So I&rsquo;m going to try and clear things up.  I ended that post mostly because I wasn&rsquo;t comfortable with what is going on in the line of code that looks like this:</p>
+<div class="entry-content"><p>At my day job we primarly use Perl for both our scripting and tool type applications as well as using it with a splatter of PHP for some of our web page applications.  I&rsquo;m trying to get Ruby, and Rails, in the door and see if I can convert others over to Ruby.  I must confess, it is a steep upward battle.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>decimal.gsub!(/\d{3}(?!$)/,'\0,')</span></code></pre></td></tr></table></div></figure>
+<p>However, I do have a web application on our development server and am preparing to deploy it to production.  It is a fairly simple web application that has three models and will enable us to manage the data elements of our Out-of-Band equipment and the connected devices.</p>
 
+<p>When I first started the development, I manually created some test records.  Then I added a handful more via the seeds.rb file.  But when it came time to populating the database with real data, I needed a better solution.  I had compiled some data in Excel files with over 400 out-of-band devices and over 5,000 connected devices.  No way I was going to manually enter all of those.</p>
 
-<p>I did a some research &ndash; a little dive into the API, <a href="http://apidock.com/ruby/String/gsub">http://apidock.com/ruby/String/gsub</a> and a trip over to a cool RegEx site, <a href="http://rubular.com/">http://rubular.com/</a></p>
+<p>This was earlier in the week, and luckily I was able to ask some of the gurus at our weekly Code &amp; Coffee how I could tackle this.  Micah suggested I use the CSV library in Ruby and see about populating the data that way.  He gave me a great nudge in the right direction.</p>
 
-<p>If you would like follow along, go to the rubular site and enter the following into the text box for &lsquo;Your regular expression:&rsquo;</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>\d{3}(?!$)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>In the text box for &lsquo;Your test string:&rsquo; we will try a few different values.  Go ahead and test a few numbers, one at a time, e.g. 45789  AND  1024  AND  54 AND  5251350</p>
-
-<p>Observe your results in the &lsquo;Match result:&rsquo; text box.  So the beginning of our regex is composed of \d{3} which says that we are looking for 3 digits &ndash; any number 0 thru 9.  The next part is what had me stuck.  I seemed to recall that the $ meant End of line, and we can confirm that by looking at the RegEx quick reference on the rubular site.</p>
-
-<p>But what heck is this ?! stuff?  These two characters mean Negative lookahead.  So we are going to the end of the line of the string and then looking <em>backwards</em> to get a group of three digits.</p>
-
-<p>Ok, so what does that last part mean, the &lsquo;\0,&rsquo; ?  Taking a look on the apidock site, I found an explanation &ndash; Interpolating.  For example:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># replace /ll/ with itself
-</span><span class='line'>'hello'.gsub(/ll/, '\0') # returns 'hello'
-</span><span class='line'>'hello'.gsub(/ll/, "\0") # returns 'he\000o'</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Putting the pieces together, if matched, we would grab some digits, and replace them with the same digits <em>plus</em> a comma, thus helping us to create a pretty integer.</p>
-
-<p>Using a combination of the rubular site, and irb, try out the example for the number 1249580.  As we will see in the irb shortly, the first digit will be extracted as the leader.  So in rubular, just enter the number 249580.  Notice how in rubular the digits 249 are highlighted.  These numbers will have themselves replaced with 249, once we do the interpolating.</p>
-
-<p>Ok, lets take this to the irb!</p>
+<p>I was fumbling around looking for answers when I saw some information about creating rake tasks.  So I studied up, and created the following rake file:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -143,23 +115,63 @@ I felt like I left things hanging.  So I&rsquo;m going to try and clear things u
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>2.1.0 :001 &gt; decimal = Integer(1249580).to_s
-</span><span class='line'> =&gt; "1249580" 
-</span><span class='line'>2.1.0 :002 &gt; leader = decimal.slice!(0, decimal.length % 3)
-</span><span class='line'> =&gt; "1" 
-</span><span class='line'>2.1.0 :003 &gt; decimal.gsub!(/\d{3}(?!$)/,'\0,')
-</span><span class='line'> =&gt; "249,580" 
-</span><span class='line'>2.1.0 :004 &gt; decimal = nil if decimal.empty?
-</span><span class='line'> =&gt; nil 
-</span><span class='line'>2.1.0 :005 &gt; leader  = nil if leader.empty?
-</span><span class='line'> =&gt; nil 
-</span><span class='line'>2.1.0 :006 &gt; 
-</span><span class='line'>2.1.0 :007 &gt;   [leader,decimal].compact.join(",")
-</span><span class='line'> =&gt; "1,249,580" 
-</span><span class='line'>2.1.0 :008 &gt; </span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require 'csv'
+</span><span class='line'>
+</span><span class='line'>oobs_file = "/path/to/file/oob_devices.CSV"
+</span><span class='line'>devices_file = "/path/to/file/connected_devices.CSV"
+</span><span class='line'>
+</span><span class='line'>namespace :oob_import do
+</span><span class='line'>  task :oobs =&gt; :environment do
+</span><span class='line'>    Oob.delete_all
+</span><span class='line'>    CSV.foreach(oobs_file, headers: true) do |row|
+</span><span class='line'>      p row
+</span><span class='line'>      Oob.create!(row.to_hash)
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  task :devices =&gt; :environment do
+</span><span class='line'>    Device.delete_all
+</span><span class='line'>    CSV.foreach(devices_file, headers: true) do |row|
+</span><span class='line'>      oob = Oob.find_by_name("#{row[0]}")
+</span><span class='line'>      oob.devices.create!(name: "#{row[1]}", pri_port: "#{row[2]}", active: "#{row[3]}", updated_by: "#{row[4]}")
+</span><span class='line'>
+</span><span class='line'>      p "Oob_ID: #{oob.id}, name: #{row[1]}, pri_port: #{row[2]}, active: #{row[3]}, updated_by: #{row[4]}"
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  task :all =&gt; [:oobs, :devices] do
+</span><span class='line'>    puts "Refreshing Oob and Device Models"
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<p>I hope this follow up post has helped to illustrate how all the components of our original method of dissection work.  Going through the research and stepping through a few examples has helped me a lot.</p>
+<p>To import my data, I executed the rake task as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake oob_import:oobs
+</span><span class='line'>rake oob_import:devices</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I could have used the taks, <em>oob_import:all</em> but I wanted to work in two steps so I could watch for errors and fix things while I was building this file.</p>
+
+<p>I can&rsquo;t properly convey the joy and happiness I felt when I saw this new tool work!  It really made my day, especially as it took me a couple of hours of research, trial and error.  But this will make things really easy for me when I move the application to production.</p>
+
+<p>Note that I have the code that starts with &ldquo;p&rdquo; in there so I have a nice visual of how the task is running.  If you don&rsquo;t need that visual confirmation, you could remove those two lines of code.</p>
 </div>
 
 
@@ -182,12 +194,12 @@ I felt like I left things hanging.  So I&rsquo;m going to try and clear things u
   
 
 
-<time datetime="2014-02-24T20:48:10-05:00" pubdate data-updated="true">Feb 24<span>th</span>, 2014</time>
+<time datetime="2014-03-29T20:13:12-04:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/code-examination/'>Code-Examination</a>, <a class='category' href='/blog/categories/programming/'>Programming</a>
+    <a class='category' href='/blog/categories/rake/'>Rake</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
   
 </span>
 
@@ -196,7 +208,7 @@ I felt like I left things hanging.  So I&rsquo;m going to try and clear things u
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2014/02/24/dissect-a-method-part-ii/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2014/02/24/dissect-a-method-part-ii/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2014/03/29/my-first-rake-task/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2014/03/29/my-first-rake-task/" >Tweet</a>
   
   
   
@@ -205,10 +217,8 @@ I felt like I left things hanging.  So I&rsquo;m going to try and clear things u
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/02/19/almost_free_blog/" title="Previous Post: Almost Free Blog">&laquo; Almost Free Blog</a>
+        <a class="basic-alignment left" href="/blog/2014/03/29/week-2-and-a-half-at-bloc/" title="Previous Post: Week 2 and a half at Bloc">&laquo; Week 2 and a half at Bloc</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/02/26/drop-the-bass/" title="Next Post: Drop the Bass (Fat)">Drop the Bass (Fat) &raquo;</a>
       
     </p>
     <div id="disqus_thread"></div>
