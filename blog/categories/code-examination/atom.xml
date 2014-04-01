@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Code-Examination | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/code-examination/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-03-29T20:26:57-04:00</updated>
+  <updated>2014-04-01T14:40:38-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -73,6 +73,8 @@ decimal.gsub!(/\d{3}(?!$)/,'\0,')
 </code></p>
 
 <p>I hope this follow up post has helped to illustrate how all the components of our original method of dissection work.  Going through the research and stepping through a few examples has helped me a lot.</p>
+
+<p><em>Learn Something New Everyday</em></p>
 ]]></content>
   </entry>
   
@@ -247,6 +249,8 @@ From the example above, leader would be set to a value of &ldquo;6&rdquo;.  Let&
 </code></p>
 
 <p>Once the slice! operation has completed, we have part of our number stored in leader and the remainder in decimal.  For every group of more than 3 numbers in decimal, we will do a substitution and insert a comma.  I know what is happening, but I&rsquo;m still having a hard time properly describing what is going on, and how it knows where to place the commas.  I&rsquo;ll need to bone up on RegEx!</p>
+
+<p><em>Learn Something New Everyday</em></p>
 ]]></content>
   </entry>
   

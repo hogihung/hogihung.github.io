@@ -182,10 +182,10 @@ meant, and what was going on.</p>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>2.1.0 :001 &gt; decimal = Integer(400).to_s
-</span><span class='line'> =&gt; "400" 
+</span><span class='line'> =&gt; "400"
 </span><span class='line'>2.1.0 :002 &gt; decimal.class
-</span><span class='line'> =&gt; String 
-</span><span class='line'>2.1.0 :003 &gt; </span></code></pre></td></tr></table></div></figure>
+</span><span class='line'> =&gt; String
+</span><span class='line'>2.1.0 :003 &gt;</span></code></pre></td></tr></table></div></figure>
 
 
 <p>Looking back at our original six lines of code, the first one is understandable.  The next two, the ones with slice! and gsub! I&rsquo;m not so sure about.  The only thing I know for sure is that when we have a method with the bang character ! that means we are changing the value in place, it modifies the receiver.  Let&rsquo;s jump over these two lines of code for the moment.</p>
@@ -197,8 +197,6 @@ meant, and what was going on.</p>
 </pre></td><td class='code'><pre><code class=''><span class='line'>  decimal = nil if decimal.empty?
 </span><span class='line'>  leader  = nil if leader.empty?</span></code></pre></td></tr></table></div></figure>
 
-
-<p></p>
 
 <p>The last line of code in this method is bringing our data together, formatting the number to use a comma after the value of leader if we have a value in decimal as well.</p>
 
@@ -222,12 +220,12 @@ meant, and what was going on.</p>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>2.1.0 :011 &gt; decimal = Integer(6234).to_s
-</span><span class='line'> =&gt; "6234" 
+</span><span class='line'> =&gt; "6234"
 </span><span class='line'>2.1.0 :012 &gt; decimal.length % 3
-</span><span class='line'> =&gt; 1 
+</span><span class='line'> =&gt; 1
 </span><span class='line'>2.1.0 :013 &gt; decimal.slice!(0,1)
-</span><span class='line'> =&gt; "6" 
-</span><span class='line'>2.1.0 :014 &gt; </span></code></pre></td></tr></table></div></figure>
+</span><span class='line'> =&gt; "6"
+</span><span class='line'>2.1.0 :014 &gt;</span></code></pre></td></tr></table></div></figure>
 
 
 <p>From the example above, leader would be set to a value of &ldquo;6&rdquo;.  Let&rsquo;s try another example using a smaller number:</p>
@@ -240,12 +238,12 @@ meant, and what was going on.</p>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>2.1.0 :016 &gt; decimal = Integer(49).to_s
-</span><span class='line'> =&gt; "49" 
+</span><span class='line'> =&gt; "49"
 </span><span class='line'>2.1.0 :017 &gt; decimal.length % 3
-</span><span class='line'> =&gt; 2 
+</span><span class='line'> =&gt; 2
 </span><span class='line'>2.1.0 :018 &gt; decimal.slice!(0,2)
-</span><span class='line'> =&gt; "49" 
-</span><span class='line'>2.1.0 :019 &gt; </span></code></pre></td></tr></table></div></figure>
+</span><span class='line'> =&gt; "49"
+</span><span class='line'>2.1.0 :019 &gt;</span></code></pre></td></tr></table></div></figure>
 
 
 <p>What the heck, let&rsquo;s throw one more example, this time using a bigger number:</p>
@@ -258,12 +256,12 @@ meant, and what was going on.</p>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>2.1.0 :019 &gt; decimal = Integer(1032578).to_s
-</span><span class='line'> =&gt; "1032578" 
+</span><span class='line'> =&gt; "1032578"
 </span><span class='line'>2.1.0 :020 &gt; decimal.length % 3
-</span><span class='line'> =&gt; 1 
+</span><span class='line'> =&gt; 1
 </span><span class='line'>2.1.0 :021 &gt; decimal.slice!(0,1)
-</span><span class='line'> =&gt; "1" 
-</span><span class='line'>2.1.0 :022 &gt; </span></code></pre></td></tr></table></div></figure>
+</span><span class='line'> =&gt; "1"
+</span><span class='line'>2.1.0 :022 &gt;</span></code></pre></td></tr></table></div></figure>
 
 
 <p>Seems like this is making sense.  Lets put one more example up, this time tying things together so we can see both decimal and leader:</p>
@@ -280,16 +278,16 @@ meant, and what was going on.</p>
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>2.1.0 :001 &gt; decimal = Integer(4794).to_s
-</span><span class='line'> =&gt; "4794" 
+</span><span class='line'> =&gt; "4794"
 </span><span class='line'>2.1.0 :002 &gt; decimal.length
-</span><span class='line'> =&gt; 4 
+</span><span class='line'> =&gt; 4
 </span><span class='line'>2.1.0 :003 &gt; decimal.length % 3
-</span><span class='line'> =&gt; 1 
+</span><span class='line'> =&gt; 1
 </span><span class='line'>2.1.0 :004 &gt; leader = decimal.slice!(0,1)
-</span><span class='line'> =&gt; "4" 
+</span><span class='line'> =&gt; "4"
 </span><span class='line'>2.1.0 :005 &gt; decimal
-</span><span class='line'> =&gt; "794" 
-</span><span class='line'>2.1.0 :006 &gt; </span></code></pre></td></tr></table></div></figure>
+</span><span class='line'> =&gt; "794"
+</span><span class='line'>2.1.0 :006 &gt;</span></code></pre></td></tr></table></div></figure>
 
 
 <p>Ah!  So we now have leader set to &ldquo;4&rdquo; and decimal has been sliced down to &ldquo;794&rdquo;.  Recall that the method name is pretty_int and the purpose of this method is to make numbers look pretty.  In other words, we want our numbers to have commas where appropriate.  So in the example of submitting 4794, we want our method to return a value of 4,794.  If our submitted number is smaller, we don&rsquo;t need the comma, and if the number is larger, say 1032578, we would like it to be formatted as:  1,032,578.</p>
@@ -316,18 +314,18 @@ meant, and what was going on.</p>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>2.1.0 :001 &gt; decimal = Integer(4793).to_s
-</span><span class='line'> =&gt; "4793" 
+</span><span class='line'> =&gt; "4793"
 </span><span class='line'>2.1.0 :002 &gt; leader = decimal.slice!(0, decimal.length % 3)
-</span><span class='line'> =&gt; "4" 
+</span><span class='line'> =&gt; "4"
 </span><span class='line'>2.1.0 :003 &gt; decimal.gsub!(/\d{3}(?!$)/,'\0,')
-</span><span class='line'> =&gt; nil 
+</span><span class='line'> =&gt; nil
 </span><span class='line'>2.1.0 :004 &gt; decimal
-</span><span class='line'> =&gt; "793" 
+</span><span class='line'> =&gt; "793"
 </span><span class='line'>2.1.0 :005 &gt; leader
-</span><span class='line'> =&gt; "4" 
+</span><span class='line'> =&gt; "4"
 </span><span class='line'>2.1.0 :006 &gt; [leader,decimal].compact.join(",")
-</span><span class='line'> =&gt; "4,793" 
-</span><span class='line'>2.1.0 :007 &gt; </span></code></pre></td></tr></table></div></figure>
+</span><span class='line'> =&gt; "4,793"
+</span><span class='line'>2.1.0 :007 &gt;</span></code></pre></td></tr></table></div></figure>
 
 
 <p>I have a basic understanding of what is going on, but I&rsquo;m still not very comfortable with Regular Expressions, which is what we are passing to the slice! method above.  How about another example?</p>
@@ -342,14 +340,14 @@ meant, and what was going on.</p>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>2.1.0 :007 &gt; decimal = Integer(1249580).to_s
-</span><span class='line'> =&gt; "1249580" 
+</span><span class='line'> =&gt; "1249580"
 </span><span class='line'>2.1.0 :008 &gt; leader = decimal.slice!(0, decimal.length % 3)
-</span><span class='line'> =&gt; "1" 
+</span><span class='line'> =&gt; "1"
 </span><span class='line'>2.1.0 :009 &gt; decimal.gsub!(/\d{3}(?!$)/,'\0,')
-</span><span class='line'> =&gt; "249,580" 
+</span><span class='line'> =&gt; "249,580"
 </span><span class='line'>2.1.0 :010 &gt; [leader,decimal].compact.join(",")
-</span><span class='line'> =&gt; "1,249,580" 
-</span><span class='line'>2.1.0 :011 &gt; </span></code></pre></td></tr></table></div></figure>
+</span><span class='line'> =&gt; "1,249,580"
+</span><span class='line'>2.1.0 :011 &gt;</span></code></pre></td></tr></table></div></figure>
 
 
 <p>Think I&rsquo;m almost there with my understanding.  I&rsquo;m going to take a look at one more example using irb:</p>
@@ -368,21 +366,23 @@ meant, and what was going on.</p>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>2.1.0 :011 &gt; decimal = Integer(56752).to_s
-</span><span class='line'> =&gt; "56752" 
+</span><span class='line'> =&gt; "56752"
 </span><span class='line'>2.1.0 :012 &gt; leader = decimal.slice!(0, decimal.length % 3)
-</span><span class='line'> =&gt; "56" 
+</span><span class='line'> =&gt; "56"
 </span><span class='line'>2.1.0 :013 &gt; decimal.gsub!(/\d{3}(?!$)/,'\0,')
-</span><span class='line'> =&gt; nil 
+</span><span class='line'> =&gt; nil
 </span><span class='line'>2.1.0 :014 &gt; decimal
-</span><span class='line'> =&gt; "752" 
+</span><span class='line'> =&gt; "752"
 </span><span class='line'>2.1.0 :015 &gt; leader
-</span><span class='line'> =&gt; "56" 
+</span><span class='line'> =&gt; "56"
 </span><span class='line'>2.1.0 :016 &gt; [leader,decimal].compact.join(",")
-</span><span class='line'> =&gt; "56,752" 
-</span><span class='line'>2.1.0 :017 &gt; </span></code></pre></td></tr></table></div></figure>
+</span><span class='line'> =&gt; "56,752"
+</span><span class='line'>2.1.0 :017 &gt;</span></code></pre></td></tr></table></div></figure>
 
 
 <p>Once the slice! operation has completed, we have part of our number stored in leader and the remainder in decimal.  For every group of more than 3 numbers in decimal, we will do a substitution and insert a comma.  I know what is happening, but I&rsquo;m still having a hard time properly describing what is going on, and how it knows where to place the commas.  I&rsquo;ll need to bone up on RegEx!</p>
+
+<p><em>Learn Something New Everyday</em></p>
 </div>
   
   
