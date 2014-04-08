@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Ancient City Ruby - Workshop 2014 - Old Guy, New Trick</title>
+  <meta name="author" content="Ho Gi Hung">
+
+  
+  <meta name="description" content="In my last post I discussed events prior to Ancient City Ruby 2014. Now it is time to discuss my experience at the actual workshop and conference. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hogihung.github.io/blog/2014/04/05/ancient-city-ruby-workshop/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Old Guy, New Trick" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Old Guy, New Trick</a></h1>
+  
+    <h2>An old guys journey to learn how to code</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hogihung.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+	<li><a href="/">Blog</a></li>
+  <li><a href="/about/">About</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Ancient City Ruby - Workshop 2014</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T10:38:58-04:00" pubdate data-updated="true">Apr 5<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>In my last post I discussed events prior to Ancient City Ruby 2014.  Now it is time to discuss my experience at the actual workshop and conference.  The conference part was spread across two days, Thursday and Friday, and there was an optional workshop day &ndash; Wednesday.  There were three different workshops offered:</p>
+
+<ul>
+<li>Refactoring Rails by Katrina Owen</li>
+<li>Rock@Vim by Jon Allured and Micah</li>
+<li>Ruby on Rails: First Expedition by Beverly Nelson</li>
+</ul>
+
+
+<p>I had a tough decision to make.  I really wanted to attend Katrina&rsquo;s workshop, but I don&rsquo;t believe my skill set is good enough at this time to have been able to participate.  I thought that I&rsquo;d surely slow the class down.  On the other hand, I think I&rsquo;m beyond the Ruby on Rails: First Expedition level.  I am horrible at Vim, so it seemed obvious that I should sign up for the Rock@Vim workshop, and I did.</p>
+
+<p>The Vim workshop was taught by two Hashrocket employees, Jon and Micah.  I&rsquo;d never met Jon before as he works out of the Chicago office.  But I have met Micah before, and he has helped me out a few times when I have gotten stuck or had questions.  Having some familiarity with a teacher was a plus.</p>
+
+<p>I really wasn&rsquo;t sure what to expect for the workshop, or how we would approach the topic.  I just want to get better at Vim.  Primarily, being better at vim would help at my day job as we ssh to most of our devices.  But I also want to try pair programming and from what I&rsquo;ve researched, one really needs to know vim.</p>
+
+<p>The workshop started off good.  Jon and Micah introduced us to dotmatrix:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/hashrocket/dotmatrix.git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I don&rsquo;t know all the ins and outs but I guess I would summarize it as saying that by using dotmatrix I was able to configure my environment to by more &ldquo;HashRocketey&rdquo;  From the README.md file:</p>
+
+<p>&ldquo;Dotmatrix is a collection of dotfiles used at Hashrocket to customize various development tools. This project is the culmination of many years worth of tinkering with our favorite tools to get them to behave just right. We think using dotmatrix makes working with these tools more pleasant and hope you will too!&rdquo;</p>
+
+<p>There were a few steps involved to get everything up and running, but I won&rsquo;t bore you with those details.  After the class was all setup, or at least we thought we were setup, we moved on to cloning a practice Rails project which we were going to use in our lessons for vim.</p>
+
+<p>During part of the lesson I experienced an issue.  For some reason I was getting hung up with some issues involving Postgres.  I started to fall behind the class as I was trouble shooting.  Finally I just asked &ndash; &ldquo;&hellip; can I switch this project to SQLite to get beyond these problems?&rdquo;  Jon agreed that would be a good idea.  So I switched and tried to catch up.</p>
+
+<p>It wasn&rsquo;t going well for me.  Working with my Postgres issue caused me to miss some key instructions and details that the rest of the class had observed.  Instead of fighting to try to figure things out, I just sat back and tried to focus.  I guess Micah saw that I was having some trouble so he came over to assist.  When I explained my situation he helped to get me back on track and also has Jon show me some stuff that helped to get me caught up.</p>
+
+<p>At about the time I got caught up, we were quickly coming upon lunch time.  There was only four of us students plus Jon and Micah.  So we all went out to lunch together at A1A Ale Works.  It was a good time.  The advantage of a small class enabled us to be able to get to know each other and see what each others experience was like.</p>
+
+<p>After lunch we were back at the brain fillage.  I was starting to get a bit tired, and it seemed like the topics were getting harder.  But we pressed on and learned some more neat things with using vim.  I learned enough during the workshop to make me want to learn more.  I will continue my vim learning, using what I absorbed in the workshop as a foundation, and utilize other resources like Vim Genius (<a href="http://vimgenius.com/">http://vimgenius.com/</a>) and the cool screencast series Vimcasts (<a href="http://vimcasts.org/">http://vimcasts.org/</a>).  Also, I picked up a copy of &ldquo;Practical Vim: Edit Text at the Speed of Thought,&rdquo; by Drew Neil who also produces the vimcasts.</p>
+
+<p>Although I had some tough, frustrating moments, overall I enjoyed the Vim workshop.  Whether Jon knew it or not, he gave me a homework assignment.  As I was practicing at home that evening, I noticed that my prompt in the terminal was really long.  I prefer the following format:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>jfhogarty@Serenity:(source+*-)$</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So I had to figure out how to fix my prompt.  It wasn&rsquo;t too hard, just an edit to my ~/.bashrc file.  In my next post I will review my experience of the first day of the conference.  Stay tuned.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ho Gi Hung</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T10:38:58-04:00" pubdate data-updated="true">Apr 5<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/education/'>Education</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2014/04/05/ancient-city-ruby-workshop/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2014/04/05/ancient-city-ruby-workshop/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/04/05/my-ancient-city-ruby-pre-experience/" title="Previous Post: My Ancient City Ruby Pre-Experience 2014">&laquo; My Ancient City Ruby Pre-Experience 2014</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/04/06/ancient-city-ruby-2014-day-one/" title="Next Post: Ancient City Ruby 2014 Day One">Ancient City Ruby 2014 Day One &raquo;</a>
+      
+    </p>
+    <div id="disqus_thread"></div>
+      <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          var disqus_shortname = 'oldguynewtrickcom'; // required: replace example with your forum shortname
+
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/04/07/ancient-city-ruby-2014-day-two/">Ancient City Ruby 2014 Day Two</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/06/ancient-city-ruby-2014-day-one/">Ancient City Ruby 2014 Day One</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/05/ancient-city-ruby-workshop/">Ancient City Ruby - Workshop 2014</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/05/my-ancient-city-ruby-pre-experience/">My Ancient City Ruby Pre-Experience 2014</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/my-first-rake-task/">My First Rake Task</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("hogihung", , );
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <p>Follow <a href="http://twitter.com/hogihung">@hogihung</a></p>
+  
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Ho Gi Hung -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.Background image by Ho Gi Hung</span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

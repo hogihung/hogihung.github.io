@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Education | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/education/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-04-01T14:42:39-04:00</updated>
+  <updated>2014-04-07T22:20:20-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,112 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Ancient City Ruby 2014 Day Two]]></title>
+    <link href="http://hogihung.github.io/blog/2014/04/07/ancient-city-ruby-2014-day-two/"/>
+    <updated>2014-04-07T18:35:20-04:00</updated>
+    <id>http://hogihung.github.io/blog/2014/04/07/ancient-city-ruby-2014-day-two</id>
+    <content type="html"><![CDATA[<p>Day two was a rough start for me.  I over slept a little bit so I didn&rsquo;t have time to get breakfast at home.  Luckily, there was some breakfast provided at the conference.  I&rsquo;m not a big carb eater, but I knew that if I didn&rsquo;t eat something, it would be a rough day.  So down went a half bagel, some fruit, a glass of water and a coffee chaser.</p>
+
+<p>Starting out the day was someone I had heard of, but never met &ndash; Terence Lee.  Terence works at Heroku as well as participates on the Ruby core team as a contributor.  I enjoyed this talk because I&rsquo;ve been using Heroku in my knowledge quest and found the topic to be relevant.  I think we sometimes take for granted what is going on behind the scenes, by guys like Terence, to ensure easy deployment of our apps.  In summary &ndash; make sure you are off of Ruby 1.8.7 and 1.9.2.</p>
+
+<p>For day two, I took the most notes during the second talk by Craig Kerstiens.  He talked about Postgres which is the primary database that I&rsquo;ve been using in my Rails applications.  Craig confirmed something that I had encountered two days earlier &ndash; don&rsquo;t use homebrew for Postgres.  Download and use the Postgres.app from their website.  I had a lot of issues during my workshop due to homebrew and its installation of Postgres.  Along with good tips for Postgres related resources, I also learned new stuff like sequential scan vs index scan.  And using Gin for indexing when you have multiple values in a column vs the standard BTree index method.  Rounding out his talk, I walked away with a to-do list of required research on HStore and jsonb.</p>
+
+<p>Lunch on day two was the only part of the conference I didn&rsquo;t like.  I am not a pasta fan at all and sadly didn&rsquo;t find much I could eat.  I ended up snacking on two pieces of cheese and a chunk of bread.  Where the meal failed for me, the desert was a home run!  So I filled up on desert and coffee.  Yup, I was a bit jittery for the rest of the day.</p>
+
+<p>After lunch it was time for Aaron.  His presentation had both a healthy serving of comedic relief as well as filling geekery.  Who else but Aaron would code a way, using a webcam, to scan all of his Magic the Gathering cards and catalog their value?  Oh and did I mention there were cats?  Aaron urged the audience to help him test out one of his projects related to OpenCV.  We were to all send him a tweet with the words &ldquo;Photo Me&rdquo;.  The goal was for his program to see the tweet, take a picture of Aaron at that moment in time, and send the picture to the person who tweeted him.  Well it seems one variable wasn&rsquo;t accounted for &ndash; Twitter.  With a flood of incoming requests to his Twitter account, the &ldquo;enforcers&rdquo; locked his account.</p>
+
+<p>Something that I had forgotten to mention earlier was that for most of the conference, Ben sat with me.  I really thought this was cool.  Most of the speakers sat together up front or to the side.  But I got to sit with Ben &ndash; just me and him.</p>
+
+<p>Which brings me to one of Ben&rsquo;s friends &ndash; Konstantin.  Ben had made some reference to Konstantin in his presentation &ndash; well more like to Konstantin&rsquo;s bag which apparently got lost while enroute to a conference in the Philippines.  Konstantin had a good bit of humor in his presentation which focused on security.  It was very englightening to learn about the many different ways hackers try to compromise web applications, including Rails applications.  Both the Ruby and Rails teams make a great effort to eliminate/prevent security issues.  I&rsquo;ll admit there were parts of the talk that went over my head.  But overall, I found it very usefull and an area where I want to learn more.</p>
+
+<p>Near the end of Konstantin&rsquo;s talk I started to feel the effect of not eating a proper lunch, and an overload of sweets.  I started getting a little light-headed.  So the end of the conference was a bit of a blur.</p>
+
+<p>I&rsquo;ve only been to two Ruby related conferences &ndash; Ruby Conf 2013 in Miami, and now this one, Ancient City Ruby Conf 2014.  Although the one if Miami was much larger, I enjoyed the Ancient City one more.  I felt like I learned more at ACR and fit in better.  At the conference in Miami I very much felt like an outsider.  But at ACR I met a lot of people from all over the US and the world.  I am looking forward to another Ancient City Ruby conference in 2015!</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ancient City Ruby 2014 Day One]]></title>
+    <link href="http://hogihung.github.io/blog/2014/04/06/ancient-city-ruby-2014-day-one/"/>
+    <updated>2014-04-06T20:55:09-04:00</updated>
+    <id>http://hogihung.github.io/blog/2014/04/06/ancient-city-ruby-2014-day-one</id>
+    <content type="html"><![CDATA[<p>The actual conference was split across two days, and followed the single-track format.  This was unlike my experience at Ruby Conf 2013 &ndash; Miami, which was multiple topics going on concurrently.  For the first day, the following speakers were lined up:  Leon Gersing, Justin Searls, David Copeland, Katrina Owen, Richard Schneeman, and Ben Lovell.  Of all those speakers, I only had ever heard of three, and as it so happened, met each one of them: Justin Searls, Katrina Owen and Ben Lovell.</p>
+
+<p>In a quick summary of the day, I wrote the most notes from the talk by Leon, learned the most from Katrina&rsquo;s talk and laughed my ass off, and learned some stuff, from Ben&rsquo;s talk.  Justin talk also had my interest and I had jotted down some notes from his presentation.</p>
+
+<p>I really liked Leon&rsquo;s talk as to me it was not directly programming/developer related, but more so a spiritual and inspirational discussion.  I don&rsquo;t know if it was planned this way, but I believe it was perfectly executed as the first talk of the day &ndash; really set a good mood and environment.  Something that Leon said really moved me.  He said: &ldquo;Twitter, Facebook, Instagram are all simulations of relationships.&rdquo;  I thought that was very powerful.</p>
+
+<p>Before I continue, I just want to say that I enjoyed all of the talks from the speakers on this day.  But given my current skill level with Ruby and as a programmer, some of the talks were more moving and relevant to me.  I&rsquo;m sure others had similar, but different results.</p>
+
+<p>Three speakers in, some brief talks by some sponsors as well as lightening talks, and it was time for lunch.  I really enjoyed the lunch that was provided at the hotel for the conference.  Not only was the meal yummy, but the deserts were great as well.</p>
+
+<p>On a nice full stomach, with a big smile on my face, it was time for Katrina&rsquo;s talk.  I really enjoy her presentation style and I feel that the delivery was at a level that I was able to absorb.  Katrina took us through a refactoring session for &ldquo;Bob.&rdquo;  Frightenly, some of that code looked familiar :)  If you get a chance, you can check out her prentation at: <a href="https://speakerdeck.com/kytrinyx/overkill">Overkill</a></p>
+
+<p>Being the last speaker on a given day is a tough task.  People tend to start getting tired.  Leave it to Ben to fire up the crowd.  He had all of us rolling with laughter from his opening remarks to his closing arguments.  And along the way we learned a bit about testing APIs.  Watch out for those &ldquo;f#$@ing sharks!&rdquo;</p>
+
+<p>Day one didn&rsquo;t actually end after Ben&rsquo;s talk.  That evening some of the conference attendees went on the Ghost Ride, while the rest of us got to do the Pirate Ship adventure.  Even though I live in Jacksonville, which isn&rsquo;t too far from St. Augustine, I had not ever been on the Pirate Ship.  It was a lot of fun.  I just wish that I had my heavier hoodie and it got a bit cold on the water.  On the ship I got to meet a few other people from Hash Rocket, including Paul Elliott.  I had heard Paul&rsquo;s voice on several episodes of the Ruby5 podcast, and it was nice to meet him in person.</p>
+
+<p>All-in-all, day one was a big hit for me.  Oh, I almost forgot!  At the beginning of the day, before the first talk started, I got to meet and shake hands with Aaron Patterson.  Yeah, you could say I&rsquo;m a fanboi of his.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ancient City Ruby - Workshop 2014]]></title>
+    <link href="http://hogihung.github.io/blog/2014/04/05/ancient-city-ruby-workshop/"/>
+    <updated>2014-04-05T10:38:58-04:00</updated>
+    <id>http://hogihung.github.io/blog/2014/04/05/ancient-city-ruby-workshop</id>
+    <content type="html"><![CDATA[<p>In my last post I discussed events prior to Ancient City Ruby 2014.  Now it is time to discuss my experience at the actual workshop and conference.  The conference part was spread across two days, Thursday and Friday, and there was an optional workshop day &ndash; Wednesday.  There were three different workshops offered:</p>
+
+<ul>
+<li>Refactoring Rails by Katrina Owen</li>
+<li>Rock@Vim by Jon Allured and Micah</li>
+<li>Ruby on Rails: First Expedition by Beverly Nelson</li>
+</ul>
+
+
+<p>I had a tough decision to make.  I really wanted to attend Katrina&rsquo;s workshop, but I don&rsquo;t believe my skill set is good enough at this time to have been able to participate.  I thought that I&rsquo;d surely slow the class down.  On the other hand, I think I&rsquo;m beyond the Ruby on Rails: First Expedition level.  I am horrible at Vim, so it seemed obvious that I should sign up for the Rock@Vim workshop, and I did.</p>
+
+<p>The Vim workshop was taught by two Hashrocket employees, Jon and Micah.  I&rsquo;d never met Jon before as he works out of the Chicago office.  But I have met Micah before, and he has helped me out a few times when I have gotten stuck or had questions.  Having some familiarity with a teacher was a plus.</p>
+
+<p>I really wasn&rsquo;t sure what to expect for the workshop, or how we would approach the topic.  I just want to get better at Vim.  Primarily, being better at vim would help at my day job as we ssh to most of our devices.  But I also want to try pair programming and from what I&rsquo;ve researched, one really needs to know vim.</p>
+
+<p>The workshop started off good.  Jon and Micah introduced us to dotmatrix:</p>
+
+<p><code>
+git clone https://github.com/hashrocket/dotmatrix.git
+</code></p>
+
+<p>I don&rsquo;t know all the ins and outs but I guess I would summarize it as saying that by using dotmatrix I was able to configure my environment to by more &ldquo;HashRocketey&rdquo;  From the README.md file:</p>
+
+<p>&ldquo;Dotmatrix is a collection of dotfiles used at Hashrocket to customize various development tools. This project is the culmination of many years worth of tinkering with our favorite tools to get them to behave just right. We think using dotmatrix makes working with these tools more pleasant and hope you will too!&rdquo;</p>
+
+<p>There were a few steps involved to get everything up and running, but I won&rsquo;t bore you with those details.  After the class was all setup, or at least we thought we were setup, we moved on to cloning a practice Rails project which we were going to use in our lessons for vim.</p>
+
+<p>During part of the lesson I experienced an issue.  For some reason I was getting hung up with some issues involving Postgres.  I started to fall behind the class as I was trouble shooting.  Finally I just asked &ndash; &ldquo;&hellip; can I switch this project to SQLite to get beyond these problems?&rdquo;  Jon agreed that would be a good idea.  So I switched and tried to catch up.</p>
+
+<p>It wasn&rsquo;t going well for me.  Working with my Postgres issue caused me to miss some key instructions and details that the rest of the class had observed.  Instead of fighting to try to figure things out, I just sat back and tried to focus.  I guess Micah saw that I was having some trouble so he came over to assist.  When I explained my situation he helped to get me back on track and also has Jon show me some stuff that helped to get me caught up.</p>
+
+<p>At about the time I got caught up, we were quickly coming upon lunch time.  There was only four of us students plus Jon and Micah.  So we all went out to lunch together at A1A Ale Works.  It was a good time.  The advantage of a small class enabled us to be able to get to know each other and see what each others experience was like.</p>
+
+<p>After lunch we were back at the brain fillage.  I was starting to get a bit tired, and it seemed like the topics were getting harder.  But we pressed on and learned some more neat things with using vim.  I learned enough during the workshop to make me want to learn more.  I will continue my vim learning, using what I absorbed in the workshop as a foundation, and utilize other resources like Vim Genius (<a href="http://vimgenius.com/">http://vimgenius.com/</a>) and the cool screencast series Vimcasts (<a href="http://vimcasts.org/">http://vimcasts.org/</a>).  Also, I picked up a copy of &ldquo;Practical Vim: Edit Text at the Speed of Thought,&rdquo; by Drew Neil who also produces the vimcasts.</p>
+
+<p>Although I had some tough, frustrating moments, overall I enjoyed the Vim workshop.  Whether Jon knew it or not, he gave me a homework assignment.  As I was practicing at home that evening, I noticed that my prompt in the terminal was really long.  I prefer the following format:</p>
+
+<p><code>
+jfhogarty@Serenity:(source+*-)$
+</code></p>
+
+<p>So I had to figure out how to fix my prompt.  It wasn&rsquo;t too hard, just an edit to my ~/.bashrc file.  In my next post I will review my experience of the first day of the conference.  Stay tuned.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Week 2 and a half at Bloc]]></title>
@@ -72,95 +178,6 @@
 <p>I look forward to my next call with my mentor (tomorrow) and starting my next section &ndash; Rails Foundation.  As I progress through each section I&rsquo;ll return here to provide updates.</p>
 
 <p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[In search of mentor]]></title>
-    <link href="http://hogihung.github.io/blog/2014/02/28/in-search-of-mentor/"/>
-    <updated>2014-02-28T17:15:32-05:00</updated>
-    <id>http://hogihung.github.io/blog/2014/02/28/in-search-of-mentor</id>
-    <content type="html"><![CDATA[<p>When I began my journey to become a better programmer, I didn&rsquo;t have a clear path.  I had been programming in Perl for my day job, and I have ideas sketched out for some web and mobile apps.  Most the programming I do at work is for single task automation or data lookup.  I want to be a better programmer at work, and I want to see my ideas in use for myself and others.</p>
-
-<p>I reached out to a friend of mine in early 2012.  I shared with him some of my buisness and software ideas.  He has a lot of experience as an entrepreneur, and as a software developer.  When I finally settled on working on my software projects, we had several discussion sessions together and he helped point me in a direction.  I started to learn the Zend framework as I had some previous experience hacking away at php based websites.  My progress went slow, buy my friend, Bill, helped to gently nudge me in the appropriate direction and answer my battery of questions.  I&rsquo;m sure it must have been tough for him as I had a lot of questions and kept switching what I was trying to focus on.</p>
-
-<p>Fast forward to about this time in 2013.  I was a little frustrated with myself and slow progress.  It took me a real long time to get the user registration and login part of my app working.  I realized that I had major gaps in core programming knowledge.  Using Amazon.com I found some books to study (see my post &ldquo;To Book or Not to Book&rdquo;.)  While reading one of these books I ran into a guy who was the catalyst in rebooting my programming journey.  He, Shane, introduced me to Ruby on Rails.</p>
-
-<p>Shane told me about some online resources to help get me started &ndash; the ones at CodeSchool and RailsCasts.  I went back to Amazon and ordered the Hartl book.  With my nose in the books, laptop comfortably on my lap, I started studying Ruby and Rails.  The beginner resources I came across were excellent.  I found a much better selection of books and online resources from the Ruby community, especially compared to PHP which I had previously been studying.  My &ldquo;home schooling&rdquo; was going well.</p>
-
-<p>What took me over a month to learn and do in PHP, the user registration/login code of my website, I was able to learn and complete in a weekend using Rails.  For me, learning Ruby and Rails is actually fun.  I feel that I have been able to comprehend the basics, and some intermediate stuff pretty well just by reading or watching online videos (both free and paid for.)  But I&rsquo;ve noticed that I&rsquo;m starting to hit some more challenging concepts and material.</p>
-
-<p>My application has some models that aren&rsquo;t as simple as a one-to-one, or one-to-many relationship.  My app needs to interact with the user for more than just simple data entry. I&rsquo;m seeing that I need to learn more about JavaScript/CoffeeScript and jQuery.  I&rsquo;m having issues with Geolocation.  The concepts are getting a little more complicated for me.  I need someone to talk to and work through these challenges.  I need a more structured learning environment where I&rsquo;m able to ask questions for topics I do not understand.  Thus my search for more knowledge.</p>
-
-<p>Since I work full time, I had some contraints to work within.  Either I needed to find some programming courses at a local college, that I could attend at night, or find some on-line resource.  While I find my subscriptions to CodeSchool, RailsCasts and PluralSight useful, the draw back is I can&rsquo;t ask questions when I get stuck.  Off to Google I went to start my search.  I was overwhelmed by how many different solutions there are.  One can review a pretty good list of solutions at the Quora site <a href="http://www.quora.com/Programming-Bootcamps/What-are-the-short-term-3-12mo-development-bootcamps-academies-around-the-world">http://www.quora.com/Programming-Bootcamps/What-are-the-short-term-3-12mo-development-bootcamps-academies-around-the-world</a></p>
-
-<p>Some of the more popular sites I found were, in no particular order: <a href="http://www.launchacademy.com/">http://www.launchacademy.com/</a>  <a href="http://www.appacademy.io/">http://www.appacademy.io/</a> <a href="http://www.thinkful.com/">http://www.thinkful.com/</a>  <a href="http://www.gotealeaf.com/">http://www.gotealeaf.com/</a>  <a href="http://devbootcamp.com/">http://devbootcamp.com/</a> <a href="https://www.bloc.io/">https://www.bloc.io/</a>  <a href="https://training.bignerdranch.com">https://training.bignerdranch.com</a>  <a href="http://www.hackreactor.com/">http://www.hackreactor.com/</a> and <a href="https://learn.thoughtbot.com/">https://learn.thoughtbot.com/</a></p>
-
-<p>Off the above though, only four seemed to fit my criteria of being able to attend on-line, at my own time: Bloc, Thinkful, Teaeaf Academy and Thoughbot.  The pricing for these courses are roughly in the same price range, with Bloc being the most expensive.  But Bloc costs more for a good reason I feel &ndash; more time with a mentor.  I talked with people from Bloc and Thinkful &ndash; both of them had a live session to code with a mentor.  Bloc seems more proactive in having numerous info sessions and answering questions from potential students.</p>
-
-<p>Through my research and conversations, I&rsquo;ve narrowed my search down to Bloc and Tealeaf.  Tealeaf is getting a strong consideration because one of their founders is a Hashrocket alumni which I found out about after talking with two folks from Hashrocket.  But Bloc is the leader and I&rsquo;ve pre-registered with them.  I wish Tealeaf had hosted some info sessions so I could get a taste of how they work.  I&rsquo;m still considering them as their course is broken down into 3 components, with the last one covering advanced concepts.  Upon completion of Bloc, I may enroll in that third course.</p>
-
-<p>I&rsquo;ve had exposure to three mentors at Bloc.  Each one has impressed me.  Keep an eye out for my follow up posts regarding how my training goes with Bloc.  I have a mentor in mind, but I will not know for sure until I get through the formal registration and enrollment.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[To Book or Not to Book]]></title>
-    <link href="http://hogihung.github.io/blog/2014/02/19/book_or_ebooks/"/>
-    <updated>2014-02-19T18:13:25-05:00</updated>
-    <id>http://hogihung.github.io/blog/2014/02/19/book_or_ebooks</id>
-    <content type="html"><![CDATA[<p>While the focus, and majority of posts I plan on making, will revolve around the world of Ruby and web devlopement, my journey began with <em>&ldquo;Programming in Objective-C,&rdquo;</em> by Stephen G. Kochan.  While still persuing iOS and Objective-C knowledge, I also got <em>&ldquo;iOS Programming The Big Nerd Ranch Guide,&rdquo;</em> by Joe Conway &amp; Aaron Hillegass.  Shortly after I grabbed <em>&ldquo;Objective-C Programming The Big Nerd Ranch Guide,&rdquo;</em> by Aaron Hillegass.</p>
-
-<p>Wadding through those books I quickly realized that I had a huge lack of knowledge, and though I really wanted to write iPhone apps, I needed to reboot and try a different approach.  I found an online course via iTunes-U which used the next book I purchased &ndash; <em>&ldquo;The Art &amp; Science of Java, An Introduction to Computer Science,&rdquo;</em> by Eric S. Roberts.  This book is used with the online course I subscribed to in iTunes, and by far the most expensive book I have purchased!  While reading that book, and following the course, I realized another gap in knowledge.  A lot of buzzwords were flying at me &ndash; OOP, Object Oriented Design, UML, Singleton, Design Patterns, etc.  So I did a little research on Amazon, and grabbed two new books by Head First &ndash; <em>&ldquo;Object-Oriented Analysis &amp; Design,&rdquo;</em> by McLaughlin, Pollice &amp; West and <em>&ldquo;Design Patterns,&rdquo;</em> by Freeman &amp; Freeman.  The Head First books used Java in their examples and I thought things were coming together. My Rails journey actually started because of <em>&ldquo;Object-Oriented Analysis &amp; Design&rdquo;</em> book.</p>
-
-<p>Alrighty, lets now dive into the here and now.  My first Ruby/Rails book, and the one I would first suggest to anyone new to Rails, was <em>&ldquo;Ruby on Rails Tutorial,&rdquo;</em> by Michael Hartl.  This book won&rsquo;t be the end of your journey, but should give one enough to get a good understanding.  I plan on re-reading this book after I get through some others.  The next book I grabbed was probably way above my level, but I really enjoyed how this person thinks after watching some of her videos &ndash; <em>&ldquo;Practical Object-Oriented Design In Ruby,&rdquo;</em> by Sandi Metz.  Though a bit over my head for a good chunk of the book, I still found it very useful and I think I will understand more of what she wrote as I learn and experience more code.</p>
-
-<p>The next book I got was <em>&ldquo;Agile Web Development with Rails 3.2,&rdquo;</em> by Sam Ruby, Dave Thomas, and David Heinemeier Hansson.  I found this to be very useful for filling in some gaps I had from the Rails Tuts book.  I happened to notice after I bought the book that a newer version would come out later in the year.  So I pre-ordered <em>&ldquo;Agile Web Development with Rails 4,&rdquo;</em> by the same trio.  I have not ready beyond the first chapter of this book yet.</p>
-
-<p>One thing I was noticing from my reading experience of the two Rails books and the POODR book, I lacked some basic knowledge of the underlying language &ndash; Ruby.  So I grabbed <em>&ldquo;The Ruby Way,&rdquo;</em> by Hal Fulton.  I&rsquo;ve finished about half of the book and it cleared some things up for me.  I do use it as a reference from time-to-time and do want to get back into it for the second half.  Note I think this is the oldest of the Ruby/Rails books I have, so it isn&rsquo;t current.  But the majority of what you would read should still be relevant.</p>
-
-<p>It might just be me, but I&rsquo;ve found that frequently I need information from multiple sources in order for me to understand certain topics.  So while <em>&ldquo;The Ruby Way&rdquo;</em> is very comprehensive, I picked up <em>&ldquo;The Ruby Programming Language,&rdquo;</em> by David Flanagan &amp; Yukikiro Matsumoto.  This book covered Ruby 1.8 and 1.9 so it was a little more up to date than the previous mentioned book.  Where as those first two book on Ruby will give you the meat of the language, I found this next book to be the sauce &ndash; <em>&ldquo;Eloquent Ruby,&rdquo;</em> by Russ Olsen.</p>
-
-<p>I skipped a book, and in all honesty, I don&rsquo;t remember where in the order of books purchased that this one occurred.  I&rsquo;ve only read the first chapter and I like the book, but my mindset isn&rsquo;t ready for it.  I&rsquo;ll probably get virtually whipped for saying that, but I will revisit this book &ndash; <em>&ldquo;The RSpec Book,&rdquo;</em> by David Chelimsky.  For those new to Ruby and don&rsquo;t understand why I would be whipped, I&rsquo;ve found that the Ruby/Rails community is heavily into testing &ndash; BDD (behaviour driven-development) or TDD (test driven-devlopment).  I know this is an area I need to focus on!</p>
-
-<p>Winding down there are a few more books.  I picked up the next book because I wanted more information on creating command line Ruby applications, so I purchased <em>&ldquo;Build Awesome Command-Line Applications in Ruby 2,&rdquo;</em> by David Bryant Copeland.  I really am enjoying this book and I&rsquo;m applying some of the things I&rsquo;ve learned to how I code work related stuff in Perl.</p>
-
-<p>Although not directly related to Ruby or Rails, I picked up <em>&ldquo;The Little Book on CoffeeScript,&rdquo;</em> by Alex MacCaw.  They were not kidding, it is little!  I can&rsquo;t really say anything good about this book yet as I was disappointed at its size when it arrived.  I tossed it aside to read some other time &ndash; maybe on a rainy day.  The other non-directly related book I am enjoying is &ndash; <em>&ldquo;Practical Vim,&rdquo;</em> by Drew Neil.  I&rsquo;ve always admirred people who are awesome at the command line and in tools like Vim.  I&rsquo;m not one of them.  My preferred editor is Sublime Text, but I really want to learn Vim.  This book is good, and Drew produces some cool screencasts &ndash; <a href="http://vimcasts.org.">http://vimcasts.org.</a></p>
-
-<p>Down to my last two physical books as of 2/19/2014 &ndash; <em>&ldquo;Ruby Under a Microscope,&rdquo;</em> by Pat Shaughnessy and <em>&ldquo;Seven Databases in Seven Weeks,&rdquo;</em> by Eric Redmond and Jim R. Wilson.  <em>&ldquo;Ruby Under a Microscope&rdquo;</em> is probably not a good fit for someone new to Ruby, but I&rsquo;m finding it absolutely enjoyable.  Sure there are things above my head, but I am able to digest most of the information and it actually helps me understand the language better.  I just received the Seven Databases book and haven&rsquo;t had a chance to read it yet.</p>
-
-<p>All of the above are physical books I&rsquo;ve purchased in my persuit of learning to code.  I&rsquo;ve also purchases a few eBooks which I will list next.  I&rsquo;m not a huge fan of eBooks related to programming as I find the formatting tends to get screwed up when the authors try to show code blocks.  With that said, on my Kindle I have:  <em>&ldquo;Confident Ruby,&rdquo;</em> by Avdi Grimm, <em>&ldquo;Professional JavaScript for Web Developers,&rdquo;</em> by Nicholas C. Zakas, and <em>&ldquo;CoffeeScript Programming with jQuery, Rails and Node.js,&rdquo;</em> by Michael Erasmus.</p>
-
-<p>There are two other books, and I wasn&rsquo;t going to inlude them, but just in case you want books on CakePHP or PHP Zend Framework, I strongly urge you TO STAY AWAY from: <em>&ldquo;Easy PHP Websites with The Zend Framework,&rdquo;</em> by W. Jason Gilmore, and <em>&ldquo;CakePHP 1.3 Application Development Cookbook,&rdquo;</em> by Mario Iglesias.  These two books are horrible!</p>
-
-<h2>Apology</h2>
-
-<p>When I first skechted out the list of books in my arsenal, it didn&rsquo;t look to be to long.  But as we can see from the above, when I wrapped words around the book names, this post got pretty long.  So I apologize for that.  I will make a great effort going forward to keep my posts shorter.  If needed, break up a long topic into multiple posts.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Take Your Education, Online!]]></title>
-    <link href="http://hogihung.github.io/blog/2014/02/10/online_education/"/>
-    <updated>2014-02-10T19:10:15-05:00</updated>
-    <id>http://hogihung.github.io/blog/2014/02/10/online_education</id>
-    <content type="html"><![CDATA[<p>In my quest for knowledge, I&rsquo;ve come across a myraid of good online resources.  In today&rsquo;s blog I will share with you what sites I have found to be useful &ndash; some are free and some are not.</p>
-
-<p>After struggling a bit in my pursuit of creating my idea using the Zend PHP framework, I bumped into a guy, Shay, who pointed me in the direction of Rails.  I remember clearly two sites he told me to check out:</p>
-
-<p><a href="http://railscasts.com">http://railscasts.com</a> and <a href="http://tryruby.org">http://tryruby.org</a></p>
-
-<p>Upon completing the tryruby online course I believe it suggested that I visit the site:  <a href="http://railsforzombies.org.">http://railsforzombies.org.</a>  Both the tryruby.org and railsforzombies.org sites are products of <a href="http://codeschool.com.">http://codeschool.com.</a>  Code School has both free and pay-for content.  After completing their free courses, and viewing some of the free episodes of Code TV, I signed up for a yearly membership.</p>
-
-<p>Another site I ran into was <a href="https://peepcode.com/.">https://peepcode.com/.</a>  I liked what I saw with some of their free episodes and I signed up for a year membership.  Shortly after, Peep Code was picked up by Plural Sight and my membership was transferred at no additional cost.  This was a great deal!  I got access to everything I had previously at Peep Code, plus a ton of new great content at Plural Sight.</p>
-
-<p>I&rsquo;ve also viewed some of the free content at <a href="http://teamtreehouse.com/.">http://teamtreehouse.com/.</a>  I like what I have seen so far, but have not yet signed up for their service.  They are a bit more pricey than Code School and Plural Sight.  Part of the reason I&rsquo;m holding off with Treehouse is because I&rsquo;m seriously considering a boot camp.</p>
-
-<p>Boot Camps &ndash; There are both physical and online boot camps available.  I work full time and don&rsquo;t really want to travel to New York or San Francisco at this time.  So in my search of online education, I&rsquo;ve narrowed down three that look promising &ndash; <a href="http://bloc.io,">http://bloc.io,</a> <a href="http://gotealeaf.com">http://gotealeaf.com</a> and <a href="http://thinkful.com.">http://thinkful.com.</a>  So far bloc.io is my first choice, but I need to reach out to Tea Leaf Academy for more information.</p>
-
-<p>Wrapping up, I want to share a few more resources.  Although these are not directly related to Ruby or Rails, they do fit in with expanding ones education in programming.  First, I really want to get better with Vim and you can watch free screencasts on vim over at: <a href="http://vimcasts.org/">http://vimcasts.org/</a></p>
-
-<p>I&rsquo;m still not very comfortable around JavaScript and CoffeeScript so I like these two sites:  <a href="http://coffeescript.org">http://coffeescript.org</a> and <a href="http://jsforcats.com/">http://jsforcats.com/</a></p>
 ]]></content>
   </entry>
   
