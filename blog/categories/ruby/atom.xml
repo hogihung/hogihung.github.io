@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-04-22T08:08:46-04:00</updated>
+  <updated>2014-05-11T18:01:15-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,45 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Enter the 4th Block]]></title>
+    <link href="http://hogihung.github.io/blog/2014/05/11/enter-the-4th-block/"/>
+    <updated>2014-05-11T18:05:24-04:00</updated>
+    <id>http://hogihung.github.io/blog/2014/05/11/enter-the-4th-block</id>
+    <content type="html"><![CDATA[<p>Picking up from where I left off with my block experience (see previous post, Week 2 and a half at Bloc,) a lot of good things, and some bad things, have occurred.  I had finished, what was called at the time, the third block, which included lessons on RSpec, Testing Users and both creating and destroying using Ajax.</p>
+
+<p>The end of Block Three took me a bit longer to complete compared to how I progressed through the first two blocks.  The material in the third block was new to me.  It was during the end of this block, and creeping into the beginning of block four that I began to have issues with my mentor.  In the first two blocks, since I didn&rsquo;t need much help, I didn&rsquo;t mind that our sessions tended to be brief.  Usually they ran up to 10 minutes.  But our sessions are booked for 30 minutes.</p>
+
+<p>My mentor during this time had missed a some meetings and had asked me to reschedule a few times.  I&rsquo;m flexible so I didn&rsquo;t see an issue.  But there was one time that I needed to reschedule and the mentor wouldn&rsquo;t work with me to make up the time.  Time much needed as I was having trouble with the project I had selected in Block Four &ndash; Saas Wiki Collaboration Tool.  I was getting very frustrated.</p>
+
+<p>I reached out to student coordinator at Bloc, Karen, and discussed the issues I was having.  I explained that in the beggining I had gotten ahead, but now with all the problems I was encountering with this mentor, I was getting behind.  And I felt it very disrepectful that I was asked on several occasions to modify my schedule for him, but the one time I needed a re-schedule, he didn&rsquo;t care.</p>
+
+<p>Karen helped me out and let me pick out a new mentor.  She said that they would add a week to my enrollment to help make up for some of the lost time.  (Think I need to check on that because it doesn&rsquo;t look like they added a week.)  The new mentor, Charlie, was a huge improvment.  Never did I feel like he was trying to get me off the phone.  In fact, on several calls we went over the scheduled 30 minutes.</p>
+
+<p>While working with the new mentor, Charlie, has been a much better experience, I feel that there is something missing from the program.  Although it is said that students will do pair programming and testing, I don&rsquo;t find either to come near what I was expecting.  It may be that my expectations are set to high from what the folks at Bloc had planned to offer.  I can understand that they have a range of differently skilled students.  I don&rsquo;t think I&rsquo;m far off in saying that most newbies to this program probably don&rsquo;t care as much about testing as I do.</p>
+
+<p>I find this mediocre approach to testing to transcend into the help one would get in the Office Hours Chat room.  I&rsquo;ll provide a brief example.  I was stuck on how to write a test that would make sure that any user, other than a logged in user, would not be able to access the ability to upgrade a users account by direct url navigation.  When I posed my question the answer I got was that I should use Pundit&rsquo;s policies and don&rsquo;t display the upgrade button unless the user is logged in and allowed to upgrade.</p>
+
+<p>I had explained that I had already written tests for that, and the code to make the tests green, but I wanted to ensure that a malicous user would not be able to access the url for an upgrade directly.  The short answer I got was &ldquo;&hellip;well the users shouldn&rsquo;t do that.&rdquo;  Yeah, well credit card thieves should not steal peoples credit card info and identies either, but I&rsquo;m sure the credit card companies do whatever they can to protect against those thieves.</p>
+
+<p>I really don&rsquo;t think the program was meant to take testing as seriously as I am.  It seems the program gives one just enough to say, &ldquo;&hellip; yeah I know how to test with RSpec.&rdquo;  Although I&rsquo;m happy with my mentor Charlie, I felt a bit frustrated on our calls when trying to work through testing issues.  So frustrated in fact that I stopped testing the proper way and just worked on trying to complete the assignment.</p>
+
+<p>Bloc changed the student dashboard and I got really worried.  I was reviewing where I was in the program and the dashboard was telling me that I was behind.  The dashboard lists 5 projects, including the one I was working on, Saas Wiki Collaboration.  The sixth project is for our capstone.  Seeing that I had only four weeks left, and still hadn&rsquo;t finished this Wiki project, I got a bit frazzled.  It is not like I haven&rsquo;t been putting in the time!</p>
+
+<p>On my mentoring call with Charlie last Friday I asked what the deal was.  There was no way I could finish all those projects and have time for my capstone.  My previous mentor had said that I only needed to pick one if I wanted to spend more time on the capstone project.  Luckily, Charlie confirmed that the dashboard was a bit confusing.  Students have the option to do more than one project before their capstone, but it is not required.</p>
+
+<p>That made me feel a bit better, but I still needed to wrap up this Wiki project.  The main reason I took this course was to work on my capstone and have help when/where I needed via the mentorship and Office Hours Chat room.  Please don&rsquo;t get me wrong, I have learned a lot via the program, but my main goal is to work on my personal project.</p>
+
+<p>With some &lsquo;external&rsquo; help, I was able to wrap up this Wiki project.  At least I believe it to be done according to the original requirements.  I even was able to get the Stripe intergration to work, with tests!  I&rsquo;ll have another blog post regarding the external help &ndash; stay tuned!</p>
+
+<p>I have another mentoring call on Monday &ndash; 05/12/14.  We should be able to discuss my capstone project and get an idea of how to get started.  The nice thing about the Saas Wiki project is that there are a lot of components of that app which will apply to my capstone project.</p>
+
+<p>Stay tuned for more information regarding my experience at <a href="http://www.bloc.io">Bloc.io</a>  I will be publishing an overview of the program at the conclusion of enrollment.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[3 Noobs at Lillys]]></title>
@@ -143,31 +182,6 @@ jfhogarty@Serenity:(source+*-)$
 </code></p>
 
 <p>So I had to figure out how to fix my prompt.  It wasn&rsquo;t too hard, just an edit to my ~/.bashrc file.  In my next post I will review my experience of the first day of the conference.  Stay tuned.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[My Ancient City Ruby Pre-Experience 2014]]></title>
-    <link href="http://hogihung.github.io/blog/2014/04/05/my-ancient-city-ruby-pre-experience/"/>
-    <updated>2014-04-05T09:23:52-04:00</updated>
-    <id>http://hogihung.github.io/blog/2014/04/05/my-ancient-city-ruby-pre-experience</id>
-    <content type="html"><![CDATA[<p>Yesterday was the conclusion of Ancient City Ruby 2014.  But I&rsquo;d like to take us back in time a few days and review how my experience went.  For me, the journey began on the early morning of Tuesday, April 1st.  What I am about to say is not an Aprils Fool joke, though I did get fooled Tuesday morning by Sphero and the selfieBot.</p>
-
-<p>Every Tuesday, Hashrocket hosts an event called &ldquo;Code &amp; Coffee.&rdquo;  On a normal day of C&amp;C I will see some of the regulars &ndash; Micah, Johnny, DL, Eugene and Stuart. (Hope I spelled those names correctly!)  And sometimes there will be a new person &ndash; I was the new person a few months back.  But when I saw this guy walk in, he had a look of familiarity.  In my mind I knew the face, but not the name.  He walked over to the table where several of us had our laptops open, and introducted himself as Justin Searls.  WAT?  No way, one of the panelist is at C&amp;C and he is talking to me?</p>
-
-<p>Let&rsquo;s go back in time a few days prior to the event. I was checking out Twitter and saw that one of the panelist, someone who I look up to in a huge way, was asking if anyone wanted to share a cab ride from JAX to the venue in St. Augustine.  So I took a chance and offered to transport this panelist, Katrina Owen, from the Airport to St. Augustine.  Honestly I wasn&rsquo;t sure if there would be a response.  My experience with Twitter, for the most part, is many people want a horde of followers, but they seldom respond when a follower, me for example, tweets them.</p>
-
-<p>I should have remembered that this is the Ruby community and they are much more friendly and responsive.  Katrina accepted my offer and I was like a kid that just learned that his parents are taking him to Disney.  But wait, there is more!  Another of the panelist was looking for a ride so the offer was extended.  Surely I wouldn&rsquo;t be so lucky to have two gurus in my vehicle.  Offer Accepted!  The second panelist to brighten my day was Ben Lovell.</p>
-
-<p>With what appeared to be luck on my side, I decided to go for a trifecta.  I sent an email to Aaron Patterson asking if he needed a ride.  How cool would that have been to have three gurus to hang with?  But the Ruby gods clearly thought I was pushing my luck.  I was priveledged enough to have two gurus to share some time with.</p>
-
-<p>Fast forward a bit in time to Tuesday late afternoon.  I finished with some work for my day job and headed to the airport.  I was still in a state of slight disbelief.  Would these two panelist actually be at the airport and let me have the privelege of transporting them?  Ben&rsquo;s flight was a little delayed, but it actually worked out better for me.  I got the text message that they had their luggage and were ready for pickup at the B pickup area.  As I rolled up to the curb, my slight feelings of disbelief sub-sided and my internal flame of happiness was a well, &ldquo;flame on!&rdquo;</p>
-
-<p>In a way, I wished that the drive time from JAX to the hotel(s) in St. Augustine was longer.  It was great to have Katrina and Ben all to myself.  Perhaps a bit selfish on my part, but I really did enjoy their company and having a casual conversation.</p>
-
-<p>I&rsquo;ve decided to break up my experience into several parts, with this being the first.  I will next talk about how my experience went with the workshop I signed up for &ndash; Vim with Jon and Micah.  After that, I&rsquo;ll chat a bit about how the main days, Thursday and Friday, went at Ancient City Ruby 2014.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>

@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-04-22T08:08:46-04:00</updated>
+  <updated>2014-05-11T18:01:15-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,45 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Enter the 4th Block]]></title>
+    <link href="http://hogihung.github.io/blog/2014/05/11/enter-the-4th-block/"/>
+    <updated>2014-05-11T18:05:24-04:00</updated>
+    <id>http://hogihung.github.io/blog/2014/05/11/enter-the-4th-block</id>
+    <content type="html"><![CDATA[<p>Picking up from where I left off with my block experience (see previous post, Week 2 and a half at Bloc,) a lot of good things, and some bad things, have occurred.  I had finished, what was called at the time, the third block, which included lessons on RSpec, Testing Users and both creating and destroying using Ajax.</p>
+
+<p>The end of Block Three took me a bit longer to complete compared to how I progressed through the first two blocks.  The material in the third block was new to me.  It was during the end of this block, and creeping into the beginning of block four that I began to have issues with my mentor.  In the first two blocks, since I didn&rsquo;t need much help, I didn&rsquo;t mind that our sessions tended to be brief.  Usually they ran up to 10 minutes.  But our sessions are booked for 30 minutes.</p>
+
+<p>My mentor during this time had missed a some meetings and had asked me to reschedule a few times.  I&rsquo;m flexible so I didn&rsquo;t see an issue.  But there was one time that I needed to reschedule and the mentor wouldn&rsquo;t work with me to make up the time.  Time much needed as I was having trouble with the project I had selected in Block Four &ndash; Saas Wiki Collaboration Tool.  I was getting very frustrated.</p>
+
+<p>I reached out to student coordinator at Bloc, Karen, and discussed the issues I was having.  I explained that in the beggining I had gotten ahead, but now with all the problems I was encountering with this mentor, I was getting behind.  And I felt it very disrepectful that I was asked on several occasions to modify my schedule for him, but the one time I needed a re-schedule, he didn&rsquo;t care.</p>
+
+<p>Karen helped me out and let me pick out a new mentor.  She said that they would add a week to my enrollment to help make up for some of the lost time.  (Think I need to check on that because it doesn&rsquo;t look like they added a week.)  The new mentor, Charlie, was a huge improvment.  Never did I feel like he was trying to get me off the phone.  In fact, on several calls we went over the scheduled 30 minutes.</p>
+
+<p>While working with the new mentor, Charlie, has been a much better experience, I feel that there is something missing from the program.  Although it is said that students will do pair programming and testing, I don&rsquo;t find either to come near what I was expecting.  It may be that my expectations are set to high from what the folks at Bloc had planned to offer.  I can understand that they have a range of differently skilled students.  I don&rsquo;t think I&rsquo;m far off in saying that most newbies to this program probably don&rsquo;t care as much about testing as I do.</p>
+
+<p>I find this mediocre approach to testing to transcend into the help one would get in the Office Hours Chat room.  I&rsquo;ll provide a brief example.  I was stuck on how to write a test that would make sure that any user, other than a logged in user, would not be able to access the ability to upgrade a users account by direct url navigation.  When I posed my question the answer I got was that I should use Pundit&rsquo;s policies and don&rsquo;t display the upgrade button unless the user is logged in and allowed to upgrade.</p>
+
+<p>I had explained that I had already written tests for that, and the code to make the tests green, but I wanted to ensure that a malicous user would not be able to access the url for an upgrade directly.  The short answer I got was &ldquo;&hellip;well the users shouldn&rsquo;t do that.&rdquo;  Yeah, well credit card thieves should not steal peoples credit card info and identies either, but I&rsquo;m sure the credit card companies do whatever they can to protect against those thieves.</p>
+
+<p>I really don&rsquo;t think the program was meant to take testing as seriously as I am.  It seems the program gives one just enough to say, &ldquo;&hellip; yeah I know how to test with RSpec.&rdquo;  Although I&rsquo;m happy with my mentor Charlie, I felt a bit frustrated on our calls when trying to work through testing issues.  So frustrated in fact that I stopped testing the proper way and just worked on trying to complete the assignment.</p>
+
+<p>Bloc changed the student dashboard and I got really worried.  I was reviewing where I was in the program and the dashboard was telling me that I was behind.  The dashboard lists 5 projects, including the one I was working on, Saas Wiki Collaboration.  The sixth project is for our capstone.  Seeing that I had only four weeks left, and still hadn&rsquo;t finished this Wiki project, I got a bit frazzled.  It is not like I haven&rsquo;t been putting in the time!</p>
+
+<p>On my mentoring call with Charlie last Friday I asked what the deal was.  There was no way I could finish all those projects and have time for my capstone.  My previous mentor had said that I only needed to pick one if I wanted to spend more time on the capstone project.  Luckily, Charlie confirmed that the dashboard was a bit confusing.  Students have the option to do more than one project before their capstone, but it is not required.</p>
+
+<p>That made me feel a bit better, but I still needed to wrap up this Wiki project.  The main reason I took this course was to work on my capstone and have help when/where I needed via the mentorship and Office Hours Chat room.  Please don&rsquo;t get me wrong, I have learned a lot via the program, but my main goal is to work on my personal project.</p>
+
+<p>With some &lsquo;external&rsquo; help, I was able to wrap up this Wiki project.  At least I believe it to be done according to the original requirements.  I even was able to get the Stripe intergration to work, with tests!  I&rsquo;ll have another blog post regarding the external help &ndash; stay tuned!</p>
+
+<p>I have another mentoring call on Monday &ndash; 05/12/14.  We should be able to discuss my capstone project and get an idea of how to get started.  The nice thing about the Saas Wiki project is that there are a lot of components of that app which will apply to my capstone project.</p>
+
+<p>Stay tuned for more information regarding my experience at <a href="http://www.bloc.io">Bloc.io</a>  I will be publishing an overview of the program at the conclusion of enrollment.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[3 Noobs at Lillys]]></title>
@@ -888,31 +927,6 @@ or if Ruby is in a different location on a machine other than yours, you can use
 <p>Wrapping up, I want to share a few more resources.  Although these are not directly related to Ruby or Rails, they do fit in with expanding ones education in programming.  First, I really want to get better with Vim and you can watch free screencasts on vim over at: <a href="http://vimcasts.org/">http://vimcasts.org/</a></p>
 
 <p>I&rsquo;m still not very comfortable around JavaScript and CoffeeScript so I like these two sites:  <a href="http://coffeescript.org">http://coffeescript.org</a> and <a href="http://jsforcats.com/">http://jsforcats.com/</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Introduction]]></title>
-    <link href="http://hogihung.github.io/blog/2014/02/08/introduction/"/>
-    <updated>2014-02-08T20:01:25-05:00</updated>
-    <id>http://hogihung.github.io/blog/2014/02/08/introduction</id>
-    <content type="html"><![CDATA[<p>Welcome to my blog.  I&rsquo;m just an old guy that is trying to learn new tricks every day.  Well, I&rsquo;m an old guy in the sense that my daughter came up to me one day and asked if I had used quills to write with when I was in school.  Though I did use a quill in art class it wasn&rsquo;t because that is all we had &ndash; it was just to illustrate how the tool worked.</p>
-
-<p>There is a saying along the lines of <em>&ldquo;You can&rsquo;t teach an old dog new tricks.&rdquo;</em>  I don&rsquo;t really believe this and I thought I&rsquo;d twist the words a bit and use it as a catchy domain name, thus &ndash; OldGuyNewTrick.com</p>
-
-<p>I don&rsquo;t consider myself old as a mid-forties guy, but for keeping with the fun, I&rsquo;ll play the role of an old guy and the context of a &lsquo;trick&rsquo; is me learning how to code in Ruby and Rails.  Well actually web development in general, but the focus is on Ruby and Rails.</p>
-
-<p>I will leverage this blog to document my journey and share my experiences.  Years ago I had toyed with blogs and tools like WordPress.  I really hadn&rsquo;t given any thought to starting a new blog until I heard several well known people in the Ruby community, for example Ben Orenstein, suggest that if one is a programmer, they should have a blog.</p>
-
-<p>Will anyone ever read this?  Why have a blog?  At first I disagreed with them and wasn&rsquo;t going to do it.  But it was like the universe was talking to me.  The topic of having a blog kept coming up in conversations, podcasts, and screencasts.  And I had a thought &ndash; even if no one reads this but me, it will still be useful.  By writing down my experiences I will have a good reference to look back on.  I may figure out a solution to a problem this week, and have a similar one a year from now.  But being an old guy, I may not remember, so I can refer back to this blog.</p>
-
-<p>I am not well known in the programming community, but I plan on making a dent in the community.  On twitter and github I go by hogihung.  I wouldn&rsquo;t get all giddy and jump over to GitHub to see what I&rsquo;ve done &ndash; you&rsquo;ll be disappointed.  Remeber, I&rsquo;m new at this.  All I have is learning demos up there at the moment.</p>
-
-<p>Ho Gi Hung is my Chinese name and I tend to use it as my internet persona.  My given name is John F. Hogarty, glad to meet you.</p>
-
-<p style="text-align:center;"><img src="http://hogihung.github.io/images/avatar_jh.jpg" width="80" alt="My Avatar" /></p>
-
-<p>One last item to note &ndash; this blog is created using Octopress and hosted on GitHub.  I&rsquo;m still learning how all this works, so please bear with me as I work out the kinks.  :)</p>
 ]]></content>
   </entry>
   
