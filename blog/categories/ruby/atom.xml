@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-05-11T18:01:15-04:00</updated>
+  <updated>2014-07-24T12:56:54-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Wrap Up - Bloc Experience]]></title>
+    <link href="http://hogihung.github.io/blog/2014/07/24/wrap-up-bloc/"/>
+    <updated>2014-07-24T12:05:14-04:00</updated>
+    <id>http://hogihung.github.io/blog/2014/07/24/wrap-up-bloc</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been bad.  I let myself get consumed by my attendance of the on-line course at Bloc, and spending a lot of after-work-hours working on my personal project.  I have neglected my writing, and I apologize for my absence.</p>
+
+<p>Earlier today I received notification from Disquis that someone, Nalani, had submitted a comment.  I am grateful for that comment as it reminded me of absence from this blog.  So with that nice kick-in-the-pants, let&rsquo;s move forward.</p>
+
+<p>I completed my on-line training of the Bloc.io course on June 9th 2014.  Overall I was satisfied with the training and can confidently recommend it to others, depending on their situation.  What?</p>
+
+<p>Bloc is not for everyone.  The first barrier to overcome is the cost.  I believe I got in before the price increase so the tuition was around $4250 if memory serves me correctly.  I believe the price to be fair for what you get.  However, I would not suggest that anyone plop down that money if they are currently struggling financially.</p>
+
+<p>Depending on your employment needs, Bloc may not be for you.  For me, I took the course to better my programming skills and to assist me move forward with my personal project.  But I would not say that what I learned would allow me to get a job similar to what I have now, at my current pay rate.  I think the education would help one land a junior-developer job or an internship at a dev shop.</p>
+
+<p>I&rsquo;m not an expert, but from my experience with local dev shops here, there is a heavy emphasis on testing and Test-Drive-Development(TDD.)  And when I took the Bloc course, that area was lacking.  You can see my previous post for more information.</p>
+
+<p>Yesterday I received an email from Bloc that indicated that they improving the Full Stack program by adding more testing to the course.  Not sure if it was my feedback, or feedback from many of us past students, but I&rsquo;m glad to see that they continuously improve on their product.</p>
+
+<p>Is Bloc for you?  Maybe.  If you are like me, someone who has a day job and wanted to improve their programming skills, while trying to bring your product idea to life, then yes.  Maybe you are someone with a great idea, a founder, and want to get a better grip on what it will take to produce your product.  I think Bloc can help you there.  If you are trying to break ground in the industry and land your first job or internship, then yes, I think Bloc is for you.  If you need the extra hand holding while learning the basics, then yes I think you will get value from the Bloc program.</p>
+
+<p>I do want to end with a note about the mentorship, and you may have read into my words at the end of the last paragraph.  If you are seeking what I consider advance knowledge and/or assistance, you may be dissapointed.  While I found the mentorship to be very helpful at the beginning and middle of my training, I was dissapointed at the end when it came to my capstone project.  Fortunately for me, about 8 weeks in to my Bloc training, I met a guy, Shaun, who became my &lsquo;external-mentor.&rsquo;  If not for him, I would not have been able to complete some of the Bloc assignments the way I wanted &ndash; via TDD.  Sure I could have completed them, but I want to develop by writing tests first.  Shaun has also helped me with my personal project and taken it so much farther than I could have done on my own.  What I&rsquo;m trying to end with is this &ndash; no matter if you take the training at Bloc or else where, find a mentor who will spend the time with you to help you learn.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Enter the 4th Block]]></title>
@@ -130,58 +157,6 @@
 <p>Day one didn&rsquo;t actually end after Ben&rsquo;s talk.  That evening some of the conference attendees went on the Ghost Ride, while the rest of us got to do the Pirate Ship adventure.  Even though I live in Jacksonville, which isn&rsquo;t too far from St. Augustine, I had not ever been on the Pirate Ship.  It was a lot of fun.  I just wish that I had my heavier hoodie and it got a bit cold on the water.  On the ship I got to meet a few other people from Hash Rocket, including Paul Elliott.  I had heard Paul&rsquo;s voice on several episodes of the Ruby5 podcast, and it was nice to meet him in person.</p>
 
 <p>All-in-all, day one was a big hit for me.  Oh, I almost forgot!  At the beginning of the day, before the first talk started, I got to meet and shake hands with Aaron Patterson.  Yeah, you could say I&rsquo;m a fanboi of his.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Ancient City Ruby - Workshop 2014]]></title>
-    <link href="http://hogihung.github.io/blog/2014/04/05/ancient-city-ruby-workshop/"/>
-    <updated>2014-04-05T10:38:58-04:00</updated>
-    <id>http://hogihung.github.io/blog/2014/04/05/ancient-city-ruby-workshop</id>
-    <content type="html"><![CDATA[<p>In my last post I discussed events prior to Ancient City Ruby 2014.  Now it is time to discuss my experience at the actual workshop and conference.  The conference part was spread across two days, Thursday and Friday, and there was an optional workshop day &ndash; Wednesday.  There were three different workshops offered:</p>
-
-<ul>
-<li>Refactoring Rails by Katrina Owen</li>
-<li>Rock@Vim by Jon Allured and Micah</li>
-<li>Ruby on Rails: First Expedition by Beverly Nelson</li>
-</ul>
-
-
-<p>I had a tough decision to make.  I really wanted to attend Katrina&rsquo;s workshop, but I don&rsquo;t believe my skill set is good enough at this time to have been able to participate.  I thought that I&rsquo;d surely slow the class down.  On the other hand, I think I&rsquo;m beyond the Ruby on Rails: First Expedition level.  I am horrible at Vim, so it seemed obvious that I should sign up for the Rock@Vim workshop, and I did.</p>
-
-<p>The Vim workshop was taught by two Hashrocket employees, Jon and Micah.  I&rsquo;d never met Jon before as he works out of the Chicago office.  But I have met Micah before, and he has helped me out a few times when I have gotten stuck or had questions.  Having some familiarity with a teacher was a plus.</p>
-
-<p>I really wasn&rsquo;t sure what to expect for the workshop, or how we would approach the topic.  I just want to get better at Vim.  Primarily, being better at vim would help at my day job as we ssh to most of our devices.  But I also want to try pair programming and from what I&rsquo;ve researched, one really needs to know vim.</p>
-
-<p>The workshop started off good.  Jon and Micah introduced us to dotmatrix:</p>
-
-<p><code>
-git clone https://github.com/hashrocket/dotmatrix.git
-</code></p>
-
-<p>I don&rsquo;t know all the ins and outs but I guess I would summarize it as saying that by using dotmatrix I was able to configure my environment to by more &ldquo;HashRocketey&rdquo;  From the README.md file:</p>
-
-<p>&ldquo;Dotmatrix is a collection of dotfiles used at Hashrocket to customize various development tools. This project is the culmination of many years worth of tinkering with our favorite tools to get them to behave just right. We think using dotmatrix makes working with these tools more pleasant and hope you will too!&rdquo;</p>
-
-<p>There were a few steps involved to get everything up and running, but I won&rsquo;t bore you with those details.  After the class was all setup, or at least we thought we were setup, we moved on to cloning a practice Rails project which we were going to use in our lessons for vim.</p>
-
-<p>During part of the lesson I experienced an issue.  For some reason I was getting hung up with some issues involving Postgres.  I started to fall behind the class as I was trouble shooting.  Finally I just asked &ndash; &ldquo;&hellip; can I switch this project to SQLite to get beyond these problems?&rdquo;  Jon agreed that would be a good idea.  So I switched and tried to catch up.</p>
-
-<p>It wasn&rsquo;t going well for me.  Working with my Postgres issue caused me to miss some key instructions and details that the rest of the class had observed.  Instead of fighting to try to figure things out, I just sat back and tried to focus.  I guess Micah saw that I was having some trouble so he came over to assist.  When I explained my situation he helped to get me back on track and also has Jon show me some stuff that helped to get me caught up.</p>
-
-<p>At about the time I got caught up, we were quickly coming upon lunch time.  There was only four of us students plus Jon and Micah.  So we all went out to lunch together at A1A Ale Works.  It was a good time.  The advantage of a small class enabled us to be able to get to know each other and see what each others experience was like.</p>
-
-<p>After lunch we were back at the brain fillage.  I was starting to get a bit tired, and it seemed like the topics were getting harder.  But we pressed on and learned some more neat things with using vim.  I learned enough during the workshop to make me want to learn more.  I will continue my vim learning, using what I absorbed in the workshop as a foundation, and utilize other resources like Vim Genius (<a href="http://vimgenius.com/">http://vimgenius.com/</a>) and the cool screencast series Vimcasts (<a href="http://vimcasts.org/">http://vimcasts.org/</a>).  Also, I picked up a copy of &ldquo;Practical Vim: Edit Text at the Speed of Thought,&rdquo; by Drew Neil who also produces the vimcasts.</p>
-
-<p>Although I had some tough, frustrating moments, overall I enjoyed the Vim workshop.  Whether Jon knew it or not, he gave me a homework assignment.  As I was practicing at home that evening, I noticed that my prompt in the terminal was really long.  I prefer the following format:</p>
-
-<p><code>
-jfhogarty@Serenity:(source+*-)$
-</code></p>
-
-<p>So I had to figure out how to fix my prompt.  It wasn&rsquo;t too hard, just an edit to my ~/.bashrc file.  In my next post I will review my experience of the first day of the conference.  Stay tuned.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Education | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/education/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-05-11T18:01:15-04:00</updated>
+  <updated>2014-07-24T12:56:54-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Wrap Up - Bloc Experience]]></title>
+    <link href="http://hogihung.github.io/blog/2014/07/24/wrap-up-bloc/"/>
+    <updated>2014-07-24T12:05:14-04:00</updated>
+    <id>http://hogihung.github.io/blog/2014/07/24/wrap-up-bloc</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been bad.  I let myself get consumed by my attendance of the on-line course at Bloc, and spending a lot of after-work-hours working on my personal project.  I have neglected my writing, and I apologize for my absence.</p>
+
+<p>Earlier today I received notification from Disquis that someone, Nalani, had submitted a comment.  I am grateful for that comment as it reminded me of absence from this blog.  So with that nice kick-in-the-pants, let&rsquo;s move forward.</p>
+
+<p>I completed my on-line training of the Bloc.io course on June 9th 2014.  Overall I was satisfied with the training and can confidently recommend it to others, depending on their situation.  What?</p>
+
+<p>Bloc is not for everyone.  The first barrier to overcome is the cost.  I believe I got in before the price increase so the tuition was around $4250 if memory serves me correctly.  I believe the price to be fair for what you get.  However, I would not suggest that anyone plop down that money if they are currently struggling financially.</p>
+
+<p>Depending on your employment needs, Bloc may not be for you.  For me, I took the course to better my programming skills and to assist me move forward with my personal project.  But I would not say that what I learned would allow me to get a job similar to what I have now, at my current pay rate.  I think the education would help one land a junior-developer job or an internship at a dev shop.</p>
+
+<p>I&rsquo;m not an expert, but from my experience with local dev shops here, there is a heavy emphasis on testing and Test-Drive-Development(TDD.)  And when I took the Bloc course, that area was lacking.  You can see my previous post for more information.</p>
+
+<p>Yesterday I received an email from Bloc that indicated that they improving the Full Stack program by adding more testing to the course.  Not sure if it was my feedback, or feedback from many of us past students, but I&rsquo;m glad to see that they continuously improve on their product.</p>
+
+<p>Is Bloc for you?  Maybe.  If you are like me, someone who has a day job and wanted to improve their programming skills, while trying to bring your product idea to life, then yes.  Maybe you are someone with a great idea, a founder, and want to get a better grip on what it will take to produce your product.  I think Bloc can help you there.  If you are trying to break ground in the industry and land your first job or internship, then yes, I think Bloc is for you.  If you need the extra hand holding while learning the basics, then yes I think you will get value from the Bloc program.</p>
+
+<p>I do want to end with a note about the mentorship, and you may have read into my words at the end of the last paragraph.  If you are seeking what I consider advance knowledge and/or assistance, you may be dissapointed.  While I found the mentorship to be very helpful at the beginning and middle of my training, I was dissapointed at the end when it came to my capstone project.  Fortunately for me, about 8 weeks in to my Bloc training, I met a guy, Shaun, who became my &lsquo;external-mentor.&rsquo;  If not for him, I would not have been able to complete some of the Bloc assignments the way I wanted &ndash; via TDD.  Sure I could have completed them, but I want to develop by writing tests first.  Shaun has also helped me with my personal project and taken it so much farther than I could have done on my own.  What I&rsquo;m trying to end with is this &ndash; no matter if you take the training at Bloc or else where, find a mentor who will spend the time with you to help you learn.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Enter the 4th Block]]></title>
@@ -153,37 +180,6 @@ jfhogarty@Serenity:(source+*-)$
 </code></p>
 
 <p>So I had to figure out how to fix my prompt.  It wasn&rsquo;t too hard, just an edit to my ~/.bashrc file.  In my next post I will review my experience of the first day of the conference.  Stay tuned.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Week 2 and a half at Bloc]]></title>
-    <link href="http://hogihung.github.io/blog/2014/03/29/week-2-and-a-half-at-bloc/"/>
-    <updated>2014-03-29T10:02:23-04:00</updated>
-    <id>http://hogihung.github.io/blog/2014/03/29/week-2-and-a-half-at-bloc</id>
-    <content type="html"><![CDATA[<p>The first week of my training at Bloc went by very fast. For the most part it was a review of information/knowledge I had already gained, but was still worth it.  I had wanted to create another blog post earlier, but the completion of the second block took longer than I had anticipated.</p>
-
-<p>So here we are, about about 2.5 weeks in. The second block, titled Rails Foundation, should take one about 40 hours.  At least that is the estimated time for completion.  If I wasn&rsquo;t working full-time, maybe I could have completed this block in one week.</p>
-
-<p>The Rails Foundation block is composed of 20 checkpoints.  We learned a lot of concepts, and habits in those checkpoints.  There was some review for me, for example the lesson introduced the Devise gem.  I&rsquo;ve played with this a little bit so had some comfort with that checkpoint.  Though I did learn some new things related to Devise.</p>
-
-<p>A totally new experience for me was when did the Authorization checkpoint, and was introduced to the Pundit gem.  I would say that Pundit is a little bit like CanCan.  I&rsquo;ve dabbled with CanCan a little bit, but I find Pundit to be pretty good.  I&rsquo;ll have a tough choice to make when it comes time for my Capstone project.  Should I go with Pundit, or revist CanCan (or CanCanCan.)</p>
-
-<p>Another topic that I found useful, because it helped me with a task at my day job, was the lesson on Seeding.  While our main environment at work is Perl, I&rsquo;m slowing trying to sneak in some Ruby and Rails.  Leveraging some of the knowledge gained in the Seeding lesson, I was able to expand on that knowledge and compose my first rake task for populating my models with data in CSV files.  Ok, I&rsquo;m a bit off topic, steer back John!</p>
-
-<p>There were two area where my progress slowed to a crawl in the second block.  The first was related to uploading images.  Recently Bloc added a Rails 4.x track and it looks like some of the lesson code examples are missing.  I wasn&rsquo;t able to see my Choose File option for uploading an image.  A trip to the Chat Room and a small wait for my turn, and my issue was solved by Xander.  Xander is great!  Everytime I&rsquo;ve had a question, he seems to be in the chat room and helps me out.</p>
-
-<p>The second area I had trouble with was nesting.  I&rsquo;ll admit that I&rsquo;m still 100% solid with what I&rsquo;ve learned about nesting, but I&rsquo;m confident things will become clearer as I see and utilize more code.  During one of the lessons related to this nesting of Topics, Posts and Comments, I got stuck real bad.  I went to the chat room for help, but it was just at the time for that shift to end for the day.  Xander stayed for a few minutes and helped a lot.  But I was still stuck.</p>
-
-<p>I was worried that all the changes I had made may have broken something.  So I fired off an email to my mentor to let him know I was stuck and to be prepared for a nice long chat the next day when we were scheduled to meet.  We meet the next day and he helped get me fixed in less than 5 minutes.  My eyes were so focused around the code and didn&rsquo;t &ldquo;see&rdquo; the code.  I had several silly mistakes.  For example I used the plural version instead of singular for a particular item/method.  Or I had a misplaced period.  And other issue, I had the order of a ) and a period mixed up.  Simple things for the trained eye.  It was great to have the mentor there to help me through what I thought was a major <em>fsk</em> up on my part.</p>
-
-<p>Needless to say, I made some more punctuation type mistakes on the remaing checkpoints in this block.  But since I suffered so much earlier in the block, I was much more aware of what to look for.  The hard part for me now is when I see an error message, and know basically what is wrong, I don&rsquo;t yet have the experience to provide the solution.  But I&rsquo;m eagerly working at improving my problem solution skills.  :)</p>
-
-<p>As I write this post, again about 2.5, well maybe 2.75 weeks in, I&rsquo;m now on the third Block &ndash; Features / Testing / Javascript.  This block is also estimated to take 40 hours.  There are 10 checkpoints and I&rsquo;ve completed the first 4 so far.  But now I&rsquo;m really entering an area of unfamiliarity.  Upcoming in this block is RSpec and Ajax.  Two areas that have close to zero amount of knowledge and experience.</p>
-
-<p>Stay tuned for my next update.  This coming week I will be going to Ancient City Ruby so I&rsquo;m not sure if I&rsquo;ll have the time to complete the third block.  But once I have completed it, I will post my thoughts here.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>
