@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-08-19T09:56:31-04:00</updated>
+  <updated>2014-08-19T09:59:37-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -18,9 +18,7 @@
     <link href="http://hogihung.github.io/blog/2014/08/19/oracle-instant-client-osx/"/>
     <updated>2014-08-19T08:30:25-04:00</updated>
     <id>http://hogihung.github.io/blog/2014/08/19/oracle-instant-client-osx</id>
-    <content type="html"><![CDATA[<h1>Oracle Instant Client &ndash; Mac OSX</h1>
-
-<p>I recently had the joy of installing Oracle 11g Express Edition on my home server.  That server runs CentOS 6.x as that is the flavor of Linux we use at my day job.  The server install is another story I will cover in the future, but today I would like to share how I got my laptop and development environment setup to connect to the Oracle Database.</p>
+    <content type="html"><![CDATA[<p>I recently had the joy of installing Oracle 11g Express Edition on my home server.  That server runs CentOS 6.x as that is the flavor of Linux we use at my day job.  The server install is another story I will cover in the future, but today I would like to share how I got my laptop and development environment setup to connect to the Oracle Database.</p>
 
 <p>Why in the world would I want to use Oracle you ask?  Well I don&rsquo;t really want to.  However, at the day job, that is what we use. And I wanted a more flexible development environment.  Due to limited resources, our &lsquo;dev&rsquo; database is also our disaster recovery database.  &lsquo;Nuff said?</p>
 
