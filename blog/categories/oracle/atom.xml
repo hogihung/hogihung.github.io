@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Oracle | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/oracle/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-08-19T09:54:26-04:00</updated>
+  <updated>2014-08-19T09:56:31-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Day Two]]></title>
+    <title type="html"><![CDATA[Oracle Instant Client - Mac OSX]]></title>
     <link href="http://hogihung.github.io/blog/2014/08/19/oracle-instant-client-osx/"/>
     <updated>2014-08-19T08:30:25-04:00</updated>
     <id>http://hogihung.github.io/blog/2014/08/19/oracle-instant-client-osx</id>
@@ -140,7 +140,7 @@ source ~/.zprofile
 <p>We are almost there &ndash; go take a break if you need to.  Before we update our Gemfile to add the two gems I listed earlier, let&rsquo;s first test and make sure we can connect.  We will use sqlplus to perform that test, which is a tool that was installed as part of the instant client.</p>
 
 <p>```
-➜  ~  sqlplus <a href="&#109;&#97;&#105;&#x6c;&#116;&#111;&#58;&#x73;&#121;&#115;&#116;&#x65;&#109;&#64;&#x31;&#57;&#x32;&#x2e;&#x31;&#x36;&#56;&#x2e;&#x31;&#46;&#49;&#52;">&#115;&#x79;&#115;&#x74;&#101;&#109;&#x40;&#x31;&#57;&#x32;&#x2e;&#49;&#x36;&#x38;&#46;&#x31;&#46;&#49;&#x34;</a></p>
+➜  ~  sqlplus <a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#x3a;&#x73;&#x79;&#115;&#x74;&#101;&#109;&#64;&#49;&#x39;&#50;&#x2e;&#x31;&#x36;&#x38;&#46;&#49;&#46;&#49;&#52;">&#x73;&#121;&#x73;&#116;&#101;&#x6d;&#x40;&#49;&#57;&#50;&#46;&#49;&#x36;&#x38;&#46;&#49;&#x2e;&#49;&#x34;</a></p>
 
 <p>SQL*Plus: Release 11.2.0.4.0 Production on Tue Aug 19 09:49:06 2014</p>
 
