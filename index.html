@@ -9,7 +9,7 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="I&rsquo;ve been bad. I let myself get consumed by my attendance of the on-line course at Bloc, and spending a lot of after-work-hours working on my &hellip;">
+  <meta name="description" content="Oracle Instant Client &ndash; Mac OSX I recently had the joy of installing Oracle 11g Express Edition on my home server. That server runs CentOS 6.x &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,229 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/19/oracle-instant-client-osx/">Day Two</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-19T08:30:25-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Oracle Instant Client &ndash; Mac OSX</h1>
+
+<p>I recently had the joy of installing Oracle 11g Express Edition on my home server.  That server runs CentOS 6.x as that is the flavor of Linux we use at my day job.  The server install is another story I will cover in the future, but today I would like to share how I got my laptop and development environment setup to connect to the Oracle Database.</p>
+
+<p>Why in the world would I want to use Oracle you ask?  Well I don&rsquo;t really want to.  However, at the day job, that is what we use. And I wanted a more flexible development environment.  Due to limited resources, our &lsquo;dev&rsquo; database is also our disaster recovery database.  &lsquo;Nuff said?</p>
+
+<p>In order to get my ruby environment setup to work with this monster database, I need two gems:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem 'activerecord-oracle_enhanced-adapter', '~&gt; 1.5.0'
+</span><span class='line'>gem 'ruby-oci8', '~&gt; 2.1.0'</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="https://github.com/rsim/oracle-enhanced">Oracle Enhanced</a></p>
+
+<p>But I&rsquo;m getting ahead of myself.  Lets take two steps back.</p>
+
+<h2>Download some files</h2>
+
+<p>On my server I have installed Oracle 11g Express, and my laptop is fairly current and run OS X Mavericks &ndash; a 64bit Operating System.  So let&rsquo;s get the appropriate client.</p>
+
+<p>Download the required files from the Oracle Download site:
+<a href="http://www.oracle.com/technetwork/topics/intel-macsoft-096467.html">Oracle Client</a></p>
+
+<p>Note:  The following was learned by reviewing the blog over at: <a href="http://blog.codiez.co.za/2013/09/setup-oracle-instant-client-ruby-oci8-gem-mac/">codiez</a></p>
+
+<p>For me, I downloaded these files:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>instantclient-basic-macos.x64-11.2.0.4.0.zip
+</span><span class='line'>instantclient-sqlplus-macos.x64-11.2.0.4.0.zip
+</span><span class='line'>instantclient-sdk-macos.x64-11.2.0.4.0.zip</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Change to the directory where you downloaded the files
+(e.g. cd Downloads &ndash; assuming you are in your home directory)</p>
+
+<p>Unzip the three files:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>unzip -qq instantclient-basic-macos.x64-11.2.0.4.0.zip
+</span><span class='line'>unzip -qq instantclient-sqlplus-macos.x64-11.2.0.4.0.zip
+</span><span class='line'>unzip -qq instantclient-sdk-macos.x64-11.2.0.4.0.zip</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Change directories to the new one created by the unzipping:
+cd instantclient_11_2</p>
+
+<p>Perform the following steps:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir -p /usr/local/oracle/product/instantclient_64/11.2.0.4.0/bin
+</span><span class='line'>mkdir -p /usr/local/oracle/product/instantclient_64/11.2.0.4.0/lib
+</span><span class='line'>mkdir -p /usr/local/oracle/product/instantclient_64/11.2.0.4.0/jdbc/lib
+</span><span class='line'>mkdir -p /usr/local/oracle/product/instantclient_64/11.2.0.4.0/rdbms/jlib
+</span><span class='line'>mkdir -p /usr/local/oracle/product/instantclient_64/11.2.0.4.0/sqlplus/admin
+</span><span class='line'>mv ojdbc* /usr/local/oracle/product/instantclient_64/11.2.0.4.0/jdbc/lib/
+</span><span class='line'>mv x*.jar /usr/local/oracle/product/instantclient_64/11.2.0.4.0/rdbms/jlib/
+</span><span class='line'>mv glogin.sql /usr/local/oracle/product/instantclient_64/11.2.0.4.0/sqlplus/admin/login.sql
+</span><span class='line'>mv *dylib* /usr/local/oracle/product/instantclient_64/11.2.0.4.0/lib/
+</span><span class='line'>mv sdk /usr/local/oracle/product/instantclient_64/11.2.0.4.0/lib/sdk
+</span><span class='line'>mv *README /usr/local/oracle/product/instantclient_64/11.2.0.4.0/
+</span><span class='line'>mv * /usr/local/oracle/product/instantclient_64/11.2.0.4.0/bin/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next, we need to create and modify the tnsnames.org file:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir -p /usr/local/oracle/admin/network
+</span><span class='line'>
+</span><span class='line'>touch /usr/local/oracle/admin/network/tnsnames.ora
+</span><span class='line'>vim /usr/local/oracle/admin/network/tnsnames.ora
+</span><span class='line'>rubyrailssvr =
+</span><span class='line'>  (DESCRIPTION =
+</span><span class='line'>    (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.1.14)(PORT = 1521))
+</span><span class='line'>    (CONNECT_DATA = (SERVICE_NAME = XE))
+</span><span class='line'>  )
+</span><span class='line'>
+</span><span class='line'>rubyrailssvr.homenet.com =
+</span><span class='line'>  (DESCRIPTION =
+</span><span class='line'>    (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.1.14)(PORT = 1521))
+</span><span class='line'>    (CONNECT_DATA = (SERVICE_NAME = XE))
+</span><span class='line'>  )</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we need to get our environment setup. Create a .oracle_client file in your home directory:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>touch ~/.oracle_client
+</span><span class='line'>vim ~/.oracle_client
+</span><span class='line'>export ORACLE_BASE=/usr/local/oracle
+</span><span class='line'>export ORACLE_HOME=$ORACLE_BASE/product/instantclient_64/11.2.0.4.0
+</span><span class='line'>export PATH=$ORACLE_HOME/bin:$PATH
+</span><span class='line'>export DYLD_LIBRARY_PATH=$ORACLE_HOME/lib:$DYLD_LIBRARY_PATH
+</span><span class='line'>export TNS_ADMIN=$ORACLE_BASE/admin/network
+</span><span class='line'>export SQLPATH=$ORACLE_HOME/sqlplus/admin</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I use the bash shell at work, but have been working with zsh at home lately.  So below I show how to add the above oracle environment variables to both bash and zsh:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo "source ~/.oracle_client" &gt;&gt; ~/.bash_profile
+</span><span class='line'>source ~/.bash_profile
+</span><span class='line'>
+</span><span class='line'>echo "source ~/.oracle_client" &gt;&gt; ~/.zprofile
+</span><span class='line'>source ~/.zprofile</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Optional step &ndash; if needed, you may need to update your /etc/hosts file so that you can resolve the IP address of your server to a fully qualified domain name.  See the following example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>192.168.1.14    rubyrailssvr.homenet.com</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We are almost there &ndash; go take a break if you need to.  Before we update our Gemfile to add the two gems I listed earlier, let&rsquo;s first test and make sure we can connect.  We will use sqlplus to perform that test, which is a tool that was installed as part of the instant client.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>➜  ~  sqlplus system@192.168.1.14
+</span><span class='line'>
+</span><span class='line'>SQL*Plus: Release 11.2.0.4.0 Production on Tue Aug 19 09:49:06 2014
+</span><span class='line'>
+</span><span class='line'>Copyright (c) 1982, 2013, Oracle.  All rights reserved.
+</span><span class='line'>
+</span><span class='line'>Enter password:
+</span><span class='line'>
+</span><span class='line'>Connected to:
+</span><span class='line'>Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+</span><span class='line'>
+</span><span class='line'>SQL&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You should be able to connect now, though I have made a huge assumption.  I have assumed that your Oracle DB is currently configured to accept remote connections.</p>
+
+<p>Well that wraps up todays episode.  Get out there and &hellip;</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -655,64 +878,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/15/first-week-at-bloc/">First Week at Bloc</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-15T19:46:34-04:00" pubdate data-updated="true">Mar 15<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>About two weeks ago I was trying to decide which on-line web developer education solution I would enroll in.  The decision was not easy.  Along with the weekly time requirements, roughly 25 hours per week, the financial cost is nothing to shrug off.  In the end I choose Bloc (<a href="http://www.bloc.io">http://www.bloc.io</a>)</p>
-
-<p>My training at Bloc started this past Monday, March 10th.  The Bloc course runs about 12 weeks, broken down into four segments:</p>
-
-<pre><code>1.  Environment Setup / Programming with Ruby
-2.  Rails Foundation
-3.  Features/Testing/Javascript
-4.  Project Challenges
-</code></pre>
-
-<p>I&rsquo;ve just finished item 1 &ndash; Environment Setup / Programming with Ruby.  When I read the description of this section my first thought was, &ldquo;this should be easy.&rdquo;  I have been exploring Ruby and Rails for almost a year.  I&rsquo;ve installed RVM on several computers, worked with GitHub and Heroku, as well as several introductory tutorials.</p>
-
-<p>And many of sub-sections in this first track were a nice and quick completion for me.  But, through each sub-section, I did learn something new.  For example, while working on setting up an app on Heroku, I learned how to add support for New Relic.  I&rsquo;ve seen ads and mention of New Relic a lot while learning Rails but never took a look at it.  Now I&rsquo;ve had a nice gentle introduction.</p>
-
-<p>There are 20 sub-section to Environment Setup / Programming with Ruby.  I felt good and confident as I traversed through them one by one.  I was slowed down briefly in sub-section 14 &ndash; Arrays.  One of the exercises there introduced me to new code and techniques I had not yet experienced.  I love learning new stuff!</p>
-
-<p>As I rounded out this section, I found myself staring at my nemesis &ndash; Blocks.  I don&rsquo;t know why, but I seem to have a mental <em>block</em> when it comes to Blocks (as well as Procs and Lambdas.)  This section took me a bit and I had to reach out for help.</p>
-
-<p>In the Bloc program, each student has a mentor.  We have around 3 calls a week with our mentors.  When I got stuck it was after I had last talked with my mentor.  Not a problem &ndash; Bloc also has a staffed on-line chat room.  I popped in to the chat room and asked a question.  One of the staff there gave me a nudge.  After about 30 minutes I was still stuck.  I had gotten further, but still hadn&rsquo;t solved the problem.  Another question/discussion in the chat room and it became clear.  I was able to complete the lesson.  <strong>Happy Dance!</strong></p>
-
-<p>I look forward to my next call with my mentor (tomorrow) and starting my next section &ndash; Rails Foundation.  As I progress through each section I&rsquo;ll return here to provide updates.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -728,6 +893,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/08/19/oracle-instant-client-osx/">Day Two</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/24/wrap-up-bloc/">Wrap Up - Bloc Experience</a>
       </li>
     
@@ -741,10 +910,6 @@
     
       <li class="post">
         <a href="/blog/2014/04/07/ancient-city-ruby-2014-day-two/">Ancient City Ruby 2014 Day Two</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/06/ancient-city-ruby-2014-day-one/">Ancient City Ruby 2014 Day One</a>
       </li>
     
   </ul>

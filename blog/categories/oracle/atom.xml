@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Oracle | Old Guy, New Trick]]></title>
+  <link href="http://hogihung.github.io/blog/categories/oracle/atom.xml" rel="self"/>
+  <link href="http://hogihung.github.io/"/>
+  <updated>2014-08-19T09:54:26-04:00</updated>
+  <id>http://hogihung.github.io/</id>
+  <author>
+    <name><![CDATA[Ho Gi Hung]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Day Two]]></title>
+    <link href="http://hogihung.github.io/blog/2014/08/19/oracle-instant-client-osx/"/>
+    <updated>2014-08-19T08:30:25-04:00</updated>
+    <id>http://hogihung.github.io/blog/2014/08/19/oracle-instant-client-osx</id>
+    <content type="html"><![CDATA[<h1>Oracle Instant Client &ndash; Mac OSX</h1>
+
+<p>I recently had the joy of installing Oracle 11g Express Edition on my home server.  That server runs CentOS 6.x as that is the flavor of Linux we use at my day job.  The server install is another story I will cover in the future, but today I would like to share how I got my laptop and development environment setup to connect to the Oracle Database.</p>
+
+<p>Why in the world would I want to use Oracle you ask?  Well I don&rsquo;t really want to.  However, at the day job, that is what we use. And I wanted a more flexible development environment.  Due to limited resources, our &lsquo;dev&rsquo; database is also our disaster recovery database.  &lsquo;Nuff said?</p>
+
+<p>In order to get my ruby environment setup to work with this monster database, I need two gems:</p>
+
+<p><code>
+gem 'activerecord-oracle_enhanced-adapter', '~&gt; 1.5.0'
+gem 'ruby-oci8', '~&gt; 2.1.0'
+</code>
+<a href="https://github.com/rsim/oracle-enhanced">Oracle Enhanced</a></p>
+
+<p>But I&rsquo;m getting ahead of myself.  Lets take two steps back.</p>
+
+<h2>Download some files</h2>
+
+<p>On my server I have installed Oracle 11g Express, and my laptop is fairly current and run OS X Mavericks &ndash; a 64bit Operating System.  So let&rsquo;s get the appropriate client.</p>
+
+<p>Download the required files from the Oracle Download site:
+<a href="http://www.oracle.com/technetwork/topics/intel-macsoft-096467.html">Oracle Client</a></p>
+
+<p>Note:  The following was learned by reviewing the blog over at: <a href="http://blog.codiez.co.za/2013/09/setup-oracle-instant-client-ruby-oci8-gem-mac/">codiez</a></p>
+
+<p>For me, I downloaded these files:</p>
+
+<p><code>
+instantclient-basic-macos.x64-11.2.0.4.0.zip
+instantclient-sqlplus-macos.x64-11.2.0.4.0.zip
+instantclient-sdk-macos.x64-11.2.0.4.0.zip
+</code></p>
+
+<p>Change to the directory where you downloaded the files
+(e.g. cd Downloads &ndash; assuming you are in your home directory)</p>
+
+<p>Unzip the three files:</p>
+
+<p><code>
+unzip -qq instantclient-basic-macos.x64-11.2.0.4.0.zip
+unzip -qq instantclient-sqlplus-macos.x64-11.2.0.4.0.zip
+unzip -qq instantclient-sdk-macos.x64-11.2.0.4.0.zip
+</code></p>
+
+<p>Change directories to the new one created by the unzipping:
+cd instantclient_11_2</p>
+
+<p>Perform the following steps:</p>
+
+<p><code>
+mkdir -p /usr/local/oracle/product/instantclient_64/11.2.0.4.0/bin
+mkdir -p /usr/local/oracle/product/instantclient_64/11.2.0.4.0/lib
+mkdir -p /usr/local/oracle/product/instantclient_64/11.2.0.4.0/jdbc/lib
+mkdir -p /usr/local/oracle/product/instantclient_64/11.2.0.4.0/rdbms/jlib
+mkdir -p /usr/local/oracle/product/instantclient_64/11.2.0.4.0/sqlplus/admin
+mv ojdbc* /usr/local/oracle/product/instantclient_64/11.2.0.4.0/jdbc/lib/
+mv x*.jar /usr/local/oracle/product/instantclient_64/11.2.0.4.0/rdbms/jlib/
+mv glogin.sql /usr/local/oracle/product/instantclient_64/11.2.0.4.0/sqlplus/admin/login.sql
+mv *dylib* /usr/local/oracle/product/instantclient_64/11.2.0.4.0/lib/
+mv sdk /usr/local/oracle/product/instantclient_64/11.2.0.4.0/lib/sdk
+mv *README /usr/local/oracle/product/instantclient_64/11.2.0.4.0/
+mv * /usr/local/oracle/product/instantclient_64/11.2.0.4.0/bin/
+</code></p>
+
+<p>Next, we need to create and modify the tnsnames.org file:</p>
+
+<p>```
+mkdir -p /usr/local/oracle/admin/network</p>
+
+<p>touch /usr/local/oracle/admin/network/tnsnames.ora
+vim /usr/local/oracle/admin/network/tnsnames.ora
+rubyrailssvr =
+  (DESCRIPTION =</p>
+
+<pre><code>(ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.1.14)(PORT = 1521))
+(CONNECT_DATA = (SERVICE_NAME = XE))
+</code></pre>
+
+<p>  )</p>
+
+<p>rubyrailssvr.homenet.com =
+  (DESCRIPTION =</p>
+
+<pre><code>(ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.1.14)(PORT = 1521))
+(CONNECT_DATA = (SERVICE_NAME = XE))
+</code></pre>
+
+<p>  )
+```</p>
+
+<p>Now we need to get our environment setup. Create a .oracle_client file in your home directory:</p>
+
+<p><code>
+touch ~/.oracle_client
+vim ~/.oracle_client
+export ORACLE_BASE=/usr/local/oracle
+export ORACLE_HOME=$ORACLE_BASE/product/instantclient_64/11.2.0.4.0
+export PATH=$ORACLE_HOME/bin:$PATH
+export DYLD_LIBRARY_PATH=$ORACLE_HOME/lib:$DYLD_LIBRARY_PATH
+export TNS_ADMIN=$ORACLE_BASE/admin/network
+export SQLPATH=$ORACLE_HOME/sqlplus/admin
+</code></p>
+
+<p>I use the bash shell at work, but have been working with zsh at home lately.  So below I show how to add the above oracle environment variables to both bash and zsh:</p>
+
+<p>```
+echo &ldquo;source ~/.oracle_client&rdquo; >> ~/.bash_profile
+source ~/.bash_profile</p>
+
+<p>echo &ldquo;source ~/.oracle_client&rdquo; >> ~/.zprofile
+source ~/.zprofile
+```</p>
+
+<p>Optional step &ndash; if needed, you may need to update your /etc/hosts file so that you can resolve the IP address of your server to a fully qualified domain name.  See the following example:</p>
+
+<p><code>
+192.168.1.14    rubyrailssvr.homenet.com
+</code></p>
+
+<p>We are almost there &ndash; go take a break if you need to.  Before we update our Gemfile to add the two gems I listed earlier, let&rsquo;s first test and make sure we can connect.  We will use sqlplus to perform that test, which is a tool that was installed as part of the instant client.</p>
+
+<p>```
+➜  ~  sqlplus <a href="&#109;&#97;&#105;&#x6c;&#116;&#111;&#58;&#x73;&#121;&#115;&#116;&#x65;&#109;&#64;&#x31;&#57;&#x32;&#x2e;&#x31;&#x36;&#56;&#x2e;&#x31;&#46;&#49;&#52;">&#115;&#x79;&#115;&#x74;&#101;&#109;&#x40;&#x31;&#57;&#x32;&#x2e;&#49;&#x36;&#x38;&#46;&#x31;&#46;&#49;&#x34;</a></p>
+
+<p>SQL*Plus: Release 11.2.0.4.0 Production on Tue Aug 19 09:49:06 2014</p>
+
+<p>Copyright &copy; 1982, 2013, Oracle.  All rights reserved.</p>
+
+<p>Enter password:</p>
+
+<p>Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 &ndash; 64bit Production</p>
+
+<p>SQL>
+```</p>
+
+<p>You should be able to connect now, though I have made a huge assumption.  I have assumed that your Oracle DB is currently configured to accept remote connections.</p>
+
+<p>Well that wraps up todays episode.  Get out there and &hellip;</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
+  
+</feed>

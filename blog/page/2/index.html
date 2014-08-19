@@ -9,7 +9,7 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="Why is bad customer service still an issue in the present day? I realize we had to put up with it in the past whether it was due to lack of &hellip;">
+  <meta name="description" content="About two weeks ago I was trying to decide which on-line web developer education solution I would enroll in. The decision was not easy. Along with &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,64 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/15/first-week-at-bloc/">First Week at Bloc</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-15T19:46:34-04:00" pubdate data-updated="true">Mar 15<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>About two weeks ago I was trying to decide which on-line web developer education solution I would enroll in.  The decision was not easy.  Along with the weekly time requirements, roughly 25 hours per week, the financial cost is nothing to shrug off.  In the end I choose Bloc (<a href="http://www.bloc.io">http://www.bloc.io</a>)</p>
+
+<p>My training at Bloc started this past Monday, March 10th.  The Bloc course runs about 12 weeks, broken down into four segments:</p>
+
+<pre><code>1.  Environment Setup / Programming with Ruby
+2.  Rails Foundation
+3.  Features/Testing/Javascript
+4.  Project Challenges
+</code></pre>
+
+<p>I&rsquo;ve just finished item 1 &ndash; Environment Setup / Programming with Ruby.  When I read the description of this section my first thought was, &ldquo;this should be easy.&rdquo;  I have been exploring Ruby and Rails for almost a year.  I&rsquo;ve installed RVM on several computers, worked with GitHub and Heroku, as well as several introductory tutorials.</p>
+
+<p>And many of sub-sections in this first track were a nice and quick completion for me.  But, through each sub-section, I did learn something new.  For example, while working on setting up an app on Heroku, I learned how to add support for New Relic.  I&rsquo;ve seen ads and mention of New Relic a lot while learning Rails but never took a look at it.  Now I&rsquo;ve had a nice gentle introduction.</p>
+
+<p>There are 20 sub-section to Environment Setup / Programming with Ruby.  I felt good and confident as I traversed through them one by one.  I was slowed down briefly in sub-section 14 &ndash; Arrays.  One of the exercises there introduced me to new code and techniques I had not yet experienced.  I love learning new stuff!</p>
+
+<p>As I rounded out this section, I found myself staring at my nemesis &ndash; Blocks.  I don&rsquo;t know why, but I seem to have a mental <em>block</em> when it comes to Blocks (as well as Procs and Lambdas.)  This section took me a bit and I had to reach out for help.</p>
+
+<p>In the Bloc program, each student has a mentor.  We have around 3 calls a week with our mentors.  When I got stuck it was after I had last talked with my mentor.  Not a problem &ndash; Bloc also has a staffed on-line chat room.  I popped in to the chat room and asked a question.  One of the staff there gave me a nudge.  After about 30 minutes I was still stuck.  I had gotten further, but still hadn&rsquo;t solved the problem.  Another question/discussion in the chat room and it became clear.  I was able to complete the lesson.  <strong>Happy Dance!</strong></p>
+
+<p>I look forward to my next call with my mentor (tomorrow) and starting my next section &ndash; Rails Foundation.  As I progress through each section I&rsquo;ll return here to provide updates.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -810,74 +868,6 @@ meant, and what was going on.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/12/command_line_apps_rvm/">Ruby, RVM, Cmd Line SheBang!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-12T10:56:35-05:00" pubdate data-updated="true">Feb 12<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I ran across this tip while reading the book <em>&ldquo;Build Awesome Command-Line Applications
-in Ruby 2,&rdquo;</em> by David Bryant Copeland.  Although most of the code I&rsquo;ve been practicing
-has been Ruby on Rails, at my day job we utilize a lot of command line applications.  I&rsquo;m on a mission to add Ruby to our toolbox which currently is Perl and shell scripts.</p>
-
-<p>For a recent project I needed a command line application that could take a CSV
-file as an input, extract out some data, and create a new pipe (|) delimted text
-file.  I use RVM on my personal laptop and desktop, so I installed it on our
-company server.  At that time, Ruby was at version 1.93.  Not too long after, I
-added 2.0.0 and 2.1.0.  But my application was written in 1.93.  It is a simple
-application so the version shouldn&rsquo;t matter.  But in case it does, you may find
-value in this tip.</p>
-
-<p>If you are a RVM user, and type the command &lsquo;which ruby&rsquo; at the command line, you
-may get something similar to:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/Users/jfhogarty/.rvm/rubies/ruby-2.1.0/bin/ruby</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You can use that as the first line of your ruby script:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#!/Users/jfhogarty/.rvm/rubies/ruby-2.1.0/bin/ruby</span></code></pre></td></tr></table></div></figure>
-
-
-<p>However, if you want your script to use whatever the current version of Ruby is,
-or if Ruby is in a different location on a machine other than yours, you can use this syntax:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#!/usr/bin/env ruby</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This tip is found on page 4, in the section: &ldquo;Shebang: How the Systems Knows an App Is A Ruby Script&rdquo;</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -895,6 +885,10 @@ or if Ruby is in a different location on a machine other than yours, you can use
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/08/19/oracle-instant-client-osx/">Day Two</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/24/wrap-up-bloc/">Wrap Up - Bloc Experience</a>
       </li>
     
@@ -908,10 +902,6 @@ or if Ruby is in a different location on a machine other than yours, you can use
     
       <li class="post">
         <a href="/blog/2014/04/07/ancient-city-ruby-2014-day-two/">Ancient City Ruby 2014 Day Two</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/06/ancient-city-ruby-2014-day-one/">Ancient City Ruby 2014 Day One</a>
       </li>
     
   </ul>

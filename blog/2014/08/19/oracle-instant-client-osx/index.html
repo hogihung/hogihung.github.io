@@ -1,0 +1,435 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Day Two - Old Guy, New Trick</title>
+  <meta name="author" content="Ho Gi Hung">
+
+  
+  <meta name="description" content="Oracle Instant Client &ndash; Mac OSX I recently had the joy of installing Oracle 11g Express Edition on my home server. That server runs CentOS 6.x &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hogihung.github.io/blog/2014/08/19/oracle-instant-client-osx/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Old Guy, New Trick" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Old Guy, New Trick</a></h1>
+  
+    <h2>An old guys journey to learn how to code</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hogihung.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+	<li><a href="/">Blog</a></li>
+  <li><a href="/about/">About</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Day Two</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-19T08:30:25-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>Oracle Instant Client &ndash; Mac OSX</h1>
+
+<p>I recently had the joy of installing Oracle 11g Express Edition on my home server.  That server runs CentOS 6.x as that is the flavor of Linux we use at my day job.  The server install is another story I will cover in the future, but today I would like to share how I got my laptop and development environment setup to connect to the Oracle Database.</p>
+
+<p>Why in the world would I want to use Oracle you ask?  Well I don&rsquo;t really want to.  However, at the day job, that is what we use. And I wanted a more flexible development environment.  Due to limited resources, our &lsquo;dev&rsquo; database is also our disaster recovery database.  &lsquo;Nuff said?</p>
+
+<p>In order to get my ruby environment setup to work with this monster database, I need two gems:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem 'activerecord-oracle_enhanced-adapter', '~&gt; 1.5.0'
+</span><span class='line'>gem 'ruby-oci8', '~&gt; 2.1.0'</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="https://github.com/rsim/oracle-enhanced">Oracle Enhanced</a></p>
+
+<p>But I&rsquo;m getting ahead of myself.  Lets take two steps back.</p>
+
+<h2>Download some files</h2>
+
+<p>On my server I have installed Oracle 11g Express, and my laptop is fairly current and run OS X Mavericks &ndash; a 64bit Operating System.  So let&rsquo;s get the appropriate client.</p>
+
+<p>Download the required files from the Oracle Download site:
+<a href="http://www.oracle.com/technetwork/topics/intel-macsoft-096467.html">Oracle Client</a></p>
+
+<p>Note:  The following was learned by reviewing the blog over at: <a href="http://blog.codiez.co.za/2013/09/setup-oracle-instant-client-ruby-oci8-gem-mac/">codiez</a></p>
+
+<p>For me, I downloaded these files:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>instantclient-basic-macos.x64-11.2.0.4.0.zip
+</span><span class='line'>instantclient-sqlplus-macos.x64-11.2.0.4.0.zip
+</span><span class='line'>instantclient-sdk-macos.x64-11.2.0.4.0.zip</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Change to the directory where you downloaded the files
+(e.g. cd Downloads &ndash; assuming you are in your home directory)</p>
+
+<p>Unzip the three files:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>unzip -qq instantclient-basic-macos.x64-11.2.0.4.0.zip
+</span><span class='line'>unzip -qq instantclient-sqlplus-macos.x64-11.2.0.4.0.zip
+</span><span class='line'>unzip -qq instantclient-sdk-macos.x64-11.2.0.4.0.zip</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Change directories to the new one created by the unzipping:
+cd instantclient_11_2</p>
+
+<p>Perform the following steps:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir -p /usr/local/oracle/product/instantclient_64/11.2.0.4.0/bin
+</span><span class='line'>mkdir -p /usr/local/oracle/product/instantclient_64/11.2.0.4.0/lib
+</span><span class='line'>mkdir -p /usr/local/oracle/product/instantclient_64/11.2.0.4.0/jdbc/lib
+</span><span class='line'>mkdir -p /usr/local/oracle/product/instantclient_64/11.2.0.4.0/rdbms/jlib
+</span><span class='line'>mkdir -p /usr/local/oracle/product/instantclient_64/11.2.0.4.0/sqlplus/admin
+</span><span class='line'>mv ojdbc* /usr/local/oracle/product/instantclient_64/11.2.0.4.0/jdbc/lib/
+</span><span class='line'>mv x*.jar /usr/local/oracle/product/instantclient_64/11.2.0.4.0/rdbms/jlib/
+</span><span class='line'>mv glogin.sql /usr/local/oracle/product/instantclient_64/11.2.0.4.0/sqlplus/admin/login.sql
+</span><span class='line'>mv *dylib* /usr/local/oracle/product/instantclient_64/11.2.0.4.0/lib/
+</span><span class='line'>mv sdk /usr/local/oracle/product/instantclient_64/11.2.0.4.0/lib/sdk
+</span><span class='line'>mv *README /usr/local/oracle/product/instantclient_64/11.2.0.4.0/
+</span><span class='line'>mv * /usr/local/oracle/product/instantclient_64/11.2.0.4.0/bin/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next, we need to create and modify the tnsnames.org file:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir -p /usr/local/oracle/admin/network
+</span><span class='line'>
+</span><span class='line'>touch /usr/local/oracle/admin/network/tnsnames.ora
+</span><span class='line'>vim /usr/local/oracle/admin/network/tnsnames.ora
+</span><span class='line'>rubyrailssvr =
+</span><span class='line'>  (DESCRIPTION =
+</span><span class='line'>    (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.1.14)(PORT = 1521))
+</span><span class='line'>    (CONNECT_DATA = (SERVICE_NAME = XE))
+</span><span class='line'>  )
+</span><span class='line'>
+</span><span class='line'>rubyrailssvr.homenet.com =
+</span><span class='line'>  (DESCRIPTION =
+</span><span class='line'>    (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.1.14)(PORT = 1521))
+</span><span class='line'>    (CONNECT_DATA = (SERVICE_NAME = XE))
+</span><span class='line'>  )</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we need to get our environment setup. Create a .oracle_client file in your home directory:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>touch ~/.oracle_client
+</span><span class='line'>vim ~/.oracle_client
+</span><span class='line'>export ORACLE_BASE=/usr/local/oracle
+</span><span class='line'>export ORACLE_HOME=$ORACLE_BASE/product/instantclient_64/11.2.0.4.0
+</span><span class='line'>export PATH=$ORACLE_HOME/bin:$PATH
+</span><span class='line'>export DYLD_LIBRARY_PATH=$ORACLE_HOME/lib:$DYLD_LIBRARY_PATH
+</span><span class='line'>export TNS_ADMIN=$ORACLE_BASE/admin/network
+</span><span class='line'>export SQLPATH=$ORACLE_HOME/sqlplus/admin</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I use the bash shell at work, but have been working with zsh at home lately.  So below I show how to add the above oracle environment variables to both bash and zsh:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo "source ~/.oracle_client" &gt;&gt; ~/.bash_profile
+</span><span class='line'>source ~/.bash_profile
+</span><span class='line'>
+</span><span class='line'>echo "source ~/.oracle_client" &gt;&gt; ~/.zprofile
+</span><span class='line'>source ~/.zprofile</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Optional step &ndash; if needed, you may need to update your /etc/hosts file so that you can resolve the IP address of your server to a fully qualified domain name.  See the following example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>192.168.1.14    rubyrailssvr.homenet.com</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We are almost there &ndash; go take a break if you need to.  Before we update our Gemfile to add the two gems I listed earlier, let&rsquo;s first test and make sure we can connect.  We will use sqlplus to perform that test, which is a tool that was installed as part of the instant client.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>➜  ~  sqlplus system@192.168.1.14
+</span><span class='line'>
+</span><span class='line'>SQL*Plus: Release 11.2.0.4.0 Production on Tue Aug 19 09:49:06 2014
+</span><span class='line'>
+</span><span class='line'>Copyright (c) 1982, 2013, Oracle.  All rights reserved.
+</span><span class='line'>
+</span><span class='line'>Enter password:
+</span><span class='line'>
+</span><span class='line'>Connected to:
+</span><span class='line'>Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+</span><span class='line'>
+</span><span class='line'>SQL&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You should be able to connect now, though I have made a huge assumption.  I have assumed that your Oracle DB is currently configured to accept remote connections.</p>
+
+<p>Well that wraps up todays episode.  Get out there and &hellip;</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ho Gi Hung</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-19T08:30:25-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/blog/'>Blog</a>, <a class='category' href='/blog/categories/oracle/'>Oracle</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2014/08/19/oracle-instant-client-osx/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2014/08/19/oracle-instant-client-osx/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/07/24/wrap-up-bloc/" title="Previous Post: Wrap Up - Bloc Experience">&laquo; Wrap Up - Bloc Experience</a>
+      
+      
+    </p>
+    <div id="disqus_thread"></div>
+      <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          var disqus_shortname = 'oldguynewtrickcom'; // required: replace example with your forum shortname
+
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/08/19/oracle-instant-client-osx/">Day Two</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/24/wrap-up-bloc/">Wrap Up - Bloc Experience</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/11/enter-the-4th-block/">Enter the 4th Block</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/17/3-noobs-at-lillys/">3 Noobs at Lillys</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/07/ancient-city-ruby-2014-day-two/">Ancient City Ruby 2014 Day Two</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("hogihung", , );
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <p>Follow <a href="http://twitter.com/hogihung">@hogihung</a></p>
+  
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Ho Gi Hung -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.Background image by Ho Gi Hung</span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
