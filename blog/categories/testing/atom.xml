@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Ruby, | Old Guy, New Trick]]></title>
-  <link href="http://hogihung.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Testing | Old Guy, New Trick]]></title>
+  <link href="http://hogihung.github.io/blog/categories/testing/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
   <updated>2014-09-23T08:32:28-04:00</updated>
   <id>http://hogihung.github.io/</id>

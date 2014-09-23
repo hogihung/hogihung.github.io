@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-09-23T07:58:27-04:00</updated>
+  <updated>2014-09-23T08:32:28-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,99 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Testing to_csv Method]]></title>
+    <link href="http://hogihung.github.io/blog/2014/09/23/testing-to-csv-method/"/>
+    <updated>2014-09-23T09:32:37-04:00</updated>
+    <id>http://hogihung.github.io/blog/2014/09/23/testing-to-csv-method</id>
+    <content type="html"><![CDATA[<p>Last week I covered a topic that resurfaced while I am in the process of upgrading one of our apps from Ruby 1.9 and Rails 3.x. When I wrote that application I was a raw recruit &ndash; fresh to Ruby and Rails and just trying to get the idea to work.</p>
+
+<p>But as I&rsquo;ve been improving my skills and expanding the ole grey matter, I wanted to write this new version, fully tested.  In the application there is a need to be able to export the data to a CSV formatted file.  I had the code from the old version of the app, and migrated it over.  However, I challenged myself to figure out how to write a test for the to_csv method in Baytech model.</p>
+
+<p>Below is the code from the Baytech model:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def self.to_csv
+</span><span class='line'>  CSV.generate(col_sep: ':') do |csv|
+</span><span class='line'>    all.each do |baytech|
+</span><span class='line'>      port = "X"
+</span><span class='line'>      csv &lt;&lt; [baytech.name, baytech.phone_num, baytech.ip_addr, port, baytech.modem_type, port]
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I know the method works, as it has been working fine for 9 months or so now.  But I really wanted to figure out how to write a test for this method.  After much trial and error, along with research via books and google, I came up with the following solution:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>describe Baytech, '#to_csv' do
+</span><span class='line'>  let(:baytech) { FactoryGirl.create(:baytech) }
+</span><span class='line'>
+</span><span class='line'>  before do
+</span><span class='line'>    baytech
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  it { expect(Baytech.to_csv).to match /#{baytech.name}:#{baytech.phone_num}:#{baytech.ip_addr}:X:1:X/ }
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You may notice in the above code that I am referencing a Factory.  Here is a short version of that factory file:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>FactoryGirl.define do
+</span><span class='line'>  factory :baytech do
+</span><span class='line'>    sequence(:name) {|n| "jaxfl0#{n}b9" }
+</span><span class='line'>    sequence(:ip_addr) {|n| "10.1.2.#{n}" }
+</span><span class='line'>    phone_num "7091234384"
+</span><span class='line'>    region "USA"
+</span><span class='line'>    modem_type "1"
+</span><span class='line'>    ip_method "ssh"
+</span><span class='line'>    active true
+</span><span class='line'>    has_modem_line true
+</span><span class='line'>    updated_by "cd1234"
+</span><span class='line'>
+</span><span class='line'>    {-snip-}
+</span><span class='line'>
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The keen eye may have caught something interesting in the to_csv method.  I&rsquo;m using an option, col_sep: &lsquo;:&rsquo; which allows me to use the : character as the delimiter instead of the default comma.</p>
+
+<p>With the test in place, and passing, I felt better about the code in my to_csv method.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Reflecting on Rails Inflections]]></title>
@@ -895,23 +988,6 @@ I felt like I left things hanging.  So I&rsquo;m going to try and clear things u
 <h2>Apology</h2>
 
 <p>When I first skechted out the list of books in my arsenal, it didn&rsquo;t look to be to long.  But as we can see from the above, when I wrapped words around the book names, this post got pretty long.  So I apologize for that.  I will make a great effort going forward to keep my posts shorter.  If needed, break up a long topic into multiple posts.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Code & Coffee (2)]]></title>
-    <link href="http://hogihung.github.io/blog/2014/02/18/Coffee_And_Code/"/>
-    <updated>2014-02-18T19:10:15-05:00</updated>
-    <id>http://hogihung.github.io/blog/2014/02/18/Coffee_And_Code</id>
-    <content type="html"><![CDATA[<p>My journey to learn Ruby and Rails started almost one year ago.  I&rsquo;m embarrased to admit, aside from a couple of lunch meetings, I&rsquo;ve been traveling down this road on my own.  Being new to the language and community, plus the fact that I&rsquo;m an introvert, I found it hard to get out and meet fellow programmers.</p>
-
-<p>Near the end of last year I decided to try and conquer my fear and looking back on it, I probably should have started with a smaller introduction to the Ruby community.  In November of last year I attended Ruby Conf 2013 in Miami, Florida.  Don&rsquo;t get me wrong, I enjoyed almost everything about my experience there.  But I felt so out of place.  I went by myself and had no clue on what to expect.</p>
-
-<p>After my experience with Ruby Conf, I decided that I need to take a more gentle approach to entering the fabulous programming community.  I looked up RubyJax since I live in Jacksonville, FL.  I saw that they host many events &ndash; most at the Hash Rocket office at Jax Beach.</p>
-
-<p>So I&rsquo;ve signed up for as many meet ups as I could, which include <em>&ldquo;Code and Coffee.&rdquo;</em>  This was hard for me on a couple of levels.  First, I still feel inadequate as new member of the Ruby community.  Second, I work from home and am really not a morning person.  To get up at 6:15am so I have time to shower and drive to Jax Beach is a bit tough.  It was especially tough for me today, my second Code &amp; Coffee, because I was not feeling 100%.  I enjoyed going last week but in my mind it was clear I was the new guy and I felt really dumb as I was surrounded by so many great programmers.</p>
-
-<p>Then something happened.  At this second Code &amp; Coffee, I wasn&rsquo;t the new guy anymore.  A new member showed up, I believe his name was Michael, and I was able to talk with him and give some advice based on my experience as a new person to the Ruby community.  I hadn&rsquo;t realized how far I have come in my journey.  Don&rsquo;t get me wrong, I still have far to go, but when that light bulb went off in my head, it really brightened my day.</p>
 ]]></content>
   </entry>
   
