@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-09-23T08:32:28-04:00</updated>
+  <updated>2014-10-27T17:40:07-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,107 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Aint Your Ruby]]></title>
+    <link href="http://hogihung.github.io/blog/2014/10/28/aint-your-ruby/"/>
+    <updated>2014-10-28T00:00:00-04:00</updated>
+    <id>http://hogihung.github.io/blog/2014/10/28/aint-your-ruby</id>
+    <content type="html"><![CDATA[<hr />
+
+<p>layout: post
+title: &ldquo;Ain&rsquo;t Your Ruby&rdquo;
+date: 2014-10-07 08:01:15 -0500
+comments: true
+categories: Blog, Ruby
+published: false</p>
+
+<p>Get some snippets of code from work of the &lsquo;other&rsquo; ruby.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MySQL Issue on Mac OSX]]></title>
+    <link href="http://hogihung.github.io/blog/2014/10/27/mysql-issue-osx/"/>
+    <updated>2014-10-27T18:40:45-04:00</updated>
+    <id>http://hogihung.github.io/blog/2014/10/27/mysql-issue-osx</id>
+    <content type="html"><![CDATA[<p>Most of my Rails projects, for personal use and education, have been using Postgresql or SQLite for the datbase backend.  At work our primary database is Oracle with a dash of MySQL.  Recently we decided to use MySQL with all future development, and migrate our tools/applications that use Oracle to use MySQL.</p>
+
+<p>I downloaded and installed MySQL by grabbing the installer from the MySQL website:  <a href="http://dev.mysql.com/downloads/mysql/">http://dev.mysql.com/downloads/mysql/</a> and getting the version for my operating system &ndash; OS X Mavericks.</p>
+
+<p>However, with this version installed I was having issues with bundler and getting the mysql gem to compile.  I tried a few solutions that I found on the internet, but none of them were working.</p>
+
+<p>I found some other people who had issues, when using OSX Mavericks, with the MySQL installer.  They solved the issue by removing MySQL that was installed from the download via dev.mysql.com and then re-installing using Homebrew.</p>
+
+<p>This solution worked for me as well.  I found this a bit odd, because earlier in the year I had issues with installing Postgres via Homebrew.  The solution for Postgres was to remove the Homebrew installation and use the installer from the Postgres site.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Brew A Fix for Imagemagic and Paperclip]]></title>
+    <link href="http://hogihung.github.io/blog/2014/10/27/brew-a-fix-for-imagemagick-and-paperclip/"/>
+    <updated>2014-10-27T18:05:25-04:00</updated>
+    <id>http://hogihung.github.io/blog/2014/10/27/brew-a-fix-for-imagemagick-and-paperclip</id>
+    <content type="html"><![CDATA[<p>While working on a Rails project last week I encountered an issue where some of my tests were failing.  It had been a while since I worked on this project so I had to re-familiarize myself with what was going on.</p>
+
+<p>The tests were failing when editing a profile and adding an image.  I popped over to the browser and performed a manual test to get a better idea of what was going on.  That is when I saw the following error: <em>&ldquo;Paperclip::Errors::NotIdentifiedByImageMagickError&rdquo;</em></p>
+
+<p>To attempt to fix the issue, I first performed a simple uninstall and re-install of imagemagic using homebrew:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew uninstall imagemagick
+</span><span class='line'>brew install imagemagick</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This didn&rsquo;t solve the problem.  Imagemagic has a command line utility, convert, which one can use to see if the application is working.  I tried a simple test:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>convert moonie.jpg moon.png</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But I continued to get errors even with that simple test.  So off to the internet for some deep research.  I came across the following steps, which solved the issue I was having.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew update
+</span><span class='line'>brew doctor
+</span><span class='line'>brew uninstall libtool
+</span><span class='line'>brew uninstall imagemagic
+</span><span class='line'>
+</span><span class='line'>cd /Library/Caches/Homebrew
+</span><span class='line'>rm imagemag*
+</span><span class='line'>rm libtool-2.4.2.tar.gz
+</span><span class='line'>
+</span><span class='line'>brew doctor
+</span><span class='line'>brew install libtool --universal
+</span><span class='line'>brew link libool --force
+</span><span class='line'>brew install imagemagic --build-from-source</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After completing the above steps, the command line tool, convert was successful.  I re-tested the Rails application, both manually, and via my test suite, and all was green again.</p>
+
+<p>Related resources used during my quest for the fix:
+<a href="https://github.com/thoughtbot/paperclip/issues/1205">https://github.com/thoughtbot/paperclip/issues/1205</a>
+<a href="http://www.imagemagick.org/script/convert.php">http://www.imagemagick.org/script/convert.php</a>
+<a href="http://stackoverflow.com/questions/7412208/imagemagick-and-os-x-lion-trouble">http://stackoverflow.com/questions/7412208/imagemagick-and-os-x-lion-trouble</a></p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Testing to_csv Method]]></title>
@@ -860,134 +961,6 @@ the last time I saw this person, I was 60 pounds heavier!</p>
 <p>Working in the tech field may seem to present challenges in staying fit.  We basically sit all day to earn a living.  But I&rsquo;m encouraging you to watch your weight and loose those pesky pounds.  While at work, stand up every 30-45 minutes and stretch out.  Stay standing for 5-10 minutes and get then get back to work.  Maybe get one of those desks that can go up and down &ndash; I have my eye on this one: <a href="http://www.nextdesks.com/terra">http://www.nextdesks.com/terra</a></p>
 
 <p>So, get up and Drop that Bass, er, Fat!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Dissect A Method - Part II]]></title>
-    <link href="http://hogihung.github.io/blog/2014/02/24/dissect-a-method-part-ii/"/>
-    <updated>2014-02-24T20:48:10-05:00</updated>
-    <id>http://hogihung.github.io/blog/2014/02/24/dissect-a-method-part-ii</id>
-    <content type="html"><![CDATA[<p>About a week ago I created the &ldquo;Dissect A Method&rdquo; post.  Near the end of that post
-I felt like I left things hanging.  So I&rsquo;m going to try and clear things up.  I ended that post mostly because I wasn&rsquo;t comfortable with what is going on in the line of code that looks like this:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>decimal.gsub!(/\d{3}(?!$)/,'\0,')</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I did a some research &ndash; a little dive into the API, <a href="http://apidock.com/ruby/String/gsub">http://apidock.com/ruby/String/gsub</a> and a trip over to a cool RegEx site, <a href="http://rubular.com/">http://rubular.com/</a></p>
-
-<p>If you would like follow along, go to the rubular site and enter the following into the text box for &lsquo;Your regular expression:&rsquo;</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>\d{3}(?!$)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>In the text box for &lsquo;Your test string:&rsquo; we will try a few different values.  Go ahead and test a few numbers, one at a time, e.g. 45789  AND  1024  AND  54 AND  5251350</p>
-
-<p>Observe your results in the &lsquo;Match result:&rsquo; text box.  So the beginning of our regex is composed of \d{3} which says that we are looking for 3 digits &ndash; any number 0 thru 9.  The next part is what had me stuck.  I seemed to recall that the $ meant End of line, and we can confirm that by looking at the RegEx quick reference on the rubular site.</p>
-
-<p>But what heck is this ?! stuff?  These two characters mean Negative lookahead.  So we are going to the end of the line of the string and then looking <em>backwards</em> to get a group of three digits.</p>
-
-<p>Ok, so what does that last part mean, the &lsquo;\0,&rsquo; ?  Taking a look on the apidock site, I found an explanation &ndash; Interpolating.  For example:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># replace /ll/ with itself
-</span><span class='line'>'hello'.gsub(/ll/, '\0') # returns 'hello'
-</span><span class='line'>'hello'.gsub(/ll/, "\0") # returns 'he\000o'</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Putting the pieces together, if matched, we would grab some digits, and replace them with the same digits <em>plus</em> a comma, thus helping us to create a pretty integer.</p>
-
-<p>Using a combination of the rubular site, and irb, try out the example for the number 1249580.  As we will see in the irb shortly, the first digit will be extracted as the leader.  So in rubular, just enter the number 249580.  Notice how in rubular the digits 249 are highlighted.  These numbers will have themselves replaced with 249, once we do the interpolating.</p>
-
-<p>Ok, lets take this to the irb!</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>2.1.0 :001 &gt; decimal = Integer(1249580).to_s
-</span><span class='line'> =&gt; "1249580"
-</span><span class='line'>2.1.0 :002 &gt; leader = decimal.slice!(0, decimal.length % 3)
-</span><span class='line'> =&gt; "1"
-</span><span class='line'>2.1.0 :003 &gt; decimal.gsub!(/\d{3}(?!$)/,'\0,')
-</span><span class='line'> =&gt; "249,580"
-</span><span class='line'>2.1.0 :004 &gt; decimal = nil if decimal.empty?
-</span><span class='line'> =&gt; nil
-</span><span class='line'>2.1.0 :005 &gt; leader  = nil if leader.empty?
-</span><span class='line'> =&gt; nil
-</span><span class='line'>2.1.0 :006 &gt;
-</span><span class='line'>2.1.0 :007 &gt;   [leader,decimal].compact.join(",")
-</span><span class='line'> =&gt; "1,249,580"
-</span><span class='line'>2.1.0 :008 &gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I hope this follow up post has helped to illustrate how all the components of our original method of dissection work.  Going through the research and stepping through a few examples has helped me a lot.</p>
-
-<p><em>Learn Something New Everyday</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Almost Free Blog]]></title>
-    <link href="http://hogihung.github.io/blog/2014/02/19/almost_free_blog/"/>
-    <updated>2014-02-19T20:55:00-05:00</updated>
-    <id>http://hogihung.github.io/blog/2014/02/19/almost_free_blog</id>
-    <content type="html"><![CDATA[<p>Would you like to have your own super cool blog but don&rsquo;t want to go through the hassel of setting up WordPress?  Or maybe you don&rsquo;t have your own hosting service like DreamHost but still want a blog.  Are you bummed out since Apple killed off iWeb?</p>
-
-<p>Well the good news is there is a nice solution for us programmers.  And it can be free if you don&rsquo;t want a custom domain name.  For this site, the only cost was purchasing the domain name &ndash; oldguynewtrick.com.  I&rsquo;m a fan of Hover for domain registration (<a href="http://hover.com">http://hover.com</a>) This site is powered by the Open Source application called Octopress (<a href="http://octopress.org">http://octopress.org</a>) and hosted, for FREE, on GitHub.</p>
-
-<p>If you don&rsquo;t have a GitHub account, and you are a programmer, what the heck are you waiting for?  You can get a free GitHub account, hop on over to <a href="http://github.com">http://github.com</a>  (There are paid versions as well.)</p>
-
-<p>In a future posting I will go over the steps that I performed in order to setup an Octopress powered site on GitHub.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[To Book or Not to Book]]></title>
-    <link href="http://hogihung.github.io/blog/2014/02/19/book_or_ebooks/"/>
-    <updated>2014-02-19T18:13:25-05:00</updated>
-    <id>http://hogihung.github.io/blog/2014/02/19/book_or_ebooks</id>
-    <content type="html"><![CDATA[<p>While the focus, and majority of posts I plan on making, will revolve around the world of Ruby and web devlopement, my journey began with <em>&ldquo;Programming in Objective-C,&rdquo;</em> by Stephen G. Kochan.  While still persuing iOS and Objective-C knowledge, I also got <em>&ldquo;iOS Programming The Big Nerd Ranch Guide,&rdquo;</em> by Joe Conway &amp; Aaron Hillegass.  Shortly after I grabbed <em>&ldquo;Objective-C Programming The Big Nerd Ranch Guide,&rdquo;</em> by Aaron Hillegass.</p>
-
-<p>Wadding through those books I quickly realized that I had a huge lack of knowledge, and though I really wanted to write iPhone apps, I needed to reboot and try a different approach.  I found an online course via iTunes-U which used the next book I purchased &ndash; <em>&ldquo;The Art &amp; Science of Java, An Introduction to Computer Science,&rdquo;</em> by Eric S. Roberts.  This book is used with the online course I subscribed to in iTunes, and by far the most expensive book I have purchased!  While reading that book, and following the course, I realized another gap in knowledge.  A lot of buzzwords were flying at me &ndash; OOP, Object Oriented Design, UML, Singleton, Design Patterns, etc.  So I did a little research on Amazon, and grabbed two new books by Head First &ndash; <em>&ldquo;Object-Oriented Analysis &amp; Design,&rdquo;</em> by McLaughlin, Pollice &amp; West and <em>&ldquo;Design Patterns,&rdquo;</em> by Freeman &amp; Freeman.  The Head First books used Java in their examples and I thought things were coming together. My Rails journey actually started because of <em>&ldquo;Object-Oriented Analysis &amp; Design&rdquo;</em> book.</p>
-
-<p>Alrighty, lets now dive into the here and now.  My first Ruby/Rails book, and the one I would first suggest to anyone new to Rails, was <em>&ldquo;Ruby on Rails Tutorial,&rdquo;</em> by Michael Hartl.  This book won&rsquo;t be the end of your journey, but should give one enough to get a good understanding.  I plan on re-reading this book after I get through some others.  The next book I grabbed was probably way above my level, but I really enjoyed how this person thinks after watching some of her videos &ndash; <em>&ldquo;Practical Object-Oriented Design In Ruby,&rdquo;</em> by Sandi Metz.  Though a bit over my head for a good chunk of the book, I still found it very useful and I think I will understand more of what she wrote as I learn and experience more code.</p>
-
-<p>The next book I got was <em>&ldquo;Agile Web Development with Rails 3.2,&rdquo;</em> by Sam Ruby, Dave Thomas, and David Heinemeier Hansson.  I found this to be very useful for filling in some gaps I had from the Rails Tuts book.  I happened to notice after I bought the book that a newer version would come out later in the year.  So I pre-ordered <em>&ldquo;Agile Web Development with Rails 4,&rdquo;</em> by the same trio.  I have not ready beyond the first chapter of this book yet.</p>
-
-<p>One thing I was noticing from my reading experience of the two Rails books and the POODR book, I lacked some basic knowledge of the underlying language &ndash; Ruby.  So I grabbed <em>&ldquo;The Ruby Way,&rdquo;</em> by Hal Fulton.  I&rsquo;ve finished about half of the book and it cleared some things up for me.  I do use it as a reference from time-to-time and do want to get back into it for the second half.  Note I think this is the oldest of the Ruby/Rails books I have, so it isn&rsquo;t current.  But the majority of what you would read should still be relevant.</p>
-
-<p>It might just be me, but I&rsquo;ve found that frequently I need information from multiple sources in order for me to understand certain topics.  So while <em>&ldquo;The Ruby Way&rdquo;</em> is very comprehensive, I picked up <em>&ldquo;The Ruby Programming Language,&rdquo;</em> by David Flanagan &amp; Yukikiro Matsumoto.  This book covered Ruby 1.8 and 1.9 so it was a little more up to date than the previous mentioned book.  Where as those first two book on Ruby will give you the meat of the language, I found this next book to be the sauce &ndash; <em>&ldquo;Eloquent Ruby,&rdquo;</em> by Russ Olsen.</p>
-
-<p>I skipped a book, and in all honesty, I don&rsquo;t remember where in the order of books purchased that this one occurred.  I&rsquo;ve only read the first chapter and I like the book, but my mindset isn&rsquo;t ready for it.  I&rsquo;ll probably get virtually whipped for saying that, but I will revisit this book &ndash; <em>&ldquo;The RSpec Book,&rdquo;</em> by David Chelimsky.  For those new to Ruby and don&rsquo;t understand why I would be whipped, I&rsquo;ve found that the Ruby/Rails community is heavily into testing &ndash; BDD (behaviour driven-development) or TDD (test driven-devlopment).  I know this is an area I need to focus on!</p>
-
-<p>Winding down there are a few more books.  I picked up the next book because I wanted more information on creating command line Ruby applications, so I purchased <em>&ldquo;Build Awesome Command-Line Applications in Ruby 2,&rdquo;</em> by David Bryant Copeland.  I really am enjoying this book and I&rsquo;m applying some of the things I&rsquo;ve learned to how I code work related stuff in Perl.</p>
-
-<p>Although not directly related to Ruby or Rails, I picked up <em>&ldquo;The Little Book on CoffeeScript,&rdquo;</em> by Alex MacCaw.  They were not kidding, it is little!  I can&rsquo;t really say anything good about this book yet as I was disappointed at its size when it arrived.  I tossed it aside to read some other time &ndash; maybe on a rainy day.  The other non-directly related book I am enjoying is &ndash; <em>&ldquo;Practical Vim,&rdquo;</em> by Drew Neil.  I&rsquo;ve always admirred people who are awesome at the command line and in tools like Vim.  I&rsquo;m not one of them.  My preferred editor is Sublime Text, but I really want to learn Vim.  This book is good, and Drew produces some cool screencasts &ndash; <a href="http://vimcasts.org.">http://vimcasts.org.</a></p>
-
-<p>Down to my last two physical books as of 2/19/2014 &ndash; <em>&ldquo;Ruby Under a Microscope,&rdquo;</em> by Pat Shaughnessy and <em>&ldquo;Seven Databases in Seven Weeks,&rdquo;</em> by Eric Redmond and Jim R. Wilson.  <em>&ldquo;Ruby Under a Microscope&rdquo;</em> is probably not a good fit for someone new to Ruby, but I&rsquo;m finding it absolutely enjoyable.  Sure there are things above my head, but I am able to digest most of the information and it actually helps me understand the language better.  I just received the Seven Databases book and haven&rsquo;t had a chance to read it yet.</p>
-
-<p>All of the above are physical books I&rsquo;ve purchased in my persuit of learning to code.  I&rsquo;ve also purchases a few eBooks which I will list next.  I&rsquo;m not a huge fan of eBooks related to programming as I find the formatting tends to get screwed up when the authors try to show code blocks.  With that said, on my Kindle I have:  <em>&ldquo;Confident Ruby,&rdquo;</em> by Avdi Grimm, <em>&ldquo;Professional JavaScript for Web Developers,&rdquo;</em> by Nicholas C. Zakas, and <em>&ldquo;CoffeeScript Programming with jQuery, Rails and Node.js,&rdquo;</em> by Michael Erasmus.</p>
-
-<p>There are two other books, and I wasn&rsquo;t going to inlude them, but just in case you want books on CakePHP or PHP Zend Framework, I strongly urge you TO STAY AWAY from: <em>&ldquo;Easy PHP Websites with The Zend Framework,&rdquo;</em> by W. Jason Gilmore, and <em>&ldquo;CakePHP 1.3 Application Development Cookbook,&rdquo;</em> by Mario Iglesias.  These two books are horrible!</p>
-
-<h2>Apology</h2>
-
-<p>When I first skechted out the list of books in my arsenal, it didn&rsquo;t look to be to long.  But as we can see from the above, when I wrapped words around the book names, this post got pretty long.  So I apologize for that.  I will make a great effort going forward to keep my posts shorter.  If needed, break up a long topic into multiple posts.</p>
 ]]></content>
   </entry>
   

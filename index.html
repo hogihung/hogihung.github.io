@@ -9,7 +9,12 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="Last week I covered a topic that resurfaced while I am in the process of upgrading one of our apps from Ruby 1.9 and Rails 3.x. When I wrote that &hellip;">
+  <meta name="description" content="layout: post
+title: &ldquo;Ain&rsquo;t Your Ruby&rdquo;
+date: 2014-10-07 08:01:15 -0500
+comments: true
+categories: Blog, Ruby
+published: false Get &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +70,188 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/28/aint-your-ruby/">Aint Your Ruby</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-28T00:00:00-04:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><hr />
+
+<p>layout: post
+title: &ldquo;Ain&rsquo;t Your Ruby&rdquo;
+date: 2014-10-07 08:01:15 -0500
+comments: true
+categories: Blog, Ruby
+published: false</p>
+
+<p>Get some snippets of code from work of the &lsquo;other&rsquo; ruby.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/27/mysql-issue-osx/">MySQL Issue on Mac OSX</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-27T18:40:45-04:00" pubdate data-updated="true">Oct 27<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Most of my Rails projects, for personal use and education, have been using Postgresql or SQLite for the datbase backend.  At work our primary database is Oracle with a dash of MySQL.  Recently we decided to use MySQL with all future development, and migrate our tools/applications that use Oracle to use MySQL.</p>
+
+<p>I downloaded and installed MySQL by grabbing the installer from the MySQL website:  <a href="http://dev.mysql.com/downloads/mysql/">http://dev.mysql.com/downloads/mysql/</a> and getting the version for my operating system &ndash; OS X Mavericks.</p>
+
+<p>However, with this version installed I was having issues with bundler and getting the mysql gem to compile.  I tried a few solutions that I found on the internet, but none of them were working.</p>
+
+<p>I found some other people who had issues, when using OSX Mavericks, with the MySQL installer.  They solved the issue by removing MySQL that was installed from the download via dev.mysql.com and then re-installing using Homebrew.</p>
+
+<p>This solution worked for me as well.  I found this a bit odd, because earlier in the year I had issues with installing Postgres via Homebrew.  The solution for Postgres was to remove the Homebrew installation and use the installer from the Postgres site.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/27/brew-a-fix-for-imagemagick-and-paperclip/">Brew a Fix for Imagemagic and Paperclip</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-27T18:05:25-04:00" pubdate data-updated="true">Oct 27<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>While working on a Rails project last week I encountered an issue where some of my tests were failing.  It had been a while since I worked on this project so I had to re-familiarize myself with what was going on.</p>
+
+<p>The tests were failing when editing a profile and adding an image.  I popped over to the browser and performed a manual test to get a better idea of what was going on.  That is when I saw the following error: <em>&ldquo;Paperclip::Errors::NotIdentifiedByImageMagickError&rdquo;</em></p>
+
+<p>To attempt to fix the issue, I first performed a simple uninstall and re-install of imagemagic using homebrew:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew uninstall imagemagick
+</span><span class='line'>brew install imagemagick</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This didn&rsquo;t solve the problem.  Imagemagic has a command line utility, convert, which one can use to see if the application is working.  I tried a simple test:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>convert moonie.jpg moon.png</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But I continued to get errors even with that simple test.  So off to the internet for some deep research.  I came across the following steps, which solved the issue I was having.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew update
+</span><span class='line'>brew doctor
+</span><span class='line'>brew uninstall libtool
+</span><span class='line'>brew uninstall imagemagic
+</span><span class='line'>
+</span><span class='line'>cd /Library/Caches/Homebrew
+</span><span class='line'>rm imagemag*
+</span><span class='line'>rm libtool-2.4.2.tar.gz
+</span><span class='line'>
+</span><span class='line'>brew doctor
+</span><span class='line'>brew install libtool --universal
+</span><span class='line'>brew link libool --force
+</span><span class='line'>brew install imagemagic --build-from-source</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After completing the above steps, the command line tool, convert was successful.  I re-tested the Rails application, both manually, and via my test suite, and all was green again.</p>
+
+<p>Related resources used during my quest for the fix:
+<a href="https://github.com/thoughtbot/paperclip/issues/1205">https://github.com/thoughtbot/paperclip/issues/1205</a>
+<a href="http://www.imagemagick.org/script/convert.php">http://www.imagemagick.org/script/convert.php</a>
+<a href="http://stackoverflow.com/questions/7412208/imagemagick-and-os-x-lion-trouble">http://stackoverflow.com/questions/7412208/imagemagick-and-os-x-lion-trouble</a></p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -747,191 +934,6 @@ cd instantclient_11_2</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/06/ancient-city-ruby-2014-day-one/">Ancient City Ruby 2014 Day One</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-06T20:55:09-04:00" pubdate data-updated="true">Apr 6<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The actual conference was split across two days, and followed the single-track format.  This was unlike my experience at Ruby Conf 2013 &ndash; Miami, which was multiple topics going on concurrently.  For the first day, the following speakers were lined up:  Leon Gersing, Justin Searls, David Copeland, Katrina Owen, Richard Schneeman, and Ben Lovell.  Of all those speakers, I only had ever heard of three, and as it so happened, met each one of them: Justin Searls, Katrina Owen and Ben Lovell.</p>
-
-<p>In a quick summary of the day, I wrote the most notes from the talk by Leon, learned the most from Katrina&rsquo;s talk and laughed my ass off, and learned some stuff, from Ben&rsquo;s talk.  Justin talk also had my interest and I had jotted down some notes from his presentation.</p>
-
-<p>I really liked Leon&rsquo;s talk as to me it was not directly programming/developer related, but more so a spiritual and inspirational discussion.  I don&rsquo;t know if it was planned this way, but I believe it was perfectly executed as the first talk of the day &ndash; really set a good mood and environment.  Something that Leon said really moved me.  He said: &ldquo;Twitter, Facebook, Instagram are all simulations of relationships.&rdquo;  I thought that was very powerful.</p>
-
-<p>Before I continue, I just want to say that I enjoyed all of the talks from the speakers on this day.  But given my current skill level with Ruby and as a programmer, some of the talks were more moving and relevant to me.  I&rsquo;m sure others had similar, but different results.</p>
-
-<p>Three speakers in, some brief talks by some sponsors as well as lightening talks, and it was time for lunch.  I really enjoyed the lunch that was provided at the hotel for the conference.  Not only was the meal yummy, but the deserts were great as well.</p>
-
-<p>On a nice full stomach, with a big smile on my face, it was time for Katrina&rsquo;s talk.  I really enjoy her presentation style and I feel that the delivery was at a level that I was able to absorb.  Katrina took us through a refactoring session for &ldquo;Bob.&rdquo;  Frightenly, some of that code looked familiar :)  If you get a chance, you can check out her prentation at: <a href="https://speakerdeck.com/kytrinyx/overkill">Overkill</a></p>
-
-<p>Being the last speaker on a given day is a tough task.  People tend to start getting tired.  Leave it to Ben to fire up the crowd.  He had all of us rolling with laughter from his opening remarks to his closing arguments.  And along the way we learned a bit about testing APIs.  Watch out for those &ldquo;f#$@ing sharks!&rdquo;</p>
-
-<p>Day one didn&rsquo;t actually end after Ben&rsquo;s talk.  That evening some of the conference attendees went on the Ghost Ride, while the rest of us got to do the Pirate Ship adventure.  Even though I live in Jacksonville, which isn&rsquo;t too far from St. Augustine, I had not ever been on the Pirate Ship.  It was a lot of fun.  I just wish that I had my heavier hoodie and it got a bit cold on the water.  On the ship I got to meet a few other people from Hash Rocket, including Paul Elliott.  I had heard Paul&rsquo;s voice on several episodes of the Ruby5 podcast, and it was nice to meet him in person.</p>
-
-<p>All-in-all, day one was a big hit for me.  Oh, I almost forgot!  At the beginning of the day, before the first talk started, I got to meet and shake hands with Aaron Patterson.  Yeah, you could say I&rsquo;m a fanboi of his.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/05/ancient-city-ruby-workshop/">Ancient City Ruby - Workshop 2014</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T10:38:58-04:00" pubdate data-updated="true">Apr 5<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>In my last post I discussed events prior to Ancient City Ruby 2014.  Now it is time to discuss my experience at the actual workshop and conference.  The conference part was spread across two days, Thursday and Friday, and there was an optional workshop day &ndash; Wednesday.  There were three different workshops offered:</p>
-
-<ul>
-<li>Refactoring Rails by Katrina Owen</li>
-<li>Rock@Vim by Jon Allured and Micah</li>
-<li>Ruby on Rails: First Expedition by Beverly Nelson</li>
-</ul>
-
-
-<p>I had a tough decision to make.  I really wanted to attend Katrina&rsquo;s workshop, but I don&rsquo;t believe my skill set is good enough at this time to have been able to participate.  I thought that I&rsquo;d surely slow the class down.  On the other hand, I think I&rsquo;m beyond the Ruby on Rails: First Expedition level.  I am horrible at Vim, so it seemed obvious that I should sign up for the Rock@Vim workshop, and I did.</p>
-
-<p>The Vim workshop was taught by two Hashrocket employees, Jon and Micah.  I&rsquo;d never met Jon before as he works out of the Chicago office.  But I have met Micah before, and he has helped me out a few times when I have gotten stuck or had questions.  Having some familiarity with a teacher was a plus.</p>
-
-<p>I really wasn&rsquo;t sure what to expect for the workshop, or how we would approach the topic.  I just want to get better at Vim.  Primarily, being better at vim would help at my day job as we ssh to most of our devices.  But I also want to try pair programming and from what I&rsquo;ve researched, one really needs to know vim.</p>
-
-<p>The workshop started off good.  Jon and Micah introduced us to dotmatrix:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/hashrocket/dotmatrix.git</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I don&rsquo;t know all the ins and outs but I guess I would summarize it as saying that by using dotmatrix I was able to configure my environment to by more &ldquo;HashRocketey&rdquo;  From the README.md file:</p>
-
-<p>&ldquo;Dotmatrix is a collection of dotfiles used at Hashrocket to customize various development tools. This project is the culmination of many years worth of tinkering with our favorite tools to get them to behave just right. We think using dotmatrix makes working with these tools more pleasant and hope you will too!&rdquo;</p>
-
-<p>There were a few steps involved to get everything up and running, but I won&rsquo;t bore you with those details.  After the class was all setup, or at least we thought we were setup, we moved on to cloning a practice Rails project which we were going to use in our lessons for vim.</p>
-
-<p>During part of the lesson I experienced an issue.  For some reason I was getting hung up with some issues involving Postgres.  I started to fall behind the class as I was trouble shooting.  Finally I just asked &ndash; &ldquo;&hellip; can I switch this project to SQLite to get beyond these problems?&rdquo;  Jon agreed that would be a good idea.  So I switched and tried to catch up.</p>
-
-<p>It wasn&rsquo;t going well for me.  Working with my Postgres issue caused me to miss some key instructions and details that the rest of the class had observed.  Instead of fighting to try to figure things out, I just sat back and tried to focus.  I guess Micah saw that I was having some trouble so he came over to assist.  When I explained my situation he helped to get me back on track and also has Jon show me some stuff that helped to get me caught up.</p>
-
-<p>At about the time I got caught up, we were quickly coming upon lunch time.  There was only four of us students plus Jon and Micah.  So we all went out to lunch together at A1A Ale Works.  It was a good time.  The advantage of a small class enabled us to be able to get to know each other and see what each others experience was like.</p>
-
-<p>After lunch we were back at the brain fillage.  I was starting to get a bit tired, and it seemed like the topics were getting harder.  But we pressed on and learned some more neat things with using vim.  I learned enough during the workshop to make me want to learn more.  I will continue my vim learning, using what I absorbed in the workshop as a foundation, and utilize other resources like Vim Genius (<a href="http://vimgenius.com/">http://vimgenius.com/</a>) and the cool screencast series Vimcasts (<a href="http://vimcasts.org/">http://vimcasts.org/</a>).  Also, I picked up a copy of &ldquo;Practical Vim: Edit Text at the Speed of Thought,&rdquo; by Drew Neil who also produces the vimcasts.</p>
-
-<p>Although I had some tough, frustrating moments, overall I enjoyed the Vim workshop.  Whether Jon knew it or not, he gave me a homework assignment.  As I was practicing at home that evening, I noticed that my prompt in the terminal was really long.  I prefer the following format:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>jfhogarty@Serenity:(source+*-)$</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So I had to figure out how to fix my prompt.  It wasn&rsquo;t too hard, just an edit to my ~/.bashrc file.  In my next post I will review my experience of the first day of the conference.  Stay tuned.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/05/my-ancient-city-ruby-pre-experience/">My Ancient City Ruby Pre-Experience 2014</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T09:23:52-04:00" pubdate data-updated="true">Apr 5<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Yesterday was the conclusion of Ancient City Ruby 2014.  But I&rsquo;d like to take us back in time a few days and review how my experience went.  For me, the journey began on the early morning of Tuesday, April 1st.  What I am about to say is not an Aprils Fool joke, though I did get fooled Tuesday morning by Sphero and the selfieBot.</p>
-
-<p>Every Tuesday, Hashrocket hosts an event called &ldquo;Code &amp; Coffee.&rdquo;  On a normal day of C&amp;C I will see some of the regulars &ndash; Micah, Johnny, DL, Eugene and Stuart. (Hope I spelled those names correctly!)  And sometimes there will be a new person &ndash; I was the new person a few months back.  But when I saw this guy walk in, he had a look of familiarity.  In my mind I knew the face, but not the name.  He walked over to the table where several of us had our laptops open, and introducted himself as Justin Searls.  WAT?  No way, one of the panelist is at C&amp;C and he is talking to me?</p>
-
-<p>Let&rsquo;s go back in time a few days prior to the event. I was checking out Twitter and saw that one of the panelist, someone who I look up to in a huge way, was asking if anyone wanted to share a cab ride from JAX to the venue in St. Augustine.  So I took a chance and offered to transport this panelist, Katrina Owen, from the Airport to St. Augustine.  Honestly I wasn&rsquo;t sure if there would be a response.  My experience with Twitter, for the most part, is many people want a horde of followers, but they seldom respond when a follower, me for example, tweets them.</p>
-
-<p>I should have remembered that this is the Ruby community and they are much more friendly and responsive.  Katrina accepted my offer and I was like a kid that just learned that his parents are taking him to Disney.  But wait, there is more!  Another of the panelist was looking for a ride so the offer was extended.  Surely I wouldn&rsquo;t be so lucky to have two gurus in my vehicle.  Offer Accepted!  The second panelist to brighten my day was Ben Lovell.</p>
-
-<p>With what appeared to be luck on my side, I decided to go for a trifecta.  I sent an email to Aaron Patterson asking if he needed a ride.  How cool would that have been to have three gurus to hang with?  But the Ruby gods clearly thought I was pushing my luck.  I was priveledged enough to have two gurus to share some time with.</p>
-
-<p>Fast forward a bit in time to Tuesday late afternoon.  I finished with some work for my day job and headed to the airport.  I was still in a state of slight disbelief.  Would these two panelist actually be at the airport and let me have the privelege of transporting them?  Ben&rsquo;s flight was a little delayed, but it actually worked out better for me.  I got the text message that they had their luggage and were ready for pickup at the B pickup area.  As I rolled up to the curb, my slight feelings of disbelief sub-sided and my internal flame of happiness was a well, &ldquo;flame on!&rdquo;</p>
-
-<p>In a way, I wished that the drive time from JAX to the hotel(s) in St. Augustine was longer.  It was great to have Katrina and Ben all to myself.  Perhaps a bit selfish on my part, but I really did enjoy their company and having a casual conversation.</p>
-
-<p>I&rsquo;ve decided to break up my experience into several parts, with this being the first.  I will next talk about how my experience went with the workshop I signed up for &ndash; Vim with Jon and Micah.  After that, I&rsquo;ll chat a bit about how the main days, Thursday and Friday, went at Ancient City Ruby 2014.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -947,23 +949,23 @@ cd instantclient_11_2</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/10/28/aint-your-ruby/">Aint Your Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/27/mysql-issue-osx/">MySQL Issue on Mac OSX</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/27/brew-a-fix-for-imagemagick-and-paperclip/">Brew A Fix for Imagemagic and Paperclip</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/23/testing-to-csv-method/">Testing to_csv Method</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/09/16/reflect-on-inflectors/">Reflecting on Rails Inflections</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/08/19/oracle-instant-client-osx/">Oracle Instant Client - Mac OSX</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/24/wrap-up-bloc/">Wrap Up - Bloc Experience</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/11/enter-the-4th-block/">Enter the 4th Block</a>
       </li>
     
   </ul>

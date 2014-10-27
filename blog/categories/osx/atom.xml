@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: OSX, | Old Guy, New Trick]]></title>
+  <link href="http://hogihung.github.io/blog/categories/osx/atom.xml" rel="self"/>
+  <link href="http://hogihung.github.io/"/>
+  <updated>2014-10-27T17:40:07-04:00</updated>
+  <id>http://hogihung.github.io/</id>
+  <author>
+    <name><![CDATA[Ho Gi Hung]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[MySQL Issue on Mac OSX]]></title>
+    <link href="http://hogihung.github.io/blog/2014/10/27/mysql-issue-osx/"/>
+    <updated>2014-10-27T18:40:45-04:00</updated>
+    <id>http://hogihung.github.io/blog/2014/10/27/mysql-issue-osx</id>
+    <content type="html"><![CDATA[<p>Most of my Rails projects, for personal use and education, have been using Postgresql or SQLite for the datbase backend.  At work our primary database is Oracle with a dash of MySQL.  Recently we decided to use MySQL with all future development, and migrate our tools/applications that use Oracle to use MySQL.</p>
+
+<p>I downloaded and installed MySQL by grabbing the installer from the MySQL website:  <a href="http://dev.mysql.com/downloads/mysql/">http://dev.mysql.com/downloads/mysql/</a> and getting the version for my operating system &ndash; OS X Mavericks.</p>
+
+<p>However, with this version installed I was having issues with bundler and getting the mysql gem to compile.  I tried a few solutions that I found on the internet, but none of them were working.</p>
+
+<p>I found some other people who had issues, when using OSX Mavericks, with the MySQL installer.  They solved the issue by removing MySQL that was installed from the download via dev.mysql.com and then re-installing using Homebrew.</p>
+
+<p>This solution worked for me as well.  I found this a bit odd, because earlier in the year I had issues with installing Postgres via Homebrew.  The solution for Postgres was to remove the Homebrew installation and use the installer from the Postgres site.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
+  
+</feed>
