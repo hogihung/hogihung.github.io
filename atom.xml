@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-10-27T17:43:53-04:00</updated>
+  <updated>2014-11-04T08:09:59-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,141 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Borrowing From Ruby Tapas]]></title>
+    <link href="http://hogihung.github.io/blog/2014/11/04/borrow-a-tapa-convention/"/>
+    <updated>2014-11-04T07:20:45-05:00</updated>
+    <id>http://hogihung.github.io/blog/2014/11/04/borrow-a-tapa-convention</id>
+    <content type="html"><![CDATA[<p>I have many learning tools in my arsenal including Code School, Thoughtbot/Upcase, RailsCasts, Ruby Tapas, and too many other Internet based free resources to list.  But today I want to talk tapas, and borrow something that I learned from watching many episodes of Ruby Tapas.</p>
+
+<p>As I&rsquo;ve watched various episodes, I kept saying to myself, how is Avdi executing code right from within his text editor?  Is this some time of post production trickery?  Perhaps a green screen based laptop with a dash of After Effects?  But after some research, I learned that is wasn&rsquo;t some fancy magic, but rather an ability within his editor.  I believe that editor to be Emacs.</p>
+
+<p>Well, I&rsquo;m a Sublime Text user, and slowly dabbling with Vim.  So off to the online oracles to see if I could find a solution that would work in Sublime.  I did indeed find some solutions that said they were doing what Avdi can do &ndash; even referencing that they had the same desire as me.  However, I was not successful with getting Sublime to work the way I was expecting.  After spending several hours trying to force it to work, I gave up.  And I had a thought &ndash; surely this would be easier to get working with Vim.  :)</p>
+
+<p>Getting the Tapas style in-line Ruby code execution to work in Vim was nice and easy.  I followed the instructions <a href="http://commandercoriander.net/blog/2012/10/10/evaluate-lines-of-ruby-in-vim/">here</a> and was up in running with very little effort.  For those that don&rsquo;t want leave from this fabulous reading, I&rsquo;ll summarize what needs to be done, first starting with the installation of a gem:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem install rcodetools</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we need to add a plugin to Vim.  Depending on your setup, you may need to add the .vim/bundle directory in your home directory.  But I already had this setup, so all I needed to do was the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~
+</span><span class='line'>cd .vim/bundle
+</span><span class='line'>git clone https://github.com/t9md/vim-ruby-xmpfilter.git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For a final bit of setup/configuration, we need to take a trip in editing the ~/.vimrc or ~/.vimrc.local file so we can do some mapping:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nmap &lt;buffer&gt; &lt;F4&gt; &lt;Plug&gt;(xmpfilter-mark)
+</span><span class='line'>xmap &lt;buffer&gt; &lt;F4&gt; &lt;Plug&gt;(xmpfilter-mark)
+</span><span class='line'>imap &lt;buffer&gt; &lt;F4&gt; &lt;Plug&gt;(xmpfilter-mark)
+</span><span class='line'>
+</span><span class='line'>nmap &lt;buffer&gt; &lt;F5&gt; &lt;Plug&gt;(xmpfilter-run)
+</span><span class='line'>xmap &lt;buffer&gt; &lt;F5&gt; &lt;Plug&gt;(xmpfilter-run)
+</span><span class='line'>imap &lt;buffer&gt; &lt;F5&gt; &lt;Plug&gt;(xmpfilter-run)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The above mapping will allows us to mark (F4) what line(s) we want to see the results for of executing the ruby code, which we accomplish by pressing F5.  Let&rsquo;s step through an example to see how this works.  I&rsquo;ll show the example file through the various stages.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1 class Person
+</span><span class='line'>2   attr_accessor :name, :age
+</span><span class='line'>3
+</span><span class='line'>4   def initialize(name)
+</span><span class='line'>5     self.name = name
+</span><span class='line'>6     self.age = "Does it matter?"
+</span><span class='line'>7   end
+</span><span class='line'>8 end
+</span><span class='line'>9
+</span><span class='line'>10 p = Person.new('Kevin')
+</span><span class='line'>11 p.name
+</span><span class='line'>12 p.age</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next we will press F4 for the code we want to evaluate, line 11 below:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1 class Person
+</span><span class='line'>2   attr_accessor :name, :age
+</span><span class='line'>3
+</span><span class='line'>4   def initialize(name)
+</span><span class='line'>5     self.name = name
+</span><span class='line'>6     self.age = "Does it matter?"
+</span><span class='line'>7   end
+</span><span class='line'>8 end
+</span><span class='line'>9
+</span><span class='line'>10 p = Person.new('Kevin')
+</span><span class='line'>11 p.name # =&gt;
+</span><span class='line'>12 p.age</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And finally, EXECUTE (F5):</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1 class Person
+</span><span class='line'>2   attr_accessor :name, :age
+</span><span class='line'>3
+</span><span class='line'>4   def initialize(name)
+</span><span class='line'>5     self.name = name
+</span><span class='line'>6     self.age = "Does it matter?"
+</span><span class='line'>7   end
+</span><span class='line'>8 end
+</span><span class='line'>9
+</span><span class='line'>10 p = Person.new('Kevin')
+</span><span class='line'>11 p.name # =&gt; "Kevin"
+</span><span class='line'>12 p.age</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty neat, eh?  Borrowing this workflow from Ruby Tapas will now help me when I&rsquo;m following along with each episode.  Now I just need to get better with Vim.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[MySQL Issue on Mac OSX]]></title>
@@ -943,84 +1078,6 @@ the last time I saw this person, I was 60 pounds heavier!</p>
 <p>Working in the tech field may seem to present challenges in staying fit.  We basically sit all day to earn a living.  But I&rsquo;m encouraging you to watch your weight and loose those pesky pounds.  While at work, stand up every 30-45 minutes and stretch out.  Stay standing for 5-10 minutes and get then get back to work.  Maybe get one of those desks that can go up and down &ndash; I have my eye on this one: <a href="http://www.nextdesks.com/terra">http://www.nextdesks.com/terra</a></p>
 
 <p>So, get up and Drop that Bass, er, Fat!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Dissect A Method - Part II]]></title>
-    <link href="http://hogihung.github.io/blog/2014/02/24/dissect-a-method-part-ii/"/>
-    <updated>2014-02-24T20:48:10-05:00</updated>
-    <id>http://hogihung.github.io/blog/2014/02/24/dissect-a-method-part-ii</id>
-    <content type="html"><![CDATA[<p>About a week ago I created the &ldquo;Dissect A Method&rdquo; post.  Near the end of that post
-I felt like I left things hanging.  So I&rsquo;m going to try and clear things up.  I ended that post mostly because I wasn&rsquo;t comfortable with what is going on in the line of code that looks like this:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>decimal.gsub!(/\d{3}(?!$)/,'\0,')</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I did a some research &ndash; a little dive into the API, <a href="http://apidock.com/ruby/String/gsub">http://apidock.com/ruby/String/gsub</a> and a trip over to a cool RegEx site, <a href="http://rubular.com/">http://rubular.com/</a></p>
-
-<p>If you would like follow along, go to the rubular site and enter the following into the text box for &lsquo;Your regular expression:&rsquo;</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>\d{3}(?!$)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>In the text box for &lsquo;Your test string:&rsquo; we will try a few different values.  Go ahead and test a few numbers, one at a time, e.g. 45789  AND  1024  AND  54 AND  5251350</p>
-
-<p>Observe your results in the &lsquo;Match result:&rsquo; text box.  So the beginning of our regex is composed of \d{3} which says that we are looking for 3 digits &ndash; any number 0 thru 9.  The next part is what had me stuck.  I seemed to recall that the $ meant End of line, and we can confirm that by looking at the RegEx quick reference on the rubular site.</p>
-
-<p>But what heck is this ?! stuff?  These two characters mean Negative lookahead.  So we are going to the end of the line of the string and then looking <em>backwards</em> to get a group of three digits.</p>
-
-<p>Ok, so what does that last part mean, the &lsquo;\0,&rsquo; ?  Taking a look on the apidock site, I found an explanation &ndash; Interpolating.  For example:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># replace /ll/ with itself
-</span><span class='line'>'hello'.gsub(/ll/, '\0') # returns 'hello'
-</span><span class='line'>'hello'.gsub(/ll/, "\0") # returns 'he\000o'</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Putting the pieces together, if matched, we would grab some digits, and replace them with the same digits <em>plus</em> a comma, thus helping us to create a pretty integer.</p>
-
-<p>Using a combination of the rubular site, and irb, try out the example for the number 1249580.  As we will see in the irb shortly, the first digit will be extracted as the leader.  So in rubular, just enter the number 249580.  Notice how in rubular the digits 249 are highlighted.  These numbers will have themselves replaced with 249, once we do the interpolating.</p>
-
-<p>Ok, lets take this to the irb!</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>2.1.0 :001 &gt; decimal = Integer(1249580).to_s
-</span><span class='line'> =&gt; "1249580"
-</span><span class='line'>2.1.0 :002 &gt; leader = decimal.slice!(0, decimal.length % 3)
-</span><span class='line'> =&gt; "1"
-</span><span class='line'>2.1.0 :003 &gt; decimal.gsub!(/\d{3}(?!$)/,'\0,')
-</span><span class='line'> =&gt; "249,580"
-</span><span class='line'>2.1.0 :004 &gt; decimal = nil if decimal.empty?
-</span><span class='line'> =&gt; nil
-</span><span class='line'>2.1.0 :005 &gt; leader  = nil if leader.empty?
-</span><span class='line'> =&gt; nil
-</span><span class='line'>2.1.0 :006 &gt;
-</span><span class='line'>2.1.0 :007 &gt;   [leader,decimal].compact.join(",")
-</span><span class='line'> =&gt; "1,249,580"
-</span><span class='line'>2.1.0 :008 &gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I hope this follow up post has helped to illustrate how all the components of our original method of dissection work.  Going through the research and stepping through a few examples has helped me a lot.</p>
-
-<p><em>Learn Something New Everyday</em></p>
 ]]></content>
   </entry>
   

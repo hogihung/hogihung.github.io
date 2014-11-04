@@ -9,7 +9,8 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="Would you like to have your own super cool blog but don&rsquo;t want to go through the hassel of setting up WordPress? Or maybe you don&rsquo;t have &hellip;">
+  <meta name="description" content="About a week ago I created the &ldquo;Dissect A Method&rdquo; post. Near the end of that post
+I felt like I left things hanging. So I&rsquo;m going &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +66,111 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/24/dissect-a-method-part-ii/">Dissect a Method - Part II</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-24T20:48:10-05:00" pubdate data-updated="true">Feb 24<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>About a week ago I created the &ldquo;Dissect A Method&rdquo; post.  Near the end of that post
+I felt like I left things hanging.  So I&rsquo;m going to try and clear things up.  I ended that post mostly because I wasn&rsquo;t comfortable with what is going on in the line of code that looks like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>decimal.gsub!(/\d{3}(?!$)/,'\0,')</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I did a some research &ndash; a little dive into the API, <a href="http://apidock.com/ruby/String/gsub">http://apidock.com/ruby/String/gsub</a> and a trip over to a cool RegEx site, <a href="http://rubular.com/">http://rubular.com/</a></p>
+
+<p>If you would like follow along, go to the rubular site and enter the following into the text box for &lsquo;Your regular expression:&rsquo;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>\d{3}(?!$)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the text box for &lsquo;Your test string:&rsquo; we will try a few different values.  Go ahead and test a few numbers, one at a time, e.g. 45789  AND  1024  AND  54 AND  5251350</p>
+
+<p>Observe your results in the &lsquo;Match result:&rsquo; text box.  So the beginning of our regex is composed of \d{3} which says that we are looking for 3 digits &ndash; any number 0 thru 9.  The next part is what had me stuck.  I seemed to recall that the $ meant End of line, and we can confirm that by looking at the RegEx quick reference on the rubular site.</p>
+
+<p>But what heck is this ?! stuff?  These two characters mean Negative lookahead.  So we are going to the end of the line of the string and then looking <em>backwards</em> to get a group of three digits.</p>
+
+<p>Ok, so what does that last part mean, the &lsquo;\0,&rsquo; ?  Taking a look on the apidock site, I found an explanation &ndash; Interpolating.  For example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># replace /ll/ with itself
+</span><span class='line'>'hello'.gsub(/ll/, '\0') # returns 'hello'
+</span><span class='line'>'hello'.gsub(/ll/, "\0") # returns 'he\000o'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Putting the pieces together, if matched, we would grab some digits, and replace them with the same digits <em>plus</em> a comma, thus helping us to create a pretty integer.</p>
+
+<p>Using a combination of the rubular site, and irb, try out the example for the number 1249580.  As we will see in the irb shortly, the first digit will be extracted as the leader.  So in rubular, just enter the number 249580.  Notice how in rubular the digits 249 are highlighted.  These numbers will have themselves replaced with 249, once we do the interpolating.</p>
+
+<p>Ok, lets take this to the irb!</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>2.1.0 :001 &gt; decimal = Integer(1249580).to_s
+</span><span class='line'> =&gt; "1249580"
+</span><span class='line'>2.1.0 :002 &gt; leader = decimal.slice!(0, decimal.length % 3)
+</span><span class='line'> =&gt; "1"
+</span><span class='line'>2.1.0 :003 &gt; decimal.gsub!(/\d{3}(?!$)/,'\0,')
+</span><span class='line'> =&gt; "249,580"
+</span><span class='line'>2.1.0 :004 &gt; decimal = nil if decimal.empty?
+</span><span class='line'> =&gt; nil
+</span><span class='line'>2.1.0 :005 &gt; leader  = nil if leader.empty?
+</span><span class='line'> =&gt; nil
+</span><span class='line'>2.1.0 :006 &gt;
+</span><span class='line'>2.1.0 :007 &gt;   [leader,decimal].compact.join(",")
+</span><span class='line'> =&gt; "1,249,580"
+</span><span class='line'>2.1.0 :008 &gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I hope this follow up post has helped to illustrate how all the components of our original method of dissection work.  Going through the research and stepping through a few examples has helped me a lot.</p>
+
+<p><em>Learn Something New Everyday</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -681,6 +787,10 @@ or if Ruby is in a different location on a machine other than yours, you can use
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/11/04/borrow-a-tapa-convention/">Borrowing From Ruby Tapas</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/10/27/mysql-issue-osx/">MySQL Issue on Mac OSX</a>
       </li>
     
@@ -694,10 +804,6 @@ or if Ruby is in a different location on a machine other than yours, you can use
     
       <li class="post">
         <a href="/blog/2014/09/16/reflect-on-inflectors/">Reflecting on Rails Inflections</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/08/19/oracle-instant-client-osx/">Oracle Instant Client - Mac OSX</a>
       </li>
     
   </ul>

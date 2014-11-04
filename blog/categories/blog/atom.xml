@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blog, | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/blog/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-10-27T17:43:53-04:00</updated>
+  <updated>2014-11-04T08:09:59-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,100 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Borrowing From Ruby Tapas]]></title>
+    <link href="http://hogihung.github.io/blog/2014/11/04/borrow-a-tapa-convention/"/>
+    <updated>2014-11-04T07:20:45-05:00</updated>
+    <id>http://hogihung.github.io/blog/2014/11/04/borrow-a-tapa-convention</id>
+    <content type="html"><![CDATA[<p>I have many learning tools in my arsenal including Code School, Thoughtbot/Upcase, RailsCasts, Ruby Tapas, and too many other Internet based free resources to list.  But today I want to talk tapas, and borrow something that I learned from watching many episodes of Ruby Tapas.</p>
+
+<p>As I&rsquo;ve watched various episodes, I kept saying to myself, how is Avdi executing code right from within his text editor?  Is this some time of post production trickery?  Perhaps a green screen based laptop with a dash of After Effects?  But after some research, I learned that is wasn&rsquo;t some fancy magic, but rather an ability within his editor.  I believe that editor to be Emacs.</p>
+
+<p>Well, I&rsquo;m a Sublime Text user, and slowly dabbling with Vim.  So off to the online oracles to see if I could find a solution that would work in Sublime.  I did indeed find some solutions that said they were doing what Avdi can do &ndash; even referencing that they had the same desire as me.  However, I was not successful with getting Sublime to work the way I was expecting.  After spending several hours trying to force it to work, I gave up.  And I had a thought &ndash; surely this would be easier to get working with Vim.  :)</p>
+
+<p>Getting the Tapas style in-line Ruby code execution to work in Vim was nice and easy.  I followed the instructions <a href="http://commandercoriander.net/blog/2012/10/10/evaluate-lines-of-ruby-in-vim/">here</a> and was up in running with very little effort.  For those that don&rsquo;t want leave from this fabulous reading, I&rsquo;ll summarize what needs to be done, first starting with the installation of a gem:</p>
+
+<p><code>
+gem install rcodetools
+</code></p>
+
+<p>Now we need to add a plugin to Vim.  Depending on your setup, you may need to add the .vim/bundle directory in your home directory.  But I already had this setup, so all I needed to do was the following:</p>
+
+<p><code>
+cd ~
+cd .vim/bundle
+git clone https://github.com/t9md/vim-ruby-xmpfilter.git
+</code></p>
+
+<p>For a final bit of setup/configuration, we need to take a trip in editing the ~/.vimrc or ~/.vimrc.local file so we can do some mapping:</p>
+
+<p>```
+nmap <buffer> <F4> <Plug>(xmpfilter-mark)
+xmap <buffer> <F4> <Plug>(xmpfilter-mark)
+imap <buffer> <F4> <Plug>(xmpfilter-mark)</p>
+
+<p>nmap <buffer> <F5> <Plug>(xmpfilter-run)
+xmap <buffer> <F5> <Plug>(xmpfilter-run)
+imap <buffer> <F5> <Plug>(xmpfilter-run)
+```</p>
+
+<p>The above mapping will allows us to mark (F4) what line(s) we want to see the results for of executing the ruby code, which we accomplish by pressing F5.  Let&rsquo;s step through an example to see how this works.  I&rsquo;ll show the example file through the various stages.</p>
+
+<p><code>
+1 class Person
+2   attr_accessor :name, :age
+3
+4   def initialize(name)
+5     self.name = name
+6     self.age = "Does it matter?"
+7   end
+8 end
+9
+10 p = Person.new('Kevin')
+11 p.name
+12 p.age
+</code></p>
+
+<p>Next we will press F4 for the code we want to evaluate, line 11 below:</p>
+
+<p><code>
+1 class Person
+2   attr_accessor :name, :age
+3
+4   def initialize(name)
+5     self.name = name
+6     self.age = "Does it matter?"
+7   end
+8 end
+9
+10 p = Person.new('Kevin')
+11 p.name # =&gt;
+12 p.age
+</code></p>
+
+<p>And finally, EXECUTE (F5):</p>
+
+<p><code>
+1 class Person
+2   attr_accessor :name, :age
+3
+4   def initialize(name)
+5     self.name = name
+6     self.age = "Does it matter?"
+7   end
+8 end
+9
+10 p = Person.new('Kevin')
+11 p.name # =&gt; "Kevin"
+12 p.age
+</code></p>
+
+<p>Pretty neat, eh?  Borrowing this workflow from Ruby Tapas will now help me when I&rsquo;m following along with each episode.  Now I just need to get better with Vim.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[MySQL Issue on Mac OSX]]></title>

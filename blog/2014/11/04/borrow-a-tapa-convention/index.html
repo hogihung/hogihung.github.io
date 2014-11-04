@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Borrowing From Ruby Tapas - Old Guy, New Trick</title>
+  <meta name="author" content="Ho Gi Hung">
+
+  
+  <meta name="description" content="I have many learning tools in my arsenal including Code School, Thoughtbot/Upcase, RailsCasts, Ruby Tapas, and too many other Internet based free &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hogihung.github.io/blog/2014/11/04/borrow-a-tapa-convention/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Old Guy, New Trick" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Old Guy, New Trick</a></h1>
+  
+    <h2>An old guys journey to learn how to code</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hogihung.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+	<li><a href="/">Blog</a></li>
+  <li><a href="/about/">About</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Borrowing From Ruby Tapas</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-04T07:20:45-05:00" pubdate data-updated="true">Nov 4<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I have many learning tools in my arsenal including Code School, Thoughtbot/Upcase, RailsCasts, Ruby Tapas, and too many other Internet based free resources to list.  But today I want to talk tapas, and borrow something that I learned from watching many episodes of Ruby Tapas.</p>
+
+<p>As I&rsquo;ve watched various episodes, I kept saying to myself, how is Avdi executing code right from within his text editor?  Is this some time of post production trickery?  Perhaps a green screen based laptop with a dash of After Effects?  But after some research, I learned that is wasn&rsquo;t some fancy magic, but rather an ability within his editor.  I believe that editor to be Emacs.</p>
+
+<p>Well, I&rsquo;m a Sublime Text user, and slowly dabbling with Vim.  So off to the online oracles to see if I could find a solution that would work in Sublime.  I did indeed find some solutions that said they were doing what Avdi can do &ndash; even referencing that they had the same desire as me.  However, I was not successful with getting Sublime to work the way I was expecting.  After spending several hours trying to force it to work, I gave up.  And I had a thought &ndash; surely this would be easier to get working with Vim.  :)</p>
+
+<p>Getting the Tapas style in-line Ruby code execution to work in Vim was nice and easy.  I followed the instructions <a href="http://commandercoriander.net/blog/2012/10/10/evaluate-lines-of-ruby-in-vim/">here</a> and was up in running with very little effort.  For those that don&rsquo;t want leave from this fabulous reading, I&rsquo;ll summarize what needs to be done, first starting with the installation of a gem:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem install rcodetools</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we need to add a plugin to Vim.  Depending on your setup, you may need to add the .vim/bundle directory in your home directory.  But I already had this setup, so all I needed to do was the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~
+</span><span class='line'>cd .vim/bundle
+</span><span class='line'>git clone https://github.com/t9md/vim-ruby-xmpfilter.git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For a final bit of setup/configuration, we need to take a trip in editing the ~/.vimrc or ~/.vimrc.local file so we can do some mapping:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nmap &lt;buffer&gt; &lt;F4&gt; &lt;Plug&gt;(xmpfilter-mark)
+</span><span class='line'>xmap &lt;buffer&gt; &lt;F4&gt; &lt;Plug&gt;(xmpfilter-mark)
+</span><span class='line'>imap &lt;buffer&gt; &lt;F4&gt; &lt;Plug&gt;(xmpfilter-mark)
+</span><span class='line'>
+</span><span class='line'>nmap &lt;buffer&gt; &lt;F5&gt; &lt;Plug&gt;(xmpfilter-run)
+</span><span class='line'>xmap &lt;buffer&gt; &lt;F5&gt; &lt;Plug&gt;(xmpfilter-run)
+</span><span class='line'>imap &lt;buffer&gt; &lt;F5&gt; &lt;Plug&gt;(xmpfilter-run)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The above mapping will allows us to mark (F4) what line(s) we want to see the results for of executing the ruby code, which we accomplish by pressing F5.  Let&rsquo;s step through an example to see how this works.  I&rsquo;ll show the example file through the various stages.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1 class Person
+</span><span class='line'>2   attr_accessor :name, :age
+</span><span class='line'>3
+</span><span class='line'>4   def initialize(name)
+</span><span class='line'>5     self.name = name
+</span><span class='line'>6     self.age = "Does it matter?"
+</span><span class='line'>7   end
+</span><span class='line'>8 end
+</span><span class='line'>9
+</span><span class='line'>10 p = Person.new('Kevin')
+</span><span class='line'>11 p.name
+</span><span class='line'>12 p.age</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next we will press F4 for the code we want to evaluate, line 11 below:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1 class Person
+</span><span class='line'>2   attr_accessor :name, :age
+</span><span class='line'>3
+</span><span class='line'>4   def initialize(name)
+</span><span class='line'>5     self.name = name
+</span><span class='line'>6     self.age = "Does it matter?"
+</span><span class='line'>7   end
+</span><span class='line'>8 end
+</span><span class='line'>9
+</span><span class='line'>10 p = Person.new('Kevin')
+</span><span class='line'>11 p.name # =&gt;
+</span><span class='line'>12 p.age</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And finally, EXECUTE (F5):</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1 class Person
+</span><span class='line'>2   attr_accessor :name, :age
+</span><span class='line'>3
+</span><span class='line'>4   def initialize(name)
+</span><span class='line'>5     self.name = name
+</span><span class='line'>6     self.age = "Does it matter?"
+</span><span class='line'>7   end
+</span><span class='line'>8 end
+</span><span class='line'>9
+</span><span class='line'>10 p = Person.new('Kevin')
+</span><span class='line'>11 p.name # =&gt; "Kevin"
+</span><span class='line'>12 p.age</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty neat, eh?  Borrowing this workflow from Ruby Tapas will now help me when I&rsquo;m following along with each episode.  Now I just need to get better with Vim.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ho Gi Hung</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-04T07:20:45-05:00" pubdate data-updated="true">Nov 4<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/blog/'>Blog,</a>, <a class='category' href='/blog/categories/productivity/'>Productivity</a>, <a class='category' href='/blog/categories/ruby/'>Ruby,</a>, <a class='category' href='/blog/categories/tip/'>Tip,</a>, <a class='category' href='/blog/categories/vim/'>Vim,</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2014/11/04/borrow-a-tapa-convention/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2014/11/04/borrow-a-tapa-convention/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/10/27/mysql-issue-osx/" title="Previous Post: MySQL Issue on Mac OSX">&laquo; MySQL Issue on Mac OSX</a>
+      
+      
+    </p>
+    <div id="disqus_thread"></div>
+      <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          var disqus_shortname = 'oldguynewtrickcom'; // required: replace example with your forum shortname
+
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/04/borrow-a-tapa-convention/">Borrowing From Ruby Tapas</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/27/mysql-issue-osx/">MySQL Issue on Mac OSX</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/27/brew-a-fix-for-imagemagick-and-paperclip/">Brew A Fix for Imagemagic and Paperclip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/23/testing-to-csv-method/">Testing to_csv Method</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/16/reflect-on-inflectors/">Reflecting on Rails Inflections</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("hogihung", , );
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <p>Follow <a href="http://twitter.com/hogihung">@hogihung</a></p>
+  
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Ho Gi Hung -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.Background image by Ho Gi Hung</span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

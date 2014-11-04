@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Ruby, | Old Guy, New Trick]]></title>
-  <link href="http://hogihung.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Tip, | Old Guy, New Trick]]></title>
+  <link href="http://hogihung.github.io/blog/categories/tip/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
   <updated>2014-11-04T08:09:59-05:00</updated>
   <id>http://hogihung.github.io/</id>
@@ -102,78 +102,6 @@ imap <buffer> <F5> <Plug>(xmpfilter-run)
 </code></p>
 
 <p>Pretty neat, eh?  Borrowing this workflow from Ruby Tapas will now help me when I&rsquo;m following along with each episode.  Now I just need to get better with Vim.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Testing to_csv Method]]></title>
-    <link href="http://hogihung.github.io/blog/2014/09/23/testing-to-csv-method/"/>
-    <updated>2014-09-23T09:32:37-04:00</updated>
-    <id>http://hogihung.github.io/blog/2014/09/23/testing-to-csv-method</id>
-    <content type="html"><![CDATA[<p>Last week I covered a topic that resurfaced while I am in the process of upgrading one of our apps from Ruby 1.9 and Rails 3.x. When I wrote that application I was a raw recruit &ndash; fresh to Ruby and Rails and just trying to get the idea to work.</p>
-
-<p>But as I&rsquo;ve been improving my skills and expanding the ole grey matter, I wanted to write this new version, fully tested.  In the application there is a need to be able to export the data to a CSV formatted file.  I had the code from the old version of the app, and migrated it over.  However, I challenged myself to figure out how to write a test for the to_csv method in Baytech model.</p>
-
-<p>Below is the code from the Baytech model:</p>
-
-<p>```
-def self.to_csv
-  CSV.generate(col_sep: &lsquo;:&rsquo;) do |csv|</p>
-
-<pre><code>all.each do |baytech|
-  port = "X"
-  csv &lt;&lt; [baytech.name, baytech.phone_num, baytech.ip_addr, port, baytech.modem_type, port]
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<p>I know the method works, as it has been working fine for 9 months or so now.  But I really wanted to figure out how to write a test for this method.  After much trial and error, along with research via books and google, I came up with the following solution:</p>
-
-<p>```
-describe Baytech, &lsquo;#to_csv&rsquo; do
-  let(:baytech) { FactoryGirl.create(:baytech) }</p>
-
-<p>  before do</p>
-
-<pre><code>baytech
-</code></pre>
-
-<p>  end</p>
-
-<p>  it { expect(Baytech.to_csv).to match /#{baytech.name}:#{baytech.phone_num}:#{baytech.ip_addr}:X:1:X/ }
-end
-```</p>
-
-<p>You may notice in the above code that I am referencing a Factory.  Here is a short version of that factory file:</p>
-
-<p>```
-FactoryGirl.define do
-  factory :baytech do</p>
-
-<pre><code>sequence(:name) {|n| "jaxfl0#{n}b9" }
-sequence(:ip_addr) {|n| "10.1.2.#{n}" }
-phone_num "7091234384"
-region "USA"
-modem_type "1"
-ip_method "ssh"
-active true
-has_modem_line true
-updated_by "cd1234"
-
-{-snip-}
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<p>The keen eye may have caught something interesting in the to_csv method.  I&rsquo;m using an option, col_sep: &lsquo;:&rsquo; which allows me to use the : character as the delimiter instead of the default comma.</p>
-
-<p>With the test in place, and passing, I felt better about the code in my to_csv method.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>
