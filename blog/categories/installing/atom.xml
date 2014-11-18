@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Installing | Old Guy, New Trick]]></title>
+  <link href="http://hogihung.github.io/blog/categories/installing/atom.xml" rel="self"/>
+  <link href="http://hogihung.github.io/"/>
+  <updated>2014-11-17T21:41:36-05:00</updated>
+  <id>http://hogihung.github.io/</id>
+  <author>
+    <name><![CDATA[Ho Gi Hung]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Cha-Cha-Cha-Chruby]]></title>
+    <link href="http://hogihung.github.io/blog/2014/11/18/Cha-Cha-Cha-Chruby/"/>
+    <updated>2014-11-18T07:30:47-05:00</updated>
+    <id>http://hogihung.github.io/blog/2014/11/18/Cha-Cha-Cha-Chruby</id>
+    <content type="html"><![CDATA[<p>Recently I got a bug, ney rather an itch I needed to scratch.  I have been using RVM for over a year and half.  I have had some issues, but mostly those were due to me learning how to work with RVM.</p>
+
+<p>I was having an odd issue on one of my Macs so I decided to remove RVM and install rbenv.  I shot a tweet out to see if anyone had an opinion about rbenv and I received a reply suggesting I give chruby a chance.  Recently I had listened to an episode of Ruby Rogues <a href="http://devchat.tv/ruby-rogues/169-rr-version-managers-with-michal-papis-mislav-maronic-and-postmodern-mod-iii">#169</a>,  where they talked about RVM, rbenv, and chruby.</p>
+
+<p>So I decied to give chruby a try.  Removing RVM is pretty straight forward.  You should be able to simply run:</p>
+
+<p><code>
+rvm implode
+</code></p>
+
+<p>Once removed, you may need to edit your .bashrc/.zshrc or *profile file(s) to remove any reference to RVM.</p>
+
+<p>While I really like RVM, I&rsquo;ve always been a bit worried about the magic it performs &ndash; the stuff it does for me that I&rsquo;m not familiar with.  Chruby seemed to be easier for me to grasp.  From my limited understanding, there seems to be less moving parts in chruby vs. RVM.</p>
+
+<p>I&rsquo;m not going to lay out all of the steps to get chruby installed.  The source web pages for chruby and ruby-install are very easy to read and comprehend.</p>
+
+<p><a href="https://github.com/postmodern/chruby">chruby</a><br>
+<a href="https://github.com/postmodern/ruby-install">ruby-install</a></p>
+
+<p>It took me a little bit to understand the differences of chruby and how I would use in my environment.  But after getting it running on my laptop, I converted two other Macs, my Ubuntu VM, and my CentOS server to use chruby.</p>
+
+<p>As I said earlier, I do like RVM, and it had served me well.  I still use RVM at my day job on our CentOS servers.  I thought changing from RVM to chruby on those servers would be a good idea, so I attempted to change a development server.  While the removal of RVM and install of Chruby went fine, I ran into a huge issue.  I could not get Passenger to work properly under Chruby.  I&rsquo;m sure the reason is due to my lack of understanding, but I just couldn&rsquo;t affort to figure it out. So I switched back to RVM &ndash; and RVM will stay on our work servers.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
+  
+</feed>

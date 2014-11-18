@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-11-04T08:09:59-05:00</updated>
+  <updated>2014-11-17T21:41:36-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,38 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Cha-Cha-Cha-Chruby]]></title>
+    <link href="http://hogihung.github.io/blog/2014/11/18/Cha-Cha-Cha-Chruby/"/>
+    <updated>2014-11-18T07:30:47-05:00</updated>
+    <id>http://hogihung.github.io/blog/2014/11/18/Cha-Cha-Cha-Chruby</id>
+    <content type="html"><![CDATA[<p>Recently I got a bug, ney rather an itch I needed to scratch.  I have been using RVM for over a year and half.  I have had some issues, but mostly those were due to me learning how to work with RVM.</p>
+
+<p>I was having an odd issue on one of my Macs so I decided to remove RVM and install rbenv.  I shot a tweet out to see if anyone had an opinion about rbenv and I received a reply suggesting I give chruby a chance.  Recently I had listened to an episode of Ruby Rogues <a href="http://devchat.tv/ruby-rogues/169-rr-version-managers-with-michal-papis-mislav-maronic-and-postmodern-mod-iii">#169</a>,  where they talked about RVM, rbenv, and chruby.</p>
+
+<p>So I decied to give chruby a try.  Removing RVM is pretty straight forward.  You should be able to simply run:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rvm implode</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once removed, you may need to edit your .bashrc/.zshrc or *profile file(s) to remove any reference to RVM.</p>
+
+<p>While I really like RVM, I&rsquo;ve always been a bit worried about the magic it performs &ndash; the stuff it does for me that I&rsquo;m not familiar with.  Chruby seemed to be easier for me to grasp.  From my limited understanding, there seems to be less moving parts in chruby vs. RVM.</p>
+
+<p>I&rsquo;m not going to lay out all of the steps to get chruby installed.  The source web pages for chruby and ruby-install are very easy to read and comprehend.</p>
+
+<p><a href="https://github.com/postmodern/chruby">chruby</a><br>
+<a href="https://github.com/postmodern/ruby-install">ruby-install</a></p>
+
+<p>It took me a little bit to understand the differences of chruby and how I would use in my environment.  But after getting it running on my laptop, I converted two other Macs, my Ubuntu VM, and my CentOS server to use chruby.</p>
+
+<p>As I said earlier, I do like RVM, and it had served me well.  I still use RVM at my day job on our CentOS servers.  I thought changing from RVM to chruby on those servers would be a good idea, so I attempted to change a development server.  While the removal of RVM and install of Chruby went fine, I ran into a huge issue.  I could not get Passenger to work properly under Chruby.  I&rsquo;m sure the reason is due to my lack of understanding, but I just couldn&rsquo;t affort to figure it out. So I switched back to RVM &ndash; and RVM will stay on our work servers.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Borrowing From Ruby Tapas]]></title>
@@ -1050,34 +1082,6 @@ cd instantclient_11_2</p>
 <p>Through my research and conversations, I&rsquo;ve narrowed my search down to Bloc and Tealeaf.  Tealeaf is getting a strong consideration because one of their founders is a Hashrocket alumni which I found out about after talking with two folks from Hashrocket.  But Bloc is the leader and I&rsquo;ve pre-registered with them.  I wish Tealeaf had hosted some info sessions so I could get a taste of how they work.  I&rsquo;m still considering them as their course is broken down into 3 components, with the last one covering advanced concepts.  Upon completion of Bloc, I may enroll in that third course.</p>
 
 <p>I&rsquo;ve had exposure to three mentors at Bloc.  Each one has impressed me.  Keep an eye out for my follow up posts regarding how my training goes with Bloc.  I have a mentor in mind, but I will not know for sure until I get through the formal registration and enrollment.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Drop the Bass (Fat)]]></title>
-    <link href="http://hogihung.github.io/blog/2014/02/26/drop-the-bass/"/>
-    <updated>2014-02-26T10:39:26-05:00</updated>
-    <id>http://hogihung.github.io/blog/2014/02/26/drop-the-bass</id>
-    <content type="html"><![CDATA[<p>I ran into a former co-worker the other day &ndash; someone that I hadn&rsquo;t seen since I left my previous assignment back in 2008.  They looked at me in a surprising way and at first I wasn&rsquo;t sure why.  Had I changed that much in a few short years?  Then it hit me,
-the last time I saw this person, I was 60 pounds heavier!</p>
-
-<p>Back in 2008 I had probably hit the height of feeling like crap.  The job I was in was stressing me out and then we found out that our contract was not going to be renewed.  Although the job was not making me happy, the thought of being unemployed was worse.  Tack on to that, I kept gaining weight over the years and I was having health problems.</p>
-
-<p>I kept getting sick and having a hard time breathing.  I was coughing all the time, and though I deny it, the wife says my snoring could rattle the dishes.  I saw several doctors, and specialists.  They ran tests on me, put me in some type of chamber to measure how I breathed.  Nothing was fixing my problem.  The only relief came from cough syrup, assorted pills and some breathing medication.</p>
-
-<p>In 2009 I started a new job, one that I&rsquo;m still at and very happy with.  The stress from the old job was gone, but the fat was still sticking around.  We had a family trip planned to go to Hong Kong in December.  Hong Kong is a very dynamic city and I wouldn&rsquo;t have my crutch of a car/truck to shuttle my fat ass around with.  I&rsquo;d have to walk and use the mass transit.</p>
-
-<p>In August of 2009 I finally admitted to myself, partly because I saw that I couldn&rsquo;t keep up with my kids and partly because I saw a picture of myself, that I really needed to loose weight.  I did some research and came across a program called &ldquo;Quick Weight Loss&rdquo; which can be found at: <a href="http://quickweightloss.net">http://quickweightloss.net</a>  They had locations in some cities where you could go for consultation and get advice on what plan(s) to use.  But I wasn&rsquo;t located in any of those cities.  Luckily, they had an at-home program.  I signed up and started the plan in September 2009.</p>
-
-<p>By the time we left for Hong Kong, in mid-December, I had lost 50 pounds and was feeling great!  I only gained 2 pounds while on vacation in Hong Kong, though I ate whatever I wanted.  One gets plenty of excercise getting around that city.  When I returned to the states, I went back on my program and lost another 10 pounds for a total loss of 60 pounds.</p>
-
-<p>Fast forward to 2013.  I have gained a little of the weight back.  We had a family cruise this past December, and I ate a lot of great food.  I&rsquo;ve lost some of that weight on my own.  Occasionlly I&rsquo;ll jumpstart my weight correction by going back on the QWL plan.  Thankfully though, it is usually just for 2 weeks so I can loose that naughty weight and get back to my desired numbers.</p>
-
-<p>Did I mention all those health problems I was having are now gone?  Not only did a loose those pesky pounds, I also lost all of the health problems I was having.  And although I still say that I don&rsquo;t snore, my wife says that it is much &ldquo;lighter&rdquo; than it was.</p>
-
-<p>Working in the tech field may seem to present challenges in staying fit.  We basically sit all day to earn a living.  But I&rsquo;m encouraging you to watch your weight and loose those pesky pounds.  While at work, stand up every 30-45 minutes and stretch out.  Stay standing for 5-10 minutes and get then get back to work.  Maybe get one of those desks that can go up and down &ndash; I have my eye on this one: <a href="http://www.nextdesks.com/terra">http://www.nextdesks.com/terra</a></p>
-
-<p>So, get up and Drop that Bass, er, Fat!</p>
 ]]></content>
   </entry>
   
