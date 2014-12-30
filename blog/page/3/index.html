@@ -9,7 +9,7 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="When I began my journey to become a better programmer, I didn&rsquo;t have a clear path. I had been programming in Perl for my day job, and I have &hellip;">
+  <meta name="description" content="Us geeks love our gadgets. I had heard just bits and pieces about something called a Raspberry Pi. I hadn&rsquo;t given much thought to it at first. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/01/slice-of-raspberry-pi/">Slice of Raspberry Pi</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-01T08:53:44-05:00" pubdate data-updated="true">Mar 1<span>st</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Us geeks love our gadgets.  I had heard just bits and pieces about something called a Raspberry Pi.  I hadn&rsquo;t given much thought to it at first.  A brief glance at a web page or two but it didn&rsquo;t interest me at that time.  I was having a hard time picturing what I could do with it.</p>
+
+<p>What peaked my interest was a re-introduction to the Pi, and other similar devices, at Ruby Conf 2013 (Miami.)  The gadgets like the Raspberry Pi were used in some of the conference talks.  I also got hooked on the Sphero, but is another story.</p>
+
+<p>After Ruby Conf I started researching the Pi some more.  I came across a site that seemed to have a lot about the Raspberry Pi, and other geek related topics &ndash; <a href="http://www.element14.com/community/community/raspberry-pi/getstartedwithpi?ICID=getstartpi-videodoc5-getstartedlink">http://www.element14.com/community/community/raspberry-pi/getstartedwithpi?ICID=getstartpi-videodoc5-getstartedlink</a></p>
+
+<p>I watched some of the videos on the element14 site and my brain was invigorated.  The wheels started spinning.  So I ordered one of the Raspberry Pi Starter Pack.  In addition to the Pi, it came with a memory card, jumpers, USB WiFi, bread board, etc.  I grabbed mine from a site I found on the element14 page &ndash; <a href="http://www.adafruit.com/category/105">http://www.adafruit.com/category/105</a>  I added on the USB Wifi and a cool ruler.</p>
+
+<p>I&rsquo;ve only just begun to tinker with it, but so far it has been fun.  Using the NOOB tool, I loaded up a 4GB card with the Pi version of the XBMC.</p>
+
+<p>I plan on doing some more experimentation.  I picked up 4 new SD cards, two 8GB and two 16GB so I can try different loads and setups.  Plus I&rsquo;m getting the kids involved so they can learn a little bit of geeky stuff.</p>
+
+<p>Recommendation &ndash; grab a slice of pie, Raspberry Pi!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -423,108 +471,6 @@ I felt like I left things hanging.  So I&rsquo;m going to try and clear things u
 <p>So I&rsquo;ve signed up for as many meet ups as I could, which include <em>&ldquo;Code and Coffee.&rdquo;</em>  This was hard for me on a couple of levels.  First, I still feel inadequate as new member of the Ruby community.  Second, I work from home and am really not a morning person.  To get up at 6:15am so I have time to shower and drive to Jax Beach is a bit tough.  It was especially tough for me today, my second Code &amp; Coffee, because I was not feeling 100%.  I enjoyed going last week but in my mind it was clear I was the new guy and I felt really dumb as I was surrounded by so many great programmers.</p>
 
 <p>Then something happened.  At this second Code &amp; Coffee, I wasn&rsquo;t the new guy anymore.  A new member showed up, I believe his name was Michael, and I was able to talk with him and give some advice based on my experience as a new person to the Ruby community.  I hadn&rsquo;t realized how far I have come in my journey.  Don&rsquo;t get me wrong, I still have far to go, but when that light bulb went off in my head, it really brightened my day.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/17/deploy-error-heroku/">Error Deploying to Production via Heroku</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-17T08:00:25-05:00" pubdate data-updated="true">Feb 17<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I have been making progress with a personal application that I am working on.  In the early days of development, I had deployed a version of the application to Heroku &ndash; and it worked fine at that time.  Fast forward 6 months or so and lots of changes.  I deployed to Heroku and received an error when trying to view the website:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>heroku logs
-</span><span class='line'>
-</span><span class='line'>2014-12-25T01:17:54.017424+00:00 heroku[web.1]: State changed from starting to crashed
-</span><span class='line'>2014-12-25T01:17:55.195360+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=example.herokuapp.com request_id=0c587d48-ac93-4bce-91bc-9d2de62e6a86 fwd="73.53.247.100" dyno= connect= service= status=503 bytes=
-</span><span class='line'>2014-12-25T01:17:55.719076+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/favicon.ico" host=example.herokuapp.com request_id=d586d82a-8c27-4f57-b5f1-cf2b55c155d7 fwd="73.53.247.100" dyno= connect= service= status=503 bytes=</span></code></pre></td></tr></table></div></figure>
-
-
-<p>That error made no sense to me.  What the heck, I know the favicon.ico file exists, and why can&rsquo;t I get to the root path?  So I went to the rails console via heroku:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>heroku run rails console
-</span><span class='line'>
-</span><span class='line'>Running `rails console` attached to terminal... up, run.9397
-</span><span class='line'>/app/app/models/connexion.rb:1:in `&lt;top (required)&gt;': superclass mismatch for class Nurny (TypeError)
-</span><span class='line'>  from /app/vendor/bundle/ruby/2.1.0/gems/activesupport-4.1.7/lib/active_support/dependencies.rb:247:in `require'
-</span><span class='line'>  from /app/vendor/bundle/ruby/2.1.0/gems/activesupport-4.1.7/lib/active_support/dependencies.rb:247:in `block in require'</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Note that I am substituting my real class name with a bogus one, &lsquo;Nurny&rsquo;, for this example.</p>
-
-<p>Ok, now I get an error that looks like a real error, though I didn&rsquo;t understand it.  Luckily this all occurred the night before our weekly morning Code and Coffee.  So I brought the issue up and Micah gave me a hand for a while, having me try different things.</p>
-
-<p>The conflict only shows when trying to run in a production environment.  I had a model for &lsquo;Nurny&rsquo; that had a class defined of Nurny.  However, I also have a model concern, for queries, with a class of &lsquo;Nurny&rsquo; which was the cause of the issue.</p>
-
-<p>So, now how can I fix this?  I tried a simple rename of the concern, changing the line:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class Nurny
-</span><span class='line'>
-</span><span class='line'>TO
-</span><span class='line'>
-</span><span class='line'>class NurnyQry</span></code></pre></td></tr></table></div></figure>
-
-
-<p>But that spurred a flurry of new problems.  Luckily I found another solution while thinking through this issue.  Why did the app work fine in a development rails environment, but not in production.  Now I must confess I&rsquo;m not sure if my solution will have a profound negative effect, but so far I have not encountered any issues.  The solution lies in the config/environments/production.rb file:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>BEFORE:
-</span><span class='line'>config.eager_load = true
-</span><span class='line'>
-</span><span class='line'>AFTER:
-</span><span class='line'>config.eager_load = false</span></code></pre></td></tr></table></div></figure>
-
-
-<p>And that simple configuration changed fixed my issue!</p>
-
-<p><em>Learn Something New Every Day</em></p>
 </div>
   
   
@@ -949,6 +895,10 @@ or if Ruby is in a different location on a machine other than yours, you can use
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/12/30/deploy-error-heroku/">Error Deploying to Production via Heroku</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/11/18/aint-your-ruby/">Aint Your Ruby</a>
       </li>
     
@@ -962,10 +912,6 @@ or if Ruby is in a different location on a machine other than yours, you can use
     
       <li class="post">
         <a href="/blog/2014/10/27/mysql-issue-osx/">MySQL Issue on Mac OSX</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/10/27/brew-a-fix-for-imagemagick-and-paperclip/">Brew A Fix for Imagemagic and Paperclip</a>
       </li>
     
   </ul>

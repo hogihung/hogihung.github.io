@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-12-30T08:20:10-05:00</updated>
+  <updated>2014-12-30T08:27:15-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,64 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Error Deploying to Production via Heroku]]></title>
+    <link href="http://hogihung.github.io/blog/2014/12/30/deploy-error-heroku/"/>
+    <updated>2014-12-30T08:00:25-05:00</updated>
+    <id>http://hogihung.github.io/blog/2014/12/30/deploy-error-heroku</id>
+    <content type="html"><![CDATA[<p>I have been making progress with a personal application that I am working on.  In the early days of development, I had deployed a version of the application to Heroku &ndash; and it worked fine at that time.  Fast forward 6 months or so and lots of changes.  I deployed to Heroku and received an error when trying to view the website:</p>
+
+<p>```
+heroku logs</p>
+
+<p>2014-12-25T01:17:54.017424+00:00 heroku[web.1]: State changed from starting to crashed
+2014-12-25T01:17:55.195360+00:00 heroku[router]: at=error code=H10 desc=&ldquo;App crashed&rdquo; method=GET path=&ldquo;/&rdquo; host=example.herokuapp.com request_id=0c587d48-ac93-4bce-91bc-9d2de62e6a86 fwd=&ldquo;73.53.247.100&rdquo; dyno= connect= service= status=503 bytes=
+2014-12-25T01:17:55.719076+00:00 heroku[router]: at=error code=H10 desc=&ldquo;App crashed&rdquo; method=GET path=&ldquo;/favicon.ico&rdquo; host=example.herokuapp.com request_id=d586d82a-8c27-4f57-b5f1-cf2b55c155d7 fwd=&ldquo;73.53.247.100&rdquo; dyno= connect= service= status=503 bytes=
+```</p>
+
+<p>That error made no sense to me.  What the heck, I know the favicon.ico file exists, and why can&rsquo;t I get to the root path?  So I went to the rails console via heroku:</p>
+
+<p>```
+heroku run rails console</p>
+
+<p>Running <code>rails console</code> attached to terminal&hellip; up, run.9397
+/app/app/models/connexion.rb:1:in <code>&lt;top (required)&gt;': superclass mismatch for class Nurny (TypeError)
+  from /app/vendor/bundle/ruby/2.1.0/gems/activesupport-4.1.7/lib/active_support/dependencies.rb:247:in</code>require'
+  from /app/vendor/bundle/ruby/2.1.0/gems/activesupport-4.1.7/lib/active_support/dependencies.rb:247:in `block in require'
+```</p>
+
+<p>Note that I am substituting my real class name with a bogus one, &lsquo;Nurny&rsquo;, for this example.</p>
+
+<p>Ok, now I get an error that looks like a real error, though I didn&rsquo;t understand it.  Luckily this all occurred the night before our weekly morning Code and Coffee.  So I brought the issue up and Micah gave me a hand for a while, having me try different things.</p>
+
+<p>The conflict only shows when trying to run in a production environment.  I had a model for &lsquo;Nurny&rsquo; that had a class defined of Nurny.  However, I also have a model concern, for queries, with a class of &lsquo;Nurny&rsquo; which was the cause of the issue.</p>
+
+<p>So, now how can I fix this?  I tried a simple rename of the concern, changing the line:</p>
+
+<p>```
+BEFORE
+class Nurny</p>
+
+<p>AFTER
+class NurnyQry
+```</p>
+
+<p>But that spurred a flurry of new problems.  Luckily I found another solution while thinking through this issue.  Why did the app work fine in a development rails environment, but not in production.  Now I must confess I&rsquo;m not sure if my solution will have a profound negative effect, but so far I have not encountered any issues.  The solution lies in the config/environments/production.rb file:</p>
+
+<p>```
+BEFORE:
+config.eager_load = true</p>
+
+<p>AFTER:
+config.eager_load = false
+```</p>
+
+<p>And that simple configuration changed fixed my issue!</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[MySQL Issue on Mac OSX]]></title>
@@ -228,64 +286,6 @@ end
 </code></p>
 
 <p>Once that change was made, anytime there was a need for the plural version of baytech, Rails knew to use baytechs.  Yeah!</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Error Deploying to Production via Heroku]]></title>
-    <link href="http://hogihung.github.io/blog/2014/02/17/deploy-error-heroku/"/>
-    <updated>2014-02-17T08:00:25-05:00</updated>
-    <id>http://hogihung.github.io/blog/2014/02/17/deploy-error-heroku</id>
-    <content type="html"><![CDATA[<p>I have been making progress with a personal application that I am working on.  In the early days of development, I had deployed a version of the application to Heroku &ndash; and it worked fine at that time.  Fast forward 6 months or so and lots of changes.  I deployed to Heroku and received an error when trying to view the website:</p>
-
-<p>```
-heroku logs</p>
-
-<p>2014-12-25T01:17:54.017424+00:00 heroku[web.1]: State changed from starting to crashed
-2014-12-25T01:17:55.195360+00:00 heroku[router]: at=error code=H10 desc=&ldquo;App crashed&rdquo; method=GET path=&ldquo;/&rdquo; host=example.herokuapp.com request_id=0c587d48-ac93-4bce-91bc-9d2de62e6a86 fwd=&ldquo;73.53.247.100&rdquo; dyno= connect= service= status=503 bytes=
-2014-12-25T01:17:55.719076+00:00 heroku[router]: at=error code=H10 desc=&ldquo;App crashed&rdquo; method=GET path=&ldquo;/favicon.ico&rdquo; host=example.herokuapp.com request_id=d586d82a-8c27-4f57-b5f1-cf2b55c155d7 fwd=&ldquo;73.53.247.100&rdquo; dyno= connect= service= status=503 bytes=
-```</p>
-
-<p>That error made no sense to me.  What the heck, I know the favicon.ico file exists, and why can&rsquo;t I get to the root path?  So I went to the rails console via heroku:</p>
-
-<p>```
-heroku run rails console</p>
-
-<p>Running <code>rails console</code> attached to terminal&hellip; up, run.9397
-/app/app/models/connexion.rb:1:in <code>&lt;top (required)&gt;': superclass mismatch for class Nurny (TypeError)
-  from /app/vendor/bundle/ruby/2.1.0/gems/activesupport-4.1.7/lib/active_support/dependencies.rb:247:in</code>require'
-  from /app/vendor/bundle/ruby/2.1.0/gems/activesupport-4.1.7/lib/active_support/dependencies.rb:247:in `block in require'
-```</p>
-
-<p>Note that I am substituting my real class name with a bogus one, &lsquo;Nurny&rsquo;, for this example.</p>
-
-<p>Ok, now I get an error that looks like a real error, though I didn&rsquo;t understand it.  Luckily this all occurred the night before our weekly morning Code and Coffee.  So I brought the issue up and Micah gave me a hand for a while, having me try different things.</p>
-
-<p>The conflict only shows when trying to run in a production environment.  I had a model for &lsquo;Nurny&rsquo; that had a class defined of Nurny.  However, I also have a model concern, for queries, with a class of &lsquo;Nurny&rsquo; which was the cause of the issue.</p>
-
-<p>So, now how can I fix this?  I tried a simple rename of the concern, changing the line:</p>
-
-<p>```
-class Nurny</p>
-
-<p>TO</p>
-
-<p>class NurnyQry
-```</p>
-
-<p>But that spurred a flurry of new problems.  Luckily I found another solution while thinking through this issue.  Why did the app work fine in a development rails environment, but not in production.  Now I must confess I&rsquo;m not sure if my solution will have a profound negative effect, but so far I have not encountered any issues.  The solution lies in the config/environments/production.rb file:</p>
-
-<p>```
-BEFORE:
-config.eager_load = true</p>
-
-<p>AFTER:
-config.eager_load = false
-```</p>
-
-<p>And that simple configuration changed fixed my issue!</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>

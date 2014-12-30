@@ -9,7 +9,7 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="When meeting new people in the programming community, we frequently share what we do in our day jobs. By day I primarily use Perl, though I have been &hellip;">
+  <meta name="description" content="I have been making progress with a personal application that I am working on. In the early days of development, I had deployed a version of the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,110 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/12/30/deploy-error-heroku/">Error Deploying to Production via Heroku</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-30T08:00:25-05:00" pubdate data-updated="true">Dec 30<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have been making progress with a personal application that I am working on.  In the early days of development, I had deployed a version of the application to Heroku &ndash; and it worked fine at that time.  Fast forward 6 months or so and lots of changes.  I deployed to Heroku and received an error when trying to view the website:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>heroku logs
+</span><span class='line'>
+</span><span class='line'>2014-12-25T01:17:54.017424+00:00 heroku[web.1]: State changed from starting to crashed
+</span><span class='line'>2014-12-25T01:17:55.195360+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=example.herokuapp.com request_id=0c587d48-ac93-4bce-91bc-9d2de62e6a86 fwd="73.53.247.100" dyno= connect= service= status=503 bytes=
+</span><span class='line'>2014-12-25T01:17:55.719076+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/favicon.ico" host=example.herokuapp.com request_id=d586d82a-8c27-4f57-b5f1-cf2b55c155d7 fwd="73.53.247.100" dyno= connect= service= status=503 bytes=</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That error made no sense to me.  What the heck, I know the favicon.ico file exists, and why can&rsquo;t I get to the root path?  So I went to the rails console via heroku:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>heroku run rails console
+</span><span class='line'>
+</span><span class='line'>Running `rails console` attached to terminal... up, run.9397
+</span><span class='line'>/app/app/models/connexion.rb:1:in `&lt;top (required)&gt;': superclass mismatch for class Nurny (TypeError)
+</span><span class='line'>  from /app/vendor/bundle/ruby/2.1.0/gems/activesupport-4.1.7/lib/active_support/dependencies.rb:247:in `require'
+</span><span class='line'>  from /app/vendor/bundle/ruby/2.1.0/gems/activesupport-4.1.7/lib/active_support/dependencies.rb:247:in `block in require'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note that I am substituting my real class name with a bogus one, &lsquo;Nurny&rsquo;, for this example.</p>
+
+<p>Ok, now I get an error that looks like a real error, though I didn&rsquo;t understand it.  Luckily this all occurred the night before our weekly morning Code and Coffee.  So I brought the issue up and Micah gave me a hand for a while, having me try different things.</p>
+
+<p>The conflict only shows when trying to run in a production environment.  I had a model for &lsquo;Nurny&rsquo; that had a class defined of Nurny.  However, I also have a model concern, for queries, with a class of &lsquo;Nurny&rsquo; which was the cause of the issue.</p>
+
+<p>So, now how can I fix this?  I tried a simple rename of the concern, changing the line:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>BEFORE
+</span><span class='line'>class Nurny
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>AFTER
+</span><span class='line'>class NurnyQry</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But that spurred a flurry of new problems.  Luckily I found another solution while thinking through this issue.  Why did the app work fine in a development rails environment, but not in production.  Now I must confess I&rsquo;m not sure if my solution will have a profound negative effect, but so far I have not encountered any issues.  The solution lies in the config/environments/production.rb file:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>BEFORE:
+</span><span class='line'>config.eager_load = true
+</span><span class='line'>
+</span><span class='line'>AFTER:
+</span><span class='line'>config.eager_load = false</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And that simple configuration changed fixed my issue!</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1025,72 +1129,6 @@ cd instantclient_11_2</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/11/enter-the-4th-block/">Enter the 4th Block</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-05-11T18:05:24-04:00" pubdate data-updated="true">May 11<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Picking up from where I left off with my block experience (see previous post, Week 2 and a half at Bloc,) a lot of good things, and some bad things, have occurred.  I had finished, what was called at the time, the third block, which included lessons on RSpec, Testing Users and both creating and destroying using Ajax.</p>
-
-<p>The end of Block Three took me a bit longer to complete compared to how I progressed through the first two blocks.  The material in the third block was new to me.  It was during the end of this block, and creeping into the beginning of block four that I began to have issues with my mentor.  In the first two blocks, since I didn&rsquo;t need much help, I didn&rsquo;t mind that our sessions tended to be brief.  Usually they ran up to 10 minutes.  But our sessions are booked for 30 minutes.</p>
-
-<p>My mentor during this time had missed a some meetings and had asked me to reschedule a few times.  I&rsquo;m flexible so I didn&rsquo;t see an issue.  But there was one time that I needed to reschedule and the mentor wouldn&rsquo;t work with me to make up the time.  Time much needed as I was having trouble with the project I had selected in Block Four &ndash; Saas Wiki Collaboration Tool.  I was getting very frustrated.</p>
-
-<p>I reached out to student coordinator at Bloc, Karen, and discussed the issues I was having.  I explained that in the beggining I had gotten ahead, but now with all the problems I was encountering with this mentor, I was getting behind.  And I felt it very disrepectful that I was asked on several occasions to modify my schedule for him, but the one time I needed a re-schedule, he didn&rsquo;t care.</p>
-
-<p>Karen helped me out and let me pick out a new mentor.  She said that they would add a week to my enrollment to help make up for some of the lost time.  (Think I need to check on that because it doesn&rsquo;t look like they added a week.)  The new mentor, Charlie, was a huge improvment.  Never did I feel like he was trying to get me off the phone.  In fact, on several calls we went over the scheduled 30 minutes.</p>
-
-<p>While working with the new mentor, Charlie, has been a much better experience, I feel that there is something missing from the program.  Although it is said that students will do pair programming and testing, I don&rsquo;t find either to come near what I was expecting.  It may be that my expectations are set to high from what the folks at Bloc had planned to offer.  I can understand that they have a range of differently skilled students.  I don&rsquo;t think I&rsquo;m far off in saying that most newbies to this program probably don&rsquo;t care as much about testing as I do.</p>
-
-<p>I find this mediocre approach to testing to transcend into the help one would get in the Office Hours Chat room.  I&rsquo;ll provide a brief example.  I was stuck on how to write a test that would make sure that any user, other than a logged in user, would not be able to access the ability to upgrade a users account by direct url navigation.  When I posed my question the answer I got was that I should use Pundit&rsquo;s policies and don&rsquo;t display the upgrade button unless the user is logged in and allowed to upgrade.</p>
-
-<p>I had explained that I had already written tests for that, and the code to make the tests green, but I wanted to ensure that a malicous user would not be able to access the url for an upgrade directly.  The short answer I got was &ldquo;&hellip;well the users shouldn&rsquo;t do that.&rdquo;  Yeah, well credit card thieves should not steal peoples credit card info and identies either, but I&rsquo;m sure the credit card companies do whatever they can to protect against those thieves.</p>
-
-<p>I really don&rsquo;t think the program was meant to take testing as seriously as I am.  It seems the program gives one just enough to say, &ldquo;&hellip; yeah I know how to test with RSpec.&rdquo;  Although I&rsquo;m happy with my mentor Charlie, I felt a bit frustrated on our calls when trying to work through testing issues.  So frustrated in fact that I stopped testing the proper way and just worked on trying to complete the assignment.</p>
-
-<p>Bloc changed the student dashboard and I got really worried.  I was reviewing where I was in the program and the dashboard was telling me that I was behind.  The dashboard lists 5 projects, including the one I was working on, Saas Wiki Collaboration.  The sixth project is for our capstone.  Seeing that I had only four weeks left, and still hadn&rsquo;t finished this Wiki project, I got a bit frazzled.  It is not like I haven&rsquo;t been putting in the time!</p>
-
-<p>On my mentoring call with Charlie last Friday I asked what the deal was.  There was no way I could finish all those projects and have time for my capstone.  My previous mentor had said that I only needed to pick one if I wanted to spend more time on the capstone project.  Luckily, Charlie confirmed that the dashboard was a bit confusing.  Students have the option to do more than one project before their capstone, but it is not required.</p>
-
-<p>That made me feel a bit better, but I still needed to wrap up this Wiki project.  The main reason I took this course was to work on my capstone and have help when/where I needed via the mentorship and Office Hours Chat room.  Please don&rsquo;t get me wrong, I have learned a lot via the program, but my main goal is to work on my personal project.</p>
-
-<p>With some &lsquo;external&rsquo; help, I was able to wrap up this Wiki project.  At least I believe it to be done according to the original requirements.  I even was able to get the Stripe intergration to work, with tests!  I&rsquo;ll have another blog post regarding the external help &ndash; stay tuned!</p>
-
-<p>I have another mentoring call on Monday &ndash; 05/12/14.  We should be able to discuss my capstone project and get an idea of how to get started.  The nice thing about the Saas Wiki project is that there are a lot of components of that app which will apply to my capstone project.</p>
-
-<p>Stay tuned for more information regarding my experience at <a href="http://www.bloc.io">Bloc.io</a>  I will be publishing an overview of the program at the conclusion of enrollment.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1106,6 +1144,10 @@ cd instantclient_11_2</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/12/30/deploy-error-heroku/">Error Deploying to Production via Heroku</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/11/18/aint-your-ruby/">Aint Your Ruby</a>
       </li>
     
@@ -1119,10 +1161,6 @@ cd instantclient_11_2</p>
     
       <li class="post">
         <a href="/blog/2014/10/27/mysql-issue-osx/">MySQL Issue on Mac OSX</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/10/27/brew-a-fix-for-imagemagick-and-paperclip/">Brew A Fix for Imagemagic and Paperclip</a>
       </li>
     
   </ul>

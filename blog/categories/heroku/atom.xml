@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Heroku | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/heroku/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2014-12-30T08:20:10-05:00</updated>
+  <updated>2014-12-30T08:27:15-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Error Deploying to Production via Heroku]]></title>
-    <link href="http://hogihung.github.io/blog/2014/02/17/deploy-error-heroku/"/>
-    <updated>2014-02-17T08:00:25-05:00</updated>
-    <id>http://hogihung.github.io/blog/2014/02/17/deploy-error-heroku</id>
+    <link href="http://hogihung.github.io/blog/2014/12/30/deploy-error-heroku/"/>
+    <updated>2014-12-30T08:00:25-05:00</updated>
+    <id>http://hogihung.github.io/blog/2014/12/30/deploy-error-heroku</id>
     <content type="html"><![CDATA[<p>I have been making progress with a personal application that I am working on.  In the early days of development, I had deployed a version of the application to Heroku &ndash; and it worked fine at that time.  Fast forward 6 months or so and lots of changes.  I deployed to Heroku and received an error when trying to view the website:</p>
 
 <p>```
@@ -48,11 +48,11 @@ heroku run rails console</p>
 <p>So, now how can I fix this?  I tried a simple rename of the concern, changing the line:</p>
 
 <p>```
+BEFORE
 class Nurny</p>
 
-<p>TO</p>
-
-<p>class NurnyQry
+<p>AFTER
+class NurnyQry
 ```</p>
 
 <p>But that spurred a flurry of new problems.  Luckily I found another solution while thinking through this issue.  Why did the app work fine in a development rails environment, but not in production.  Now I must confess I&rsquo;m not sure if my solution will have a profound negative effect, but so far I have not encountered any issues.  The solution lies in the config/environments/production.rb file:</p>
