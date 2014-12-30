@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Brew A Fix for Imagemagic and Paperclip - Old Guy, New Trick</title>
+  <title>Error Deploying to Production via Heroku - Old Guy, New Trick</title>
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="While working on a Rails project last week I encountered an issue where some of my tests were failing. It had been a while since I worked on this &hellip;">
+  <meta name="description" content="I have been making progress with a personal application that I am working on. In the early days of development, I had deployed a version of the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hogihung.github.io/blog/2014/10/27/brew-a-fix-for-imagemagick-and-paperclip/">
+  <link rel="canonical" href="http://hogihung.github.io/blog/2014/02/17/deploy-error-heroku/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -68,7 +68,7 @@
   
   <header>
     
-      <h1 class="entry-title">Brew a Fix for Imagemagic and Paperclip</h1>
+      <h1 class="entry-title">Error Deploying to Production via Heroku</h1>
     
     
       <p class="meta">
@@ -84,32 +84,28 @@
   
 
 
-<time datetime="2014-10-27T18:05:25-04:00" pubdate data-updated="true">Oct 27<span>th</span>, 2014</time>
+<time datetime="2014-02-17T08:00:25-05:00" pubdate data-updated="true">Feb 17<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>While working on a Rails project last week I encountered an issue where some of my tests were failing.  It had been a while since I worked on this project so I had to re-familiarize myself with what was going on.</p>
-
-<p>The tests were failing when editing a profile and adding an image.  I popped over to the browser and performed a manual test to get a better idea of what was going on.  That is when I saw the following error: <em>&ldquo;Paperclip::Errors::NotIdentifiedByImageMagickError&rdquo;</em></p>
-
-<p>To attempt to fix the issue, I first performed a simple uninstall and re-install of imagemagic using homebrew:</p>
+<div class="entry-content"><p>I have been making progress with a personal application that I am working on.  In the early days of development, I had deployed a version of the application to Heroku &ndash; and it worked fine at that time.  Fast forward 6 months or so and lots of changes.  I deployed to Heroku and received an error when trying to view the website:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>brew uninstall imagemagick
-</span><span class='line'>brew install imagemagick</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>heroku logs
+</span><span class='line'>
+</span><span class='line'>2014-12-25T01:17:54.017424+00:00 heroku[web.1]: State changed from starting to crashed
+</span><span class='line'>2014-12-25T01:17:55.195360+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=example.herokuapp.com request_id=0c587d48-ac93-4bce-91bc-9d2de62e6a86 fwd="73.53.247.100" dyno= connect= service= status=503 bytes=
+</span><span class='line'>2014-12-25T01:17:55.719076+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/favicon.ico" host=example.herokuapp.com request_id=d586d82a-8c27-4f57-b5f1-cf2b55c155d7 fwd="73.53.247.100" dyno= connect= service= status=503 bytes=</span></code></pre></td></tr></table></div></figure>
 
 
-<p>This didn&rsquo;t solve the problem.  Imagemagic has a command line utility, convert, which one can use to see if the application is working.  I tried a simple test:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>convert moonie.jpg moon.png</span></code></pre></td></tr></table></div></figure>
-
-
-<p>But I continued to get errors even with that simple test.  So off to the internet for some deep research.  I came across the following steps, which solved the issue I was having.</p>
+<p>That error made no sense to me.  What the heck, I know the favicon.ico file exists, and why can&rsquo;t I get to the root path?  So I went to the rails console via heroku:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -117,34 +113,49 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>brew update
-</span><span class='line'>brew doctor
-</span><span class='line'>brew uninstall libtool
-</span><span class='line'>brew uninstall imagemagic
+</pre></td><td class='code'><pre><code class=''><span class='line'>heroku run rails console
 </span><span class='line'>
-</span><span class='line'>cd /Library/Caches/Homebrew
-</span><span class='line'>rm imagemag*
-</span><span class='line'>rm libtool-2.4.2.tar.gz
+</span><span class='line'>Running `rails console` attached to terminal... up, run.9397
+</span><span class='line'>/app/app/models/connexion.rb:1:in `&lt;top (required)&gt;': superclass mismatch for class Nurny (TypeError)
+</span><span class='line'>  from /app/vendor/bundle/ruby/2.1.0/gems/activesupport-4.1.7/lib/active_support/dependencies.rb:247:in `require'
+</span><span class='line'>  from /app/vendor/bundle/ruby/2.1.0/gems/activesupport-4.1.7/lib/active_support/dependencies.rb:247:in `block in require'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note that I am substituting my real class name with a bogus one, &lsquo;Nurny&rsquo;, for this example.</p>
+
+<p>Ok, now I get an error that looks like a real error, though I didn&rsquo;t understand it.  Luckily this all occurred the night before our weekly morning Code and Coffee.  So I brought the issue up and Micah gave me a hand for a while, having me try different things.</p>
+
+<p>The conflict only shows when trying to run in a production environment.  I had a model for &lsquo;Nurny&rsquo; that had a class defined of Nurny.  However, I also have a model concern, for queries, with a class of &lsquo;Nurny&rsquo; which was the cause of the issue.</p>
+
+<p>So, now how can I fix this?  I tried a simple rename of the concern, changing the line:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class Nurny
 </span><span class='line'>
-</span><span class='line'>brew doctor
-</span><span class='line'>brew install libtool --universal
-</span><span class='line'>brew link libool --force
-</span><span class='line'>brew install imagemagic --build-from-source</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>TO
+</span><span class='line'>
+</span><span class='line'>class NurnyQry</span></code></pre></td></tr></table></div></figure>
 
 
-<p>After completing the above steps, the command line tool, convert was successful.  I re-tested the Rails application, both manually, and via my test suite, and all was green again.</p>
+<p>But that spurred a flurry of new problems.  Luckily I found another solution while thinking through this issue.  Why did the app work fine in a development rails environment, but not in production.  Now I must confess I&rsquo;m not sure if my solution will have a profound negative effect, but so far I have not encountered any issues.  The solution lies in the config/environments/production.rb file:</p>
 
-<p>Related resources used during my quest for the fix:
-<a href="https://github.com/thoughtbot/paperclip/issues/1205">https://github.com/thoughtbot/paperclip/issues/1205</a>
-<a href="http://www.imagemagick.org/script/convert.php">http://www.imagemagick.org/script/convert.php</a>
-<a href="http://stackoverflow.com/questions/7412208/imagemagick-and-os-x-lion-trouble">http://stackoverflow.com/questions/7412208/imagemagick-and-os-x-lion-trouble</a></p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>BEFORE:
+</span><span class='line'>config.eager_load = true
+</span><span class='line'>
+</span><span class='line'>AFTER:
+</span><span class='line'>config.eager_load = false</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And that simple configuration changed fixed my issue!</p>
 
 <p><em>Learn Something New Every Day</em></p>
 </div>
@@ -169,12 +180,12 @@
   
 
 
-<time datetime="2014-10-27T18:05:25-04:00" pubdate data-updated="true">Oct 27<span>th</span>, 2014</time>
+<time datetime="2014-02-17T08:00:25-05:00" pubdate data-updated="true">Feb 17<span>th</span>, 2014</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/blog/'>Blog</a>, <a class='category' href='/blog/categories/imagemagick/'>Imagemagick</a>, <a class='category' href='/blog/categories/paperclip/'>Paperclip</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>
+    <a class='category' href='/blog/categories/blog/'>Blog</a>, <a class='category' href='/blog/categories/heroku/'>Heroku</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>
   
 </span>
 
@@ -183,7 +194,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2014/10/27/brew-a-fix-for-imagemagick-and-paperclip/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2014/10/27/brew-a-fix-for-imagemagick-and-paperclip/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2014/02/17/deploy-error-heroku/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2014/02/17/deploy-error-heroku/" >Tweet</a>
   
   
   
@@ -192,10 +203,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/09/23/testing-to-csv-method/" title="Previous Post: Testing to_csv Method">&laquo; Testing to_csv Method</a>
+        <a class="basic-alignment left" href="/blog/2014/02/16/dissect_a_method/" title="Previous Post: Dissect A Method">&laquo; Dissect A Method</a>
       
       
-        <a class="basic-alignment right" href="/blog/2014/10/27/mysql-issue-osx/" title="Next Post: MySQL Issue on Mac OSX">MySQL Issue on Mac OSX &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2014/02/18/Coffee_And_Code/" title="Next Post: Code & Coffee (2)">Code & Coffee (2) &raquo;</a>
       
     </p>
     <div id="disqus_thread"></div>
