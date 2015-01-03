@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-01-02T21:07:07-05:00</updated>
+  <updated>2015-01-02T21:10:13-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Error Deploying to Production via Heroku]]></title>
+    <title type="html"><![CDATA[Error Deploying to Production on Heroku]]></title>
     <link href="http://hogihung.github.io/blog/2014/12/30/deploy-error-heroku/"/>
     <updated>2014-12-30T08:00:25-05:00</updated>
     <id>http://hogihung.github.io/blog/2014/12/30/deploy-error-heroku</id>
@@ -84,7 +84,7 @@
 </span><span class='line'>config.eager_load = false</span></code></pre></td></tr></table></div></figure>
 
 
-<p>And that simple configuration changed fixed my issue!</p>
+<p>And that simple configuration change fixed my issue!</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>
