@@ -93,7 +93,7 @@
 
 <div class="entry-content"><p>When I created my Digital Ocean VPS I setup SSH Keys for both my main laptop and desktop computers.  I grabbed the appropriate contents from my .pub file and pasted that information on the web form for &lsquo;Add SSH Key&rsquo; under the SSH Keys menu of my droplet.  However, I noticed that each time I would ssh to my server I would be required to input my password.</p>
 
-<p>In this blog posting, I will illustrate how I solved this issue and why the word &lsquo;custom&rsquo; appears in the title.  There are many websites that cover how to setup passwordless ssh login.  For example, Digital Ocean has a nice posting: <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2">here</a></p>
+<p>In this blog posting I will illustrate how I solved this issue and why the word &lsquo;custom&rsquo; appears in the title.  There are many websites that cover how to setup passwordless ssh login.  For example, Digital Ocean has a nice posting: <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2">here</a></p>
 
 <p>However, those instructions, and other like it, assume a plain-vanilla setup.  Of course, I dare to be different.  For example, before I started to solve this puzzle, my ~/.ssh directory had the following:</p>
 
@@ -121,7 +121,7 @@
 </span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
 
 
-<p>The id_rsa (private file) and the id_rsa.pub (public file,) are your normal files one would find.  But I&rsquo;ve implemented a &lsquo;best-practice&rsquo; adopted from my day job and I create specific key files for different types of access.  For example, following the instructions in the link above, from the Digital Ocean article, I create the following:</p>
+<p>The id_rsa (private file) and the id_rsa.pub (public file,) are your normal files one would find.  But I&rsquo;ve implemented a &lsquo;best-practice&rsquo; adopted from my day job and I create specific key files for different types of access.  For example, following the instructions in the link above, from the Digital Ocean article, I created the following:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -151,7 +151,7 @@
 </pre></td><td class='code'><pre><code class=''><span class='line'>chmod 600 authorized_keys</span></code></pre></td></tr></table></div></figure>
 
 
-<p>After creating the new keys on my laptop, and updating the authorized_keys file on the remote server, I thought surely I should now be able to login without using a password.  I was wrong!  The remote server continued to prompte me for my password.  I decided to call it a night as it was getting late.</p>
+<p>After creating the new keys on my laptop, and updating the authorized_keys file on the remote server, I thought surely I should now be able to login without using a password.  I was wrong!  The remote server continued to prompt me for my password.  I decided to call it a night as it was getting late.</p>
 
 <p>While working on a VM issue today for my day job, my internal lightbulb went off and I realized what the problem was.  Lets take a fresh look at the .ssh directory of my laptop:</p>
 
