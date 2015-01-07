@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-01-02T21:10:13-05:00</updated>
+  <updated>2015-01-06T20:36:08-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,141 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Custom Passwordless SSH Access]]></title>
+    <link href="http://hogihung.github.io/blog/2015/01/06/custom-passwordless-ssh/"/>
+    <updated>2015-01-06T20:10:14-05:00</updated>
+    <id>http://hogihung.github.io/blog/2015/01/06/custom-passwordless-ssh</id>
+    <content type="html"><![CDATA[<p>When I created my Digital Ocean VPS I setup SSH Keys for both my main laptop and desktop computers.  I grabbed the appropriate contents from my .pub file and pasted that information on the web form for &lsquo;Add SSH Key&rsquo; under the SSH Keys menu of my droplet.  However, I noticed that each time I would ssh to my server I would be required to input my password.</p>
+
+<p>In this blog posting, I will illustrate how I solved this issue and why the word &lsquo;custom&rsquo; appears in the title.  There are many websites that cover how to setup passwordless ssh login.  For example, Digital Ocean has a nice posting: <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2">here</a></p>
+
+<p>However, those instructions, and other like it, assume a plain-vanilla setup.  Of course, I dare to be different.  For example, before I started to solve this puzzle, my ~/.ssh directory had the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>➜  .ssh  ls -la
+</span><span class='line'>total 88
+</span><span class='line'>drwx------  11 jfhogarty  staff   374 Jan  6 18:36 .
+</span><span class='line'>drwxr-xr-x+ 93 jfhogarty  staff  3162 Jan  6 20:10 ..
+</span><span class='line'>-rw-r--r--@  1 jfhogarty  staff  6148 Mar  9  2013 .DS_Store
+</span><span class='line'>-rw-------   1 jfhogarty  staff  1766 Mar  2  2013 id_rsa
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   400 Mar  2  2013 id_rsa.pub
+</span><span class='line'>-rw-------   1 jfhogarty  staff   668 Apr 20  2014 jh-mbp_id
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   614 Apr 20  2014 jh-mbp_id.pub
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff  7162 Jan  5 21:17 known_hosts
+</span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The id_rsa (private file) and the id_rsa.pub (public file,) are your normal files one would find.  But I&rsquo;ve implemented a &lsquo;best-practice&rsquo; adopted from my day job and I create specific key files for different types of access.  For example, following the instructions in the link above, from the Digital Ocean article, I create the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-rw-------   1 jfhogarty  staff   668 Jan  5 21:11 do_id_dsa
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   614 Jan  5 21:11 do_id_dsa.pub</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you follow the steps from the link, there is one thing that you may need to do in addition to their steps.  Some systems require that you change the file permissions for the authorized_keys file located on your target computer.  For example, the following is how I have the permissions set on my VPS:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>➜  .ssh  ls -la
+</span><span class='line'>total 12
+</span><span class='line'>drwx------  2 jfhogarty jfhogarty 4096 Jan  5 21:16 .
+</span><span class='line'>drwxr-xr-x 11 jfhogarty jfhogarty 4096 Jan  6 20:14 ..
+</span><span class='line'>-rw-------  1 jfhogarty jfhogarty  614 Jan  5 21:14 authorized_keys
+</span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I adjusted the permissions using the following syntax:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chmod 600 authorized_keys</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After creating the new keys on my laptop, and updating the authorized_keys file on the remote server, I thought surely I should now be able to login without using a password.  I was wrong!  The remote server continued to prompte me for my password.  I decided to call it a night as it was getting late.</p>
+
+<p>While working on a VM issue today for my day job, my internal lightbulb went off and I realized what the problem was.  Lets take a fresh look at the .ssh directory of my laptop:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sh  ls -la
+</span><span class='line'>total 88
+</span><span class='line'>drwx------  11 jfhogarty  staff   374 Jan  6 18:36 .
+</span><span class='line'>drwxr-xr-x+ 93 jfhogarty  staff  3162 Jan  6 20:21 ..
+</span><span class='line'>-rw-r--r--@  1 jfhogarty  staff  6148 Mar  9  2013 .DS_Store
+</span><span class='line'>-rw-------   1 jfhogarty  staff   668 Jan  5 21:11 do_id_dsa
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   614 Jan  5 21:11 do_id_dsa.pub
+</span><span class='line'>-rw-------   1 jfhogarty  staff  1766 Mar  2  2013 id_rsa
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   400 Mar  2  2013 id_rsa.pub
+</span><span class='line'>-rw-------   1 jfhogarty  staff   668 Apr 20  2014 jh-mbp_id
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   614 Apr 20  2014 jh-mbp_id.pub
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff  7162 Jan  5 21:17 known_hosts
+</span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The keen eye might notice that I now have three sets of private/public keys.  However, when I was typing ssh myhostname.com ssh didn&rsquo;t know which files to use, if any.  I was able to prove my theory by trying the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -p 9986 -i ~/.ssh/do_id_dsa myhostname.com</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And BAM!  No password required to login.  I was on to a solution.  When I had my lightbulb moment, I had remembered that I needed to create a config file in the .ssh directory on my laptop.  Lets take a look at it:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>➜  .ssh  cat config
+</span><span class='line'>Host 10.11.12.13
+</span><span class='line'>IdentityFile ~/.ssh/do_id_dsa
+</span><span class='line'>Protocol 2
+</span><span class='line'>
+</span><span class='line'>Host myhostname.com
+</span><span class='line'>IdentityFile ~/.ssh/do_id_dsa
+</span><span class='line'>Protocol 2
+</span><span class='line'>
+</span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
+
+
+<p>NOTE:  To protect the innocent, the IP Address and *.com name above are fake.  Please substitute those values for your real IP Address and/or domain name.</p>
+
+<p>And that is how I solved my customized passwordless ssh access to my VPS.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Error Deploying to Production on Heroku]]></title>
@@ -1153,31 +1288,6 @@ cd instantclient_11_2</p>
 <p>I look forward to my next call with my mentor (tomorrow) and starting my next section &ndash; Rails Foundation.  As I progress through each section I&rsquo;ll return here to provide updates.</p>
 
 <p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Bad CS vs Good CS]]></title>
-    <link href="http://hogihung.github.io/blog/2014/03/04/bad-cs-vs-good-cs/"/>
-    <updated>2014-03-04T21:16:26-05:00</updated>
-    <id>http://hogihung.github.io/blog/2014/03/04/bad-cs-vs-good-cs</id>
-    <content type="html"><![CDATA[<p>Why is bad customer service still an issue in the present day?  I realize we had to put up with it in the past whether it was due to lack of competition, or a lack of a way to widely communicate our experience.  But in the age of the Internet, and lightspeed communications, what the hell?</p>
-
-<p>I know this isn&rsquo;t about programming, but every once in a while I will chat about general topics.  This past week I got to experience both bad and good customer service.  I was shocked actually becuase the bad service was from American Express.  I&rsquo;ve never had an issue with them until this past week.  I&rsquo;ve been an American Express member for over 20 years.  Last year and the year before I used my card for purchases in excess, well let&rsquo;s just say greater than $20k each year.  I make my payments online via the American Express website.  This past time I made an error.  I didn&rsquo;t catch that I used my business account instead of my personal account.  When Amex went to transfer the money, there wasn&rsquo;t enough in the business account.  They emailed me a the next day.  A day after that I got a letter from my credit union letting me know that Amex tried to transfer money and since I didn&rsquo;t have enough, they hit me with a fee.</p>
-
-<p>So I called Amex.  First person said, &ldquo;&hellip;sorry, nothing I can do.  We will keep trying to hit that account up to three times.&rdquo;  Oh and they will charge me a fee each time it fails.  And, my bank will charge me a fee each time it fails.  Now I realize I made a mistake.  But seriously, Amex couldn&rsquo;t cancel the transaction?  I escalated to a supervisor and got the same response.  I told the supervisor that I wanted to file a formal complaint.  Their response &ndash; &ldquo;&hellip;noted, but there is nothing we can do.&rdquo;  ARGH!</p>
-
-<p>So I called my credit union (bank) to see if I would have better luck.  They were a little confused at first because they thought I didn&rsquo;t want to pay.  I did want to pay, but I needed to use the right account and I didn&rsquo;t want to keep getting dinged by both sides.  The Vystar rep helped me out and provided a solution.  1.)  File a stop payment to block the Amex transaction.  2.) Helped me transfer the money Amex was trying to get from my personal account to business account.  The reason being was in case the block didn&rsquo;t take affect quick enough, there would be money for Amex to get and no more penalty fees.  In addition, the Vystar rep reversed the charges/fees that occurred from their end.  Now that is Customer Service!</p>
-
-<p>But wait, there is more!  After providing a solution, the rep said &ldquo;&hellip;you know we have a promo now for our bank card.  Would you like to get one?&rdquo;  And I did.  All future transactions where I used to use my Amex will now be done with my Vystar Card.</p>
-
-<p>What I find worse than bad customer service, is customer service that just ignores you.  Before I began my journey with Ruby and Rails, I was trying to build upon my knowledge of PHP.  I purchased a book, <em>&ldquo;Easy PHP Websites with The Zend Framework,&rdquo;</em> by W. Jason Gilmore.  I found this book not very good &ndash; a little better than the phpCake one I had tried, but not worthy of the money I had spent.  I reached out on several occasions to get a refund.  I was ignored.  Contrast that horrible experience to a good one that happened this week.  I had heard about the book <em>Geocoding on Rails</em> by the folks at Thoughtbot.  I was very excited because from what I had heard, this book might help with a hurdle I had been trying to leap in my own app.  I got the book and tried to follow.  Had some trouble.  Tried again a few other times when I thought I was more alert.  Still didn&rsquo;t help.  Then I came to realize that I had made a mistake &ndash; I thought the book would take the reader from start to finish of a Geolocation Rails app.  But the book is geared more so to explain the different concepts and ways to approach Geolocation in a Rails app.  In other words &ndash; it was above my level, above my pay grade.</p>
-
-<p>I reached out to Thoughtbot and asked for a refund.  Not only did they promptly refund my money, but they encouraged me to revisit once I get a bit further along in my Ruby studies.  I&rsquo;m sure the book, and some others they offer, will be of better value to me once I gain more knowledge.</p>
-
-<p>Customer Service need not be hard.  I&rsquo;m not saying the customer is always right.  But the customer pays the bills.  In the case of Amex, I would have been ok if all they had said was: &ldquo;&hellip;no problem, I&rsquo;ll stop that transaction for you.&rdquo;  Reversing the penalty would have been a bonus, but I&rsquo;d be ok with them just stopping the offending transaction.</p>
-
-<p>Amex, you&rsquo;ve lost a long time customer.</p>
 ]]></content>
   </entry>
   

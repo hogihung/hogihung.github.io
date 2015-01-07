@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Custom Passwordless SSH Access - Old Guy, New Trick</title>
+  <meta name="author" content="Ho Gi Hung">
+
+  
+  <meta name="description" content="When I created my Digital Ocean VPS I setup SSH Keys for both my main laptop and desktop computers. I grabbed the appropriate contents from my .pub &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hogihung.github.io/blog/2015/01/06/custom-passwordless-ssh/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Old Guy, New Trick" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Old Guy, New Trick</a></h1>
+  
+    <h2>An old guys journey to learn how to code</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hogihung.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+	<li><a href="/">Blog</a></li>
+  <li><a href="/about/">About</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Custom Passwordless SSH Access</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-06T20:10:14-05:00" pubdate data-updated="true">Jan 6<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>When I created my Digital Ocean VPS I setup SSH Keys for both my main laptop and desktop computers.  I grabbed the appropriate contents from my .pub file and pasted that information on the web form for &lsquo;Add SSH Key&rsquo; under the SSH Keys menu of my droplet.  However, I noticed that each time I would ssh to my server I would be required to input my password.</p>
+
+<p>In this blog posting, I will illustrate how I solved this issue and why the word &lsquo;custom&rsquo; appears in the title.  There are many websites that cover how to setup passwordless ssh login.  For example, Digital Ocean has a nice posting: <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2">here</a></p>
+
+<p>However, those instructions, and other like it, assume a plain-vanilla setup.  Of course, I dare to be different.  For example, before I started to solve this puzzle, my ~/.ssh directory had the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>➜  .ssh  ls -la
+</span><span class='line'>total 88
+</span><span class='line'>drwx------  11 jfhogarty  staff   374 Jan  6 18:36 .
+</span><span class='line'>drwxr-xr-x+ 93 jfhogarty  staff  3162 Jan  6 20:10 ..
+</span><span class='line'>-rw-r--r--@  1 jfhogarty  staff  6148 Mar  9  2013 .DS_Store
+</span><span class='line'>-rw-------   1 jfhogarty  staff  1766 Mar  2  2013 id_rsa
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   400 Mar  2  2013 id_rsa.pub
+</span><span class='line'>-rw-------   1 jfhogarty  staff   668 Apr 20  2014 jh-mbp_id
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   614 Apr 20  2014 jh-mbp_id.pub
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff  7162 Jan  5 21:17 known_hosts
+</span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The id_rsa (private file) and the id_rsa.pub (public file,) are your normal files one would find.  But I&rsquo;ve implemented a &lsquo;best-practice&rsquo; adopted from my day job and I create specific key files for different types of access.  For example, following the instructions in the link above, from the Digital Ocean article, I create the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-rw-------   1 jfhogarty  staff   668 Jan  5 21:11 do_id_dsa
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   614 Jan  5 21:11 do_id_dsa.pub</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you follow the steps from the link, there is one thing that you may need to do in addition to their steps.  Some systems require that you change the file permissions for the authorized_keys file located on your target computer.  For example, the following is how I have the permissions set on my VPS:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>➜  .ssh  ls -la
+</span><span class='line'>total 12
+</span><span class='line'>drwx------  2 jfhogarty jfhogarty 4096 Jan  5 21:16 .
+</span><span class='line'>drwxr-xr-x 11 jfhogarty jfhogarty 4096 Jan  6 20:14 ..
+</span><span class='line'>-rw-------  1 jfhogarty jfhogarty  614 Jan  5 21:14 authorized_keys
+</span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I adjusted the permissions using the following syntax:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chmod 600 authorized_keys</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After creating the new keys on my laptop, and updating the authorized_keys file on the remote server, I thought surely I should now be able to login without using a password.  I was wrong!  The remote server continued to prompte me for my password.  I decided to call it a night as it was getting late.</p>
+
+<p>While working on a VM issue today for my day job, my internal lightbulb went off and I realized what the problem was.  Lets take a fresh look at the .ssh directory of my laptop:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sh  ls -la
+</span><span class='line'>total 88
+</span><span class='line'>drwx------  11 jfhogarty  staff   374 Jan  6 18:36 .
+</span><span class='line'>drwxr-xr-x+ 93 jfhogarty  staff  3162 Jan  6 20:21 ..
+</span><span class='line'>-rw-r--r--@  1 jfhogarty  staff  6148 Mar  9  2013 .DS_Store
+</span><span class='line'>-rw-------   1 jfhogarty  staff   668 Jan  5 21:11 do_id_dsa
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   614 Jan  5 21:11 do_id_dsa.pub
+</span><span class='line'>-rw-------   1 jfhogarty  staff  1766 Mar  2  2013 id_rsa
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   400 Mar  2  2013 id_rsa.pub
+</span><span class='line'>-rw-------   1 jfhogarty  staff   668 Apr 20  2014 jh-mbp_id
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   614 Apr 20  2014 jh-mbp_id.pub
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff  7162 Jan  5 21:17 known_hosts
+</span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The keen eye might notice that I now have three sets of private/public keys.  However, when I was typing ssh myhostname.com ssh didn&rsquo;t know which files to use, if any.  I was able to prove my theory by trying the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -p 9986 -i ~/.ssh/do_id_dsa myhostname.com</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And BAM!  No password required to login.  I was on to a solution.  When I had my lightbulb moment, I had remembered that I needed to create a config file in the .ssh directory on my laptop.  Lets take a look at it:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>➜  .ssh  cat config
+</span><span class='line'>Host 10.11.12.13
+</span><span class='line'>IdentityFile ~/.ssh/do_id_dsa
+</span><span class='line'>Protocol 2
+</span><span class='line'>
+</span><span class='line'>Host myhostname.com
+</span><span class='line'>IdentityFile ~/.ssh/do_id_dsa
+</span><span class='line'>Protocol 2
+</span><span class='line'>
+</span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
+
+
+<p>NOTE:  To protect the innocent, the IP Address and *.com name above are fake.  Please substitute those values for your real IP Address and/or domain name.</p>
+
+<p>And that is how I solved my customized passwordless ssh access to my VPS.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ho Gi Hung</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-06T20:10:14-05:00" pubdate data-updated="true">Jan 6<span>th</span>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/blog/'>Blog</a>, <a class='category' href='/blog/categories/vps/'>VPS</a>, <a class='category' href='/blog/categories/ssh/'>ssh</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2015/01/06/custom-passwordless-ssh/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2015/01/06/custom-passwordless-ssh/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/12/30/deploy-error-heroku/" title="Previous Post: Error Deploying to Production on Heroku">&laquo; Error Deploying to Production on Heroku</a>
+      
+      
+    </p>
+    <div id="disqus_thread"></div>
+      <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          var disqus_shortname = 'oldguynewtrickcom'; // required: replace example with your forum shortname
+
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/01/06/custom-passwordless-ssh/">Custom Passwordless SSH Access</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/30/deploy-error-heroku/">Error Deploying to Production on Heroku</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/18/aint-your-ruby/">Aint Your Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/17/Cha-Cha-Cha-Chruby/">Cha-Cha-Cha-Chruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/04/borrow-a-tapa-convention/">Borrowing From Ruby Tapas</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("hogihung", , );
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <p>Follow <a href="http://twitter.com/hogihung">@hogihung</a></p>
+  
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Ho Gi Hung -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.Background image by Ho Gi Hung</span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

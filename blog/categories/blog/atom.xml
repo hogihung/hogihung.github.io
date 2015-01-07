@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blog | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/blog/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-01-02T21:10:13-05:00</updated>
+  <updated>2015-01-06T20:36:08-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,104 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Custom Passwordless SSH Access]]></title>
+    <link href="http://hogihung.github.io/blog/2015/01/06/custom-passwordless-ssh/"/>
+    <updated>2015-01-06T20:10:14-05:00</updated>
+    <id>http://hogihung.github.io/blog/2015/01/06/custom-passwordless-ssh</id>
+    <content type="html"><![CDATA[<p>When I created my Digital Ocean VPS I setup SSH Keys for both my main laptop and desktop computers.  I grabbed the appropriate contents from my .pub file and pasted that information on the web form for &lsquo;Add SSH Key&rsquo; under the SSH Keys menu of my droplet.  However, I noticed that each time I would ssh to my server I would be required to input my password.</p>
+
+<p>In this blog posting, I will illustrate how I solved this issue and why the word &lsquo;custom&rsquo; appears in the title.  There are many websites that cover how to setup passwordless ssh login.  For example, Digital Ocean has a nice posting: <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2">here</a></p>
+
+<p>However, those instructions, and other like it, assume a plain-vanilla setup.  Of course, I dare to be different.  For example, before I started to solve this puzzle, my ~/.ssh directory had the following:</p>
+
+<p><code>
+➜  .ssh  ls -la
+total 88
+drwx------  11 jfhogarty  staff   374 Jan  6 18:36 .
+drwxr-xr-x+ 93 jfhogarty  staff  3162 Jan  6 20:10 ..
+-rw-r--r--@  1 jfhogarty  staff  6148 Mar  9  2013 .DS_Store
+-rw-------   1 jfhogarty  staff  1766 Mar  2  2013 id_rsa
+-rw-r--r--   1 jfhogarty  staff   400 Mar  2  2013 id_rsa.pub
+-rw-------   1 jfhogarty  staff   668 Apr 20  2014 jh-mbp_id
+-rw-r--r--   1 jfhogarty  staff   614 Apr 20  2014 jh-mbp_id.pub
+-rw-r--r--   1 jfhogarty  staff  7162 Jan  5 21:17 known_hosts
+➜  .ssh
+</code></p>
+
+<p>The id_rsa (private file) and the id_rsa.pub (public file,) are your normal files one would find.  But I&rsquo;ve implemented a &lsquo;best-practice&rsquo; adopted from my day job and I create specific key files for different types of access.  For example, following the instructions in the link above, from the Digital Ocean article, I create the following:</p>
+
+<p><code>
+-rw-------   1 jfhogarty  staff   668 Jan  5 21:11 do_id_dsa
+-rw-r--r--   1 jfhogarty  staff   614 Jan  5 21:11 do_id_dsa.pub
+</code></p>
+
+<p>If you follow the steps from the link, there is one thing that you may need to do in addition to their steps.  Some systems require that you change the file permissions for the authorized_keys file located on your target computer.  For example, the following is how I have the permissions set on my VPS:</p>
+
+<p><code>
+➜  .ssh  ls -la
+total 12
+drwx------  2 jfhogarty jfhogarty 4096 Jan  5 21:16 .
+drwxr-xr-x 11 jfhogarty jfhogarty 4096 Jan  6 20:14 ..
+-rw-------  1 jfhogarty jfhogarty  614 Jan  5 21:14 authorized_keys
+➜  .ssh
+</code></p>
+
+<p>I adjusted the permissions using the following syntax:</p>
+
+<p><code>
+chmod 600 authorized_keys
+</code></p>
+
+<p>After creating the new keys on my laptop, and updating the authorized_keys file on the remote server, I thought surely I should now be able to login without using a password.  I was wrong!  The remote server continued to prompte me for my password.  I decided to call it a night as it was getting late.</p>
+
+<p>While working on a VM issue today for my day job, my internal lightbulb went off and I realized what the problem was.  Lets take a fresh look at the .ssh directory of my laptop:</p>
+
+<p><code>
+sh  ls -la
+total 88
+drwx------  11 jfhogarty  staff   374 Jan  6 18:36 .
+drwxr-xr-x+ 93 jfhogarty  staff  3162 Jan  6 20:21 ..
+-rw-r--r--@  1 jfhogarty  staff  6148 Mar  9  2013 .DS_Store
+-rw-------   1 jfhogarty  staff   668 Jan  5 21:11 do_id_dsa
+-rw-r--r--   1 jfhogarty  staff   614 Jan  5 21:11 do_id_dsa.pub
+-rw-------   1 jfhogarty  staff  1766 Mar  2  2013 id_rsa
+-rw-r--r--   1 jfhogarty  staff   400 Mar  2  2013 id_rsa.pub
+-rw-------   1 jfhogarty  staff   668 Apr 20  2014 jh-mbp_id
+-rw-r--r--   1 jfhogarty  staff   614 Apr 20  2014 jh-mbp_id.pub
+-rw-r--r--   1 jfhogarty  staff  7162 Jan  5 21:17 known_hosts
+➜  .ssh
+</code></p>
+
+<p>The keen eye might notice that I now have three sets of private/public keys.  However, when I was typing ssh myhostname.com ssh didn&rsquo;t know which files to use, if any.  I was able to prove my theory by trying the following:</p>
+
+<p><code>
+ssh -p 9986 -i ~/.ssh/do_id_dsa myhostname.com
+</code></p>
+
+<p>And BAM!  No password required to login.  I was on to a solution.  When I had my lightbulb moment, I had remembered that I needed to create a config file in the .ssh directory on my laptop.  Lets take a look at it:</p>
+
+<p>```
+➜  .ssh  cat config
+Host 10.11.12.13
+IdentityFile ~/.ssh/do_id_dsa
+Protocol 2</p>
+
+<p>Host myhostname.com
+IdentityFile ~/.ssh/do_id_dsa
+Protocol 2</p>
+
+<p>➜  .ssh
+```</p>
+
+<p>NOTE:  To protect the innocent, the IP Address and *.com name above are fake.  Please substitute those values for your real IP Address and/or domain name.</p>
+
+<p>And that is how I solved my customized passwordless ssh access to my VPS.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Error Deploying to Production on Heroku]]></title>
@@ -243,25 +341,6 @@ imap <buffer> <F5> <Plug>(xmpfilter-run)
 </code></p>
 
 <p>Pretty neat, eh?  Borrowing this workflow from Ruby Tapas will now help me when I&rsquo;m following along with each episode.  Now I just need to get better with Vim.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[MySQL Issue on Mac OSX]]></title>
-    <link href="http://hogihung.github.io/blog/2014/10/27/mysql-issue-osx/"/>
-    <updated>2014-10-27T18:40:45-04:00</updated>
-    <id>http://hogihung.github.io/blog/2014/10/27/mysql-issue-osx</id>
-    <content type="html"><![CDATA[<p>Most of my Rails projects, for personal use and education, have been using Postgresql or SQLite for the datbase backend.  At work our primary database is Oracle with a dash of MySQL.  Recently we decided to use MySQL with all future development, and migrate our tools/applications that use Oracle to use MySQL.</p>
-
-<p>I downloaded and installed MySQL by grabbing the installer from the MySQL website:  <a href="http://dev.mysql.com/downloads/mysql/">http://dev.mysql.com/downloads/mysql/</a> and getting the version for my operating system &ndash; OS X Mavericks.</p>
-
-<p>However, with this version installed I was having issues with bundler and getting the mysql gem to compile.  I tried a few solutions that I found on the internet, but none of them were working.</p>
-
-<p>I found some other people who had issues, when using OSX Mavericks, with the MySQL installer.  They solved the issue by removing MySQL that was installed from the download via dev.mysql.com and then re-installing using Homebrew.</p>
-
-<p>This solution worked for me as well.  I found this a bit odd, because earlier in the year I had issues with installing Postgres via Homebrew.  The solution for Postgres was to remove the Homebrew installation and use the installer from the Postgres site.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>
