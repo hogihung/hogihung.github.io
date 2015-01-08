@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-01-06T20:40:40-05:00</updated>
+  <updated>2015-01-07T20:56:54-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,43 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Enable Remote Access - Postgres]]></title>
+    <link href="http://hogihung.github.io/blog/2015/01/07/enable-remote-access-postgres/"/>
+    <updated>2015-01-07T21:00:07-05:00</updated>
+    <id>http://hogihung.github.io/blog/2015/01/07/enable-remote-access-postgres</id>
+    <content type="html"><![CDATA[<p>Recently I&rsquo;ve been troubleshooting an issue with my pet project.  On my laptop, in a development environment, I didn&rsquo;t seem to have any issues. My test suite has been working fine, but when I deployed the app to a production environment, I started to discover some issues.  Issues that revolve around the database.</p>
+
+<p>I&rsquo;m not a SQL guru, so from time-to-time when I want to poke around my Postgres database, I use an application called PGAdmin.  So I fired up PGAdmin and tried to connect to the Postgres database that is running on my server, over the internet.  Politely, PGAdmin told me to go pound sand &ndash; it was not able to connect.  After a little research I learned that there were two files on my server, related to postgres, that I needed to update.</p>
+
+<p>On your remote server, that has Postgres running, modifying the two files indicated below:<br>
+<em>(Note: your path might be different depending on your version of Postgres and your Linux distro)</em></p>
+
+<pre>
+sudo vim /etc/postgresql/9.3/main/pg_hba.conf  
+# Added by jfhogarty to support remote access and PGAdmin
+host    all             all             0.0.0.0/0               md5
+
+
+sudo vim /etc/postgresql/9.3/main/postgresql.conf 
+#The next line added by jfhogarty to enable remote access and PGAdmin
+listen_addresses = '*'
+
+</pre>
+
+
+<p>Lastly, with the above changes added to the two .conf files, we need to restart Posgtres:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service postgresql restart</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With the above changes in place, and postgres restarted, I fired up PGAdmin again on my laptop.  And like <em>butter</em> I was able to connect to and work with my databases. I resumed debugging my original issue.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Custom Passwordless SSH Access]]></title>
@@ -1255,37 +1292,6 @@ cd instantclient_11_2</p>
 <p>As I write this post, again about 2.5, well maybe 2.75 weeks in, I&rsquo;m now on the third Block &ndash; Features / Testing / Javascript.  This block is also estimated to take 40 hours.  There are 10 checkpoints and I&rsquo;ve completed the first 4 so far.  But now I&rsquo;m really entering an area of unfamiliarity.  Upcoming in this block is RSpec and Ajax.  Two areas that have close to zero amount of knowledge and experience.</p>
 
 <p>Stay tuned for my next update.  This coming week I will be going to Ancient City Ruby so I&rsquo;m not sure if I&rsquo;ll have the time to complete the third block.  But once I have completed it, I will post my thoughts here.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[First Week At Bloc]]></title>
-    <link href="http://hogihung.github.io/blog/2014/03/15/first-week-at-bloc/"/>
-    <updated>2014-03-15T19:46:34-04:00</updated>
-    <id>http://hogihung.github.io/blog/2014/03/15/first-week-at-bloc</id>
-    <content type="html"><![CDATA[<p>About two weeks ago I was trying to decide which on-line web developer education solution I would enroll in.  The decision was not easy.  Along with the weekly time requirements, roughly 25 hours per week, the financial cost is nothing to shrug off.  In the end I choose Bloc (<a href="http://www.bloc.io">http://www.bloc.io</a>)</p>
-
-<p>My training at Bloc started this past Monday, March 10th.  The Bloc course runs about 12 weeks, broken down into four segments:</p>
-
-<pre><code>1.  Environment Setup / Programming with Ruby
-2.  Rails Foundation
-3.  Features/Testing/Javascript
-4.  Project Challenges
-</code></pre>
-
-<p>I&rsquo;ve just finished item 1 &ndash; Environment Setup / Programming with Ruby.  When I read the description of this section my first thought was, &ldquo;this should be easy.&rdquo;  I have been exploring Ruby and Rails for almost a year.  I&rsquo;ve installed RVM on several computers, worked with GitHub and Heroku, as well as several introductory tutorials.</p>
-
-<p>And many of sub-sections in this first track were a nice and quick completion for me.  But, through each sub-section, I did learn something new.  For example, while working on setting up an app on Heroku, I learned how to add support for New Relic.  I&rsquo;ve seen ads and mention of New Relic a lot while learning Rails but never took a look at it.  Now I&rsquo;ve had a nice gentle introduction.</p>
-
-<p>There are 20 sub-section to Environment Setup / Programming with Ruby.  I felt good and confident as I traversed through them one by one.  I was slowed down briefly in sub-section 14 &ndash; Arrays.  One of the exercises there introduced me to new code and techniques I had not yet experienced.  I love learning new stuff!</p>
-
-<p>As I rounded out this section, I found myself staring at my nemesis &ndash; Blocks.  I don&rsquo;t know why, but I seem to have a mental <em>block</em> when it comes to Blocks (as well as Procs and Lambdas.)  This section took me a bit and I had to reach out for help.</p>
-
-<p>In the Bloc program, each student has a mentor.  We have around 3 calls a week with our mentors.  When I got stuck it was after I had last talked with my mentor.  Not a problem &ndash; Bloc also has a staffed on-line chat room.  I popped in to the chat room and asked a question.  One of the staff there gave me a nudge.  After about 30 minutes I was still stuck.  I had gotten further, but still hadn&rsquo;t solved the problem.  Another question/discussion in the chat room and it became clear.  I was able to complete the lesson.  <strong>Happy Dance!</strong></p>
-
-<p>I look forward to my next call with my mentor (tomorrow) and starting my next section &ndash; Rails Foundation.  As I progress through each section I&rsquo;ll return here to provide updates.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>

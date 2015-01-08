@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Cha-Cha-Cha-Chruby - Old Guy, New Trick</title>
+  <title>Enable Remote Access - Postgres - Old Guy, New Trick</title>
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="Recently I got a bug, ney rather an itch I needed to scratch. I have been using RVM for over a year and half. I have had some issues, but mostly &hellip;">
+  <meta name="description" content="Recently I&rsquo;ve been troubleshooting an issue with my pet project. On my laptop, in a development environment, I didn&rsquo;t seem to have any &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hogihung.github.io/blog/2014/11/17/Cha-Cha-Cha-Chruby/">
+  <link rel="canonical" href="http://hogihung.github.io/blog/2015/01/07/enable-remote-access-postgres/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -68,7 +68,7 @@
   
   <header>
     
-      <h1 class="entry-title">Cha-Cha-Cha-Chruby</h1>
+      <h1 class="entry-title">Enable Remote Access - Postgres</h1>
     
     
       <p class="meta">
@@ -84,35 +84,40 @@
   
 
 
-<time datetime="2014-11-17T20:40:47-05:00" pubdate data-updated="true">Nov 17<span>th</span>, 2014</time>
+<time datetime="2015-01-07T21:00:07-05:00" pubdate data-updated="true">Jan 7<span>th</span>, 2015</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Recently I got a bug, ney rather an itch I needed to scratch.  I have been using RVM for over a year and half.  I have had some issues, but mostly those were due to me learning how to work with RVM.</p>
+<div class="entry-content"><p>Recently I&rsquo;ve been troubleshooting an issue with my pet project.  On my laptop, in a development environment, I didn&rsquo;t seem to have any issues. My test suite has been working fine, but when I deployed the app to a production environment, I started to discover some issues.  Issues that revolve around the database.</p>
 
-<p>I was having an odd issue on one of my Macs so I decided to remove RVM and install rbenv.  I shot a tweet out to see if anyone had an opinion about rbenv and I received a reply suggesting I give chruby a chance.  Recently I had listened to an episode of Ruby Rogues <a href="http://devchat.tv/ruby-rogues/169-rr-version-managers-with-michal-papis-mislav-maronic-and-postmodern-mod-iii">#169</a>,  where they talked about RVM, rbenv, and chruby.</p>
+<p>I&rsquo;m not a SQL guru, so from time-to-time when I want to poke around my Postgres database, I use an application called PGAdmin.  So I fired up PGAdmin and tried to connect to the Postgres database that is running on my server, over the internet.  Politely, PGAdmin told me to go pound sand &ndash; it was not able to connect.  After a little research I learned that there were two files on my server, related to postgres, that I needed to update.</p>
 
-<p>So I decied to give chruby a try.  Removing RVM is pretty straight forward.  You should be able to simply run:</p>
+<p>On your remote server, that has Postgres running, modifying the two files indicated below:<br>
+<em>(Note: your path might be different depending on your version of Postgres and your Linux distro)</em></p>
+
+<pre>
+sudo vim /etc/postgresql/9.3/main/pg_hba.conf  
+# Added by jfhogarty to support remote access and PGAdmin
+host    all             all             0.0.0.0/0               md5
+
+
+sudo vim /etc/postgresql/9.3/main/postgresql.conf 
+#The next line added by jfhogarty to enable remote access and PGAdmin
+listen_addresses = '*'
+
+</pre>
+
+
+<p>Lastly, with the above changes added to the two .conf files, we need to restart Posgtres:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rvm implode</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service postgresql restart</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Once removed, you may need to edit your .bashrc/.zshrc or *profile file(s) to remove any reference to RVM.</p>
-
-<p>While I really like RVM, I&rsquo;ve always been a bit worried about the magic it performs &ndash; the stuff it does for me that I&rsquo;m not familiar with.  Chruby seemed to be easier for me to grasp.  From my limited understanding, there seems to be less moving parts in chruby vs. RVM.</p>
-
-<p>I&rsquo;m not going to lay out all of the steps to get chruby installed.  The source web pages for chruby and ruby-install are very easy to read and comprehend.</p>
-
-<p><a href="https://github.com/postmodern/chruby">chruby</a><br>
-<a href="https://github.com/postmodern/ruby-install">ruby-install</a></p>
-
-<p>It took me a little bit to understand the differences of chruby and how I would use in my environment.  But after getting it running on my laptop, I converted two other Macs, my Ubuntu VM, and my CentOS server to use chruby.</p>
-
-<p>As I said earlier, I do like RVM, and it had served me well.  I still use RVM at my day job on our CentOS servers.  I thought changing from RVM to chruby on those servers would be a good idea, so I attempted to change a development server.  While the removal of RVM and install of Chruby went fine, I ran into a huge issue.  I could not get Passenger to work properly under Chruby.  I&rsquo;m sure the reason is due to my lack of understanding, but I just couldn&rsquo;t afford to figure it out. So I switched back to RVM &ndash; and RVM will stay on our work servers.</p>
+<p>With the above changes in place, and postgres restarted, I fired up PGAdmin again on my laptop.  And like <em>butter</em> I was able to connect to and work with my databases. I resumed debugging my original issue.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 </div>
@@ -137,12 +142,12 @@
   
 
 
-<time datetime="2014-11-17T20:40:47-05:00" pubdate data-updated="true">Nov 17<span>th</span>, 2014</time>
+<time datetime="2015-01-07T21:00:07-05:00" pubdate data-updated="true">Jan 7<span>th</span>, 2015</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/blog/'>Blog</a>, <a class='category' href='/blog/categories/installing/'>Installing</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+    <a class='category' href='/blog/categories/blog/'>Blog</a>, <a class='category' href='/blog/categories/posgtgres/'>Posgtgres</a>, <a class='category' href='/blog/categories/vps/'>VPS</a>
   
 </span>
 
@@ -151,7 +156,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2014/11/17/Cha-Cha-Cha-Chruby/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2014/11/17/Cha-Cha-Cha-Chruby/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2015/01/07/enable-remote-access-postgres/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2015/01/07/enable-remote-access-postgres/" >Tweet</a>
   
   
   
@@ -160,10 +165,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/11/04/borrow-a-tapa-convention/" title="Previous Post: Borrowing From Ruby Tapas">&laquo; Borrowing From Ruby Tapas</a>
+        <a class="basic-alignment left" href="/blog/2015/01/06/custom-passwordless-ssh/" title="Previous Post: Custom Passwordless SSH Access">&laquo; Custom Passwordless SSH Access</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/11/18/aint-your-ruby/" title="Next Post: Aint Your Ruby">Aint Your Ruby &raquo;</a>
       
     </p>
     <div id="disqus_thread"></div>

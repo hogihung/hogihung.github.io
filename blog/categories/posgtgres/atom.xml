@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Posgtgres | Old Guy, New Trick]]></title>
+  <link href="http://hogihung.github.io/blog/categories/posgtgres/atom.xml" rel="self"/>
+  <link href="http://hogihung.github.io/"/>
+  <updated>2015-01-07T20:56:54-05:00</updated>
+  <id>http://hogihung.github.io/</id>
+  <author>
+    <name><![CDATA[Ho Gi Hung]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Enable Remote Access - Postgres]]></title>
+    <link href="http://hogihung.github.io/blog/2015/01/07/enable-remote-access-postgres/"/>
+    <updated>2015-01-07T21:00:07-05:00</updated>
+    <id>http://hogihung.github.io/blog/2015/01/07/enable-remote-access-postgres</id>
+    <content type="html"><![CDATA[<p>Recently I&rsquo;ve been troubleshooting an issue with my pet project.  On my laptop, in a development environment, I didn&rsquo;t seem to have any issues. My test suite has been working fine, but when I deployed the app to a production environment, I started to discover some issues.  Issues that revolve around the database.</p>
+
+<p>I&rsquo;m not a SQL guru, so from time-to-time when I want to poke around my Postgres database, I use an application called PGAdmin.  So I fired up PGAdmin and tried to connect to the Postgres database that is running on my server, over the internet.  Politely, PGAdmin told me to go pound sand &ndash; it was not able to connect.  After a little research I learned that there were two files on my server, related to postgres, that I needed to update.</p>
+
+<p>On your remote server, that has Postgres running, modifying the two files indicated below:<br>
+<em>(Note: your path might be different depending on your version of Postgres and your Linux distro)</em></p>
+
+<pre>
+sudo vim /etc/postgresql/9.3/main/pg_hba.conf  
+# Added by jfhogarty to support remote access and PGAdmin
+host    all             all             0.0.0.0/0               md5
+
+
+sudo vim /etc/postgresql/9.3/main/postgresql.conf 
+#The next line added by jfhogarty to enable remote access and PGAdmin
+listen_addresses = '*'
+
+</pre>
+
+
+<p>Lastly, with the above changes added to the two .conf files, we need to restart Posgtres:</p>
+
+<p><code>
+sudo service postgresql restart
+</code></p>
+
+<p>With the above changes in place, and postgres restarted, I fired up PGAdmin again on my laptop.  And like <em>butter</em> I was able to connect to and work with my databases. I resumed debugging my original issue.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
+  
+</feed>
