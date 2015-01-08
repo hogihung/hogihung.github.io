@@ -4,7 +4,7 @@
   <title><![CDATA[Category: VPS | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/vps/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-01-07T20:56:54-05:00</updated>
+  <updated>2015-01-07T20:58:40-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -22,7 +22,7 @@
 
 <p>I&rsquo;m not a SQL guru, so from time-to-time when I want to poke around my Postgres database, I use an application called PGAdmin.  So I fired up PGAdmin and tried to connect to the Postgres database that is running on my server, over the internet.  Politely, PGAdmin told me to go pound sand &ndash; it was not able to connect.  After a little research I learned that there were two files on my server, related to postgres, that I needed to update.</p>
 
-<p>On your remote server, that has Postgres running, modifying the two files indicated below:<br>
+<p>On your remote server, that has Postgres running, modify the two files indicated below:<br>
 <em>(Note: your path might be different depending on your version of Postgres and your Linux distro)</em></p>
 
 <pre>
