@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blog | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/blog/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-01-07T20:58:40-05:00</updated>
+  <updated>2015-02-03T08:09:03-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,56 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[The Gathering]]></title>
+    <link href="http://hogihung.github.io/blog/2015/02/03/gathering-of-some-newbs/"/>
+    <updated>2015-02-03T07:50:00-05:00</updated>
+    <id>http://hogihung.github.io/blog/2015/02/03/gathering-of-some-newbs</id>
+    <content type="html"><![CDATA[<p>A few weeks back I was discussing an idea around the weekly Code and Coffee table.
+The idea was a spin on something I saw Nathan Barry discussing over <a href="http://nathanbarry.com/24hours/">here</a>.
+I still consider myself a newbie to Ruby, but I wanted to do my own personal hack-a-thon.</p>
+
+<p>Well that idea morphed, or is the cool thing to say, pivoted, to a project that me
+and two other new to Ruby programmers would work on. All three of us discussed the
+idea of creating something new.  Something no one else has done before.  A blog
+written in Ruby on Rails.</p>
+
+<p>Hopefully now you are not looking at your screen with coffee sprayed all over it
+due to your laughing.  I know, there have been many, many Blog type projects.  So
+why is this one different?  I&rsquo;m not sure it really is.  What I can say is that
+project is giving us an opportunity to work together and learn from each other.
+Not to say anything bad about you seniors out there, but there are times I feel
+that the best way to illustrate that I&rsquo;ve learned something that you have passed
+on, is to share that knowledge with others around my level.</p>
+
+<p>So yes, we are making a dynamic blog written in Rails.  If you are interested in
+checking it out, you can find it <a href="https://github.com/hogihung/flex_blogger">here</a>.
+Please keep in mind that we are still in active development.  I will update the
+README file once we are at a point where we think the application is solid.</p>
+
+<p>There are a lot of &lsquo;firsts&rsquo; for me in regards to this project.  This is the first
+web application I&rsquo;m working on with more than two people actively working at the
+same time.  I&rsquo;m learning how to create and manage pull requests.  I&rsquo;m attempting
+to help lead the project and keep all of us updated on the progress.</p>
+
+<p>All three of us have been working with Ruby and Rails for a little bit &ndash; perhaps
+a year or year and half.  But there are some other &lsquo;new to us&rsquo; components that we
+have choosen to try out.  We decided to bypass Devise and Twitter Bootstrap &ndash; both
+things that were comfortable to us.  Instead, we are using several great tools
+that <a href="https://github.com/thoughtbot/">Thoughtbot</a> has shared with the community
+including:  Bourbon, Neat, Bitters, Refills, Clearance, FactoryGirl and HoundCI.</p>
+
+<p>I welcome any feedback on our project, <strong>Flex Blogger</strong>.  Just shoot me a tweet on
+Twitter, or email me.  I&rsquo;m excited to see the final product and have this cool
+experience.</p>
+
+<p>I still want to test my skills by doing a personal hack-a-thon, but I need to
+convince some of the gurus I know to be my guest drop ins.  :)</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Enable Remote Access - Postgres]]></title>
@@ -252,38 +302,6 @@ rule DI0780_0020
 <p>  }
 };
 ```</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Cha-Cha-Cha-Chruby]]></title>
-    <link href="http://hogihung.github.io/blog/2014/11/17/Cha-Cha-Cha-Chruby/"/>
-    <updated>2014-11-17T20:40:47-05:00</updated>
-    <id>http://hogihung.github.io/blog/2014/11/17/Cha-Cha-Cha-Chruby</id>
-    <content type="html"><![CDATA[<p>Recently I got a bug, ney rather an itch I needed to scratch.  I have been using RVM for over a year and half.  I have had some issues, but mostly those were due to me learning how to work with RVM.</p>
-
-<p>I was having an odd issue on one of my Macs so I decided to remove RVM and install rbenv.  I shot a tweet out to see if anyone had an opinion about rbenv and I received a reply suggesting I give chruby a chance.  Recently I had listened to an episode of Ruby Rogues <a href="http://devchat.tv/ruby-rogues/169-rr-version-managers-with-michal-papis-mislav-maronic-and-postmodern-mod-iii">#169</a>,  where they talked about RVM, rbenv, and chruby.</p>
-
-<p>So I decied to give chruby a try.  Removing RVM is pretty straight forward.  You should be able to simply run:</p>
-
-<p><code>
-rvm implode
-</code></p>
-
-<p>Once removed, you may need to edit your .bashrc/.zshrc or *profile file(s) to remove any reference to RVM.</p>
-
-<p>While I really like RVM, I&rsquo;ve always been a bit worried about the magic it performs &ndash; the stuff it does for me that I&rsquo;m not familiar with.  Chruby seemed to be easier for me to grasp.  From my limited understanding, there seems to be less moving parts in chruby vs. RVM.</p>
-
-<p>I&rsquo;m not going to lay out all of the steps to get chruby installed.  The source web pages for chruby and ruby-install are very easy to read and comprehend.</p>
-
-<p><a href="https://github.com/postmodern/chruby">chruby</a><br>
-<a href="https://github.com/postmodern/ruby-install">ruby-install</a></p>
-
-<p>It took me a little bit to understand the differences of chruby and how I would use in my environment.  But after getting it running on my laptop, I converted two other Macs, my Ubuntu VM, and my CentOS server to use chruby.</p>
-
-<p>As I said earlier, I do like RVM, and it had served me well.  I still use RVM at my day job on our CentOS servers.  I thought changing from RVM to chruby on those servers would be a good idea, so I attempted to change a development server.  While the removal of RVM and install of Chruby went fine, I ran into a huge issue.  I could not get Passenger to work properly under Chruby.  I&rsquo;m sure the reason is due to my lack of understanding, but I just couldn&rsquo;t afford to figure it out. So I switched back to RVM &ndash; and RVM will stay on our work servers.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>

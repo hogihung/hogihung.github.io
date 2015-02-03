@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-01-07T20:58:40-05:00</updated>
+  <updated>2015-02-03T08:09:03-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,56 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[The Gathering]]></title>
+    <link href="http://hogihung.github.io/blog/2015/02/03/gathering-of-some-newbs/"/>
+    <updated>2015-02-03T07:50:00-05:00</updated>
+    <id>http://hogihung.github.io/blog/2015/02/03/gathering-of-some-newbs</id>
+    <content type="html"><![CDATA[<p>A few weeks back I was discussing an idea around the weekly Code and Coffee table.
+The idea was a spin on something I saw Nathan Barry discussing over <a href="http://nathanbarry.com/24hours/">here</a>.
+I still consider myself a newbie to Ruby, but I wanted to do my own personal hack-a-thon.</p>
+
+<p>Well that idea morphed, or is the cool thing to say, pivoted, to a project that me
+and two other new to Ruby programmers would work on. All three of us discussed the
+idea of creating something new.  Something no one else has done before.  A blog
+written in Ruby on Rails.</p>
+
+<p>Hopefully now you are not looking at your screen with coffee sprayed all over it
+due to your laughing.  I know, there have been many, many Blog type projects.  So
+why is this one different?  I&rsquo;m not sure it really is.  What I can say is that
+project is giving us an opportunity to work together and learn from each other.
+Not to say anything bad about you seniors out there, but there are times I feel
+that the best way to illustrate that I&rsquo;ve learned something that you have passed
+on, is to share that knowledge with others around my level.</p>
+
+<p>So yes, we are making a dynamic blog written in Rails.  If you are interested in
+checking it out, you can find it <a href="https://github.com/hogihung/flex_blogger">here</a>.
+Please keep in mind that we are still in active development.  I will update the
+README file once we are at a point where we think the application is solid.</p>
+
+<p>There are a lot of &lsquo;firsts&rsquo; for me in regards to this project.  This is the first
+web application I&rsquo;m working on with more than two people actively working at the
+same time.  I&rsquo;m learning how to create and manage pull requests.  I&rsquo;m attempting
+to help lead the project and keep all of us updated on the progress.</p>
+
+<p>All three of us have been working with Ruby and Rails for a little bit &ndash; perhaps
+a year or year and half.  But there are some other &lsquo;new to us&rsquo; components that we
+have choosen to try out.  We decided to bypass Devise and Twitter Bootstrap &ndash; both
+things that were comfortable to us.  Instead, we are using several great tools
+that <a href="https://github.com/thoughtbot/">Thoughtbot</a> has shared with the community
+including:  Bourbon, Neat, Bitters, Refills, Clearance, FactoryGirl and HoundCI.</p>
+
+<p>I welcome any feedback on our project, <strong>Flex Blogger</strong>.  Just shoot me a tweet on
+Twitter, or email me.  I&rsquo;m excited to see the final product and have this cool
+experience.</p>
+
+<p>I still want to test my skills by doing a personal hack-a-thon, but I need to
+convince some of the gurus I know to be my guest drop ins.  :)</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Enable Remote Access - Postgres]]></title>
@@ -1263,37 +1313,6 @@ cd instantclient_11_2</p>
 <p>I can&rsquo;t properly convey the joy and happiness I felt when I saw this new tool work!  It really made my day, especially as it took me a couple of hours of research, trial and error.  But this will make things really easy for me when I move the application to production.</p>
 
 <p>Note that I have the code that starts with &ldquo;p&rdquo; in there so I have a nice visual of how the task is running.  If you don&rsquo;t need that visual confirmation, you could remove those two lines of code.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Week 2 and a half at Bloc]]></title>
-    <link href="http://hogihung.github.io/blog/2014/03/29/week-2-and-a-half-at-bloc/"/>
-    <updated>2014-03-29T10:02:23-04:00</updated>
-    <id>http://hogihung.github.io/blog/2014/03/29/week-2-and-a-half-at-bloc</id>
-    <content type="html"><![CDATA[<p>The first week of my training at Bloc went by very fast. For the most part it was a review of information/knowledge I had already gained, but was still worth it.  I had wanted to create another blog post earlier, but the completion of the second block took longer than I had anticipated.</p>
-
-<p>So here we are, about about 2.5 weeks in. The second block, titled Rails Foundation, should take one about 40 hours.  At least that is the estimated time for completion.  If I wasn&rsquo;t working full-time, maybe I could have completed this block in one week.</p>
-
-<p>The Rails Foundation block is composed of 20 checkpoints.  We learned a lot of concepts, and habits in those checkpoints.  There was some review for me, for example the lesson introduced the Devise gem.  I&rsquo;ve played with this a little bit so had some comfort with that checkpoint.  Though I did learn some new things related to Devise.</p>
-
-<p>A totally new experience for me was when did the Authorization checkpoint, and was introduced to the Pundit gem.  I would say that Pundit is a little bit like CanCan.  I&rsquo;ve dabbled with CanCan a little bit, but I find Pundit to be pretty good.  I&rsquo;ll have a tough choice to make when it comes time for my Capstone project.  Should I go with Pundit, or revist CanCan (or CanCanCan.)</p>
-
-<p>Another topic that I found useful, because it helped me with a task at my day job, was the lesson on Seeding.  While our main environment at work is Perl, I&rsquo;m slowing trying to sneak in some Ruby and Rails.  Leveraging some of the knowledge gained in the Seeding lesson, I was able to expand on that knowledge and compose my first rake task for populating my models with data in CSV files.  Ok, I&rsquo;m a bit off topic, steer back John!</p>
-
-<p>There were two area where my progress slowed to a crawl in the second block.  The first was related to uploading images.  Recently Bloc added a Rails 4.x track and it looks like some of the lesson code examples are missing.  I wasn&rsquo;t able to see my Choose File option for uploading an image.  A trip to the Chat Room and a small wait for my turn, and my issue was solved by Xander.  Xander is great!  Everytime I&rsquo;ve had a question, he seems to be in the chat room and helps me out.</p>
-
-<p>The second area I had trouble with was nesting.  I&rsquo;ll admit that I&rsquo;m still 100% solid with what I&rsquo;ve learned about nesting, but I&rsquo;m confident things will become clearer as I see and utilize more code.  During one of the lessons related to this nesting of Topics, Posts and Comments, I got stuck real bad.  I went to the chat room for help, but it was just at the time for that shift to end for the day.  Xander stayed for a few minutes and helped a lot.  But I was still stuck.</p>
-
-<p>I was worried that all the changes I had made may have broken something.  So I fired off an email to my mentor to let him know I was stuck and to be prepared for a nice long chat the next day when we were scheduled to meet.  We meet the next day and he helped get me fixed in less than 5 minutes.  My eyes were so focused around the code and didn&rsquo;t &ldquo;see&rdquo; the code.  I had several silly mistakes.  For example I used the plural version instead of singular for a particular item/method.  Or I had a misplaced period.  And other issue, I had the order of a ) and a period mixed up.  Simple things for the trained eye.  It was great to have the mentor there to help me through what I thought was a major <em>fsk</em> up on my part.</p>
-
-<p>Needless to say, I made some more punctuation type mistakes on the remaing checkpoints in this block.  But since I suffered so much earlier in the block, I was much more aware of what to look for.  The hard part for me now is when I see an error message, and know basically what is wrong, I don&rsquo;t yet have the experience to provide the solution.  But I&rsquo;m eagerly working at improving my problem solution skills.  :)</p>
-
-<p>As I write this post, again about 2.5, well maybe 2.75 weeks in, I&rsquo;m now on the third Block &ndash; Features / Testing / Javascript.  This block is also estimated to take 40 hours.  There are 10 checkpoints and I&rsquo;ve completed the first 4 so far.  But now I&rsquo;m really entering an area of unfamiliarity.  Upcoming in this block is RSpec and Ajax.  Two areas that have close to zero amount of knowledge and experience.</p>
-
-<p>Stay tuned for my next update.  This coming week I will be going to Ancient City Ruby so I&rsquo;m not sure if I&rsquo;ll have the time to complete the third block.  But once I have completed it, I will post my thoughts here.</p>
-
-<p><em>Learn Something New Every Day</em></p>
 ]]></content>
   </entry>
   
