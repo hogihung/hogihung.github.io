@@ -9,7 +9,7 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="Recently I re-discovered an issue I ran into about 8 months ago. I am re-writing an application I created for work. The first version was written in &hellip;">
+  <meta name="description" content="Last week I covered a topic that resurfaced while I am in the process of upgrading one of our apps from Ruby 1.9 and Rails 3.x. When I wrote that &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,126 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/23/testing-to-csv-method/">Testing To_csv Method</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-23T09:32:37-04:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Last week I covered a topic that resurfaced while I am in the process of upgrading one of our apps from Ruby 1.9 and Rails 3.x. When I wrote that application I was a raw recruit &ndash; fresh to Ruby and Rails and just trying to get the idea to work.</p>
+
+<p>But as I&rsquo;ve been improving my skills and expanding the ole grey matter, I wanted to write this new version, fully tested.  In the application there is a need to be able to export the data to a CSV formatted file.  I had the code from the old version of the app, and migrated it over.  However, I challenged myself to figure out how to write a test for the to_csv method in Baytech model.</p>
+
+<p>Below is the code from the Baytech model:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def self.to_csv
+</span><span class='line'>  CSV.generate(col_sep: ':') do |csv|
+</span><span class='line'>    all.each do |baytech|
+</span><span class='line'>      port = "X"
+</span><span class='line'>      csv &lt;&lt; [baytech.name, baytech.phone_num, baytech.ip_addr, port, baytech.modem_type, port]
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I know the method works, as it has been working fine for 9 months or so now.  But I really wanted to figure out how to write a test for this method.  After much trial and error, along with research via books and google, I came up with the following solution:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>describe Baytech, '#to_csv' do
+</span><span class='line'>  let(:baytech) { FactoryGirl.create(:baytech) }
+</span><span class='line'>
+</span><span class='line'>  before do
+</span><span class='line'>    baytech
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  it { expect(Baytech.to_csv).to match /#{baytech.name}:#{baytech.phone_num}:#{baytech.ip_addr}:X:1:X/ }
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You may notice in the above code that I am referencing a Factory.  Here is a short version of that factory file:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>FactoryGirl.define do
+</span><span class='line'>  factory :baytech do
+</span><span class='line'>    sequence(:name) {|n| "jaxfl0#{n}b9" }
+</span><span class='line'>    sequence(:ip_addr) {|n| "10.1.2.#{n}" }
+</span><span class='line'>    phone_num "7091234384"
+</span><span class='line'>    region "USA"
+</span><span class='line'>    modem_type "1"
+</span><span class='line'>    ip_method "ssh"
+</span><span class='line'>    active true
+</span><span class='line'>    has_modem_line true
+</span><span class='line'>    updated_by "cd1234"
+</span><span class='line'>
+</span><span class='line'>    {-snip-}
+</span><span class='line'>
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The keen eye may have caught something interesting in the to_csv method.  I&rsquo;m using an option, col_sep: &lsquo;:&rsquo; which allows me to use the : character as the delimiter instead of the default comma.</p>
+
+<p>With the test in place, and passing, I felt better about the code in my to_csv method.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -812,122 +932,6 @@ cd instantclient_11_2</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/29/my-first-rake-task/">My First Rake Task</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-29T20:13:12-04:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>At my day job we primarly use Perl for both our scripting and tool type applications as well as using it with a splatter of PHP for some of our web page applications.  I&rsquo;m trying to get Ruby, and Rails, in the door and see if I can convert others over to Ruby.  I must confess, it is a steep upward battle.</p>
-
-<p>However, I do have a web application on our development server and am preparing to deploy it to production.  It is a fairly simple web application that has three models and will enable us to manage the data elements of our Out-of-Band equipment and the connected devices.</p>
-
-<p>When I first started the development, I manually created some test records.  Then I added a handful more via the seeds.rb file.  But when it came time to populating the database with real data, I needed a better solution.  I had compiled some data in Excel files with over 400 out-of-band devices and over 5,000 connected devices.  No way I was going to manually enter all of those.</p>
-
-<p>This was earlier in the week, and luckily I was able to ask some of the gurus at our weekly Code &amp; Coffee how I could tackle this.  Micah suggested I use the CSV library in Ruby and see about populating the data that way.  He gave me a great nudge in the right direction.</p>
-
-<p>I was fumbling around looking for answers when I saw some information about creating rake tasks.  So I studied up, and created the following rake file:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>require 'csv'
-</span><span class='line'>
-</span><span class='line'>oobs_file = "/path/to/file/oob_devices.CSV"
-</span><span class='line'>devices_file = "/path/to/file/connected_devices.CSV"
-</span><span class='line'>
-</span><span class='line'>namespace :oob_import do
-</span><span class='line'>  task :oobs =&gt; :environment do
-</span><span class='line'>    Oob.delete_all
-</span><span class='line'>    CSV.foreach(oobs_file, headers: true) do |row|
-</span><span class='line'>      p row
-</span><span class='line'>      Oob.create!(row.to_hash)
-</span><span class='line'>    end
-</span><span class='line'>  end
-</span><span class='line'>
-</span><span class='line'>  task :devices =&gt; :environment do
-</span><span class='line'>    Device.delete_all
-</span><span class='line'>    CSV.foreach(devices_file, headers: true) do |row|
-</span><span class='line'>      oob = Oob.find_by_name("#{row[0]}")
-</span><span class='line'>      oob.devices.create!(name: "#{row[1]}", pri_port: "#{row[2]}", active: "#{row[3]}", updated_by: "#{row[4]}")
-</span><span class='line'>
-</span><span class='line'>      p "Oob_ID: #{oob.id}, name: #{row[1]}, pri_port: #{row[2]}, active: #{row[3]}, updated_by: #{row[4]}"
-</span><span class='line'>    end
-</span><span class='line'>  end
-</span><span class='line'>
-</span><span class='line'>  task :all =&gt; [:oobs, :devices] do
-</span><span class='line'>    puts "Refreshing Oob and Device Models"
-</span><span class='line'>  end
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To import my data, I executed the rake task as follows:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake oob_import:oobs
-</span><span class='line'>rake oob_import:devices</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I could have used the taks, <em>oob_import:all</em> but I wanted to work in two steps so I could watch for errors and fix things while I was building this file.</p>
-
-<p>I can&rsquo;t properly convey the joy and happiness I felt when I saw this new tool work!  It really made my day, especially as it took me a couple of hours of research, trial and error.  But this will make things really easy for me when I move the application to production.</p>
-
-<p>Note that I have the code that starts with &ldquo;p&rdquo; in there so I have a nice visual of how the task is running.  If you don&rsquo;t need that visual confirmation, you could remove those two lines of code.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -945,6 +949,10 @@ cd instantclient_11_2</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/17/learning-from-test-suite-aggrevation/">Learning From Test Suite Aggravation</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/03/gathering-of-some-newbs/">The Gathering</a>
       </li>
     
@@ -958,10 +966,6 @@ cd instantclient_11_2</p>
     
       <li class="post">
         <a href="/blog/2014/12/30/deploy-error-heroku/">Error Deploying to Production on Heroku</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/11/18/aint-your-ruby/">Aint Your Ruby</a>
       </li>
     
   </ul>

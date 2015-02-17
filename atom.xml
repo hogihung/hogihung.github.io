@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-02-03T08:09:03-05:00</updated>
+  <updated>2015-02-17T09:56:09-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,113 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Learning From Test Suite Aggravation]]></title>
+    <link href="http://hogihung.github.io/blog/2015/02/17/learning-from-test-suite-aggrevation/"/>
+    <updated>2015-02-17T07:55:00-05:00</updated>
+    <id>http://hogihung.github.io/blog/2015/02/17/learning-from-test-suite-aggrevation</id>
+    <content type="html"><![CDATA[<p>In my previous <a href="http://oldguynewtrick.com/blog/2015/02/03/gathering-of-some-newbs/">post</a> I spoke about the Flex Blogger project.  Josh introduced us to a new component called ckeditor.  Ckeditor is a javascript based gui text editor.  After using ckeditor I thought it would be beneficial to add it to another application I created for my day job &ndash; HarePD.</p>
+
+<p>Before starting on new features, I will fire off my test suite to make sure everything is still green.  For me I just type:  rspec</p>
+
+<p>I love seeing all that green!  Next, I created a branch to work on this new feature, and updated my Gemfile:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git checkout -b add_ckeditor
+</span><span class='line'>vim Gemfile
+</span><span class='line'>
+</span><span class='line'>{added}
+</span><span class='line'>gem 'ckeditor'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can get more information regarding how to setup ckeditor in your rails application by visiting <a href="https://github.com/galetahub/ckeditor">here</a></p>
+
+<p>With the new gem added, and minor updates made in the appropriate view file, _form.html.slim, it was time to re-run my test suite.  Things were looking good as I saw green, green, green.  Then, as my tests executed on the scenarios that used ckeditor, I started to see red.  No big deal I thought, probably a simple change.  Below is an example of one of my tests that was failing:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>spec/support/issues_helper.rb
+</span><span class='line'>
+</span><span class='line'>def create_issue
+</span><span class='line'>  click_link 'Add Issue'
+</span><span class='line'>  fill_in 'Title', with: 'Cert Expiration'
+</span><span class='line'>  fill_in 'Description', with: 'SSL Cert Expiration'
+</span><span class='line'>  select('2', :from =&gt; 'User level')
+</span><span class='line'>  select('Linux', :from =&gt; 'Os')
+</span><span class='line'>  click_button 'Submit'
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ok, this should be an easy fix.  I inspected the ckeditor element on my webpage using the Chrome Dev Tools, and got the new name &ndash; issue_description.  So I updated the tests that were using &lsquo;Description&rsquo; and replaced with &lsquo;issue_description.&rsquo;  I ran a focused test, on just one scenario and it went green.  Next, I ran all the tests in that particular spec file and again I had a combination of green and red.  Argh!  I took notice of all the failed tests and ran them each one-by-one.  They all passed &ndash; they were all green when executed on their own.  Argh f#@% damnit!</p>
+
+<p>Many hours passed as well as changes here and there to try and get things working.  To keep this post fairly short, I&rsquo;m going to jump to the solution.  After some research and trying different solutions, I stumbled upon the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Create a new file:
+</span><span class='line'>spec/support/ckeditor_helper.rb
+</span><span class='line'>
+</span><span class='line'>def fill_in_ckeditor(locator, params = {})
+</span><span class='line'>  locator = find('label', text: locator)[:for] if page.has_css?('label', text: locator)
+</span><span class='line'>  page.execute_script &lt;&lt;-SCRIPT
+</span><span class='line'>      var ckeditor = CKEDITOR.instances.#{locator}
+</span><span class='line'>      ckeditor.setData('#{params[:with]}')
+</span><span class='line'>      ckeditor.focus()
+</span><span class='line'>      ckeditor.updateElement()
+</span><span class='line'>  SCRIPT
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With the above in place, I refactored my create_issue method from above to read as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def create_issue
+</span><span class='line'>  click_link 'Add Issue'
+</span><span class='line'>  fill_in 'Title', with: 'Cert Expiration'
+</span><span class='line'>  fill_in_ckeditor 'Description', with: 'SSL Cert Expiration'
+</span><span class='line'>  select('2', :from =&gt; 'User level')
+</span><span class='line'>  select('Linux', :from =&gt; 'Os')
+</span><span class='line'>  click_button 'Submit'
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After making the above changes, I ran my tests for the single spec file and to my delight, everything was green.  Now the real moment of truth &ndash; run the entire test suite.  A smile slowly expanded on my face as all the green scrolled by without a single pixel of red!</p>
+
+<p>Although this issue aggravated me for a bit, the end result was much happiness and joy.  Not to mention I learned a few cool new things here and there in the process.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[The Gathering]]></title>
@@ -1224,95 +1331,6 @@ cd instantclient_11_2</p>
 <p>I&rsquo;ve decided to break up my experience into several parts, with this being the first.  I will next talk about how my experience went with the workshop I signed up for &ndash; Vim with Jon and Micah.  After that, I&rsquo;ll chat a bit about how the main days, Thursday and Friday, went at Ancient City Ruby 2014.</p>
 
 <p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[My First Rake Task]]></title>
-    <link href="http://hogihung.github.io/blog/2014/03/29/my-first-rake-task/"/>
-    <updated>2014-03-29T20:13:12-04:00</updated>
-    <id>http://hogihung.github.io/blog/2014/03/29/my-first-rake-task</id>
-    <content type="html"><![CDATA[<p>At my day job we primarly use Perl for both our scripting and tool type applications as well as using it with a splatter of PHP for some of our web page applications.  I&rsquo;m trying to get Ruby, and Rails, in the door and see if I can convert others over to Ruby.  I must confess, it is a steep upward battle.</p>
-
-<p>However, I do have a web application on our development server and am preparing to deploy it to production.  It is a fairly simple web application that has three models and will enable us to manage the data elements of our Out-of-Band equipment and the connected devices.</p>
-
-<p>When I first started the development, I manually created some test records.  Then I added a handful more via the seeds.rb file.  But when it came time to populating the database with real data, I needed a better solution.  I had compiled some data in Excel files with over 400 out-of-band devices and over 5,000 connected devices.  No way I was going to manually enter all of those.</p>
-
-<p>This was earlier in the week, and luckily I was able to ask some of the gurus at our weekly Code &amp; Coffee how I could tackle this.  Micah suggested I use the CSV library in Ruby and see about populating the data that way.  He gave me a great nudge in the right direction.</p>
-
-<p>I was fumbling around looking for answers when I saw some information about creating rake tasks.  So I studied up, and created the following rake file:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>require 'csv'
-</span><span class='line'>
-</span><span class='line'>oobs_file = "/path/to/file/oob_devices.CSV"
-</span><span class='line'>devices_file = "/path/to/file/connected_devices.CSV"
-</span><span class='line'>
-</span><span class='line'>namespace :oob_import do
-</span><span class='line'>  task :oobs =&gt; :environment do
-</span><span class='line'>    Oob.delete_all
-</span><span class='line'>    CSV.foreach(oobs_file, headers: true) do |row|
-</span><span class='line'>      p row
-</span><span class='line'>      Oob.create!(row.to_hash)
-</span><span class='line'>    end
-</span><span class='line'>  end
-</span><span class='line'>
-</span><span class='line'>  task :devices =&gt; :environment do
-</span><span class='line'>    Device.delete_all
-</span><span class='line'>    CSV.foreach(devices_file, headers: true) do |row|
-</span><span class='line'>      oob = Oob.find_by_name("#{row[0]}")
-</span><span class='line'>      oob.devices.create!(name: "#{row[1]}", pri_port: "#{row[2]}", active: "#{row[3]}", updated_by: "#{row[4]}")
-</span><span class='line'>
-</span><span class='line'>      p "Oob_ID: #{oob.id}, name: #{row[1]}, pri_port: #{row[2]}, active: #{row[3]}, updated_by: #{row[4]}"
-</span><span class='line'>    end
-</span><span class='line'>  end
-</span><span class='line'>
-</span><span class='line'>  task :all =&gt; [:oobs, :devices] do
-</span><span class='line'>    puts "Refreshing Oob and Device Models"
-</span><span class='line'>  end
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To import my data, I executed the rake task as follows:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake oob_import:oobs
-</span><span class='line'>rake oob_import:devices</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I could have used the taks, <em>oob_import:all</em> but I wanted to work in two steps so I could watch for errors and fix things while I was building this file.</p>
-
-<p>I can&rsquo;t properly convey the joy and happiness I felt when I saw this new tool work!  It really made my day, especially as it took me a couple of hours of research, trial and error.  But this will make things really easy for me when I move the application to production.</p>
-
-<p>Note that I have the code that starts with &ldquo;p&rdquo; in there so I have a nice visual of how the task is running.  If you don&rsquo;t need that visual confirmation, you could remove those two lines of code.</p>
 ]]></content>
   </entry>
   

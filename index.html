@@ -9,8 +9,7 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="A few weeks back I was discussing an idea around the weekly Code and Coffee table.
-The idea was a spin on something I saw Nathan Barry discussing &hellip;">
+  <meta name="description" content="In my previous post I spoke about the Flex Blogger project. Josh introduced us to a new component called ckeditor. Ckeditor is a javascript based gui &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +65,140 @@ The idea was a spin on something I saw Nathan Barry discussing &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/02/17/learning-from-test-suite-aggrevation/">Learning From Test Suite Aggravation</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-02-17T07:55:00-05:00" pubdate data-updated="true">Feb 17<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In my previous <a href="http://oldguynewtrick.com/blog/2015/02/03/gathering-of-some-newbs/">post</a> I spoke about the Flex Blogger project.  Josh introduced us to a new component called ckeditor.  Ckeditor is a javascript based gui text editor.  After using ckeditor I thought it would be beneficial to add it to another application I created for my day job &ndash; HarePD.</p>
+
+<p>Before starting on new features, I will fire off my test suite to make sure everything is still green.  For me I just type:  rspec</p>
+
+<p>I love seeing all that green!  Next, I created a branch to work on this new feature, and updated my Gemfile:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git checkout -b add_ckeditor
+</span><span class='line'>vim Gemfile
+</span><span class='line'>
+</span><span class='line'>{added}
+</span><span class='line'>gem 'ckeditor'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can get more information regarding how to setup ckeditor in your rails application by visiting <a href="https://github.com/galetahub/ckeditor">here</a></p>
+
+<p>With the new gem added, and minor updates made in the appropriate view file, _form.html.slim, it was time to re-run my test suite.  Things were looking good as I saw green, green, green.  Then, as my tests executed on the scenarios that used ckeditor, I started to see red.  No big deal I thought, probably a simple change.  Below is an example of one of my tests that was failing:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>spec/support/issues_helper.rb
+</span><span class='line'>
+</span><span class='line'>def create_issue
+</span><span class='line'>  click_link 'Add Issue'
+</span><span class='line'>  fill_in 'Title', with: 'Cert Expiration'
+</span><span class='line'>  fill_in 'Description', with: 'SSL Cert Expiration'
+</span><span class='line'>  select('2', :from =&gt; 'User level')
+</span><span class='line'>  select('Linux', :from =&gt; 'Os')
+</span><span class='line'>  click_button 'Submit'
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ok, this should be an easy fix.  I inspected the ckeditor element on my webpage using the Chrome Dev Tools, and got the new name &ndash; issue_description.  So I updated the tests that were using &lsquo;Description&rsquo; and replaced with &lsquo;issue_description.&rsquo;  I ran a focused test, on just one scenario and it went green.  Next, I ran all the tests in that particular spec file and again I had a combination of green and red.  Argh!  I took notice of all the failed tests and ran them each one-by-one.  They all passed &ndash; they were all green when executed on their own.  Argh f#@% damnit!</p>
+
+<p>Many hours passed as well as changes here and there to try and get things working.  To keep this post fairly short, I&rsquo;m going to jump to the solution.  After some research and trying different solutions, I stumbled upon the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Create a new file:
+</span><span class='line'>spec/support/ckeditor_helper.rb
+</span><span class='line'>
+</span><span class='line'>def fill_in_ckeditor(locator, params = {})
+</span><span class='line'>  locator = find('label', text: locator)[:for] if page.has_css?('label', text: locator)
+</span><span class='line'>  page.execute_script &lt;&lt;-SCRIPT
+</span><span class='line'>      var ckeditor = CKEDITOR.instances.#{locator}
+</span><span class='line'>      ckeditor.setData('#{params[:with]}')
+</span><span class='line'>      ckeditor.focus()
+</span><span class='line'>      ckeditor.updateElement()
+</span><span class='line'>  SCRIPT
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With the above in place, I refactored my create_issue method from above to read as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def create_issue
+</span><span class='line'>  click_link 'Add Issue'
+</span><span class='line'>  fill_in 'Title', with: 'Cert Expiration'
+</span><span class='line'>  fill_in_ckeditor 'Description', with: 'SSL Cert Expiration'
+</span><span class='line'>  select('2', :from =&gt; 'User level')
+</span><span class='line'>  select('Linux', :from =&gt; 'Os')
+</span><span class='line'>  click_button 'Submit'
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After making the above changes, I ran my tests for the single spec file and to my delight, everything was green.  Now the real moment of truth &ndash; run the entire test suite.  A smile slowly expanded on my face as all the green scrolled by without a single pixel of red!</p>
+
+<p>Although this issue aggravated me for a bit, the end result was much happiness and joy.  Not to mention I learned a few cool new things here and there in the process.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -928,126 +1061,6 @@ listen_addresses = '*'
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/09/23/testing-to-csv-method/">Testing To_csv Method</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-09-23T09:32:37-04:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Last week I covered a topic that resurfaced while I am in the process of upgrading one of our apps from Ruby 1.9 and Rails 3.x. When I wrote that application I was a raw recruit &ndash; fresh to Ruby and Rails and just trying to get the idea to work.</p>
-
-<p>But as I&rsquo;ve been improving my skills and expanding the ole grey matter, I wanted to write this new version, fully tested.  In the application there is a need to be able to export the data to a CSV formatted file.  I had the code from the old version of the app, and migrated it over.  However, I challenged myself to figure out how to write a test for the to_csv method in Baytech model.</p>
-
-<p>Below is the code from the Baytech model:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def self.to_csv
-</span><span class='line'>  CSV.generate(col_sep: ':') do |csv|
-</span><span class='line'>    all.each do |baytech|
-</span><span class='line'>      port = "X"
-</span><span class='line'>      csv &lt;&lt; [baytech.name, baytech.phone_num, baytech.ip_addr, port, baytech.modem_type, port]
-</span><span class='line'>  end
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I know the method works, as it has been working fine for 9 months or so now.  But I really wanted to figure out how to write a test for this method.  After much trial and error, along with research via books and google, I came up with the following solution:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>describe Baytech, '#to_csv' do
-</span><span class='line'>  let(:baytech) { FactoryGirl.create(:baytech) }
-</span><span class='line'>
-</span><span class='line'>  before do
-</span><span class='line'>    baytech
-</span><span class='line'>  end
-</span><span class='line'>
-</span><span class='line'>  it { expect(Baytech.to_csv).to match /#{baytech.name}:#{baytech.phone_num}:#{baytech.ip_addr}:X:1:X/ }
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You may notice in the above code that I am referencing a Factory.  Here is a short version of that factory file:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>FactoryGirl.define do
-</span><span class='line'>  factory :baytech do
-</span><span class='line'>    sequence(:name) {|n| "jaxfl0#{n}b9" }
-</span><span class='line'>    sequence(:ip_addr) {|n| "10.1.2.#{n}" }
-</span><span class='line'>    phone_num "7091234384"
-</span><span class='line'>    region "USA"
-</span><span class='line'>    modem_type "1"
-</span><span class='line'>    ip_method "ssh"
-</span><span class='line'>    active true
-</span><span class='line'>    has_modem_line true
-</span><span class='line'>    updated_by "cd1234"
-</span><span class='line'>
-</span><span class='line'>    {-snip-}
-</span><span class='line'>
-</span><span class='line'>  end
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The keen eye may have caught something interesting in the to_csv method.  I&rsquo;m using an option, col_sep: &lsquo;:&rsquo; which allows me to use the : character as the delimiter instead of the default comma.</p>
-
-<p>With the test in place, and passing, I felt better about the code in my to_csv method.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1063,6 +1076,10 @@ listen_addresses = '*'
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/17/learning-from-test-suite-aggrevation/">Learning From Test Suite Aggravation</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/03/gathering-of-some-newbs/">The Gathering</a>
       </li>
     
@@ -1076,10 +1093,6 @@ listen_addresses = '*'
     
       <li class="post">
         <a href="/blog/2014/12/30/deploy-error-heroku/">Error Deploying to Production on Heroku</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/11/18/aint-your-ruby/">Aint Your Ruby</a>
       </li>
     
   </ul>
