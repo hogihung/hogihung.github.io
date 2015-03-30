@@ -9,7 +9,7 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="Last week I covered a topic that resurfaced while I am in the process of upgrading one of our apps from Ruby 1.9 and Rails 3.x. When I wrote that &hellip;">
+  <meta name="description" content="While working on a Rails project last week I encountered an issue where some of my tests were failing. It had been a while since I worked on this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,97 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/27/brew-a-fix-for-imagemagick-and-paperclip/">Brew a Fix for Imagemagic and Paperclip</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-27T18:05:25-04:00" pubdate data-updated="true">Oct 27<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>While working on a Rails project last week I encountered an issue where some of my tests were failing.  It had been a while since I worked on this project so I had to re-familiarize myself with what was going on.</p>
+
+<p>The tests were failing when editing a profile and adding an image.  I popped over to the browser and performed a manual test to get a better idea of what was going on.  That is when I saw the following error: <em>&ldquo;Paperclip::Errors::NotIdentifiedByImageMagickError&rdquo;</em></p>
+
+<p>To attempt to fix the issue, I first performed a simple uninstall and re-install of imagemagic using homebrew:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew uninstall imagemagick
+</span><span class='line'>brew install imagemagick</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This didn&rsquo;t solve the problem.  Imagemagic has a command line utility, convert, which one can use to see if the application is working.  I tried a simple test:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>convert moonie.jpg moon.png</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But I continued to get errors even with that simple test.  So off to the internet for some deep research.  I came across the following steps, which solved the issue I was having.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew update
+</span><span class='line'>brew doctor
+</span><span class='line'>brew uninstall libtool
+</span><span class='line'>brew uninstall imagemagic
+</span><span class='line'>
+</span><span class='line'>cd /Library/Caches/Homebrew
+</span><span class='line'>rm imagemag*
+</span><span class='line'>rm libtool-2.4.2.tar.gz
+</span><span class='line'>
+</span><span class='line'>brew doctor
+</span><span class='line'>brew install libtool --universal
+</span><span class='line'>brew link libool --force
+</span><span class='line'>brew install imagemagic --build-from-source</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After completing the above steps, the command line tool, convert was successful.  I re-tested the Rails application, both manually, and via my test suite, and all was green again.</p>
+
+<p>Related resources used during my quest for the fix:
+<a href="https://github.com/thoughtbot/paperclip/issues/1205">https://github.com/thoughtbot/paperclip/issues/1205</a>
+<a href="http://www.imagemagick.org/script/convert.php">http://www.imagemagick.org/script/convert.php</a>
+<a href="http://stackoverflow.com/questions/7412208/imagemagick-and-os-x-lion-trouble">http://stackoverflow.com/questions/7412208/imagemagick-and-os-x-lion-trouble</a></p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -880,58 +971,6 @@ cd instantclient_11_2</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/05/my-ancient-city-ruby-pre-experience/">My Ancient City Ruby Pre-Experience 2014</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T09:23:52-04:00" pubdate data-updated="true">Apr 5<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Yesterday was the conclusion of Ancient City Ruby 2014.  But I&rsquo;d like to take us back in time a few days and review how my experience went.  For me, the journey began on the early morning of Tuesday, April 1st.  What I am about to say is not an Aprils Fool joke, though I did get fooled Tuesday morning by Sphero and the selfieBot.</p>
-
-<p>Every Tuesday, Hashrocket hosts an event called &ldquo;Code &amp; Coffee.&rdquo;  On a normal day of C&amp;C I will see some of the regulars &ndash; Micah, Johnny, DL, Eugene and Stuart. (Hope I spelled those names correctly!)  And sometimes there will be a new person &ndash; I was the new person a few months back.  But when I saw this guy walk in, he had a look of familiarity.  In my mind I knew the face, but not the name.  He walked over to the table where several of us had our laptops open, and introducted himself as Justin Searls.  WAT?  No way, one of the panelist is at C&amp;C and he is talking to me?</p>
-
-<p>Let&rsquo;s go back in time a few days prior to the event. I was checking out Twitter and saw that one of the panelist, someone who I look up to in a huge way, was asking if anyone wanted to share a cab ride from JAX to the venue in St. Augustine.  So I took a chance and offered to transport this panelist, Katrina Owen, from the Airport to St. Augustine.  Honestly I wasn&rsquo;t sure if there would be a response.  My experience with Twitter, for the most part, is many people want a horde of followers, but they seldom respond when a follower, me for example, tweets them.</p>
-
-<p>I should have remembered that this is the Ruby community and they are much more friendly and responsive.  Katrina accepted my offer and I was like a kid that just learned that his parents are taking him to Disney.  But wait, there is more!  Another of the panelist was looking for a ride so the offer was extended.  Surely I wouldn&rsquo;t be so lucky to have two gurus in my vehicle.  Offer Accepted!  The second panelist to brighten my day was Ben Lovell.</p>
-
-<p>With what appeared to be luck on my side, I decided to go for a trifecta.  I sent an email to Aaron Patterson asking if he needed a ride.  How cool would that have been to have three gurus to hang with?  But the Ruby gods clearly thought I was pushing my luck.  I was priveledged enough to have two gurus to share some time with.</p>
-
-<p>Fast forward a bit in time to Tuesday late afternoon.  I finished with some work for my day job and headed to the airport.  I was still in a state of slight disbelief.  Would these two panelist actually be at the airport and let me have the privelege of transporting them?  Ben&rsquo;s flight was a little delayed, but it actually worked out better for me.  I got the text message that they had their luggage and were ready for pickup at the B pickup area.  As I rolled up to the curb, my slight feelings of disbelief sub-sided and my internal flame of happiness was a well, &ldquo;flame on!&rdquo;</p>
-
-<p>In a way, I wished that the drive time from JAX to the hotel(s) in St. Augustine was longer.  It was great to have Katrina and Ben all to myself.  Perhaps a bit selfish on my part, but I really did enjoy their company and having a casual conversation.</p>
-
-<p>I&rsquo;ve decided to break up my experience into several parts, with this being the first.  I will next talk about how my experience went with the workshop I signed up for &ndash; Vim with Jon and Micah.  After that, I&rsquo;ll chat a bit about how the main days, Thursday and Friday, went at Ancient City Ruby 2014.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -949,6 +988,10 @@ cd instantclient_11_2</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/29/at-sea-without-the-net/">At Sea Without The Net</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/17/learning-from-test-suite-aggrevation/">Learning From Test Suite Aggravation</a>
       </li>
     
@@ -962,10 +1005,6 @@ cd instantclient_11_2</p>
     
       <li class="post">
         <a href="/blog/2015/01/06/custom-passwordless-ssh/">Custom Passwordless SSH Access</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/12/30/deploy-error-heroku/">Error Deploying to Production on Heroku</a>
       </li>
     
   </ul>
