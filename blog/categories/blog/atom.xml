@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blog | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/blog/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-03-29T20:34:25-04:00</updated>
+  <updated>2015-03-29T20:37:57-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -36,11 +36,11 @@ git push origin master
 
 <p>Later that day, while chatting with my dad, he let me know that he purchased a block of 200 minutes of internet time.  Satellite internet is not very fast, but good enough for quick browsing or checking of email.</p>
 
-<p>I knew that I&rsquo;d be cracking open the laptop from time-to-time, and working on Flex Blogger as well as an app for my day job.  But I didn&rsquo;t want to burn through those sacred internet minutes when I needed to review either the Ruby or Rails apis.  Surely there had to be a better way.  Of course there is, and I found the following site:</p>
+<p>I knew that I&rsquo;d be cracking open the laptop from time-to-time, and working on Flex Blogger as well as an app for my day job.  But I didn&rsquo;t want to burn through those sacred internet minutes when I needed to review either the Ruby or Rails APIs.  Surely there had to be a better way.  Of course there is, and I found the following site:</p>
 
 <p><a href="https://rubydocs.org/">https://rubydocs.org/</a></p>
 
-<p>One can visit the above site and download a local copy of the Ruby and/or Rails apis.  The neat thing is, you can choose which version or Ruby or Rails that you want to download the documentation for.  Neat!</p>
+<p>One can visit the above site and download a local copy of the Ruby and/or Rails APIs.  The neat thing is, you can choose which version or Ruby or Rails that you want to download the documentation for.  Neat!</p>
 
 <p>With a local copy of the documentation I was needing, I pushed my committed changes from the previous day, then logged out &ndash; only used about 15 minutes of our satellite internet.  :)</p>
 
