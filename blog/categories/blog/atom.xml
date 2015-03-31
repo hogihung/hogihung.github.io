@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blog | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/blog/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-03-29T20:37:57-04:00</updated>
+  <updated>2015-03-31T08:16:48-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -14,11 +14,98 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Simple Form, Simply Confused]]></title>
+    <link href="http://hogihung.github.io/blog/2015/03/31/simple-form-simply-confused/"/>
+    <updated>2015-03-31T08:45:15-04:00</updated>
+    <id>http://hogihung.github.io/blog/2015/03/31/simple-form-simply-confused</id>
+    <content type="html"><![CDATA[<p>While working on the Flex Blogger project, and studying the Bourbon website, in particular the <a href="http://refills.bourbon.io/">refills</a> side of the house, I liked the way their navigation bar looked.  In particular, I wanted to implement the search box feature.</p>
+
+<p>So I grabbed their sample code and added it to the Flex Blogger project.  At first, I just brought over the raw html and eventually broke the code up into partials.  To keep things simple, I will focus on the syntax directly related to the search function, as seen below:</p>
+
+<p>```
+  <div class="navigation-tools"></p>
+
+<pre><code>  &lt;div class="search-bar"&gt;
+    &lt;form role="search"&gt;
+      &lt;input type="search" placeholder="Enter Search" /&gt;
+      &lt;button type="submit"&gt;
+        &lt;img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon.png" alt="Search Icon"&gt;
+      &lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+  &lt;a href="javascript:void(0)" class="sign-up"&gt;Sign Up&lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>  </div>
+```</p>
+
+<p>In the Flex Blogger project, as with most of the Rails projects I have worked on, I&rsquo;ve used <a href="https://github.com/plataformatec/simple_form">simple form</a>.  I use simple form simply because it was used in all the tutorials and learning material that I have digested.  So my mind focuses on simple form and I try to address any scenario that needs a form, by using <em>Simple Form</em>.</p>
+
+<p>To help me work through my nav-bar search code, I refereneced some existing code in the Flex project, the category form partial:</p>
+
+<p>```
+// _form.html.erb</p>
+
+<div id="category-form">
+  <%= simple_form_for(@category) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :description %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+  <% end %>
+  <br>
+</div>
+
+
+<p>```</p>
+
+<p>I struggled a bit trying to get the search in the nav bar to work with Simple Form.  After trying different things I reached out to a buddy, Shaun, who has helped me in the past.  We paired for a bit and after listening to what I was trying to do, and what I had tried, he asked me a <em>simple</em> question: &ldquo;Why aren&rsquo;t you using a form_tag?&rdquo;</p>
+
+<p>Huh?  I thought that because I was using Simple Form that I needed to work within the boundaries of it.  I didn&rsquo;t realize that I could mix things when needed.  So off we went to the <a href="http://api.rubyonrails.org/">rails api</a> and searched for &lsquo;form_tag&rsquo;.</p>
+
+<p>You should be able to find form_tag under the ActionView::Helpers::FormTagHelper section.  From the documentation:</p>
+
+<h4>form_tag(url_for_options = {}, options = {}, &amp;block) <BR></h4>
+
+<blockquote><p>Starts a form tag that points the action to an url configured with url_for_options just like ActionController::Base#url_for. The method for the form defaults to POST.</p></blockquote>
+
+<p>After the lesson, and referring to the api docs, the solution we used was as follows:</p>
+
+<p>```
+// _search_bar.html.erb</p>
+
+<div class="navigation-tools">
+  <div class="search-bar">
+    <%= form_tag("/search") do %>
+      <%= text_field_tag :query, nil, placeholder: "Enter Search", type: "search" %>
+      <%= button_tag type: "submit", id: "search-query" do %>
+        <img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon.png", alt: "Search Icon" >
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+
+<p>```</p>
+
+<p>I am <em>simply</em> amazed at how there is something new to learn just about everyday.  Just when I thought I was really comfortable with working things out with Rails/Ruby, I come across an opportunity to expand my ole grey matter.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[At Sea Without The Net]]></title>
     <link href="http://hogihung.github.io/blog/2015/03/29/at-sea-without-the-net/"/>
     <updated>2015-03-29T20:49:35-04:00</updated>
     <id>http://hogihung.github.io/blog/2015/03/29/at-sea-without-the-net</id>
-    <content type="html"><![CDATA[<p>Two weeks ago from today, at about this time I was kicked back in the main show room of the <strong>ms Nieuw Amsterdam waiting</strong> for the opening act to begin.  With a full stomach from an awesome meal, and a refreshing drink in hand, I was in full relax mode.  The last thing I was thinking about was code.</p>
+    <content type="html"><![CDATA[<p>Two weeks ago from today, at about this time I was kicked back in the main show room of the <strong>ms Nieuw Amsterdam</strong> waiting for the opening act to begin.  With a full stomach from an awesome meal, and a refreshing drink in hand, I was in full relax mode.  The last thing I was thinking about was code.</p>
 
 <p>When I woke up, Monday morning, I had an itching to crack open the laptop and work on some things I had left hanging from two days prior.  But first, a quick stop for breakfast, then I headed to the ships library.  I was knocking out tasks one by one, committing away locally on my laptop.  Then instinctively, my muscle memory kicked in and before I could catch what I was doing, I typed:</p>
 
@@ -209,104 +296,6 @@ sudo service postgresql restart
 </code></p>
 
 <p>With the above changes in place, and postgres restarted, I fired up PGAdmin again on my laptop.  And like <em>butter</em> I was able to connect to and work with my databases. I resumed debugging my original issue.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Custom Passwordless SSH Access]]></title>
-    <link href="http://hogihung.github.io/blog/2015/01/06/custom-passwordless-ssh/"/>
-    <updated>2015-01-06T20:10:14-05:00</updated>
-    <id>http://hogihung.github.io/blog/2015/01/06/custom-passwordless-ssh</id>
-    <content type="html"><![CDATA[<p>When I created my Digital Ocean VPS I setup SSH Keys for both my main laptop and desktop computers.  I grabbed the appropriate contents from my .pub file and pasted that information on the web form for &lsquo;Add SSH Key&rsquo; under the SSH Keys menu of my droplet.  However, I noticed that each time I would ssh to my server I would be required to input my password.</p>
-
-<p>In this blog posting I will illustrate how I solved this issue and why the word &lsquo;custom&rsquo; appears in the title.  There are many websites that cover how to setup passwordless ssh login.  For example, Digital Ocean has a nice posting: <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2">here</a></p>
-
-<p>However, those instructions, and other like it, assume a plain-vanilla setup.  Of course, I dare to be different.  For example, before I started to solve this puzzle, my ~/.ssh directory had the following:</p>
-
-<p><code>
-➜  .ssh  ls -la
-total 88
-drwx------  11 jfhogarty  staff   374 Jan  6 18:36 .
-drwxr-xr-x+ 93 jfhogarty  staff  3162 Jan  6 20:10 ..
--rw-r--r--@  1 jfhogarty  staff  6148 Mar  9  2013 .DS_Store
--rw-------   1 jfhogarty  staff  1766 Mar  2  2013 id_rsa
--rw-r--r--   1 jfhogarty  staff   400 Mar  2  2013 id_rsa.pub
--rw-------   1 jfhogarty  staff   668 Apr 20  2014 jh-mbp_id
--rw-r--r--   1 jfhogarty  staff   614 Apr 20  2014 jh-mbp_id.pub
--rw-r--r--   1 jfhogarty  staff  7162 Jan  5 21:17 known_hosts
-➜  .ssh
-</code></p>
-
-<p>The id_rsa (private file) and the id_rsa.pub (public file,) are your normal files one would find.  But I&rsquo;ve implemented a &lsquo;best-practice&rsquo; adopted from my day job and I create specific key files for different types of access.  For example, following the instructions in the link above, from the Digital Ocean article, I created the following:</p>
-
-<p><code>
--rw-------   1 jfhogarty  staff   668 Jan  5 21:11 do_id_dsa
--rw-r--r--   1 jfhogarty  staff   614 Jan  5 21:11 do_id_dsa.pub
-</code></p>
-
-<p>If you follow the steps from the link, there is one thing that you may need to do in addition to their steps.  Some systems require that you change the file permissions for the authorized_keys file located on your target computer.  For example, the following is how I have the permissions set on my VPS:</p>
-
-<p><code>
-➜  .ssh  ls -la
-total 12
-drwx------  2 jfhogarty jfhogarty 4096 Jan  5 21:16 .
-drwxr-xr-x 11 jfhogarty jfhogarty 4096 Jan  6 20:14 ..
--rw-------  1 jfhogarty jfhogarty  614 Jan  5 21:14 authorized_keys
-➜  .ssh
-</code></p>
-
-<p>I adjusted the permissions using the following syntax:</p>
-
-<p><code>
-chmod 600 authorized_keys
-</code></p>
-
-<p>After creating the new keys on my laptop, and updating the authorized_keys file on the remote server, I thought surely I should now be able to login without using a password.  I was wrong!  The remote server continued to prompt me for my password.  I decided to call it a night as it was getting late.</p>
-
-<p>While working on a VM issue today for my day job, my internal lightbulb went off and I realized what the problem was.  Lets take a fresh look at the .ssh directory of my laptop:</p>
-
-<p><code>
-sh  ls -la
-total 88
-drwx------  11 jfhogarty  staff   374 Jan  6 18:36 .
-drwxr-xr-x+ 93 jfhogarty  staff  3162 Jan  6 20:21 ..
--rw-r--r--@  1 jfhogarty  staff  6148 Mar  9  2013 .DS_Store
--rw-------   1 jfhogarty  staff   668 Jan  5 21:11 do_id_dsa
--rw-r--r--   1 jfhogarty  staff   614 Jan  5 21:11 do_id_dsa.pub
--rw-------   1 jfhogarty  staff  1766 Mar  2  2013 id_rsa
--rw-r--r--   1 jfhogarty  staff   400 Mar  2  2013 id_rsa.pub
--rw-------   1 jfhogarty  staff   668 Apr 20  2014 jh-mbp_id
--rw-r--r--   1 jfhogarty  staff   614 Apr 20  2014 jh-mbp_id.pub
--rw-r--r--   1 jfhogarty  staff  7162 Jan  5 21:17 known_hosts
-➜  .ssh
-</code></p>
-
-<p>The keen eye might notice that I now have three sets of private/public keys.  However, when I was typing ssh myhostname.com ssh didn&rsquo;t know which files to use, if any.  I was able to prove my theory by trying the following:</p>
-
-<p><code>
-ssh -p 9986 -i ~/.ssh/do_id_dsa myhostname.com
-</code></p>
-
-<p>And BAM!  No password required to login.  I was on to a solution.  When I had my lightbulb moment, I had remembered that I needed to create a config file in the .ssh directory on my laptop.  Lets take a look at it:</p>
-
-<p>```
-➜  .ssh  cat config
-Host 10.11.12.13
-IdentityFile ~/.ssh/do_id_dsa
-Protocol 2</p>
-
-<p>Host myhostname.com
-IdentityFile ~/.ssh/do_id_dsa
-Protocol 2</p>
-
-<p>➜  .ssh
-```</p>
-
-<p>NOTE:  To protect the innocent, the IP Address and *.com name above are fake.  Please substitute those values for your real IP Address and/or domain name.</p>
-
-<p>And that is how I solved my customized passwordless ssh access to my VPS.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>

@@ -9,7 +9,7 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="While working on a Rails project last week I encountered an issue where some of my tests were failing. It had been a while since I worked on this &hellip;">
+  <meta name="description" content="Most of my Rails projects, for personal use and education, have been using Postgresql or SQLite for the datbase backend. At work our primary database &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/27/mysql-issue-osx/">MySQL Issue on Mac OSX</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-27T18:40:45-04:00" pubdate data-updated="true">Oct 27<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Most of my Rails projects, for personal use and education, have been using Postgresql or SQLite for the datbase backend.  At work our primary database is Oracle with a dash of MySQL.  Recently we decided to use MySQL with all future development, and migrate our tools/applications that use Oracle to use MySQL.</p>
+
+<p>I downloaded and installed MySQL by grabbing the installer from the MySQL website:  <a href="http://dev.mysql.com/downloads/mysql/">http://dev.mysql.com/downloads/mysql/</a> and getting the version for my operating system &ndash; OS X Mavericks.</p>
+
+<p>However, with this version installed I was having issues with bundler and getting the mysql gem to compile.  I tried a few solutions that I found on the internet, but none of them were working.</p>
+
+<p>I found some other people who had issues, when using OSX Mavericks, with the MySQL installer.  They solved the issue by removing MySQL that was installed from the download via dev.mysql.com and then re-installing using Homebrew.</p>
+
+<p>This solution worked for me as well.  I found this a bit odd, because earlier in the year I had issues with installing Postgres via Homebrew.  The solution for Postgres was to remove the Homebrew installation and use the installer from the Postgres site.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -892,85 +938,6 @@ cd instantclient_11_2</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/05/ancient-city-ruby-workshop/">Ancient City Ruby - Workshop 2014</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T10:38:58-04:00" pubdate data-updated="true">Apr 5<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>In my last post I discussed events prior to Ancient City Ruby 2014.  Now it is time to discuss my experience at the actual workshop and conference.  The conference part was spread across two days, Thursday and Friday, and there was an optional workshop day &ndash; Wednesday.  There were three different workshops offered:</p>
-
-<ul>
-<li>Refactoring Rails by Katrina Owen</li>
-<li>Rock@Vim by Jon Allured and Micah</li>
-<li>Ruby on Rails: First Expedition by Beverly Nelson</li>
-</ul>
-
-
-<p>I had a tough decision to make.  I really wanted to attend Katrina&rsquo;s workshop, but I don&rsquo;t believe my skill set is good enough at this time to have been able to participate.  I thought that I&rsquo;d surely slow the class down.  On the other hand, I think I&rsquo;m beyond the Ruby on Rails: First Expedition level.  I am horrible at Vim, so it seemed obvious that I should sign up for the Rock@Vim workshop, and I did.</p>
-
-<p>The Vim workshop was taught by two Hashrocket employees, Jon and Micah.  I&rsquo;d never met Jon before as he works out of the Chicago office.  But I have met Micah before, and he has helped me out a few times when I have gotten stuck or had questions.  Having some familiarity with a teacher was a plus.</p>
-
-<p>I really wasn&rsquo;t sure what to expect for the workshop, or how we would approach the topic.  I just want to get better at Vim.  Primarily, being better at vim would help at my day job as we ssh to most of our devices.  But I also want to try pair programming and from what I&rsquo;ve researched, one really needs to know vim.</p>
-
-<p>The workshop started off good.  Jon and Micah introduced us to dotmatrix:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/hashrocket/dotmatrix.git</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I don&rsquo;t know all the ins and outs but I guess I would summarize it as saying that by using dotmatrix I was able to configure my environment to by more &ldquo;HashRocketey&rdquo;  From the README.md file:</p>
-
-<p>&ldquo;Dotmatrix is a collection of dotfiles used at Hashrocket to customize various development tools. This project is the culmination of many years worth of tinkering with our favorite tools to get them to behave just right. We think using dotmatrix makes working with these tools more pleasant and hope you will too!&rdquo;</p>
-
-<p>There were a few steps involved to get everything up and running, but I won&rsquo;t bore you with those details.  After the class was all setup, or at least we thought we were setup, we moved on to cloning a practice Rails project which we were going to use in our lessons for vim.</p>
-
-<p>During part of the lesson I experienced an issue.  For some reason I was getting hung up with some issues involving Postgres.  I started to fall behind the class as I was trouble shooting.  Finally I just asked &ndash; &ldquo;&hellip; can I switch this project to SQLite to get beyond these problems?&rdquo;  Jon agreed that would be a good idea.  So I switched and tried to catch up.</p>
-
-<p>It wasn&rsquo;t going well for me.  Working with my Postgres issue caused me to miss some key instructions and details that the rest of the class had observed.  Instead of fighting to try to figure things out, I just sat back and tried to focus.  I guess Micah saw that I was having some trouble so he came over to assist.  When I explained my situation he helped to get me back on track and also has Jon show me some stuff that helped to get me caught up.</p>
-
-<p>At about the time I got caught up, we were quickly coming upon lunch time.  There was only four of us students plus Jon and Micah.  So we all went out to lunch together at A1A Ale Works.  It was a good time.  The advantage of a small class enabled us to be able to get to know each other and see what each others experience was like.</p>
-
-<p>After lunch we were back at the brain fillage.  I was starting to get a bit tired, and it seemed like the topics were getting harder.  But we pressed on and learned some more neat things with using vim.  I learned enough during the workshop to make me want to learn more.  I will continue my vim learning, using what I absorbed in the workshop as a foundation, and utilize other resources like Vim Genius (<a href="http://vimgenius.com/">http://vimgenius.com/</a>) and the cool screencast series Vimcasts (<a href="http://vimcasts.org/">http://vimcasts.org/</a>).  Also, I picked up a copy of &ldquo;Practical Vim: Edit Text at the Speed of Thought,&rdquo; by Drew Neil who also produces the vimcasts.</p>
-
-<p>Although I had some tough, frustrating moments, overall I enjoyed the Vim workshop.  Whether Jon knew it or not, he gave me a homework assignment.  As I was practicing at home that evening, I noticed that my prompt in the terminal was really long.  I prefer the following format:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>jfhogarty@Serenity:(source+*-)$</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So I had to figure out how to fix my prompt.  It wasn&rsquo;t too hard, just an edit to my ~/.bashrc file.  In my next post I will review my experience of the first day of the conference.  Stay tuned.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -988,6 +955,10 @@ cd instantclient_11_2</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/31/simple-form-simply-confused/">Simple Form, Simply Confused</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/03/29/at-sea-without-the-net/">At Sea Without The Net</a>
       </li>
     
@@ -1001,10 +972,6 @@ cd instantclient_11_2</p>
     
       <li class="post">
         <a href="/blog/2015/01/07/enable-remote-access-postgres/">Enable Remote Access - Postgres</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/06/custom-passwordless-ssh/">Custom Passwordless SSH Access</a>
       </li>
     
   </ul>

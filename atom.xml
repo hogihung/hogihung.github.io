@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-03-29T20:37:57-04:00</updated>
+  <updated>2015-03-31T08:16:48-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -14,11 +14,124 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Simple Form, Simply Confused]]></title>
+    <link href="http://hogihung.github.io/blog/2015/03/31/simple-form-simply-confused/"/>
+    <updated>2015-03-31T08:45:15-04:00</updated>
+    <id>http://hogihung.github.io/blog/2015/03/31/simple-form-simply-confused</id>
+    <content type="html"><![CDATA[<p>While working on the Flex Blogger project, and studying the Bourbon website, in particular the <a href="http://refills.bourbon.io/">refills</a> side of the house, I liked the way their navigation bar looked.  In particular, I wanted to implement the search box feature.</p>
+
+<p>So I grabbed their sample code and added it to the Flex Blogger project.  At first, I just brought over the raw html and eventually broke the code up into partials.  To keep things simple, I will focus on the syntax directly related to the search function, as seen below:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  &lt;div class="navigation-tools"&gt;
+</span><span class='line'>      &lt;div class="search-bar"&gt;
+</span><span class='line'>        &lt;form role="search"&gt;
+</span><span class='line'>          &lt;input type="search" placeholder="Enter Search" /&gt;
+</span><span class='line'>          &lt;button type="submit"&gt;
+</span><span class='line'>            &lt;img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon.png" alt="Search Icon"&gt;
+</span><span class='line'>          &lt;/button&gt;
+</span><span class='line'>        &lt;/form&gt;
+</span><span class='line'>      &lt;/div&gt;
+</span><span class='line'>      &lt;a href="javascript:void(0)" class="sign-up"&gt;Sign Up&lt;/a&gt;
+</span><span class='line'>    &lt;/div&gt;
+</span><span class='line'>  &lt;/div&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the Flex Blogger project, as with most of the Rails projects I have worked on, I&rsquo;ve used <a href="https://github.com/plataformatec/simple_form">simple form</a>.  I use simple form simply because it was used in all the tutorials and learning material that I have digested.  So my mind focuses on simple form and I try to address any scenario that needs a form, by using <em>Simple Form</em>.</p>
+
+<p>To help me work through my nav-bar search code, I refereneced some existing code in the Flex project, the category form partial:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// _form.html.erb
+</span><span class='line'>&lt;div id="category-form"&gt;
+</span><span class='line'>  &lt;%= simple_form_for(@category) do |f| %&gt;
+</span><span class='line'>    &lt;%= f.error_notification %&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;div class="form-inputs"&gt;
+</span><span class='line'>      &lt;%= f.input :description %&gt;
+</span><span class='line'>    &lt;/div&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;div class="form-actions"&gt;
+</span><span class='line'>      &lt;%= f.button :submit %&gt;
+</span><span class='line'>    &lt;/div&gt;
+</span><span class='line'>  &lt;% end %&gt;
+</span><span class='line'>  &lt;br&gt;
+</span><span class='line'>&lt;/div&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I struggled a bit trying to get the search in the nav bar to work with Simple Form.  After trying different things I reached out to a buddy, Shaun, who has helped me in the past.  We paired for a bit and after listening to what I was trying to do, and what I had tried, he asked me a <em>simple</em> question: &ldquo;Why aren&rsquo;t you using a form_tag?&rdquo;</p>
+
+<p>Huh?  I thought that because I was using Simple Form that I needed to work within the boundaries of it.  I didn&rsquo;t realize that I could mix things when needed.  So off we went to the <a href="http://api.rubyonrails.org/">rails api</a> and searched for &lsquo;form_tag&rsquo;.</p>
+
+<p>You should be able to find form_tag under the ActionView::Helpers::FormTagHelper section.  From the documentation:</p>
+
+<h4>form_tag(url_for_options = {}, options = {}, &amp;block) <BR></h4>
+
+<blockquote><p>Starts a form tag that points the action to an url configured with url_for_options just like ActionController::Base#url_for. The method for the form defaults to POST.</p></blockquote>
+
+<p>After the lesson, and referring to the api docs, the solution we used was as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// _search_bar.html.erb
+</span><span class='line'>&lt;div class="navigation-tools"&gt;
+</span><span class='line'>  &lt;div class="search-bar"&gt;
+</span><span class='line'>    &lt;%= form_tag("/search") do %&gt;
+</span><span class='line'>      &lt;%= text_field_tag :query, nil, placeholder: "Enter Search", type: "search" %&gt;
+</span><span class='line'>      &lt;%= button_tag type: "submit", id: "search-query" do %&gt;
+</span><span class='line'>        &lt;img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon.png", alt: "Search Icon" &gt;
+</span><span class='line'>      &lt;% end %&gt;
+</span><span class='line'>    &lt;% end %&gt;
+</span><span class='line'>  &lt;/div&gt;
+</span><span class='line'>&lt;/div&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I am <em>simply</em> amazed at how there is something new to learn just about everyday.  Just when I thought I was really comfortable with working things out with Rails/Ruby, I come across an opportunity to expand my ole grey matter.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[At Sea Without The Net]]></title>
     <link href="http://hogihung.github.io/blog/2015/03/29/at-sea-without-the-net/"/>
     <updated>2015-03-29T20:49:35-04:00</updated>
     <id>http://hogihung.github.io/blog/2015/03/29/at-sea-without-the-net</id>
-    <content type="html"><![CDATA[<p>Two weeks ago from today, at about this time I was kicked back in the main show room of the <strong>ms Nieuw Amsterdam waiting</strong> for the opening act to begin.  With a full stomach from an awesome meal, and a refreshing drink in hand, I was in full relax mode.  The last thing I was thinking about was code.</p>
+    <content type="html"><![CDATA[<p>Two weeks ago from today, at about this time I was kicked back in the main show room of the <strong>ms Nieuw Amsterdam</strong> waiting for the opening act to begin.  With a full stomach from an awesome meal, and a refreshing drink in hand, I was in full relax mode.  The last thing I was thinking about was code.</p>
 
 <p>When I woke up, Monday morning, I had an itching to crack open the laptop and work on some things I had left hanging from two days prior.  But first, a quick stop for breakfast, then I headed to the ships library.  I was knocking out tasks one by one, committing away locally on my laptop.  Then instinctively, my muscle memory kicked in and before I could catch what I was doing, I typed:</p>
 
@@ -465,7 +578,7 @@ listen_addresses = '*'
 
 <p>The Ruby we use at work stands for:  <strong>R</strong>ules yo<strong>U B</strong>uild <strong>Y</strong>ourself.  I believe the foundation or underlaying language is Java.</p>
 
-<p>In a nutshell, our networking equipment sends events/traps to a trap collector.  That collector then does some processing on the event and forwards to our Ruby system.  We then perform certain actions using our Ruby based on the received alarms/events.  Below is an example code of &lsquo;our&rsquo; Ruby:</p>
+<p>In a nutshell, our networking equipment sends events/traps to a trap collector.  That collector then does some processing on the event and forwards to our Ruby system.  We then perform certain actions using our Ruby based on the received alarms/events.  Below is a small example of code of &lsquo;our&rsquo; Ruby:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -500,9 +613,9 @@ listen_addresses = '*'
 </span><span class='line'>  when
 </span><span class='line'>  {
 </span><span class='line'>    ?a: ModemsAlarm(isTypeNull() != 0;
-</span><span class='line'>        isStringMatch(?a.getObject(), "^[a-z][a-z][a-z0-9][a-z][a-z][0-9][0-9]+(vmk|vme|irs|url|ur1|ur2|rsi|lri|lri[0-9][0-9][a-z][a-z][a-z]*)") == False;
-</span><span class='line'>  isStringMatch(?a.getService(), "ALPHA|BETA") !=0;
-</span><span class='line'>  isNameMatch("Ping +failed +to +LoopBack .*IP=") != 0);
+</span><span class='line'>        isStringMatch(?a.getObject(), "^[a-z][a-z][a-z0-9][a-z][a-z][0-9][0-9]+(kvm|mve|rrs[0-9][0-9][a-z][a-z][a-z]*)") == False;
+</span><span class='line'>    isStringMatch(?a.getService(), "ALPHA|BETA") !=0;
+</span><span class='line'>    isNameMatch("Ping +failed +to +LoopBack .*IP=") != 0);
 </span><span class='line'>  }
 </span><span class='line'>  then
 </span><span class='line'>  {
@@ -511,13 +624,15 @@ listen_addresses = '*'
 </span><span class='line'>      setType("DI0780_CiscoInterfaceDown");
 </span><span class='line'>      setContainer("IP",?a.getToken("IP= *([0-9]+.[0-9]+.[0-9]+.[0-9]+)",?a.getAlarmText()));
 </span><span class='line'>      setContainer("ROUTER_IFNAME","Loopback");
-</span><span class='line'>      setContainer("DEVICE_NAME",?a.getToken("([a-z0-9]+).els-an.att.net",?a.getSource()));   
-</span><span class='line'>      setContainer("EVENT_CORELATION_NAME",?a.buildString2("%1 %2",?a.getContainer("DEVICE_NAME"),?a.getContainer("IP")));   
-</span><span class='line'>      putRubyLog2("DI0780_0020", ?a.buildString1("Received a Generic Ping fail to Loopback alarm, %1", ?a.getName()));            
+</span><span class='line'>      setContainer("DEVICE_NAME",?a.getToken("([a-z0-9]+).els-an.att.net",?a.getSource()));
+</span><span class='line'>      setContainer("EVENT_CORELATION_NAME",?a.buildString2("%1 %2",?a.getContainer("DEVICE_NAME"),?a.getContainer("IP")));
+</span><span class='line'>      putRubyLog2("DI0780_0020", ?a.buildString1("Received a Generic Ping fail to Loopback alarm, %1", ?a.getName()));
 </span><span class='line'>    }
 </span><span class='line'>  }
 </span><span class='line'>};</span></code></pre></td></tr></table></div></figure>
 
+
+<p>Pretty wild stuff, eh?  This is just a short snippet &ndash; there is a lot more going on in our &lsquo;library&rsquo; of packets and rules.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>
@@ -1287,58 +1402,6 @@ cd instantclient_11_2</p>
 <p>Day one didn&rsquo;t actually end after Ben&rsquo;s talk.  That evening some of the conference attendees went on the Ghost Ride, while the rest of us got to do the Pirate Ship adventure.  Even though I live in Jacksonville, which isn&rsquo;t too far from St. Augustine, I had not ever been on the Pirate Ship.  It was a lot of fun.  I just wish that I had my heavier hoodie and it got a bit cold on the water.  On the ship I got to meet a few other people from Hash Rocket, including Paul Elliott.  I had heard Paul&rsquo;s voice on several episodes of the Ruby5 podcast, and it was nice to meet him in person.</p>
 
 <p>All-in-all, day one was a big hit for me.  Oh, I almost forgot!  At the beginning of the day, before the first talk started, I got to meet and shake hands with Aaron Patterson.  Yeah, you could say I&rsquo;m a fanboi of his.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Ancient City Ruby - Workshop 2014]]></title>
-    <link href="http://hogihung.github.io/blog/2014/04/05/ancient-city-ruby-workshop/"/>
-    <updated>2014-04-05T10:38:58-04:00</updated>
-    <id>http://hogihung.github.io/blog/2014/04/05/ancient-city-ruby-workshop</id>
-    <content type="html"><![CDATA[<p>In my last post I discussed events prior to Ancient City Ruby 2014.  Now it is time to discuss my experience at the actual workshop and conference.  The conference part was spread across two days, Thursday and Friday, and there was an optional workshop day &ndash; Wednesday.  There were three different workshops offered:</p>
-
-<ul>
-<li>Refactoring Rails by Katrina Owen</li>
-<li>Rock@Vim by Jon Allured and Micah</li>
-<li>Ruby on Rails: First Expedition by Beverly Nelson</li>
-</ul>
-
-
-<p>I had a tough decision to make.  I really wanted to attend Katrina&rsquo;s workshop, but I don&rsquo;t believe my skill set is good enough at this time to have been able to participate.  I thought that I&rsquo;d surely slow the class down.  On the other hand, I think I&rsquo;m beyond the Ruby on Rails: First Expedition level.  I am horrible at Vim, so it seemed obvious that I should sign up for the Rock@Vim workshop, and I did.</p>
-
-<p>The Vim workshop was taught by two Hashrocket employees, Jon and Micah.  I&rsquo;d never met Jon before as he works out of the Chicago office.  But I have met Micah before, and he has helped me out a few times when I have gotten stuck or had questions.  Having some familiarity with a teacher was a plus.</p>
-
-<p>I really wasn&rsquo;t sure what to expect for the workshop, or how we would approach the topic.  I just want to get better at Vim.  Primarily, being better at vim would help at my day job as we ssh to most of our devices.  But I also want to try pair programming and from what I&rsquo;ve researched, one really needs to know vim.</p>
-
-<p>The workshop started off good.  Jon and Micah introduced us to dotmatrix:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/hashrocket/dotmatrix.git</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I don&rsquo;t know all the ins and outs but I guess I would summarize it as saying that by using dotmatrix I was able to configure my environment to by more &ldquo;HashRocketey&rdquo;  From the README.md file:</p>
-
-<p>&ldquo;Dotmatrix is a collection of dotfiles used at Hashrocket to customize various development tools. This project is the culmination of many years worth of tinkering with our favorite tools to get them to behave just right. We think using dotmatrix makes working with these tools more pleasant and hope you will too!&rdquo;</p>
-
-<p>There were a few steps involved to get everything up and running, but I won&rsquo;t bore you with those details.  After the class was all setup, or at least we thought we were setup, we moved on to cloning a practice Rails project which we were going to use in our lessons for vim.</p>
-
-<p>During part of the lesson I experienced an issue.  For some reason I was getting hung up with some issues involving Postgres.  I started to fall behind the class as I was trouble shooting.  Finally I just asked &ndash; &ldquo;&hellip; can I switch this project to SQLite to get beyond these problems?&rdquo;  Jon agreed that would be a good idea.  So I switched and tried to catch up.</p>
-
-<p>It wasn&rsquo;t going well for me.  Working with my Postgres issue caused me to miss some key instructions and details that the rest of the class had observed.  Instead of fighting to try to figure things out, I just sat back and tried to focus.  I guess Micah saw that I was having some trouble so he came over to assist.  When I explained my situation he helped to get me back on track and also has Jon show me some stuff that helped to get me caught up.</p>
-
-<p>At about the time I got caught up, we were quickly coming upon lunch time.  There was only four of us students plus Jon and Micah.  So we all went out to lunch together at A1A Ale Works.  It was a good time.  The advantage of a small class enabled us to be able to get to know each other and see what each others experience was like.</p>
-
-<p>After lunch we were back at the brain fillage.  I was starting to get a bit tired, and it seemed like the topics were getting harder.  But we pressed on and learned some more neat things with using vim.  I learned enough during the workshop to make me want to learn more.  I will continue my vim learning, using what I absorbed in the workshop as a foundation, and utilize other resources like Vim Genius (<a href="http://vimgenius.com/">http://vimgenius.com/</a>) and the cool screencast series Vimcasts (<a href="http://vimcasts.org/">http://vimcasts.org/</a>).  Also, I picked up a copy of &ldquo;Practical Vim: Edit Text at the Speed of Thought,&rdquo; by Drew Neil who also produces the vimcasts.</p>
-
-<p>Although I had some tough, frustrating moments, overall I enjoyed the Vim workshop.  Whether Jon knew it or not, he gave me a homework assignment.  As I was practicing at home that evening, I noticed that my prompt in the terminal was really long.  I prefer the following format:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>jfhogarty@Serenity:(source+*-)$</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So I had to figure out how to fix my prompt.  It wasn&rsquo;t too hard, just an edit to my ~/.bashrc file.  In my next post I will review my experience of the first day of the conference.  Stay tuned.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>

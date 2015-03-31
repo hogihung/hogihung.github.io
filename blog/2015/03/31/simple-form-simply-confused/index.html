@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Learning From Test Suite Aggravation - Old Guy, New Trick</title>
+  <title>Simple Form, Simply Confused - Old Guy, New Trick</title>
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="In my previous post I spoke about the Flex Blogger project. Josh introduced us to a new component called ckeditor. Ckeditor is a javascript based gui &hellip;">
+  <meta name="description" content="While working on the Flex Blogger project, and studying the Bourbon website, in particular the refills side of the house, I liked the way their &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hogihung.github.io/blog/2015/02/17/learning-from-test-suite-aggrevation/">
+  <link rel="canonical" href="http://hogihung.github.io/blog/2015/03/31/simple-form-simply-confused/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -68,7 +68,7 @@
   
   <header>
     
-      <h1 class="entry-title">Learning From Test Suite Aggravation</h1>
+      <h1 class="entry-title">Simple Form, Simply Confused</h1>
     
     
       <p class="meta">
@@ -84,60 +84,16 @@
   
 
 
-<time datetime="2015-02-17T07:55:00-05:00" pubdate data-updated="true">Feb 17<span>th</span>, 2015</time>
+<time datetime="2015-03-31T08:45:15-04:00" pubdate data-updated="true">Mar 31<span>st</span>, 2015</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>In my previous <a href="http://oldguynewtrick.com/blog/2015/02/03/gathering-of-some-newbs/">post</a> I spoke about the Flex Blogger project.  Josh introduced us to a new component called ckeditor.  Ckeditor is a javascript based gui text editor.  After using ckeditor I thought it would be beneficial to add it to another application I created for my day job &ndash; HarePD.</p>
+<div class="entry-content"><p>While working on the Flex Blogger project, and studying the Bourbon website, in particular the <a href="http://refills.bourbon.io/">refills</a> side of the house, I liked the way their navigation bar looked.  In particular, I wanted to implement the search box feature.</p>
 
-<p>Before starting on new features, I will fire off my test suite to make sure everything is still green.  For me I just type:  rspec</p>
-
-<p>I love seeing all that green!  Next, I created a branch to work on this new feature, and updated my Gemfile:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git checkout -b add_ckeditor
-</span><span class='line'>vim Gemfile
-</span><span class='line'>
-</span><span class='line'>{added}
-</span><span class='line'>gem 'ckeditor'</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You can get more information regarding how to setup ckeditor in your rails application by visiting <a href="https://github.com/galetahub/ckeditor">here</a></p>
-
-<p>With the new gem added, and minor updates made in the appropriate view file, _form.html.slim, it was time to re-run my test suite.  Things were looking good as I saw green, green, green.  Then, as my tests executed on the scenarios that used ckeditor, I started to see red.  No big deal I thought, probably a simple change.  Below is an example of one of my tests that was failing:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>spec/support/issues_helper.rb
-</span><span class='line'>
-</span><span class='line'>def create_issue
-</span><span class='line'>  click_link 'Add Issue'
-</span><span class='line'>  fill_in 'Title', with: 'Cert Expiration'
-</span><span class='line'>  fill_in 'Description', with: 'SSL Cert Expiration'
-</span><span class='line'>  select('2', :from =&gt; 'User level')
-</span><span class='line'>  select('Linux', :from =&gt; 'Os')
-</span><span class='line'>  click_button 'Submit'
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Ok, this should be an easy fix.  I inspected the ckeditor element on my webpage using the Chrome Dev Tools, and got the new name &ndash; issue_description.  So I updated the tests that were using &lsquo;Description&rsquo; and replaced with &lsquo;issue_description.&rsquo;  I ran a focused test, on just one scenario and it went green.  Next, I ran all the tests in that particular spec file and again I had a combination of green and red.  Argh!  I took notice of all the failed tests and ran them each one-by-one.  They all passed &ndash; they were all green when executed on their own.  Argh f#@% damnit!</p>
-
-<p>Many hours passed as well as changes here and there to try and get things working.  To keep this post fairly short, I&rsquo;m going to jump to the solution.  After some research and trying different solutions, I stumbled upon the following:</p>
+<p>So I grabbed their sample code and added it to the Flex Blogger project.  At first, I just brought over the raw html and eventually broke the code up into partials.  To keep things simple, I will focus on the syntax directly related to the search function, as seen below:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -151,21 +107,23 @@
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Create a new file:
-</span><span class='line'>spec/support/ckeditor_helper.rb
-</span><span class='line'>
-</span><span class='line'>def fill_in_ckeditor(locator, params = {})
-</span><span class='line'>  locator = find('label', text: locator)[:for] if page.has_css?('label', text: locator)
-</span><span class='line'>  page.execute_script &lt;&lt;-SCRIPT
-</span><span class='line'>      var ckeditor = CKEDITOR.instances.#{locator}
-</span><span class='line'>      ckeditor.setData('#{params[:with]}')
-</span><span class='line'>      ckeditor.focus()
-</span><span class='line'>      ckeditor.updateElement()
-</span><span class='line'>  SCRIPT
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  &lt;div class="navigation-tools"&gt;
+</span><span class='line'>      &lt;div class="search-bar"&gt;
+</span><span class='line'>        &lt;form role="search"&gt;
+</span><span class='line'>          &lt;input type="search" placeholder="Enter Search" /&gt;
+</span><span class='line'>          &lt;button type="submit"&gt;
+</span><span class='line'>            &lt;img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon.png" alt="Search Icon"&gt;
+</span><span class='line'>          &lt;/button&gt;
+</span><span class='line'>        &lt;/form&gt;
+</span><span class='line'>      &lt;/div&gt;
+</span><span class='line'>      &lt;a href="javascript:void(0)" class="sign-up"&gt;Sign Up&lt;/a&gt;
+</span><span class='line'>    &lt;/div&gt;
+</span><span class='line'>  &lt;/div&gt;</span></code></pre></td></tr></table></div></figure>
 
 
-<p>With the above in place, I refactored my create_issue method from above to read as follows:</p>
+<p>In the Flex Blogger project, as with most of the Rails projects I have worked on, I&rsquo;ve used <a href="https://github.com/plataformatec/simple_form">simple form</a>.  I use simple form simply because it was used in all the tutorials and learning material that I have digested.  So my mind focuses on simple form and I try to address any scenario that needs a form, by using <em>Simple Form</em>.</p>
+
+<p>To help me work through my nav-bar search code, I refereneced some existing code in the Flex project, the category form partial:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -175,19 +133,67 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def create_issue
-</span><span class='line'>  click_link 'Add Issue'
-</span><span class='line'>  fill_in 'Title', with: 'Cert Expiration'
-</span><span class='line'>  fill_in_ckeditor 'Description', with: 'SSL Cert Expiration'
-</span><span class='line'>  select('2', :from =&gt; 'User level')
-</span><span class='line'>  select('Linux', :from =&gt; 'Os')
-</span><span class='line'>  click_button 'Submit'
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// _form.html.erb
+</span><span class='line'>&lt;div id="category-form"&gt;
+</span><span class='line'>  &lt;%= simple_form_for(@category) do |f| %&gt;
+</span><span class='line'>    &lt;%= f.error_notification %&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;div class="form-inputs"&gt;
+</span><span class='line'>      &lt;%= f.input :description %&gt;
+</span><span class='line'>    &lt;/div&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;div class="form-actions"&gt;
+</span><span class='line'>      &lt;%= f.button :submit %&gt;
+</span><span class='line'>    &lt;/div&gt;
+</span><span class='line'>  &lt;% end %&gt;
+</span><span class='line'>  &lt;br&gt;
+</span><span class='line'>&lt;/div&gt;</span></code></pre></td></tr></table></div></figure>
 
 
-<p>After making the above changes, I ran my tests for the single spec file and to my delight, everything was green.  Now the real moment of truth &ndash; run the entire test suite.  A smile slowly expanded on my face as all the green scrolled by without a single pixel of red!</p>
+<p>I struggled a bit trying to get the search in the nav bar to work with Simple Form.  After trying different things I reached out to a buddy, Shaun, who has helped me in the past.  We paired for a bit and after listening to what I was trying to do, and what I had tried, he asked me a <em>simple</em> question: &ldquo;Why aren&rsquo;t you using a form_tag?&rdquo;</p>
 
-<p>Although this issue aggravated me for a bit, the end result was much happiness and joy.  Not to mention I learned a few cool new things here and there in the process.</p>
+<p>Huh?  I thought that because I was using Simple Form that I needed to work within the boundaries of it.  I didn&rsquo;t realize that I could mix things when needed.  So off we went to the <a href="http://api.rubyonrails.org/">rails api</a> and searched for &lsquo;form_tag&rsquo;.</p>
+
+<p>You should be able to find form_tag under the ActionView::Helpers::FormTagHelper section.  From the documentation:</p>
+
+<h4>form_tag(url_for_options = {}, options = {}, &amp;block) <BR></h4>
+
+<blockquote><p>Starts a form tag that points the action to an url configured with url_for_options just like ActionController::Base#url_for. The method for the form defaults to POST.</p></blockquote>
+
+<p>After the lesson, and referring to the api docs, the solution we used was as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// _search_bar.html.erb
+</span><span class='line'>&lt;div class="navigation-tools"&gt;
+</span><span class='line'>  &lt;div class="search-bar"&gt;
+</span><span class='line'>    &lt;%= form_tag("/search") do %&gt;
+</span><span class='line'>      &lt;%= text_field_tag :query, nil, placeholder: "Enter Search", type: "search" %&gt;
+</span><span class='line'>      &lt;%= button_tag type: "submit", id: "search-query" do %&gt;
+</span><span class='line'>        &lt;img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon.png", alt: "Search Icon" &gt;
+</span><span class='line'>      &lt;% end %&gt;
+</span><span class='line'>    &lt;% end %&gt;
+</span><span class='line'>  &lt;/div&gt;
+</span><span class='line'>&lt;/div&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I am <em>simply</em> amazed at how there is something new to learn just about everyday.  Just when I thought I was really comfortable with working things out with Rails/Ruby, I come across an opportunity to expand my ole grey matter.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 </div>
@@ -212,12 +218,12 @@
   
 
 
-<time datetime="2015-02-17T07:55:00-05:00" pubdate data-updated="true">Feb 17<span>th</span>, 2015</time>
+<time datetime="2015-03-31T08:45:15-04:00" pubdate data-updated="true">Mar 31<span>st</span>, 2015</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/blog/'>Blog</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>, <a class='category' href='/blog/categories/rspec/'>Rspec</a>, <a class='category' href='/blog/categories/testing/'>Testing</a>
+    <a class='category' href='/blog/categories/blog/'>Blog</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>
   
 </span>
 
@@ -226,7 +232,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2015/02/17/learning-from-test-suite-aggrevation/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2015/02/17/learning-from-test-suite-aggrevation/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2015/03/31/simple-form-simply-confused/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2015/03/31/simple-form-simply-confused/" >Tweet</a>
   
   
   
@@ -235,10 +241,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2015/02/03/gathering-of-some-newbs/" title="Previous Post: The Gathering">&laquo; The Gathering</a>
+        <a class="basic-alignment left" href="/blog/2015/03/29/at-sea-without-the-net/" title="Previous Post: At Sea Without The Net">&laquo; At Sea Without The Net</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2015/03/29/at-sea-without-the-net/" title="Next Post: At Sea Without The Net">At Sea Without The Net &raquo;</a>
       
     </p>
     <div id="disqus_thread"></div>

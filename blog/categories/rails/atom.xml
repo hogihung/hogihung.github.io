@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-03-29T20:37:57-04:00</updated>
+  <updated>2015-03-31T08:16:48-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,128 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Simple Form, Simply Confused]]></title>
+    <link href="http://hogihung.github.io/blog/2015/03/31/simple-form-simply-confused/"/>
+    <updated>2015-03-31T08:45:15-04:00</updated>
+    <id>http://hogihung.github.io/blog/2015/03/31/simple-form-simply-confused</id>
+    <content type="html"><![CDATA[<p>While working on the Flex Blogger project, and studying the Bourbon website, in particular the <a href="http://refills.bourbon.io/">refills</a> side of the house, I liked the way their navigation bar looked.  In particular, I wanted to implement the search box feature.</p>
+
+<p>So I grabbed their sample code and added it to the Flex Blogger project.  At first, I just brought over the raw html and eventually broke the code up into partials.  To keep things simple, I will focus on the syntax directly related to the search function, as seen below:</p>
+
+<p>```
+  <div class="navigation-tools"></p>
+
+<pre><code>  &lt;div class="search-bar"&gt;
+    &lt;form role="search"&gt;
+      &lt;input type="search" placeholder="Enter Search" /&gt;
+      &lt;button type="submit"&gt;
+        &lt;img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon.png" alt="Search Icon"&gt;
+      &lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+  &lt;a href="javascript:void(0)" class="sign-up"&gt;Sign Up&lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>  </div>
+```</p>
+
+<p>In the Flex Blogger project, as with most of the Rails projects I have worked on, I&rsquo;ve used <a href="https://github.com/plataformatec/simple_form">simple form</a>.  I use simple form simply because it was used in all the tutorials and learning material that I have digested.  So my mind focuses on simple form and I try to address any scenario that needs a form, by using <em>Simple Form</em>.</p>
+
+<p>To help me work through my nav-bar search code, I refereneced some existing code in the Flex project, the category form partial:</p>
+
+<p>```
+// _form.html.erb</p>
+
+<div id="category-form">
+  <%= simple_form_for(@category) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :description %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+  <% end %>
+  <br>
+</div>
+
+
+<p>```</p>
+
+<p>I struggled a bit trying to get the search in the nav bar to work with Simple Form.  After trying different things I reached out to a buddy, Shaun, who has helped me in the past.  We paired for a bit and after listening to what I was trying to do, and what I had tried, he asked me a <em>simple</em> question: &ldquo;Why aren&rsquo;t you using a form_tag?&rdquo;</p>
+
+<p>Huh?  I thought that because I was using Simple Form that I needed to work within the boundaries of it.  I didn&rsquo;t realize that I could mix things when needed.  So off we went to the <a href="http://api.rubyonrails.org/">rails api</a> and searched for &lsquo;form_tag&rsquo;.</p>
+
+<p>You should be able to find form_tag under the ActionView::Helpers::FormTagHelper section.  From the documentation:</p>
+
+<h4>form_tag(url_for_options = {}, options = {}, &amp;block) <BR></h4>
+
+<blockquote><p>Starts a form tag that points the action to an url configured with url_for_options just like ActionController::Base#url_for. The method for the form defaults to POST.</p></blockquote>
+
+<p>After the lesson, and referring to the api docs, the solution we used was as follows:</p>
+
+<p>```
+// _search_bar.html.erb</p>
+
+<div class="navigation-tools">
+  <div class="search-bar">
+    <%= form_tag("/search") do %>
+      <%= text_field_tag :query, nil, placeholder: "Enter Search", type: "search" %>
+      <%= button_tag type: "submit", id: "search-query" do %>
+        <img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon.png", alt: "Search Icon" >
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+
+<p>```</p>
+
+<p>I am <em>simply</em> amazed at how there is something new to learn just about everyday.  Just when I thought I was really comfortable with working things out with Rails/Ruby, I come across an opportunity to expand my ole grey matter.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[At Sea Without The Net]]></title>
+    <link href="http://hogihung.github.io/blog/2015/03/29/at-sea-without-the-net/"/>
+    <updated>2015-03-29T20:49:35-04:00</updated>
+    <id>http://hogihung.github.io/blog/2015/03/29/at-sea-without-the-net</id>
+    <content type="html"><![CDATA[<p>Two weeks ago from today, at about this time I was kicked back in the main show room of the <strong>ms Nieuw Amsterdam</strong> waiting for the opening act to begin.  With a full stomach from an awesome meal, and a refreshing drink in hand, I was in full relax mode.  The last thing I was thinking about was code.</p>
+
+<p>When I woke up, Monday morning, I had an itching to crack open the laptop and work on some things I had left hanging from two days prior.  But first, a quick stop for breakfast, then I headed to the ships library.  I was knocking out tasks one by one, committing away locally on my laptop.  Then instinctively, my muscle memory kicked in and before I could catch what I was doing, I typed:</p>
+
+<p><code>
+git push origin master
+</code></p>
+
+<p>Duh!  You are on a ship, in the Caribbean, without a connection to the net.  No big deal, I can push my stuff to github when I return home.</p>
+
+<p>I continued working on different things until I found myself stuck &ndash; I needed to refer to the api docs or some type of reference.  I was on vacation &ndash; the smart thing to do would have been to shut down my laptop and go relax.  Can you guess what I did?</p>
+
+<p>Perhaps the thick-headed Irish blood in me, I decided to find a solution.  After a little digging, I found some gold nuggets in the following path:  ~/.gem/ruby/2.1.5/gems/rails-4.1.7/guides/source/</p>
+
+<p>Reviewing some of the files in the above directory, I was able to get an answer for what I was looking for.  Saved my work, closed the laptop and headed to the gangway to catch a tender to a beautiful private island.</p>
+
+<p>Later that day, while chatting with my dad, he let me know that he purchased a block of 200 minutes of internet time.  Satellite internet is not very fast, but good enough for quick browsing or checking of email.</p>
+
+<p>I knew that I&rsquo;d be cracking open the laptop from time-to-time, and working on Flex Blogger as well as an app for my day job.  But I didn&rsquo;t want to burn through those sacred internet minutes when I needed to review either the Ruby or Rails APIs.  Surely there had to be a better way.  Of course there is, and I found the following site:</p>
+
+<p><a href="https://rubydocs.org/">https://rubydocs.org/</a></p>
+
+<p>One can visit the above site and download a local copy of the Ruby and/or Rails APIs.  The neat thing is, you can choose which version or Ruby or Rails that you want to download the documentation for.  Neat!</p>
+
+<p>With a local copy of the documentation I was needing, I pushed my committed changes from the previous day, then logged out &ndash; only used about 15 minutes of our satellite internet.  :)</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Learning From Test Suite Aggravation]]></title>
@@ -164,129 +286,6 @@ config.eager_load = false
 <p>I found some other people who had issues, when using OSX Mavericks, with the MySQL installer.  They solved the issue by removing MySQL that was installed from the download via dev.mysql.com and then re-installing using Homebrew.</p>
 
 <p>This solution worked for me as well.  I found this a bit odd, because earlier in the year I had issues with installing Postgres via Homebrew.  The solution for Postgres was to remove the Homebrew installation and use the installer from the Postgres site.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Brew A Fix for Imagemagic and Paperclip]]></title>
-    <link href="http://hogihung.github.io/blog/2014/10/27/brew-a-fix-for-imagemagick-and-paperclip/"/>
-    <updated>2014-10-27T18:05:25-04:00</updated>
-    <id>http://hogihung.github.io/blog/2014/10/27/brew-a-fix-for-imagemagick-and-paperclip</id>
-    <content type="html"><![CDATA[<p>While working on a Rails project last week I encountered an issue where some of my tests were failing.  It had been a while since I worked on this project so I had to re-familiarize myself with what was going on.</p>
-
-<p>The tests were failing when editing a profile and adding an image.  I popped over to the browser and performed a manual test to get a better idea of what was going on.  That is when I saw the following error: <em>&ldquo;Paperclip::Errors::NotIdentifiedByImageMagickError&rdquo;</em></p>
-
-<p>To attempt to fix the issue, I first performed a simple uninstall and re-install of imagemagic using homebrew:</p>
-
-<p><code>
-brew uninstall imagemagick
-brew install imagemagick
-</code></p>
-
-<p>This didn&rsquo;t solve the problem.  Imagemagic has a command line utility, convert, which one can use to see if the application is working.  I tried a simple test:</p>
-
-<p><code>
-convert moonie.jpg moon.png
-</code></p>
-
-<p>But I continued to get errors even with that simple test.  So off to the internet for some deep research.  I came across the following steps, which solved the issue I was having.</p>
-
-<p>```
-brew update
-brew doctor
-brew uninstall libtool
-brew uninstall imagemagic</p>
-
-<p>cd /Library/Caches/Homebrew
-rm imagemag*
-rm libtool-2.4.2.tar.gz</p>
-
-<p>brew doctor
-brew install libtool &mdash;universal
-brew link libool &mdash;force
-brew install imagemagic &mdash;build-from-source
-```</p>
-
-<p>After completing the above steps, the command line tool, convert was successful.  I re-tested the Rails application, both manually, and via my test suite, and all was green again.</p>
-
-<p>Related resources used during my quest for the fix:
-<a href="https://github.com/thoughtbot/paperclip/issues/1205">https://github.com/thoughtbot/paperclip/issues/1205</a>
-<a href="http://www.imagemagick.org/script/convert.php">http://www.imagemagick.org/script/convert.php</a>
-<a href="http://stackoverflow.com/questions/7412208/imagemagick-and-os-x-lion-trouble">http://stackoverflow.com/questions/7412208/imagemagick-and-os-x-lion-trouble</a></p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Testing to_csv Method]]></title>
-    <link href="http://hogihung.github.io/blog/2014/09/23/testing-to-csv-method/"/>
-    <updated>2014-09-23T09:32:37-04:00</updated>
-    <id>http://hogihung.github.io/blog/2014/09/23/testing-to-csv-method</id>
-    <content type="html"><![CDATA[<p>Last week I covered a topic that resurfaced while I am in the process of upgrading one of our apps from Ruby 1.9 and Rails 3.x. When I wrote that application I was a raw recruit &ndash; fresh to Ruby and Rails and just trying to get the idea to work.</p>
-
-<p>But as I&rsquo;ve been improving my skills and expanding the ole grey matter, I wanted to write this new version, fully tested.  In the application there is a need to be able to export the data to a CSV formatted file.  I had the code from the old version of the app, and migrated it over.  However, I challenged myself to figure out how to write a test for the to_csv method in Baytech model.</p>
-
-<p>Below is the code from the Baytech model:</p>
-
-<p>```
-def self.to_csv
-  CSV.generate(col_sep: &lsquo;:&rsquo;) do |csv|</p>
-
-<pre><code>all.each do |baytech|
-  port = "X"
-  csv &lt;&lt; [baytech.name, baytech.phone_num, baytech.ip_addr, port, baytech.modem_type, port]
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<p>I know the method works, as it has been working fine for 9 months or so now.  But I really wanted to figure out how to write a test for this method.  After much trial and error, along with research via books and google, I came up with the following solution:</p>
-
-<p>```
-describe Baytech, &lsquo;#to_csv&rsquo; do
-  let(:baytech) { FactoryGirl.create(:baytech) }</p>
-
-<p>  before do</p>
-
-<pre><code>baytech
-</code></pre>
-
-<p>  end</p>
-
-<p>  it { expect(Baytech.to_csv).to match /#{baytech.name}:#{baytech.phone_num}:#{baytech.ip_addr}:X:1:X/ }
-end
-```</p>
-
-<p>You may notice in the above code that I am referencing a Factory.  Here is a short version of that factory file:</p>
-
-<p>```
-FactoryGirl.define do
-  factory :baytech do</p>
-
-<pre><code>sequence(:name) {|n| "jaxfl0#{n}b9" }
-sequence(:ip_addr) {|n| "10.1.2.#{n}" }
-phone_num "7091234384"
-region "USA"
-modem_type "1"
-ip_method "ssh"
-active true
-has_modem_line true
-updated_by "cd1234"
-
-{-snip-}
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<p>The keen eye may have caught something interesting in the to_csv method.  I&rsquo;m using an option, col_sep: &lsquo;:&rsquo; which allows me to use the : character as the delimiter instead of the default comma.</p>
-
-<p>With the test in place, and passing, I felt better about the code in my to_csv method.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>

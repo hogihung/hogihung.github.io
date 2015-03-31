@@ -9,7 +9,7 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="Two weeks ago from today, at about this time I was kicked back in the main show room of the ms Nieuw Amsterdam waiting for the opening act to begin. &hellip;">
+  <meta name="description" content="While working on the Flex Blogger project, and studying the Bourbon website, in particular the refills side of the house, I liked the way their &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,6 +71,146 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2015/03/31/simple-form-simply-confused/">Simple Form, Simply Confused</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-31T08:45:15-04:00" pubdate data-updated="true">Mar 31<span>st</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>While working on the Flex Blogger project, and studying the Bourbon website, in particular the <a href="http://refills.bourbon.io/">refills</a> side of the house, I liked the way their navigation bar looked.  In particular, I wanted to implement the search box feature.</p>
+
+<p>So I grabbed their sample code and added it to the Flex Blogger project.  At first, I just brought over the raw html and eventually broke the code up into partials.  To keep things simple, I will focus on the syntax directly related to the search function, as seen below:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  &lt;div class="navigation-tools"&gt;
+</span><span class='line'>      &lt;div class="search-bar"&gt;
+</span><span class='line'>        &lt;form role="search"&gt;
+</span><span class='line'>          &lt;input type="search" placeholder="Enter Search" /&gt;
+</span><span class='line'>          &lt;button type="submit"&gt;
+</span><span class='line'>            &lt;img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon.png" alt="Search Icon"&gt;
+</span><span class='line'>          &lt;/button&gt;
+</span><span class='line'>        &lt;/form&gt;
+</span><span class='line'>      &lt;/div&gt;
+</span><span class='line'>      &lt;a href="javascript:void(0)" class="sign-up"&gt;Sign Up&lt;/a&gt;
+</span><span class='line'>    &lt;/div&gt;
+</span><span class='line'>  &lt;/div&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the Flex Blogger project, as with most of the Rails projects I have worked on, I&rsquo;ve used <a href="https://github.com/plataformatec/simple_form">simple form</a>.  I use simple form simply because it was used in all the tutorials and learning material that I have digested.  So my mind focuses on simple form and I try to address any scenario that needs a form, by using <em>Simple Form</em>.</p>
+
+<p>To help me work through my nav-bar search code, I refereneced some existing code in the Flex project, the category form partial:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// _form.html.erb
+</span><span class='line'>&lt;div id="category-form"&gt;
+</span><span class='line'>  &lt;%= simple_form_for(@category) do |f| %&gt;
+</span><span class='line'>    &lt;%= f.error_notification %&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;div class="form-inputs"&gt;
+</span><span class='line'>      &lt;%= f.input :description %&gt;
+</span><span class='line'>    &lt;/div&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;div class="form-actions"&gt;
+</span><span class='line'>      &lt;%= f.button :submit %&gt;
+</span><span class='line'>    &lt;/div&gt;
+</span><span class='line'>  &lt;% end %&gt;
+</span><span class='line'>  &lt;br&gt;
+</span><span class='line'>&lt;/div&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I struggled a bit trying to get the search in the nav bar to work with Simple Form.  After trying different things I reached out to a buddy, Shaun, who has helped me in the past.  We paired for a bit and after listening to what I was trying to do, and what I had tried, he asked me a <em>simple</em> question: &ldquo;Why aren&rsquo;t you using a form_tag?&rdquo;</p>
+
+<p>Huh?  I thought that because I was using Simple Form that I needed to work within the boundaries of it.  I didn&rsquo;t realize that I could mix things when needed.  So off we went to the <a href="http://api.rubyonrails.org/">rails api</a> and searched for &lsquo;form_tag&rsquo;.</p>
+
+<p>You should be able to find form_tag under the ActionView::Helpers::FormTagHelper section.  From the documentation:</p>
+
+<h4>form_tag(url_for_options = {}, options = {}, &amp;block) <BR></h4>
+
+<blockquote><p>Starts a form tag that points the action to an url configured with url_for_options just like ActionController::Base#url_for. The method for the form defaults to POST.</p></blockquote>
+
+<p>After the lesson, and referring to the api docs, the solution we used was as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// _search_bar.html.erb
+</span><span class='line'>&lt;div class="navigation-tools"&gt;
+</span><span class='line'>  &lt;div class="search-bar"&gt;
+</span><span class='line'>    &lt;%= form_tag("/search") do %&gt;
+</span><span class='line'>      &lt;%= text_field_tag :query, nil, placeholder: "Enter Search", type: "search" %&gt;
+</span><span class='line'>      &lt;%= button_tag type: "submit", id: "search-query" do %&gt;
+</span><span class='line'>        &lt;img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon.png", alt: "Search Icon" &gt;
+</span><span class='line'>      &lt;% end %&gt;
+</span><span class='line'>    &lt;% end %&gt;
+</span><span class='line'>  &lt;/div&gt;
+</span><span class='line'>&lt;/div&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I am <em>simply</em> amazed at how there is something new to learn just about everyday.  Just when I thought I was really comfortable with working things out with Rails/Ruby, I come across an opportunity to expand my ole grey matter.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2015/03/29/at-sea-without-the-net/">At Sea Without the Net</a></h1>
     
     
@@ -94,7 +234,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Two weeks ago from today, at about this time I was kicked back in the main show room of the <strong>ms Nieuw Amsterdam waiting</strong> for the opening act to begin.  With a full stomach from an awesome meal, and a refreshing drink in hand, I was in full relax mode.  The last thing I was thinking about was code.</p>
+  <div class="entry-content"><p>Two weeks ago from today, at about this time I was kicked back in the main show room of the <strong>ms Nieuw Amsterdam</strong> waiting for the opening act to begin.  With a full stomach from an awesome meal, and a refreshing drink in hand, I was in full relax mode.  The last thing I was thinking about was code.</p>
 
 <p>When I woke up, Monday morning, I had an itching to crack open the laptop and work on some things I had left hanging from two days prior.  But first, a quick stop for breakfast, then I headed to the ships library.  I was knocking out tasks one by one, committing away locally on my laptop.  Then instinctively, my muscle memory kicked in and before I could catch what I was doing, I typed:</p>
 
@@ -703,7 +843,7 @@ listen_addresses = '*'
 
 <p>The Ruby we use at work stands for:  <strong>R</strong>ules yo<strong>U B</strong>uild <strong>Y</strong>ourself.  I believe the foundation or underlaying language is Java.</p>
 
-<p>In a nutshell, our networking equipment sends events/traps to a trap collector.  That collector then does some processing on the event and forwards to our Ruby system.  We then perform certain actions using our Ruby based on the received alarms/events.  Below is an example code of &lsquo;our&rsquo; Ruby:</p>
+<p>In a nutshell, our networking equipment sends events/traps to a trap collector.  That collector then does some processing on the event and forwards to our Ruby system.  We then perform certain actions using our Ruby based on the received alarms/events.  Below is a small example of code of &lsquo;our&rsquo; Ruby:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -738,9 +878,9 @@ listen_addresses = '*'
 </span><span class='line'>  when
 </span><span class='line'>  {
 </span><span class='line'>    ?a: ModemsAlarm(isTypeNull() != 0;
-</span><span class='line'>        isStringMatch(?a.getObject(), "^[a-z][a-z][a-z0-9][a-z][a-z][0-9][0-9]+(vmk|vme|irs|url|ur1|ur2|rsi|lri|lri[0-9][0-9][a-z][a-z][a-z]*)") == False;
-</span><span class='line'>  isStringMatch(?a.getService(), "ALPHA|BETA") !=0;
-</span><span class='line'>  isNameMatch("Ping +failed +to +LoopBack .*IP=") != 0);
+</span><span class='line'>        isStringMatch(?a.getObject(), "^[a-z][a-z][a-z0-9][a-z][a-z][0-9][0-9]+(kvm|mve|rrs[0-9][0-9][a-z][a-z][a-z]*)") == False;
+</span><span class='line'>    isStringMatch(?a.getService(), "ALPHA|BETA") !=0;
+</span><span class='line'>    isNameMatch("Ping +failed +to +LoopBack .*IP=") != 0);
 </span><span class='line'>  }
 </span><span class='line'>  then
 </span><span class='line'>  {
@@ -749,13 +889,15 @@ listen_addresses = '*'
 </span><span class='line'>      setType("DI0780_CiscoInterfaceDown");
 </span><span class='line'>      setContainer("IP",?a.getToken("IP= *([0-9]+.[0-9]+.[0-9]+.[0-9]+)",?a.getAlarmText()));
 </span><span class='line'>      setContainer("ROUTER_IFNAME","Loopback");
-</span><span class='line'>      setContainer("DEVICE_NAME",?a.getToken("([a-z0-9]+).els-an.att.net",?a.getSource()));   
-</span><span class='line'>      setContainer("EVENT_CORELATION_NAME",?a.buildString2("%1 %2",?a.getContainer("DEVICE_NAME"),?a.getContainer("IP")));   
-</span><span class='line'>      putRubyLog2("DI0780_0020", ?a.buildString1("Received a Generic Ping fail to Loopback alarm, %1", ?a.getName()));            
+</span><span class='line'>      setContainer("DEVICE_NAME",?a.getToken("([a-z0-9]+).els-an.att.net",?a.getSource()));
+</span><span class='line'>      setContainer("EVENT_CORELATION_NAME",?a.buildString2("%1 %2",?a.getContainer("DEVICE_NAME"),?a.getContainer("IP")));
+</span><span class='line'>      putRubyLog2("DI0780_0020", ?a.buildString1("Received a Generic Ping fail to Loopback alarm, %1", ?a.getName()));
 </span><span class='line'>    }
 </span><span class='line'>  }
 </span><span class='line'>};</span></code></pre></td></tr></table></div></figure>
 
+
+<p>Pretty wild stuff, eh?  This is just a short snippet &ndash; there is a lot more going on in our &lsquo;library&rsquo; of packets and rules.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 </div>
@@ -986,52 +1128,6 @@ listen_addresses = '*'
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/27/mysql-issue-osx/">MySQL Issue on Mac OSX</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-27T18:40:45-04:00" pubdate data-updated="true">Oct 27<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Most of my Rails projects, for personal use and education, have been using Postgresql or SQLite for the datbase backend.  At work our primary database is Oracle with a dash of MySQL.  Recently we decided to use MySQL with all future development, and migrate our tools/applications that use Oracle to use MySQL.</p>
-
-<p>I downloaded and installed MySQL by grabbing the installer from the MySQL website:  <a href="http://dev.mysql.com/downloads/mysql/">http://dev.mysql.com/downloads/mysql/</a> and getting the version for my operating system &ndash; OS X Mavericks.</p>
-
-<p>However, with this version installed I was having issues with bundler and getting the mysql gem to compile.  I tried a few solutions that I found on the internet, but none of them were working.</p>
-
-<p>I found some other people who had issues, when using OSX Mavericks, with the MySQL installer.  They solved the issue by removing MySQL that was installed from the download via dev.mysql.com and then re-installing using Homebrew.</p>
-
-<p>This solution worked for me as well.  I found this a bit odd, because earlier in the year I had issues with installing Postgres via Homebrew.  The solution for Postgres was to remove the Homebrew installation and use the installer from the Postgres site.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1047,6 +1143,10 @@ listen_addresses = '*'
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/31/simple-form-simply-confused/">Simple Form, Simply Confused</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/03/29/at-sea-without-the-net/">At Sea Without The Net</a>
       </li>
     
@@ -1060,10 +1160,6 @@ listen_addresses = '*'
     
       <li class="post">
         <a href="/blog/2015/01/07/enable-remote-access-postgres/">Enable Remote Access - Postgres</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/06/custom-passwordless-ssh/">Custom Passwordless SSH Access</a>
       </li>
     
   </ul>
