@@ -9,7 +9,7 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="Most of my Rails projects, for personal use and education, have been using Postgresql or SQLite for the datbase backend. At work our primary database &hellip;">
+  <meta name="description" content="I have many learning tools in my arsenal including Code School, Thoughtbot/Upcase, RailsCasts, Ruby Tapas, and too many other Internet based free &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,168 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/11/04/borrow-a-tapa-convention/">Borrowing From Ruby Tapas</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-04T07:20:45-05:00" pubdate data-updated="true">Nov 4<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have many learning tools in my arsenal including Code School, Thoughtbot/Upcase, RailsCasts, Ruby Tapas, and too many other Internet based free resources to list.  But today I want to talk tapas, and borrow something that I learned from watching many episodes of Ruby Tapas.</p>
+
+<p>As I&rsquo;ve watched various episodes, I kept saying to myself, how is Avdi executing code right from within his text editor?  Is this some time of post production trickery?  Perhaps a green screen based laptop with a dash of After Effects?  But after some research, I learned that is wasn&rsquo;t some fancy magic, but rather an ability within his editor.  I believe that editor to be Emacs.</p>
+
+<p>Well, I&rsquo;m a Sublime Text user, and slowly dabbling with Vim.  So off to the online oracles to see if I could find a solution that would work in Sublime.  I did indeed find some solutions that said they were doing what Avdi can do &ndash; even referencing that they had the same desire as me.  However, I was not successful with getting Sublime to work the way I was expecting.  After spending several hours trying to force it to work, I gave up.  And I had a thought &ndash; surely this would be easier to get working with Vim.  :)</p>
+
+<p>Getting the Tapas style in-line Ruby code execution to work in Vim was nice and easy.  I followed the instructions <a href="http://commandercoriander.net/blog/2012/10/10/evaluate-lines-of-ruby-in-vim/">here</a> and was up in running with very little effort.  For those that don&rsquo;t want leave from this fabulous reading, I&rsquo;ll summarize what needs to be done, first starting with the installation of a gem:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem install rcodetools</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we need to add a plugin to Vim.  Depending on your setup, you may need to add the .vim/bundle directory in your home directory.  But I already had this setup, so all I needed to do was the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~
+</span><span class='line'>cd .vim/bundle
+</span><span class='line'>git clone https://github.com/t9md/vim-ruby-xmpfilter.git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For a final bit of setup/configuration, we need to take a trip in editing the ~/.vimrc or ~/.vimrc.local file so we can do some mapping:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nmap &lt;buffer&gt; &lt;F4&gt; &lt;Plug&gt;(xmpfilter-mark)
+</span><span class='line'>xmap &lt;buffer&gt; &lt;F4&gt; &lt;Plug&gt;(xmpfilter-mark)
+</span><span class='line'>imap &lt;buffer&gt; &lt;F4&gt; &lt;Plug&gt;(xmpfilter-mark)
+</span><span class='line'>
+</span><span class='line'>nmap &lt;buffer&gt; &lt;F5&gt; &lt;Plug&gt;(xmpfilter-run)
+</span><span class='line'>xmap &lt;buffer&gt; &lt;F5&gt; &lt;Plug&gt;(xmpfilter-run)
+</span><span class='line'>imap &lt;buffer&gt; &lt;F5&gt; &lt;Plug&gt;(xmpfilter-run)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The above mapping will allows us to mark (F4) what line(s) we want to see the results for of executing the ruby code, which we accomplish by pressing F5.  Let&rsquo;s step through an example to see how this works.  I&rsquo;ll show the example file through the various stages.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1 class Person
+</span><span class='line'>2   attr_accessor :name, :age
+</span><span class='line'>3
+</span><span class='line'>4   def initialize(name)
+</span><span class='line'>5     self.name = name
+</span><span class='line'>6     self.age = "Does it matter?"
+</span><span class='line'>7   end
+</span><span class='line'>8 end
+</span><span class='line'>9
+</span><span class='line'>10 p = Person.new('Kevin')
+</span><span class='line'>11 p.name
+</span><span class='line'>12 p.age</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next we will press F4 for the code we want to evaluate, line 11 below:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1 class Person
+</span><span class='line'>2   attr_accessor :name, :age
+</span><span class='line'>3
+</span><span class='line'>4   def initialize(name)
+</span><span class='line'>5     self.name = name
+</span><span class='line'>6     self.age = "Does it matter?"
+</span><span class='line'>7   end
+</span><span class='line'>8 end
+</span><span class='line'>9
+</span><span class='line'>10 p = Person.new('Kevin')
+</span><span class='line'>11 p.name # =&gt;
+</span><span class='line'>12 p.age</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And finally, EXECUTE (F5):</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1 class Person
+</span><span class='line'>2   attr_accessor :name, :age
+</span><span class='line'>3
+</span><span class='line'>4   def initialize(name)
+</span><span class='line'>5     self.name = name
+</span><span class='line'>6     self.age = "Does it matter?"
+</span><span class='line'>7   end
+</span><span class='line'>8 end
+</span><span class='line'>9
+</span><span class='line'>10 p = Person.new('Kevin')
+</span><span class='line'>11 p.name # =&gt; "Kevin"
+</span><span class='line'>12 p.age</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty neat, eh?  Borrowing this workflow from Ruby Tapas will now help me when I&rsquo;m following along with each episode.  Now I just need to get better with Vim.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -884,60 +1046,6 @@ cd instantclient_11_2</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/06/ancient-city-ruby-2014-day-one/">Ancient City Ruby 2014 Day One</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-06T20:55:09-04:00" pubdate data-updated="true">Apr 6<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The actual conference was split across two days, and followed the single-track format.  This was unlike my experience at Ruby Conf 2013 &ndash; Miami, which was multiple topics going on concurrently.  For the first day, the following speakers were lined up:  Leon Gersing, Justin Searls, David Copeland, Katrina Owen, Richard Schneeman, and Ben Lovell.  Of all those speakers, I only had ever heard of three, and as it so happened, met each one of them: Justin Searls, Katrina Owen and Ben Lovell.</p>
-
-<p>In a quick summary of the day, I wrote the most notes from the talk by Leon, learned the most from Katrina&rsquo;s talk and laughed my ass off, and learned some stuff, from Ben&rsquo;s talk.  Justin talk also had my interest and I had jotted down some notes from his presentation.</p>
-
-<p>I really liked Leon&rsquo;s talk as to me it was not directly programming/developer related, but more so a spiritual and inspirational discussion.  I don&rsquo;t know if it was planned this way, but I believe it was perfectly executed as the first talk of the day &ndash; really set a good mood and environment.  Something that Leon said really moved me.  He said: &ldquo;Twitter, Facebook, Instagram are all simulations of relationships.&rdquo;  I thought that was very powerful.</p>
-
-<p>Before I continue, I just want to say that I enjoyed all of the talks from the speakers on this day.  But given my current skill level with Ruby and as a programmer, some of the talks were more moving and relevant to me.  I&rsquo;m sure others had similar, but different results.</p>
-
-<p>Three speakers in, some brief talks by some sponsors as well as lightening talks, and it was time for lunch.  I really enjoyed the lunch that was provided at the hotel for the conference.  Not only was the meal yummy, but the deserts were great as well.</p>
-
-<p>On a nice full stomach, with a big smile on my face, it was time for Katrina&rsquo;s talk.  I really enjoy her presentation style and I feel that the delivery was at a level that I was able to absorb.  Katrina took us through a refactoring session for &ldquo;Bob.&rdquo;  Frightenly, some of that code looked familiar :)  If you get a chance, you can check out her prentation at: <a href="https://speakerdeck.com/kytrinyx/overkill">Overkill</a></p>
-
-<p>Being the last speaker on a given day is a tough task.  People tend to start getting tired.  Leave it to Ben to fire up the crowd.  He had all of us rolling with laughter from his opening remarks to his closing arguments.  And along the way we learned a bit about testing APIs.  Watch out for those &ldquo;f#$@ing sharks!&rdquo;</p>
-
-<p>Day one didn&rsquo;t actually end after Ben&rsquo;s talk.  That evening some of the conference attendees went on the Ghost Ride, while the rest of us got to do the Pirate Ship adventure.  Even though I live in Jacksonville, which isn&rsquo;t too far from St. Augustine, I had not ever been on the Pirate Ship.  It was a lot of fun.  I just wish that I had my heavier hoodie and it got a bit cold on the water.  On the ship I got to meet a few other people from Hash Rocket, including Paul Elliott.  I had heard Paul&rsquo;s voice on several episodes of the Ruby5 podcast, and it was nice to meet him in person.</p>
-
-<p>All-in-all, day one was a big hit for me.  Oh, I almost forgot!  At the beginning of the day, before the first talk started, I got to meet and shake hands with Aaron Patterson.  Yeah, you could say I&rsquo;m a fanboi of his.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -955,6 +1063,10 @@ cd instantclient_11_2</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/05/05/unexcused-absence/">An Unexused Absence</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/03/31/simple-form-simply-confused/">Simple Form, Simply Confused</a>
       </li>
     
@@ -968,10 +1080,6 @@ cd instantclient_11_2</p>
     
       <li class="post">
         <a href="/blog/2015/02/03/gathering-of-some-newbs/">The Gathering</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/07/enable-remote-access-postgres/">Enable Remote Access - Postgres</a>
       </li>
     
   </ul>

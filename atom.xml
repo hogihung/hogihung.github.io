@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-03-31T08:16:48-04:00</updated>
+  <updated>2015-05-05T08:34:49-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,126 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[An Unexused Absence]]></title>
+    <link href="http://hogihung.github.io/blog/2015/05/05/unexcused-absence/"/>
+    <updated>2015-05-05T09:34:14-04:00</updated>
+    <id>http://hogihung.github.io/blog/2015/05/05/unexcused-absence</id>
+    <content type="html"><![CDATA[<p>The dedicated and faithful reader of this old guy, would have noticed an extended
+silence in this corner of the web.  I have, as the automated voice message of my
+sons school would say, &ldquo;an unexcused absence.&rdquo;  While I won&rsquo;t make any excuses, I
+would like to share what has kept me away from my writing.</p>
+
+<p>Back in March I started to learn Swift by attending the Udacity iOS online program.
+Udacity has partnered with the company I work at.  After successful completion of
+the course, my company will re-imburse me for the tuition.  About two weeks into
+my training, the family and I went on a cruise.  Though I brought my laptop and
+study material, I didn&rsquo;t spend much time Swift.</p>
+
+<p>After our trip, and a hop-skip-jump over a week, it was time for Ancient City Ruby.
+I enjoyed this years ACR conference, though I would have preferred a bit more
+technical meat and less of the social fluffy stuff.  However, the most signficant
+part of ACR for me was meeting with another Ruby developer and getting accepted to
+work part-time on a neat project.</p>
+
+<p>The part-time project is my first &ldquo;real-world&rdquo; Ruby app that I&rsquo;ve been a part of.
+Though I&rsquo;ve worked on some training apps or personal Rails apps, they have all been
+small in scale compared to this new gig.  Being new to the project, and not knowing
+much outside my experience with smaller apps, I&rsquo;ve been spending a lot of time
+looking around and trying to get familiar with the applications structure.</p>
+
+<p>And then came Rails Conference!  This year the conference was held in Atlanta, GA
+which is not too bad a drive from Jacksonville, FL.  I hadn&rsquo;t yet been to a Rails
+Conference, so of course I had to go.  Overall I enjoyed the time in Atlanta.  I
+ran into a guy, David, who I had meet in Miami at Ruby Conf 2013.  Also, I got to
+spend time with another developer that is working on the same project that I mentioned
+above.</p>
+
+<p>After the conference, I have been spending most of my evenings working on the
+part-time project.  There is a lot to learn, but I am enjoying every minute of it.
+The best part of my day is seeing my tests go green and being able to merge and
+push my changes.</p>
+
+<p>And that is my excuse, uh I mean my reasons, for not being active here for a while.
+I had set a personal goal to publish a new post each month, and I&rsquo;m working to
+raise the bar and publish twice a month.  Keep me honest &ndash; smack me via Twitter
+if you feel I&rsquo;m slacking.  :)</p>
+
+<p>Ok, now I&rsquo;d like to share a little snippet of code that illustrates something neat
+I have learned while working on the part-time gig.  A great benefit of working on
+a project with a mentor.  The first example is my original code before refactoring
+to make it better and look a lot more &lsquo;Rubyish&rsquo;.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def is_valid?(product)
+</span><span class='line'>  return true if @errors.nil?
+</span><span class='line'>  @errors.each do |error|
+</span><span class='line'>    if error.has_key?(product)
+</span><span class='line'>      return false
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>  return true
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>def errored_price(product)
+</span><span class='line'>  return nil if @errors.nil?
+</span><span class='line'>  @errors.each do |error|
+</span><span class='line'>    if error.has_key?(product)
+</span><span class='line'>      return error[product]
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>  return nil
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And now the reveal &ndash; the pretty version which accomplishes the same thing.  Note
+that during the refactor we re-named a few things, but the overall result was the
+same.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def is_valid?(product)
+</span><span class='line'>  return true if @errors.nil?
+</span><span class='line'>  return false if @errors.include?(product)
+</span><span class='line'>  return true
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>def clock_price(product, eor_price)
+</span><span class='line'>  return price if @new_prices.nil?
+</span><span class='line'>  return @new_prices[product]
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Simple Form, Simply Confused]]></title>
@@ -1375,33 +1495,6 @@ cd instantclient_11_2</p>
 <p>Near the end of Konstantin&rsquo;s talk I started to feel the effect of not eating a proper lunch, and an overload of sweets.  I started getting a little light-headed.  So the end of the conference was a bit of a blur.</p>
 
 <p>I&rsquo;ve only been to two Ruby related conferences &ndash; Ruby Conf 2013 in Miami, and now this one, Ancient City Ruby Conf 2014.  Although the one if Miami was much larger, I enjoyed the Ancient City one more.  I felt like I learned more at ACR and fit in better.  At the conference in Miami I very much felt like an outsider.  But at ACR I met a lot of people from all over the US and the world.  I am looking forward to another Ancient City Ruby conference in 2015!</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Ancient City Ruby 2014 Day One]]></title>
-    <link href="http://hogihung.github.io/blog/2014/04/06/ancient-city-ruby-2014-day-one/"/>
-    <updated>2014-04-06T20:55:09-04:00</updated>
-    <id>http://hogihung.github.io/blog/2014/04/06/ancient-city-ruby-2014-day-one</id>
-    <content type="html"><![CDATA[<p>The actual conference was split across two days, and followed the single-track format.  This was unlike my experience at Ruby Conf 2013 &ndash; Miami, which was multiple topics going on concurrently.  For the first day, the following speakers were lined up:  Leon Gersing, Justin Searls, David Copeland, Katrina Owen, Richard Schneeman, and Ben Lovell.  Of all those speakers, I only had ever heard of three, and as it so happened, met each one of them: Justin Searls, Katrina Owen and Ben Lovell.</p>
-
-<p>In a quick summary of the day, I wrote the most notes from the talk by Leon, learned the most from Katrina&rsquo;s talk and laughed my ass off, and learned some stuff, from Ben&rsquo;s talk.  Justin talk also had my interest and I had jotted down some notes from his presentation.</p>
-
-<p>I really liked Leon&rsquo;s talk as to me it was not directly programming/developer related, but more so a spiritual and inspirational discussion.  I don&rsquo;t know if it was planned this way, but I believe it was perfectly executed as the first talk of the day &ndash; really set a good mood and environment.  Something that Leon said really moved me.  He said: &ldquo;Twitter, Facebook, Instagram are all simulations of relationships.&rdquo;  I thought that was very powerful.</p>
-
-<p>Before I continue, I just want to say that I enjoyed all of the talks from the speakers on this day.  But given my current skill level with Ruby and as a programmer, some of the talks were more moving and relevant to me.  I&rsquo;m sure others had similar, but different results.</p>
-
-<p>Three speakers in, some brief talks by some sponsors as well as lightening talks, and it was time for lunch.  I really enjoyed the lunch that was provided at the hotel for the conference.  Not only was the meal yummy, but the deserts were great as well.</p>
-
-<p>On a nice full stomach, with a big smile on my face, it was time for Katrina&rsquo;s talk.  I really enjoy her presentation style and I feel that the delivery was at a level that I was able to absorb.  Katrina took us through a refactoring session for &ldquo;Bob.&rdquo;  Frightenly, some of that code looked familiar :)  If you get a chance, you can check out her prentation at: <a href="https://speakerdeck.com/kytrinyx/overkill">Overkill</a></p>
-
-<p>Being the last speaker on a given day is a tough task.  People tend to start getting tired.  Leave it to Ben to fire up the crowd.  He had all of us rolling with laughter from his opening remarks to his closing arguments.  And along the way we learned a bit about testing APIs.  Watch out for those &ldquo;f#$@ing sharks!&rdquo;</p>
-
-<p>Day one didn&rsquo;t actually end after Ben&rsquo;s talk.  That evening some of the conference attendees went on the Ghost Ride, while the rest of us got to do the Pirate Ship adventure.  Even though I live in Jacksonville, which isn&rsquo;t too far from St. Augustine, I had not ever been on the Pirate Ship.  It was a lot of fun.  I just wish that I had my heavier hoodie and it got a bit cold on the water.  On the ship I got to meet a few other people from Hash Rocket, including Paul Elliott.  I had heard Paul&rsquo;s voice on several episodes of the Ruby5 podcast, and it was nice to meet him in person.</p>
-
-<p>All-in-all, day one was a big hit for me.  Oh, I almost forgot!  At the beginning of the day, before the first talk started, I got to meet and shake hands with Aaron Patterson.  Yeah, you could say I&rsquo;m a fanboi of his.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>

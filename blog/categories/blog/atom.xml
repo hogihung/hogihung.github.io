@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blog | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/blog/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-03-31T08:16:48-04:00</updated>
+  <updated>2015-05-05T08:34:49-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,105 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[An Unexused Absence]]></title>
+    <link href="http://hogihung.github.io/blog/2015/05/05/unexcused-absence/"/>
+    <updated>2015-05-05T09:34:14-04:00</updated>
+    <id>http://hogihung.github.io/blog/2015/05/05/unexcused-absence</id>
+    <content type="html"><![CDATA[<p>The dedicated and faithful reader of this old guy, would have noticed an extended
+silence in this corner of the web.  I have, as the automated voice message of my
+sons school would say, &ldquo;an unexcused absence.&rdquo;  While I won&rsquo;t make any excuses, I
+would like to share what has kept me away from my writing.</p>
+
+<p>Back in March I started to learn Swift by attending the Udacity iOS online program.
+Udacity has partnered with the company I work at.  After successful completion of
+the course, my company will re-imburse me for the tuition.  About two weeks into
+my training, the family and I went on a cruise.  Though I brought my laptop and
+study material, I didn&rsquo;t spend much time Swift.</p>
+
+<p>After our trip, and a hop-skip-jump over a week, it was time for Ancient City Ruby.
+I enjoyed this years ACR conference, though I would have preferred a bit more
+technical meat and less of the social fluffy stuff.  However, the most signficant
+part of ACR for me was meeting with another Ruby developer and getting accepted to
+work part-time on a neat project.</p>
+
+<p>The part-time project is my first &ldquo;real-world&rdquo; Ruby app that I&rsquo;ve been a part of.
+Though I&rsquo;ve worked on some training apps or personal Rails apps, they have all been
+small in scale compared to this new gig.  Being new to the project, and not knowing
+much outside my experience with smaller apps, I&rsquo;ve been spending a lot of time
+looking around and trying to get familiar with the applications structure.</p>
+
+<p>And then came Rails Conference!  This year the conference was held in Atlanta, GA
+which is not too bad a drive from Jacksonville, FL.  I hadn&rsquo;t yet been to a Rails
+Conference, so of course I had to go.  Overall I enjoyed the time in Atlanta.  I
+ran into a guy, David, who I had meet in Miami at Ruby Conf 2013.  Also, I got to
+spend time with another developer that is working on the same project that I mentioned
+above.</p>
+
+<p>After the conference, I have been spending most of my evenings working on the
+part-time project.  There is a lot to learn, but I am enjoying every minute of it.
+The best part of my day is seeing my tests go green and being able to merge and
+push my changes.</p>
+
+<p>And that is my excuse, uh I mean my reasons, for not being active here for a while.
+I had set a personal goal to publish a new post each month, and I&rsquo;m working to
+raise the bar and publish twice a month.  Keep me honest &ndash; smack me via Twitter
+if you feel I&rsquo;m slacking.  :)</p>
+
+<p>Ok, now I&rsquo;d like to share a little snippet of code that illustrates something neat
+I have learned while working on the part-time gig.  A great benefit of working on
+a project with a mentor.  The first example is my original code before refactoring
+to make it better and look a lot more &lsquo;Rubyish&rsquo;.</p>
+
+<p>```
+def is_valid?(product)
+  return true if @errors.nil?
+  @errors.each do |error|</p>
+
+<pre><code>if error.has_key?(product)
+  return false
+end
+</code></pre>
+
+<p>  end
+  return true
+end</p>
+
+<p>def errored_price(product)
+  return nil if @errors.nil?
+  @errors.each do |error|</p>
+
+<pre><code>if error.has_key?(product)
+  return error[product]
+end
+</code></pre>
+
+<p>  end
+  return nil
+end
+```</p>
+
+<p>And now the reveal &ndash; the pretty version which accomplishes the same thing.  Note
+that during the refactor we re-named a few things, but the overall result was the
+same.</p>
+
+<p>```
+def is_valid?(product)
+  return true if @errors.nil?
+  return false if @errors.include?(product)
+  return true
+end</p>
+
+<p>def clock_price(product, eor_price)
+  return price if @new_prices.nil?
+  return @new_prices[product]
+end
+```</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Simple Form, Simply Confused]]></title>
@@ -259,43 +358,6 @@ experience.</p>
 
 <p>I still want to test my skills by doing a personal hack-a-thon, but I need to
 convince some of the gurus I know to be my guest drop ins.  :)</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Enable Remote Access - Postgres]]></title>
-    <link href="http://hogihung.github.io/blog/2015/01/07/enable-remote-access-postgres/"/>
-    <updated>2015-01-07T21:00:07-05:00</updated>
-    <id>http://hogihung.github.io/blog/2015/01/07/enable-remote-access-postgres</id>
-    <content type="html"><![CDATA[<p>Recently I&rsquo;ve been troubleshooting an issue with my pet project.  On my laptop, in a development environment, I didn&rsquo;t seem to have any issues. My test suite has been working fine, but when I deployed the app to a production environment, I started to discover some issues.  Issues that revolve around the database.</p>
-
-<p>I&rsquo;m not a SQL guru, so from time-to-time when I want to poke around my Postgres database, I use an application called PGAdmin.  So I fired up PGAdmin and tried to connect to the Postgres database that is running on my server, over the internet.  Politely, PGAdmin told me to go pound sand &ndash; it was not able to connect.  After a little research I learned that there were two files on my server, related to postgres, that I needed to update.</p>
-
-<p>On your remote server, that has Postgres running, modify the two files indicated below:<br>
-<em>(Note: your path might be different depending on your version of Postgres and your Linux distro)</em></p>
-
-<pre>
-sudo vim /etc/postgresql/9.3/main/pg_hba.conf  
-# Added by jfhogarty to support remote access and PGAdmin
-host    all             all             0.0.0.0/0               md5
-
-
-sudo vim /etc/postgresql/9.3/main/postgresql.conf 
-#The next line added by jfhogarty to enable remote access and PGAdmin
-listen_addresses = '*'
-
-</pre>
-
-
-<p>Lastly, with the above changes added to the two .conf files, we need to restart Posgtres:</p>
-
-<p><code>
-sudo service postgresql restart
-</code></p>
-
-<p>With the above changes in place, and postgres restarted, I fired up PGAdmin again on my laptop.  And like <em>butter</em> I was able to connect to and work with my databases. I resumed debugging my original issue.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>

@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>My First Rake Task - Old Guy, New Trick</title>
+  <title>An Unexused Absence - Old Guy, New Trick</title>
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="At my day job we primarly use Perl for both our scripting and tool type applications as well as using it with a splatter of PHP for some of our web &hellip;">
+  <meta name="description" content="The dedicated and faithful reader of this old guy, would have noticed an extended
+silence in this corner of the web. I have, as the automated voice &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hogihung.github.io/blog/2014/03/29/my-first-rake-task/">
+  <link rel="canonical" href="http://hogihung.github.io/blog/2015/05/05/unexcused-absence/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -68,7 +69,7 @@
   
   <header>
     
-      <h1 class="entry-title">My First Rake Task</h1>
+      <h1 class="entry-title">An Unexused Absence</h1>
     
     
       <p class="meta">
@@ -84,22 +85,57 @@
   
 
 
-<time datetime="2014-03-29T20:13:12-04:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
+<time datetime="2015-05-05T09:34:14-04:00" pubdate data-updated="true">May 5<span>th</span>, 2015</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>At my day job we primarly use Perl for both our scripting and tool type applications as well as using it with a splatter of PHP for some of our web page applications.  I&rsquo;m trying to get Ruby, and Rails, in the door and see if I can convert others over to Ruby.  I must confess, it is a steep upward battle.</p>
+<div class="entry-content"><p>The dedicated and faithful reader of this old guy, would have noticed an extended
+silence in this corner of the web.  I have, as the automated voice message of my
+sons school would say, &ldquo;an unexcused absence.&rdquo;  While I won&rsquo;t make any excuses, I
+would like to share what has kept me away from my writing.</p>
 
-<p>However, I do have a web application on our development server and am preparing to deploy it to production.  It is a fairly simple web application that has three models and will enable us to manage the data elements of our Out-of-Band equipment and the connected devices.</p>
+<p>Back in March I started to learn Swift by attending the Udacity iOS online program.
+Udacity has partnered with the company I work at.  After successful completion of
+the course, my company will re-imburse me for the tuition.  About two weeks into
+my training, the family and I went on a cruise.  Though I brought my laptop and
+study material, I didn&rsquo;t spend much time Swift.</p>
 
-<p>When I first started the development, I manually created some test records.  Then I added a handful more via the seeds.rb file.  But when it came time to populating the database with real data, I needed a better solution.  I had compiled some data in Excel files with over 400 out-of-band devices and over 5,000 connected devices.  No way I was going to manually enter all of those.</p>
+<p>After our trip, and a hop-skip-jump over a week, it was time for Ancient City Ruby.
+I enjoyed this years ACR conference, though I would have preferred a bit more
+technical meat and less of the social fluffy stuff.  However, the most signficant
+part of ACR for me was meeting with another Ruby developer and getting accepted to
+work part-time on a neat project.</p>
 
-<p>This was earlier in the week, and luckily I was able to ask some of the gurus at our weekly Code &amp; Coffee how I could tackle this.  Micah suggested I use the CSV library in Ruby and see about populating the data that way.  He gave me a great nudge in the right direction.</p>
+<p>The part-time project is my first &ldquo;real-world&rdquo; Ruby app that I&rsquo;ve been a part of.
+Though I&rsquo;ve worked on some training apps or personal Rails apps, they have all been
+small in scale compared to this new gig.  Being new to the project, and not knowing
+much outside my experience with smaller apps, I&rsquo;ve been spending a lot of time
+looking around and trying to get familiar with the applications structure.</p>
 
-<p>I was fumbling around looking for answers when I saw some information about creating rake tasks.  So I studied up, and created the following rake file:</p>
+<p>And then came Rails Conference!  This year the conference was held in Atlanta, GA
+which is not too bad a drive from Jacksonville, FL.  I hadn&rsquo;t yet been to a Rails
+Conference, so of course I had to go.  Overall I enjoyed the time in Atlanta.  I
+ran into a guy, David, who I had meet in Miami at Ruby Conf 2013.  Also, I got to
+spend time with another developer that is working on the same project that I mentioned
+above.</p>
+
+<p>After the conference, I have been spending most of my evenings working on the
+part-time project.  There is a lot to learn, but I am enjoying every minute of it.
+The best part of my day is seeing my tests go green and being able to merge and
+push my changes.</p>
+
+<p>And that is my excuse, uh I mean my reasons, for not being active here for a while.
+I had set a personal goal to publish a new post each month, and I&rsquo;m working to
+raise the bar and publish twice a month.  Keep me honest &ndash; smack me via Twitter
+if you feel I&rsquo;m slacking.  :)</p>
+
+<p>Ok, now I&rsquo;d like to share a little snippet of code that illustrates something neat
+I have learned while working on the part-time gig.  A great benefit of working on
+a project with a mentor.  The first example is my original code before refactoring
+to make it better and look a lot more &lsquo;Rubyish&rsquo;.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -120,58 +156,54 @@
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>require 'csv'
-</span><span class='line'>
-</span><span class='line'>oobs_file = "/path/to/file/oob_devices.CSV"
-</span><span class='line'>devices_file = "/path/to/file/connected_devices.CSV"
-</span><span class='line'>
-</span><span class='line'>namespace :oob_import do
-</span><span class='line'>  task :oobs =&gt; :environment do
-</span><span class='line'>    Oob.delete_all
-</span><span class='line'>    CSV.foreach(oobs_file, headers: true) do |row|
-</span><span class='line'>      p row
-</span><span class='line'>      Oob.create!(row.to_hash)
+</pre></td><td class='code'><pre><code class=''><span class='line'>def is_valid?(product)
+</span><span class='line'>  return true if @errors.nil?
+</span><span class='line'>  @errors.each do |error|
+</span><span class='line'>    if error.has_key?(product)
+</span><span class='line'>      return false
 </span><span class='line'>    end
 </span><span class='line'>  end
+</span><span class='line'>  return true
+</span><span class='line'>end
 </span><span class='line'>
-</span><span class='line'>  task :devices =&gt; :environment do
-</span><span class='line'>    Device.delete_all
-</span><span class='line'>    CSV.foreach(devices_file, headers: true) do |row|
-</span><span class='line'>      oob = Oob.find_by_name("#{row[0]}")
-</span><span class='line'>      oob.devices.create!(name: "#{row[1]}", pri_port: "#{row[2]}", active: "#{row[3]}", updated_by: "#{row[4]}")
-</span><span class='line'>
-</span><span class='line'>      p "Oob_ID: #{oob.id}, name: #{row[1]}, pri_port: #{row[2]}, active: #{row[3]}, updated_by: #{row[4]}"
+</span><span class='line'>def errored_price(product)
+</span><span class='line'>  return nil if @errors.nil?
+</span><span class='line'>  @errors.each do |error|
+</span><span class='line'>    if error.has_key?(product)
+</span><span class='line'>      return error[product]
 </span><span class='line'>    end
 </span><span class='line'>  end
-</span><span class='line'>
-</span><span class='line'>  task :all =&gt; [:oobs, :devices] do
-</span><span class='line'>    puts "Refreshing Oob and Device Models"
-</span><span class='line'>  end
+</span><span class='line'>  return nil
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<p>To import my data, I executed the rake task as follows:</p>
+<p>And now the reveal &ndash; the pretty version which accomplishes the same thing.  Note
+that during the refactor we re-named a few things, but the overall result was the
+same.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake oob_import:oobs
-</span><span class='line'>rake oob_import:devices</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def is_valid?(product)
+</span><span class='line'>  return true if @errors.nil?
+</span><span class='line'>  return false if @errors.include?(product)
+</span><span class='line'>  return true
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>def clock_price(product, eor_price)
+</span><span class='line'>  return price if @new_prices.nil?
+</span><span class='line'>  return @new_prices[product]
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<p>I could have used the taks, <em>oob_import:all</em> but I wanted to work in two steps so I could watch for errors and fix things while I was building this file.</p>
-
-<p>I can&rsquo;t properly convey the joy and happiness I felt when I saw this new tool work!  It really made my day, especially as it took me a couple of hours of research, trial and error.  But this will make things really easy for me when I move the application to production.</p>
-
-<p>Note that I have the code that starts with &ldquo;p&rdquo; in there so I have a nice visual of how the task is running.  If you don&rsquo;t need that visual confirmation, you could remove those two lines of code.</p>
+<p><em>Learn Something New Every Day</em></p>
 </div>
 
 
@@ -194,12 +226,12 @@
   
 
 
-<time datetime="2014-03-29T20:13:12-04:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
+<time datetime="2015-05-05T09:34:14-04:00" pubdate data-updated="true">May 5<span>th</span>, 2015</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/rake/'>Rake</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+    <a class='category' href='/blog/categories/blog/'>Blog</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
   
 </span>
 
@@ -208,7 +240,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2014/03/29/my-first-rake-task/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2014/03/29/my-first-rake-task/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2015/05/05/unexcused-absence/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2015/05/05/unexcused-absence/" >Tweet</a>
   
   
   
@@ -217,10 +249,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/03/29/week-2-and-a-half-at-bloc/" title="Previous Post: Week 2 and a half at Bloc">&laquo; Week 2 and a half at Bloc</a>
+        <a class="basic-alignment left" href="/blog/2015/03/31/simple-form-simply-confused/" title="Previous Post: Simple Form, Simply Confused">&laquo; Simple Form, Simply Confused</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/04/05/my-ancient-city-ruby-pre-experience/" title="Next Post: My Ancient City Ruby Pre-Experience 2014">My Ancient City Ruby Pre-Experience 2014 &raquo;</a>
       
     </p>
     <div id="disqus_thread"></div>
