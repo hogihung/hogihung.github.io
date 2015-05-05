@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blog | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/blog/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-05-05T08:34:49-04:00</updated>
+  <updated>2015-05-05T09:21:16-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -14,9 +14,9 @@
 
   
   <entry>
-    <title type="html"><![CDATA[An Unexused Absence]]></title>
+    <title type="html"><![CDATA[An Unexcused Absence]]></title>
     <link href="http://hogihung.github.io/blog/2015/05/05/unexcused-absence/"/>
-    <updated>2015-05-05T09:34:14-04:00</updated>
+    <updated>2015-05-05T10:15:14-04:00</updated>
     <id>http://hogihung.github.io/blog/2015/05/05/unexcused-absence</id>
     <content type="html"><![CDATA[<p>The dedicated and faithful reader of this old guy, would have noticed an extended
 silence in this corner of the web.  I have, as the automated voice message of my
@@ -25,13 +25,13 @@ would like to share what has kept me away from my writing.</p>
 
 <p>Back in March I started to learn Swift by attending the Udacity iOS online program.
 Udacity has partnered with the company I work at.  After successful completion of
-the course, my company will re-imburse me for the tuition.  About two weeks into
+the course, my company will reimburse me for the tuition.  About two weeks into
 my training, the family and I went on a cruise.  Though I brought my laptop and
 study material, I didn&rsquo;t spend much time Swift.</p>
 
 <p>After our trip, and a hop-skip-jump over a week, it was time for Ancient City Ruby.
 I enjoyed this years ACR conference, though I would have preferred a bit more
-technical meat and less of the social fluffy stuff.  However, the most signficant
+technical meat and less of the social fluffy stuff.  However, the most significant
 part of ACR for me was meeting with another Ruby developer and getting accepted to
 work part-time on a neat project.</p>
 
@@ -61,7 +61,7 @@ if you feel I&rsquo;m slacking.  :)</p>
 <p>Ok, now I&rsquo;d like to share a little snippet of code that illustrates something neat
 I have learned while working on the part-time gig.  A great benefit of working on
 a project with a mentor.  The first example is my original code before refactoring
-to make it better and look a lot more &lsquo;Rubyish&rsquo;.</p>
+to make it better and look a lot more &lsquo;Ruby-ish&rsquo;.</p>
 
 <p>```
 def is_valid?(product)
