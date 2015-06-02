@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-06-02T08:00:55-04:00</updated>
+  <updated>2015-06-02T08:02:22-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,53 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Breaking Up Is Hard To Do]]></title>
+    <link href="http://hogihung.github.io/blog/2015/06/02/breaking-up-is-hard/"/>
+    <updated>2015-06-02T09:09:25-04:00</updated>
+    <id>http://hogihung.github.io/blog/2015/06/02/breaking-up-is-hard</id>
+    <content type="html"><![CDATA[<p>Whether you are the break<strong>or</strong> or the break<strong>ee</strong>, breaking up is hard to do.  I can
+still rememeber years back when I broke up with my girlfriend at the time.  I
+was the break<strong>ee</strong> and it was not easy. Emotions ran wild and I took it really
+hard.  But in the end, it turned out for the better.  I met and married a
+much better person.</p>
+
+<p>As of this Friday, June 5th, I am breaking up from my Corporate marriage.  I
+have been working for a large corporation, whether that be Merrill Lynch or
+AT&amp;T, for 20 years.  Currently I am with AT&amp;T, approaching my 14th year with
+them.  But I am leaving that life for a new one.  My new job will be as a
+full time Ruby developer.  Something that I have been slowly training myself
+for over the past 1.5 years.</p>
+
+<p>I wasn&rsquo;t looking to leave AT&amp;T.  Overall, I&rsquo;ve been happy there.  And the
+environment has been fairly stable.  I have repeatedly received high year
+end evaluations.  I have been told how valuable I am to the team and how
+others look to me.  And that is great.  However, as can be the case in the
+corporate world, I&rsquo;m in a job &lsquo;band&rsquo;.  I&rsquo;ve asked to be bumped to a higher
+band so that I could grow, but at this time they have not been able to
+accommodate me.</p>
+
+<p>So this time around, when I was asked by someone looking to hire a developer,
+I said, &ldquo;&hellip;tell me more.&rdquo;  After learning about the new opportunity, and
+thinking really hard, I decided to accept the job offer.  It was not an easy
+decision &ndash; as I mentioned above, I&rsquo;ve been with AT&amp;T for almost 14 years. I
+get paid pretty good, and have excellent benefits, including a nice 401k
+plan.</p>
+
+<p>But I made the decision to move in order to solidify my future.  I
+believe that working as a full time Ruby developer, I will be able to
+grow my knowledge rapidly, as well as expand my compensatation potential.  Along
+the way, I will be building a solid path for my retirement &ndash; I can code from just
+about anywhere, at anytime.</p>
+
+<p>Once I&rsquo;ve been at the new job for about a month, I will write again about how things
+are going.  Hopefully I will not come back and utter the words of Gob, from &lsquo;Arrested
+Development&rsquo;, and say: <em>&ldquo;I&rsquo;ve made a huge mistake.&rdquo;</em></p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[An Unexcused Absence]]></title>
@@ -1468,33 +1515,6 @@ cd instantclient_11_2</p>
 <p>Working with Micah, he showed me where I was doing things correctly, and where I was making some mis-steps.  Using his guidance I was able to finish writing my second rake job &ndash; exporting the data.  I don&rsquo;t recall if I have mentioned it before, but Micah also helped me construct my first rake job &ndash; importing the data.</p>
 
 <p>The time at Lilly&rsquo;s flew by, but I&rsquo;m confident in saying that all of us newbies learned something useful.  Looking forward to the next Code &amp; Coffee and OpenHacks events.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Ancient City Ruby 2014 Day Two]]></title>
-    <link href="http://hogihung.github.io/blog/2014/04/07/ancient-city-ruby-2014-day-two/"/>
-    <updated>2014-04-07T18:35:20-04:00</updated>
-    <id>http://hogihung.github.io/blog/2014/04/07/ancient-city-ruby-2014-day-two</id>
-    <content type="html"><![CDATA[<p>Day two was a rough start for me.  I over slept a little bit so I didn&rsquo;t have time to get breakfast at home.  Luckily, there was some breakfast provided at the conference.  I&rsquo;m not a big carb eater, but I knew that if I didn&rsquo;t eat something, it would be a rough day.  So down went a half bagel, some fruit, a glass of water and a coffee chaser.</p>
-
-<p>Starting out the day was someone I had heard of, but never met &ndash; Terence Lee.  Terence works at Heroku as well as participates on the Ruby core team as a contributor.  I enjoyed this talk because I&rsquo;ve been using Heroku in my knowledge quest and found the topic to be relevant.  I think we sometimes take for granted what is going on behind the scenes, by guys like Terence, to ensure easy deployment of our apps.  In summary &ndash; make sure you are off of Ruby 1.8.7 and 1.9.2.</p>
-
-<p>For day two, I took the most notes during the second talk by Craig Kerstiens.  He talked about Postgres which is the primary database that I&rsquo;ve been using in my Rails applications.  Craig confirmed something that I had encountered two days earlier &ndash; don&rsquo;t use homebrew for Postgres.  Download and use the Postgres.app from their website.  I had a lot of issues during my workshop due to homebrew and its installation of Postgres.  Along with good tips for Postgres related resources, I also learned new stuff like sequential scan vs index scan.  And using Gin for indexing when you have multiple values in a column vs the standard BTree index method.  Rounding out his talk, I walked away with a to-do list of required research on HStore and jsonb.</p>
-
-<p>Lunch on day two was the only part of the conference I didn&rsquo;t like.  I am not a pasta fan at all and sadly didn&rsquo;t find much I could eat.  I ended up snacking on two pieces of cheese and a chunk of bread.  Where the meal failed for me, the desert was a home run!  So I filled up on desert and coffee.  Yup, I was a bit jittery for the rest of the day.</p>
-
-<p>After lunch it was time for Aaron.  His presentation had both a healthy serving of comedic relief as well as filling geekery.  Who else but Aaron would code a way, using a webcam, to scan all of his Magic the Gathering cards and catalog their value?  Oh and did I mention there were cats?  Aaron urged the audience to help him test out one of his projects related to OpenCV.  We were to all send him a tweet with the words &ldquo;Photo Me&rdquo;.  The goal was for his program to see the tweet, take a picture of Aaron at that moment in time, and send the picture to the person who tweeted him.  Well it seems one variable wasn&rsquo;t accounted for &ndash; Twitter.  With a flood of incoming requests to his Twitter account, the &ldquo;enforcers&rdquo; locked his account.</p>
-
-<p>Something that I had forgotten to mention earlier was that for most of the conference, Ben sat with me.  I really thought this was cool.  Most of the speakers sat together up front or to the side.  But I got to sit with Ben &ndash; just me and him.</p>
-
-<p>Which brings me to one of Ben&rsquo;s friends &ndash; Konstantin.  Ben had made some reference to Konstantin in his presentation &ndash; well more like to Konstantin&rsquo;s bag which apparently got lost while enroute to a conference in the Philippines.  Konstantin had a good bit of humor in his presentation which focused on security.  It was very englightening to learn about the many different ways hackers try to compromise web applications, including Rails applications.  Both the Ruby and Rails teams make a great effort to eliminate/prevent security issues.  I&rsquo;ll admit there were parts of the talk that went over my head.  But overall, I found it very usefull and an area where I want to learn more.</p>
-
-<p>Near the end of Konstantin&rsquo;s talk I started to feel the effect of not eating a proper lunch, and an overload of sweets.  I started getting a little light-headed.  So the end of the conference was a bit of a blur.</p>
-
-<p>I&rsquo;ve only been to two Ruby related conferences &ndash; Ruby Conf 2013 in Miami, and now this one, Ancient City Ruby Conf 2014.  Although the one if Miami was much larger, I enjoyed the Ancient City one more.  I felt like I learned more at ACR and fit in better.  At the conference in Miami I very much felt like an outsider.  But at ACR I met a lot of people from all over the US and the world.  I am looking forward to another Ancient City Ruby conference in 2015!</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>

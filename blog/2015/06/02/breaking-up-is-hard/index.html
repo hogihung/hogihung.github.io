@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Ruby, RVM, Cmd Line SheBang! - Old Guy, New Trick</title>
+  <title>Breaking Up Is Hard To Do - Old Guy, New Trick</title>
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="I ran across this tip while reading the book &ldquo;Build Awesome Command-Line Applications
-in Ruby 2,&rdquo; by David Bryant Copeland. Although most &hellip;">
+  <meta name="description" content="Whether you are the breakor or the breakee, breaking up is hard to do. I can
+still rememeber years back when I broke up with my girlfriend at the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@ in Ruby 2,&rdquo; by David Bryant Copeland. Although most &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hogihung.github.io/blog/2014/02/12/command_line_apps_rvm/">
+  <link rel="canonical" href="http://hogihung.github.io/blog/2015/06/02/breaking-up-is-hard/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -69,7 +69,7 @@ in Ruby 2,&rdquo; by David Bryant Copeland. Although most &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Ruby, RVM, Cmd Line SheBang!</h1>
+      <h1 class="entry-title">Breaking Up Is Hard to Do</h1>
     
     
       <p class="meta">
@@ -85,46 +85,52 @@ in Ruby 2,&rdquo; by David Bryant Copeland. Although most &hellip;">
   
 
 
-<time datetime="2014-02-12T10:56:35-05:00" pubdate data-updated="true">Feb 12<span>th</span>, 2014</time>
+<time datetime="2015-06-02T09:09:25-04:00" pubdate data-updated="true">Jun 2<span>nd</span>, 2015</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>I ran across this tip while reading the book <em>&ldquo;Build Awesome Command-Line Applications
-in Ruby 2,&rdquo;</em> by David Bryant Copeland.  Although most of the code I&rsquo;ve been practicing
-has been Ruby on Rails, at my day job we utilize a lot of command line applications.  I&rsquo;m on a mission to add Ruby to our toolbox which currently is Perl and shell scripts.</p>
+<div class="entry-content"><p>Whether you are the break<strong>or</strong> or the break<strong>ee</strong>, breaking up is hard to do.  I can
+still rememeber years back when I broke up with my girlfriend at the time.  I
+was the break<strong>ee</strong> and it was not easy. Emotions ran wild and I took it really
+hard.  But in the end, it turned out for the better.  I met and married a
+much better person.</p>
 
-<p>For a recent project I needed a command line application that could take a CSV
-file as an input, extract out some data, and create a new pipe (|) delimted text
-file.  I use RVM on my personal laptop and desktop, so I installed it on our
-company server.  At that time, Ruby was at version 1.93.  Not too long after, I
-added 2.0.0 and 2.1.0.  But my application was written in 1.93.  It is a simple
-application so the version shouldn&rsquo;t matter.  But in case it does, you may find
-value in this tip.</p>
+<p>As of this Friday, June 5th, I am breaking up from my Corporate marriage.  I
+have been working for a large corporation, whether that be Merrill Lynch or
+AT&amp;T, for 20 years.  Currently I am with AT&amp;T, approaching my 14th year with
+them.  But I am leaving that life for a new one.  My new job will be as a
+full time Ruby developer.  Something that I have been slowly training myself
+for over the past 1.5 years.</p>
 
-<p>If you are a RVM user, and type the command &lsquo;which ruby&rsquo; at the command line, you
-may get something similar to:</p>
+<p>I wasn&rsquo;t looking to leave AT&amp;T.  Overall, I&rsquo;ve been happy there.  And the
+environment has been fairly stable.  I have repeatedly received high year
+end evaluations.  I have been told how valuable I am to the team and how
+others look to me.  And that is great.  However, as can be the case in the
+corporate world, I&rsquo;m in a job &lsquo;band&rsquo;.  I&rsquo;ve asked to be bumped to a higher
+band so that I could grow, but at this time they have not been able to
+accommodate me.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/Users/jfhogarty/.rvm/rubies/ruby-2.1.0/bin/ruby</span></code></pre></td></tr></table></div></figure>
+<p>So this time around, when I was asked by someone looking to hire a developer,
+I said, &ldquo;&hellip;tell me more.&rdquo;  After learning about the new opportunity, and
+thinking really hard, I decided to accept the job offer.  It was not an easy
+decision &ndash; as I mentioned above, I&rsquo;ve been with AT&amp;T for almost 14 years. I
+get paid pretty good, and have excellent benefits, including a nice 401k
+plan.</p>
 
+<p>But I made the decision to move in order to solidify my future.  I
+believe that working as a full time Ruby developer, I will be able to
+grow my knowledge rapidly, as well as expand my compensatation potential.  Along
+the way, I will be building a solid path for my retirement &ndash; I can code from just
+about anywhere, at anytime.</p>
 
-<p>You can use that as the first line of your ruby script:</p>
+<p>Once I&rsquo;ve been at the new job for about a month, I will write again about how things
+are going.  Hopefully I will not come back and utter the words of Gob, from &lsquo;Arrested
+Development&rsquo;, and say: <em>&ldquo;I&rsquo;ve made a huge mistake.&rdquo;</em></p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#!/Users/jfhogarty/.rvm/rubies/ruby-2.1.0/bin/ruby</span></code></pre></td></tr></table></div></figure>
-
-
-<p>However, if you want your script to use whatever the current version of Ruby is,
-or if Ruby is in a different location on a machine other than yours, you can use this syntax:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#!/usr/bin/env ruby</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This tip is found on page 4, in the section: &ldquo;Shebang: How the Systems Knows an App Is A Ruby Script&rdquo;</p>
+<p><em>Learn Something New Every Day</em></p>
 </div>
 
 
@@ -147,12 +153,12 @@ or if Ruby is in a different location on a machine other than yours, you can use
   
 
 
-<time datetime="2014-02-12T10:56:35-05:00" pubdate data-updated="true">Feb 12<span>th</span>, 2014</time>
+<time datetime="2015-06-02T09:09:25-04:00" pubdate data-updated="true">Jun 2<span>nd</span>, 2015</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/ruby/'>Ruby</a>, <a class='category' href='/blog/categories/tips/'>Tips</a>
+    <a class='category' href='/blog/categories/blog/'>Blog</a>
   
 </span>
 
@@ -161,7 +167,7 @@ or if Ruby is in a different location on a machine other than yours, you can use
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2014/02/12/command_line_apps_rvm/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2014/02/12/command_line_apps_rvm/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2015/06/02/breaking-up-is-hard/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2015/06/02/breaking-up-is-hard/" >Tweet</a>
   
   
   
@@ -170,10 +176,8 @@ or if Ruby is in a different location on a machine other than yours, you can use
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/02/10/online_education/" title="Previous Post: Take Your Education, Online!">&laquo; Take Your Education, Online!</a>
+        <a class="basic-alignment left" href="/blog/2015/05/05/unexcused-absence/" title="Previous Post: An Unexcused Absence">&laquo; An Unexcused Absence</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/02/16/dissect_a_method/" title="Next Post: Dissect A Method">Dissect A Method &raquo;</a>
       
     </p>
     <div id="disqus_thread"></div>

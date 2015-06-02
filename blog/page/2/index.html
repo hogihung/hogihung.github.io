@@ -9,7 +9,7 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="I have many learning tools in my arsenal including Code School, Thoughtbot/Upcase, RailsCasts, Ruby Tapas, and too many other Internet based free &hellip;">
+  <meta name="description" content="Recently I got a bug, ney rather an itch I needed to scratch. I have been using RVM for over a year and half. I have had some issues, but mostly &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,65 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/11/17/Cha-Cha-Cha-Chruby/">Cha-Cha-Cha-Chruby</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-17T20:40:47-05:00" pubdate data-updated="true">Nov 17<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recently I got a bug, ney rather an itch I needed to scratch.  I have been using RVM for over a year and half.  I have had some issues, but mostly those were due to me learning how to work with RVM.</p>
+
+<p>I was having an odd issue on one of my Macs so I decided to remove RVM and install rbenv.  I shot a tweet out to see if anyone had an opinion about rbenv and I received a reply suggesting I give chruby a chance.  Recently I had listened to an episode of Ruby Rogues <a href="http://devchat.tv/ruby-rogues/169-rr-version-managers-with-michal-papis-mislav-maronic-and-postmodern-mod-iii">#169</a>,  where they talked about RVM, rbenv, and chruby.</p>
+
+<p>So I decied to give chruby a try.  Removing RVM is pretty straight forward.  You should be able to simply run:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rvm implode</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once removed, you may need to edit your .bashrc/.zshrc or *profile file(s) to remove any reference to RVM.</p>
+
+<p>While I really like RVM, I&rsquo;ve always been a bit worried about the magic it performs &ndash; the stuff it does for me that I&rsquo;m not familiar with.  Chruby seemed to be easier for me to grasp.  From my limited understanding, there seems to be less moving parts in chruby vs. RVM.</p>
+
+<p>I&rsquo;m not going to lay out all of the steps to get chruby installed.  The source web pages for chruby and ruby-install are very easy to read and comprehend.</p>
+
+<p><a href="https://github.com/postmodern/chruby">chruby</a><br>
+<a href="https://github.com/postmodern/ruby-install">ruby-install</a></p>
+
+<p>It took me a little bit to understand the differences of chruby and how I would use in my environment.  But after getting it running on my laptop, I converted two other Macs, my Ubuntu VM, and my CentOS server to use chruby.</p>
+
+<p>As I said earlier, I do like RVM, and it had served me well.  I still use RVM at my day job on our CentOS servers.  I thought changing from RVM to chruby on those servers would be a good idea, so I attempted to change a development server.  While the removal of RVM and install of Chruby went fine, I ran into a huge issue.  I could not get Passenger to work properly under Chruby.  I&rsquo;m sure the reason is due to my lack of understanding, but I just couldn&rsquo;t afford to figure it out. So I switched back to RVM &ndash; and RVM will stay on our work servers.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -992,60 +1051,6 @@ cd instantclient_11_2</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/07/ancient-city-ruby-2014-day-two/">Ancient City Ruby 2014 Day Two</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-07T18:35:20-04:00" pubdate data-updated="true">Apr 7<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Day two was a rough start for me.  I over slept a little bit so I didn&rsquo;t have time to get breakfast at home.  Luckily, there was some breakfast provided at the conference.  I&rsquo;m not a big carb eater, but I knew that if I didn&rsquo;t eat something, it would be a rough day.  So down went a half bagel, some fruit, a glass of water and a coffee chaser.</p>
-
-<p>Starting out the day was someone I had heard of, but never met &ndash; Terence Lee.  Terence works at Heroku as well as participates on the Ruby core team as a contributor.  I enjoyed this talk because I&rsquo;ve been using Heroku in my knowledge quest and found the topic to be relevant.  I think we sometimes take for granted what is going on behind the scenes, by guys like Terence, to ensure easy deployment of our apps.  In summary &ndash; make sure you are off of Ruby 1.8.7 and 1.9.2.</p>
-
-<p>For day two, I took the most notes during the second talk by Craig Kerstiens.  He talked about Postgres which is the primary database that I&rsquo;ve been using in my Rails applications.  Craig confirmed something that I had encountered two days earlier &ndash; don&rsquo;t use homebrew for Postgres.  Download and use the Postgres.app from their website.  I had a lot of issues during my workshop due to homebrew and its installation of Postgres.  Along with good tips for Postgres related resources, I also learned new stuff like sequential scan vs index scan.  And using Gin for indexing when you have multiple values in a column vs the standard BTree index method.  Rounding out his talk, I walked away with a to-do list of required research on HStore and jsonb.</p>
-
-<p>Lunch on day two was the only part of the conference I didn&rsquo;t like.  I am not a pasta fan at all and sadly didn&rsquo;t find much I could eat.  I ended up snacking on two pieces of cheese and a chunk of bread.  Where the meal failed for me, the desert was a home run!  So I filled up on desert and coffee.  Yup, I was a bit jittery for the rest of the day.</p>
-
-<p>After lunch it was time for Aaron.  His presentation had both a healthy serving of comedic relief as well as filling geekery.  Who else but Aaron would code a way, using a webcam, to scan all of his Magic the Gathering cards and catalog their value?  Oh and did I mention there were cats?  Aaron urged the audience to help him test out one of his projects related to OpenCV.  We were to all send him a tweet with the words &ldquo;Photo Me&rdquo;.  The goal was for his program to see the tweet, take a picture of Aaron at that moment in time, and send the picture to the person who tweeted him.  Well it seems one variable wasn&rsquo;t accounted for &ndash; Twitter.  With a flood of incoming requests to his Twitter account, the &ldquo;enforcers&rdquo; locked his account.</p>
-
-<p>Something that I had forgotten to mention earlier was that for most of the conference, Ben sat with me.  I really thought this was cool.  Most of the speakers sat together up front or to the side.  But I got to sit with Ben &ndash; just me and him.</p>
-
-<p>Which brings me to one of Ben&rsquo;s friends &ndash; Konstantin.  Ben had made some reference to Konstantin in his presentation &ndash; well more like to Konstantin&rsquo;s bag which apparently got lost while enroute to a conference in the Philippines.  Konstantin had a good bit of humor in his presentation which focused on security.  It was very englightening to learn about the many different ways hackers try to compromise web applications, including Rails applications.  Both the Ruby and Rails teams make a great effort to eliminate/prevent security issues.  I&rsquo;ll admit there were parts of the talk that went over my head.  But overall, I found it very usefull and an area where I want to learn more.</p>
-
-<p>Near the end of Konstantin&rsquo;s talk I started to feel the effect of not eating a proper lunch, and an overload of sweets.  I started getting a little light-headed.  So the end of the conference was a bit of a blur.</p>
-
-<p>I&rsquo;ve only been to two Ruby related conferences &ndash; Ruby Conf 2013 in Miami, and now this one, Ancient City Ruby Conf 2014.  Although the one if Miami was much larger, I enjoyed the Ancient City one more.  I felt like I learned more at ACR and fit in better.  At the conference in Miami I very much felt like an outsider.  But at ACR I met a lot of people from all over the US and the world.  I am looking forward to another Ancient City Ruby conference in 2015!</p>
-
-<p><em>Learn Something New Every Day</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1063,6 +1068,10 @@ cd instantclient_11_2</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/06/02/breaking-up-is-hard/">Breaking Up Is Hard To Do</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/05/05/unexcused-absence/">An Unexcused Absence</a>
       </li>
     
@@ -1076,10 +1085,6 @@ cd instantclient_11_2</p>
     
       <li class="post">
         <a href="/blog/2015/02/17/learning-from-test-suite-aggrevation/">Learning From Test Suite Aggravation</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/02/03/gathering-of-some-newbs/">The Gathering</a>
       </li>
     
   </ul>

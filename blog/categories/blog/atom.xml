@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blog | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/blog/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-06-02T08:00:55-04:00</updated>
+  <updated>2015-06-02T08:02:22-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,53 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Breaking Up Is Hard To Do]]></title>
+    <link href="http://hogihung.github.io/blog/2015/06/02/breaking-up-is-hard/"/>
+    <updated>2015-06-02T09:09:25-04:00</updated>
+    <id>http://hogihung.github.io/blog/2015/06/02/breaking-up-is-hard</id>
+    <content type="html"><![CDATA[<p>Whether you are the break<strong>or</strong> or the break<strong>ee</strong>, breaking up is hard to do.  I can
+still rememeber years back when I broke up with my girlfriend at the time.  I
+was the break<strong>ee</strong> and it was not easy. Emotions ran wild and I took it really
+hard.  But in the end, it turned out for the better.  I met and married a
+much better person.</p>
+
+<p>As of this Friday, June 5th, I am breaking up from my Corporate marriage.  I
+have been working for a large corporation, whether that be Merrill Lynch or
+AT&amp;T, for 20 years.  Currently I am with AT&amp;T, approaching my 14th year with
+them.  But I am leaving that life for a new one.  My new job will be as a
+full time Ruby developer.  Something that I have been slowly training myself
+for over the past 1.5 years.</p>
+
+<p>I wasn&rsquo;t looking to leave AT&amp;T.  Overall, I&rsquo;ve been happy there.  And the
+environment has been fairly stable.  I have repeatedly received high year
+end evaluations.  I have been told how valuable I am to the team and how
+others look to me.  And that is great.  However, as can be the case in the
+corporate world, I&rsquo;m in a job &lsquo;band&rsquo;.  I&rsquo;ve asked to be bumped to a higher
+band so that I could grow, but at this time they have not been able to
+accommodate me.</p>
+
+<p>So this time around, when I was asked by someone looking to hire a developer,
+I said, &ldquo;&hellip;tell me more.&rdquo;  After learning about the new opportunity, and
+thinking really hard, I decided to accept the job offer.  It was not an easy
+decision &ndash; as I mentioned above, I&rsquo;ve been with AT&amp;T for almost 14 years. I
+get paid pretty good, and have excellent benefits, including a nice 401k
+plan.</p>
+
+<p>But I made the decision to move in order to solidify my future.  I
+believe that working as a full time Ruby developer, I will be able to
+grow my knowledge rapidly, as well as expand my compensatation potential.  Along
+the way, I will be building a solid path for my retirement &ndash; I can code from just
+about anywhere, at anytime.</p>
+
+<p>Once I&rsquo;ve been at the new job for about a month, I will write again about how things
+are going.  Hopefully I will not come back and utter the words of Gob, from &lsquo;Arrested
+Development&rsquo;, and say: <em>&ldquo;I&rsquo;ve made a huge mistake.&rdquo;</em></p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[An Unexcused Absence]]></title>
@@ -308,56 +355,6 @@ end
 <p>After making the above changes, I ran my tests for the single spec file and to my delight, everything was green.  Now the real moment of truth &ndash; run the entire test suite.  A smile slowly expanded on my face as all the green scrolled by without a single pixel of red!</p>
 
 <p>Although this issue aggravated me for a bit, the end result was much happiness and joy.  Not to mention I learned a few cool new things here and there in the process.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[The Gathering]]></title>
-    <link href="http://hogihung.github.io/blog/2015/02/03/gathering-of-some-newbs/"/>
-    <updated>2015-02-03T07:50:00-05:00</updated>
-    <id>http://hogihung.github.io/blog/2015/02/03/gathering-of-some-newbs</id>
-    <content type="html"><![CDATA[<p>A few weeks back I was discussing an idea around the weekly Code and Coffee table.
-The idea was a spin on something I saw Nathan Barry discussing over <a href="http://nathanbarry.com/24hours/">here</a>.
-I still consider myself a newbie to Ruby, but I wanted to do my own personal hack-a-thon.</p>
-
-<p>Well that idea morphed, or is the cool thing to say, pivoted, to a project that me
-and two other new to Ruby programmers would work on. All three of us discussed the
-idea of creating something new.  Something no one else has done before.  A blog
-written in Ruby on Rails.</p>
-
-<p>Hopefully now you are not looking at your screen with coffee sprayed all over it
-due to your laughing.  I know, there have been many, many Blog type projects.  So
-why is this one different?  I&rsquo;m not sure it really is.  What I can say is that
-project is giving us an opportunity to work together and learn from each other.
-Not to say anything bad about you seniors out there, but there are times I feel
-that the best way to illustrate that I&rsquo;ve learned something that you have passed
-on, is to share that knowledge with others around my level.</p>
-
-<p>So yes, we are making a dynamic blog written in Rails.  If you are interested in
-checking it out, you can find it <a href="https://github.com/hogihung/flex_blogger">here</a>.
-Please keep in mind that we are still in active development.  I will update the
-README file once we are at a point where we think the application is solid.</p>
-
-<p>There are a lot of &lsquo;firsts&rsquo; for me in regards to this project.  This is the first
-web application I&rsquo;m working on with more than two people actively working at the
-same time.  I&rsquo;m learning how to create and manage pull requests.  I&rsquo;m attempting
-to help lead the project and keep all of us updated on the progress.</p>
-
-<p>All three of us have been working with Ruby and Rails for a little bit &ndash; perhaps
-a year or year and half.  But there are some other &lsquo;new to us&rsquo; components that we
-have choosen to try out.  We decided to bypass Devise and Twitter Bootstrap &ndash; both
-things that were comfortable to us.  Instead, we are using several great tools
-that <a href="https://github.com/thoughtbot/">Thoughtbot</a> has shared with the community
-including:  Bourbon, Neat, Bitters, Refills, Clearance, FactoryGirl and HoundCI.</p>
-
-<p>I welcome any feedback on our project, <strong>Flex Blogger</strong>.  Just shoot me a tweet on
-Twitter, or email me.  I&rsquo;m excited to see the final product and have this cool
-experience.</p>
-
-<p>I still want to test my skills by doing a personal hack-a-thon, but I need to
-convince some of the gurus I know to be my guest drop ins.  :)</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>
