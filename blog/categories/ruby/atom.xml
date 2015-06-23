@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-06-23T09:37:48-04:00</updated>
+  <updated>2015-06-23T09:39:02-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,52 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Learnings from the Front]]></title>
+    <link href="http://hogihung.github.io/blog/2015/06/23/learnings-from-the-front/"/>
+    <updated>2015-06-23T10:30:25-04:00</updated>
+    <id>http://hogihung.github.io/blog/2015/06/23/learnings-from-the-front</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been watching some shows lately that focus around World War I and II, thus the catchy title in todays' post.  I am now in week three of the new job as a full time Ruby developer, and I&rsquo;ve already learned a lot more than I was expecting.  Today I would like to share some little tidbits of knowledge I have accumulated.</p>
+
+<p>Prior to accepting this new job I had been slowly learning how to use vim for more than a quick edit of a server config file.  But it wasn&rsquo;t until I was spending my entire day in vim, and pairing with others, that I realized how powerful vim is, and how little I know about it.  I was a Sublime Text user, and the switch to vim was a leap for me. I had a certain workflow down in Sublime and I needed to learn how to do the same types of things, and more, in vim.</p>
+
+<p>One of my favorite aspects of Sublime was that it remembered all of the files I had open previously, so that when I restarted Sublime, all of my files would be re-opened in their respective tabs.  For about two weeks, I really missed that feature and finally decided, surely vim can do this.  Off to the net for a solution.  I was excited to find that not only could I save all of my open files and tabs, but I could do it with a twist.  Let me explain.</p>
+
+<p>There are times where I am working on say two or three features/issues/bugs through out the span of a few days.  I will bounce between branches off our main app (master) and while working in each of those branches I need different files open.  Vim has a cool command, mksession, that will allow me handle this scenario.  For example, I am working on feature add_user_attribute in a branch with a similar name.  I have six or so files open to work on this item.  However, I need to go work on another task but I don&rsquo;t want to have to remember all of these files that I had open.  Prior to this new tip, what I was doing was executing the command :tabs and taking a screen capture of my open tabs and files.  But with this new knowledge, I now can do the following:</p>
+
+<p><code>
+:mksession ~/add_user_attribute.vim
+</code></p>
+
+<p>That will save my entire vim session &ndash; all open files and their respective tabs.  You can modify the file and path to your liking.  In my example above I am saving the file add_user_attribute.vim to my home directory.  With my session saved, I can now go work on some other tasks.  When I come back to this branch, and want to resume my work, I simply type the following:</p>
+
+<p><code>
+vim -S ~/add_user_attribute.vim
+</code></p>
+
+<p>Pretty neat, huh?  Sure beats taking a screen shot and re-opening the desired files each time.</p>
+
+<p>To assist me in my learning of vim, I have a desktop/space dedicated to Vim research.  I&rsquo;m not sure if other operating systems have that feature, but I work on a Mac so I can swipe or Cntrl+right_arrow/left_arrow to work in another desktop/space.  In my vim research desktop I have Chrome fired up with tabs full of answers to all the common things I&rsquo;m trying to do with vim.  Those browser tabs stay there until my muscle memory has kicked in and I no longer need them.</p>
+
+<p>One more quick tip, as I just learned this today.  When I run my tests and see the failures, there is usually a line number associated with the failure.  In the past, I would switch/open the test file, type gg to go to the top of the file and then type nnj, where nn equals the reported line number.  So if my failing test was on line 124, I would do the following:</p>
+
+<p><code>
+gg
+124j
+</code></p>
+
+<p>It wasn&rsquo;t until I found myself doing this way too often that I decided there had to be a better way.  This is vim, of course there is!  To accomplish the same task, more efficiently, one can use:</p>
+
+<p><code>
+:124&lt;cr&gt;
+</code></p>
+
+<p>And that is all I have for today.  I&rsquo;ve learned a lot more neat new stuff with vim, but I&rsquo;ll save that knowledge for a rainy day.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[An Unexcused Absence]]></title>
@@ -224,100 +270,6 @@ rvm implode
 <p>It took me a little bit to understand the differences of chruby and how I would use in my environment.  But after getting it running on my laptop, I converted two other Macs, my Ubuntu VM, and my CentOS server to use chruby.</p>
 
 <p>As I said earlier, I do like RVM, and it had served me well.  I still use RVM at my day job on our CentOS servers.  I thought changing from RVM to chruby on those servers would be a good idea, so I attempted to change a development server.  While the removal of RVM and install of Chruby went fine, I ran into a huge issue.  I could not get Passenger to work properly under Chruby.  I&rsquo;m sure the reason is due to my lack of understanding, but I just couldn&rsquo;t afford to figure it out. So I switched back to RVM &ndash; and RVM will stay on our work servers.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Borrowing From Ruby Tapas]]></title>
-    <link href="http://hogihung.github.io/blog/2014/11/04/borrow-a-tapa-convention/"/>
-    <updated>2014-11-04T07:20:45-05:00</updated>
-    <id>http://hogihung.github.io/blog/2014/11/04/borrow-a-tapa-convention</id>
-    <content type="html"><![CDATA[<p>I have many learning tools in my arsenal including Code School, Thoughtbot/Upcase, RailsCasts, Ruby Tapas, and too many other Internet based free resources to list.  But today I want to talk tapas, and borrow something that I learned from watching many episodes of Ruby Tapas.</p>
-
-<p>As I&rsquo;ve watched various episodes, I kept saying to myself, how is Avdi executing code right from within his text editor?  Is this some time of post production trickery?  Perhaps a green screen based laptop with a dash of After Effects?  But after some research, I learned that is wasn&rsquo;t some fancy magic, but rather an ability within his editor.  I believe that editor to be Emacs.</p>
-
-<p>Well, I&rsquo;m a Sublime Text user, and slowly dabbling with Vim.  So off to the online oracles to see if I could find a solution that would work in Sublime.  I did indeed find some solutions that said they were doing what Avdi can do &ndash; even referencing that they had the same desire as me.  However, I was not successful with getting Sublime to work the way I was expecting.  After spending several hours trying to force it to work, I gave up.  And I had a thought &ndash; surely this would be easier to get working with Vim.  :)</p>
-
-<p>Getting the Tapas style in-line Ruby code execution to work in Vim was nice and easy.  I followed the instructions <a href="http://commandercoriander.net/blog/2012/10/10/evaluate-lines-of-ruby-in-vim/">here</a> and was up in running with very little effort.  For those that don&rsquo;t want leave from this fabulous reading, I&rsquo;ll summarize what needs to be done, first starting with the installation of a gem:</p>
-
-<p><code>
-gem install rcodetools
-</code></p>
-
-<p>Now we need to add a plugin to Vim.  Depending on your setup, you may need to add the .vim/bundle directory in your home directory.  But I already had this setup, so all I needed to do was the following:</p>
-
-<p><code>
-cd ~
-cd .vim/bundle
-git clone https://github.com/t9md/vim-ruby-xmpfilter.git
-</code></p>
-
-<p>For a final bit of setup/configuration, we need to take a trip in editing the ~/.vimrc or ~/.vimrc.local file so we can do some mapping:</p>
-
-<p>```
-nmap <buffer> <F4> <Plug>(xmpfilter-mark)
-xmap <buffer> <F4> <Plug>(xmpfilter-mark)
-imap <buffer> <F4> <Plug>(xmpfilter-mark)</p>
-
-<p>nmap <buffer> <F5> <Plug>(xmpfilter-run)
-xmap <buffer> <F5> <Plug>(xmpfilter-run)
-imap <buffer> <F5> <Plug>(xmpfilter-run)
-```</p>
-
-<p>The above mapping will allows us to mark (F4) what line(s) we want to see the results for of executing the ruby code, which we accomplish by pressing F5.  Let&rsquo;s step through an example to see how this works.  I&rsquo;ll show the example file through the various stages.</p>
-
-<p><code>
-1 class Person
-2   attr_accessor :name, :age
-3
-4   def initialize(name)
-5     self.name = name
-6     self.age = "Does it matter?"
-7   end
-8 end
-9
-10 p = Person.new('Kevin')
-11 p.name
-12 p.age
-</code></p>
-
-<p>Next we will press F4 for the code we want to evaluate, line 11 below:</p>
-
-<p><code>
-1 class Person
-2   attr_accessor :name, :age
-3
-4   def initialize(name)
-5     self.name = name
-6     self.age = "Does it matter?"
-7   end
-8 end
-9
-10 p = Person.new('Kevin')
-11 p.name # =&gt;
-12 p.age
-</code></p>
-
-<p>And finally, EXECUTE (F5):</p>
-
-<p><code>
-1 class Person
-2   attr_accessor :name, :age
-3
-4   def initialize(name)
-5     self.name = name
-6     self.age = "Does it matter?"
-7   end
-8 end
-9
-10 p = Person.new('Kevin')
-11 p.name # =&gt; "Kevin"
-12 p.age
-</code></p>
-
-<p>Pretty neat, eh?  Borrowing this workflow from Ruby Tapas will now help me when I&rsquo;m following along with each episode.  Now I just need to get better with Vim.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>

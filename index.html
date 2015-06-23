@@ -9,8 +9,7 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="Whether you are the breakor or the breakee, breaking up is hard to do. I can
-still rememeber years back when I broke up with my girlfriend at the &hellip;">
+  <meta name="description" content="I&rsquo;ve been watching some shows lately that focus around World War I and II, thus the catchy title in todays&#8217; post. I am now in week three &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +65,80 @@ still rememeber years back when I broke up with my girlfriend at the &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/06/23/learnings-from-the-front/">Learnings From the Front</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-06-23T10:30:25-04:00" pubdate data-updated="true">Jun 23<span>rd</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;ve been watching some shows lately that focus around World War I and II, thus the catchy title in todays&#8217; post.  I am now in week three of the new job as a full time Ruby developer, and I&rsquo;ve already learned a lot more than I was expecting.  Today I would like to share some little tidbits of knowledge I have accumulated.</p>
+
+<p>Prior to accepting this new job I had been slowly learning how to use vim for more than a quick edit of a server config file.  But it wasn&rsquo;t until I was spending my entire day in vim, and pairing with others, that I realized how powerful vim is, and how little I know about it.  I was a Sublime Text user, and the switch to vim was a leap for me. I had a certain workflow down in Sublime and I needed to learn how to do the same types of things, and more, in vim.</p>
+
+<p>One of my favorite aspects of Sublime was that it remembered all of the files I had open previously, so that when I restarted Sublime, all of my files would be re-opened in their respective tabs.  For about two weeks, I really missed that feature and finally decided, surely vim can do this.  Off to the net for a solution.  I was excited to find that not only could I save all of my open files and tabs, but I could do it with a twist.  Let me explain.</p>
+
+<p>There are times where I am working on say two or three features/issues/bugs through out the span of a few days.  I will bounce between branches off our main app (master) and while working in each of those branches I need different files open.  Vim has a cool command, mksession, that will allow me handle this scenario.  For example, I am working on feature add_user_attribute in a branch with a similar name.  I have six or so files open to work on this item.  However, I need to go work on another task but I don&rsquo;t want to have to remember all of these files that I had open.  Prior to this new tip, what I was doing was executing the command :tabs and taking a screen capture of my open tabs and files.  But with this new knowledge, I now can do the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>:mksession ~/add_user_attribute.vim</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That will save my entire vim session &ndash; all open files and their respective tabs.  You can modify the file and path to your liking.  In my example above I am saving the file add_user_attribute.vim to my home directory.  With my session saved, I can now go work on some other tasks.  When I come back to this branch, and want to resume my work, I simply type the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim -S ~/add_user_attribute.vim</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty neat, huh?  Sure beats taking a screen shot and re-opening the desired files each time.</p>
+
+<p>To assist me in my learning of vim, I have a desktop/space dedicated to Vim research.  I&rsquo;m not sure if other operating systems have that feature, but I work on a Mac so I can swipe or Cntrl+right_arrow/left_arrow to work in another desktop/space.  In my vim research desktop I have Chrome fired up with tabs full of answers to all the common things I&rsquo;m trying to do with vim.  Those browser tabs stay there until my muscle memory has kicked in and I no longer need them.</p>
+
+<p>One more quick tip, as I just learned this today.  When I run my tests and see the failures, there is usually a line number associated with the failure.  In the past, I would switch/open the test file, type gg to go to the top of the file and then type nnj, where nn equals the reported line number.  So if my failing test was on line 124, I would do the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gg
+</span><span class='line'>124j</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It wasn&rsquo;t until I found myself doing this way too often that I decided there had to be a better way.  This is vim, of course there is!  To accomplish the same task, more efficiently, one can use:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>:124&lt;cr&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And that is all I have for today.  I&rsquo;ve learned a lot more neat new stuff with vim, but I&rsquo;ll save that knowledge for a rainy day.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1031,104 +1104,6 @@ listen_addresses = '*'
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/11/18/aint-your-ruby/">Aint Your Ruby</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-11-18T08:40:25-05:00" pubdate data-updated="true">Nov 18<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>When meeting new people in the programming community, we frequently share what we do in our day jobs.  By day I primarily use Perl, though I have been slowly building up an arsenal of Ruby and Ruby on Rails applications.  But before learning Matz&rsquo;s Ruby, I learned a different flavor of Ruby.  And this &lsquo;aint your ruby.&rsquo;</p>
-
-<p>When I first transitioned to the team I am on now, my primary duties were to provide tier three support of specialized networking equipment.  Our team can be split into two roles:  Tech Support/Project Management and Automation/Programming.  Over time, I migrated over to the Automation side. We use Perl for our tool server scripts and Ruby to get things started.  Off to the internet I went to learn Ruby, only to quickly find that our Ruby was not the Ruby I found online.</p>
-
-<p>The Ruby we use at work stands for:  <strong>R</strong>ules yo<strong>U B</strong>uild <strong>Y</strong>ourself.  I believe the foundation or underlaying language is Java.</p>
-
-<p>In a nutshell, our networking equipment sends events/traps to a trap collector.  That collector then does some processing on the event and forwards to our Ruby system.  We then perform certain actions using our Ruby based on the received alarms/events.  Below is a small example of code of &lsquo;our&rsquo; Ruby:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// Ping failed to LoopBack interface. IP=
-</span><span class='line'>// Able to extract an IP Address
-</span><span class='line'>rule DI0780_0020
-</span><span class='line'>{
-</span><span class='line'>  packet = DI0780;
-</span><span class='line'>  when
-</span><span class='line'>  {
-</span><span class='line'>    ?a: ModemsAlarm(isTypeNull() != 0;
-</span><span class='line'>        isStringMatch(?a.getObject(), "^[a-z][a-z][a-z0-9][a-z][a-z][0-9][0-9]+(kvm|mve|rrs[0-9][0-9][a-z][a-z][a-z]*)") == False;
-</span><span class='line'>    isStringMatch(?a.getService(), "ALPHA|BETA") !=0;
-</span><span class='line'>    isNameMatch("Ping +failed +to +LoopBack .*IP=") != 0);
-</span><span class='line'>  }
-</span><span class='line'>  then
-</span><span class='line'>  {
-</span><span class='line'>    modify ?a
-</span><span class='line'>    {
-</span><span class='line'>      setType("DI0780_CiscoInterfaceDown");
-</span><span class='line'>      setContainer("IP",?a.getToken("IP= *([0-9]+.[0-9]+.[0-9]+.[0-9]+)",?a.getAlarmText()));
-</span><span class='line'>      setContainer("ROUTER_IFNAME","Loopback");
-</span><span class='line'>      setContainer("DEVICE_NAME",?a.getToken("([a-z0-9]+).els-an.att.net",?a.getSource()));
-</span><span class='line'>      setContainer("EVENT_CORELATION_NAME",?a.buildString2("%1 %2",?a.getContainer("DEVICE_NAME"),?a.getContainer("IP")));
-</span><span class='line'>      putRubyLog2("DI0780_0020", ?a.buildString1("Received a Generic Ping fail to Loopback alarm, %1", ?a.getName()));
-</span><span class='line'>    }
-</span><span class='line'>  }
-</span><span class='line'>};</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Pretty wild stuff, eh?  This is just a short snippet &ndash; there is a lot more going on in our &lsquo;library&rsquo; of packets and rules.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1144,6 +1119,10 @@ listen_addresses = '*'
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/06/23/learnings-from-the-front/">Learnings from the Front</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/06/02/breaking-up-is-hard/">Breaking Up Is Hard To Do</a>
       </li>
     
@@ -1157,10 +1136,6 @@ listen_addresses = '*'
     
       <li class="post">
         <a href="/blog/2015/03/29/at-sea-without-the-net/">At Sea Without The Net</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/02/17/learning-from-test-suite-aggrevation/">Learning From Test Suite Aggravation</a>
       </li>
     
   </ul>

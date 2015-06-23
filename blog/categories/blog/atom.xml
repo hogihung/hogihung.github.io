@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blog | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/blog/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-06-23T09:37:48-04:00</updated>
+  <updated>2015-06-23T09:39:02-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,52 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Learnings from the Front]]></title>
+    <link href="http://hogihung.github.io/blog/2015/06/23/learnings-from-the-front/"/>
+    <updated>2015-06-23T10:30:25-04:00</updated>
+    <id>http://hogihung.github.io/blog/2015/06/23/learnings-from-the-front</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been watching some shows lately that focus around World War I and II, thus the catchy title in todays' post.  I am now in week three of the new job as a full time Ruby developer, and I&rsquo;ve already learned a lot more than I was expecting.  Today I would like to share some little tidbits of knowledge I have accumulated.</p>
+
+<p>Prior to accepting this new job I had been slowly learning how to use vim for more than a quick edit of a server config file.  But it wasn&rsquo;t until I was spending my entire day in vim, and pairing with others, that I realized how powerful vim is, and how little I know about it.  I was a Sublime Text user, and the switch to vim was a leap for me. I had a certain workflow down in Sublime and I needed to learn how to do the same types of things, and more, in vim.</p>
+
+<p>One of my favorite aspects of Sublime was that it remembered all of the files I had open previously, so that when I restarted Sublime, all of my files would be re-opened in their respective tabs.  For about two weeks, I really missed that feature and finally decided, surely vim can do this.  Off to the net for a solution.  I was excited to find that not only could I save all of my open files and tabs, but I could do it with a twist.  Let me explain.</p>
+
+<p>There are times where I am working on say two or three features/issues/bugs through out the span of a few days.  I will bounce between branches off our main app (master) and while working in each of those branches I need different files open.  Vim has a cool command, mksession, that will allow me handle this scenario.  For example, I am working on feature add_user_attribute in a branch with a similar name.  I have six or so files open to work on this item.  However, I need to go work on another task but I don&rsquo;t want to have to remember all of these files that I had open.  Prior to this new tip, what I was doing was executing the command :tabs and taking a screen capture of my open tabs and files.  But with this new knowledge, I now can do the following:</p>
+
+<p><code>
+:mksession ~/add_user_attribute.vim
+</code></p>
+
+<p>That will save my entire vim session &ndash; all open files and their respective tabs.  You can modify the file and path to your liking.  In my example above I am saving the file add_user_attribute.vim to my home directory.  With my session saved, I can now go work on some other tasks.  When I come back to this branch, and want to resume my work, I simply type the following:</p>
+
+<p><code>
+vim -S ~/add_user_attribute.vim
+</code></p>
+
+<p>Pretty neat, huh?  Sure beats taking a screen shot and re-opening the desired files each time.</p>
+
+<p>To assist me in my learning of vim, I have a desktop/space dedicated to Vim research.  I&rsquo;m not sure if other operating systems have that feature, but I work on a Mac so I can swipe or Cntrl+right_arrow/left_arrow to work in another desktop/space.  In my vim research desktop I have Chrome fired up with tabs full of answers to all the common things I&rsquo;m trying to do with vim.  Those browser tabs stay there until my muscle memory has kicked in and I no longer need them.</p>
+
+<p>One more quick tip, as I just learned this today.  When I run my tests and see the failures, there is usually a line number associated with the failure.  In the past, I would switch/open the test file, type gg to go to the top of the file and then type nnj, where nn equals the reported line number.  So if my failing test was on line 124, I would do the following:</p>
+
+<p><code>
+gg
+124j
+</code></p>
+
+<p>It wasn&rsquo;t until I found myself doing this way too often that I decided there had to be a better way.  This is vim, of course there is!  To accomplish the same task, more efficiently, one can use:</p>
+
+<p><code>
+:124&lt;cr&gt;
+</code></p>
+
+<p>And that is all I have for today.  I&rsquo;ve learned a lot more neat new stuff with vim, but I&rsquo;ll save that knowledge for a rainy day.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Breaking Up Is Hard To Do]]></title>
@@ -276,85 +322,6 @@ git push origin master
 <p>One can visit the above site and download a local copy of the Ruby and/or Rails APIs.  The neat thing is, you can choose which version or Ruby or Rails that you want to download the documentation for.  Neat!</p>
 
 <p>With a local copy of the documentation I was needing, I pushed my committed changes from the previous day, then logged out &ndash; only used about 15 minutes of our satellite internet.  :)</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Learning From Test Suite Aggravation]]></title>
-    <link href="http://hogihung.github.io/blog/2015/02/17/learning-from-test-suite-aggrevation/"/>
-    <updated>2015-02-17T07:55:00-05:00</updated>
-    <id>http://hogihung.github.io/blog/2015/02/17/learning-from-test-suite-aggrevation</id>
-    <content type="html"><![CDATA[<p>In my previous <a href="http://oldguynewtrick.com/blog/2015/02/03/gathering-of-some-newbs/">post</a> I spoke about the Flex Blogger project.  Josh introduced us to a new component called ckeditor.  Ckeditor is a javascript based gui text editor.  After using ckeditor I thought it would be beneficial to add it to another application I created for my day job &ndash; HarePD.</p>
-
-<p>Before starting on new features, I will fire off my test suite to make sure everything is still green.  For me I just type:  rspec</p>
-
-<p>I love seeing all that green!  Next, I created a branch to work on this new feature, and updated my Gemfile:</p>
-
-<p>```
-git checkout -b add_ckeditor
-vim Gemfile</p>
-
-<p>{added}
-gem &lsquo;ckeditor&rsquo;
-```</p>
-
-<p>You can get more information regarding how to setup ckeditor in your rails application by visiting <a href="https://github.com/galetahub/ckeditor">here</a></p>
-
-<p>With the new gem added, and minor updates made in the appropriate view file, _form.html.slim, it was time to re-run my test suite.  Things were looking good as I saw green, green, green.  Then, as my tests executed on the scenarios that used ckeditor, I started to see red.  No big deal I thought, probably a simple change.  Below is an example of one of my tests that was failing:</p>
-
-<p>```
-spec/support/issues_helper.rb</p>
-
-<p>def create_issue
-  click_link &lsquo;Add Issue&rsquo;
-  fill_in &lsquo;Title&rsquo;, with: &lsquo;Cert Expiration&rsquo;
-  fill_in &lsquo;Description&rsquo;, with: &lsquo;SSL Cert Expiration&rsquo;
-  select(&lsquo;2&rsquo;, :from => &lsquo;User level&rsquo;)
-  select(&lsquo;Linux&rsquo;, :from => &lsquo;Os&rsquo;)
-  click_button &lsquo;Submit&rsquo;
-end
-```</p>
-
-<p>Ok, this should be an easy fix.  I inspected the ckeditor element on my webpage using the Chrome Dev Tools, and got the new name &ndash; issue_description.  So I updated the tests that were using &lsquo;Description&rsquo; and replaced with &lsquo;issue_description.&rsquo;  I ran a focused test, on just one scenario and it went green.  Next, I ran all the tests in that particular spec file and again I had a combination of green and red.  Argh!  I took notice of all the failed tests and ran them each one-by-one.  They all passed &ndash; they were all green when executed on their own.  Argh f#@% damnit!</p>
-
-<p>Many hours passed as well as changes here and there to try and get things working.  To keep this post fairly short, I&rsquo;m going to jump to the solution.  After some research and trying different solutions, I stumbled upon the following:</p>
-
-<p>```
-Create a new file:
-spec/support/ckeditor_helper.rb</p>
-
-<p>def fill_in_ckeditor(locator, params = {})
-  locator = find(&lsquo;label&rsquo;, text: locator)[:for] if page.has_css?(&lsquo;label&rsquo;, text: locator)
-  page.execute_script &lt;&lt;-SCRIPT</p>
-
-<pre><code>  var ckeditor = CKEDITOR.instances.#{locator}
-  ckeditor.setData('#{params[:with]}')
-  ckeditor.focus()
-  ckeditor.updateElement()
-</code></pre>
-
-<p>  SCRIPT
-end
-```</p>
-
-<p>With the above in place, I refactored my create_issue method from above to read as follows:</p>
-
-<p><code>
-def create_issue
-  click_link 'Add Issue'
-  fill_in 'Title', with: 'Cert Expiration'
-  fill_in_ckeditor 'Description', with: 'SSL Cert Expiration'
-  select('2', :from =&gt; 'User level')
-  select('Linux', :from =&gt; 'Os')
-  click_button 'Submit'
-end
-</code></p>
-
-<p>After making the above changes, I ran my tests for the single spec file and to my delight, everything was green.  Now the real moment of truth &ndash; run the entire test suite.  A smile slowly expanded on my face as all the green scrolled by without a single pixel of red!</p>
-
-<p>Although this issue aggravated me for a bit, the end result was much happiness and joy.  Not to mention I learned a few cool new things here and there in the process.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>
