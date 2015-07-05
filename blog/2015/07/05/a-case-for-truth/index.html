@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>An Unexcused Absence - Old Guy, New Trick</title>
+  <title>A Case for the Truth - Old Guy, New Trick</title>
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="The dedicated and faithful reader of this old guy, would have noticed an extended
-silence in this corner of the web. I have, as the automated voice &hellip;">
+  <meta name="description" content="This week I attended the school of Hard Knocks &ndash; a course in JavaScript. The application
+that I am working on for the day job does validation &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@ silence in this corner of the web. I have, as the automated voice &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hogihung.github.io/blog/2015/05/05/unexcused-absence/">
+  <link rel="canonical" href="http://hogihung.github.io/blog/2015/07/05/a-case-for-truth/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -69,7 +69,7 @@ silence in this corner of the web. I have, as the automated voice &hellip;">
   
   <header>
     
-      <h1 class="entry-title">An Unexcused Absence</h1>
+      <h1 class="entry-title">A Case for the Truth</h1>
     
     
       <p class="meta">
@@ -85,57 +85,32 @@ silence in this corner of the web. I have, as the automated voice &hellip;">
   
 
 
-<time datetime="2015-05-05T10:15:14-04:00" pubdate data-updated="true">May 5<span>th</span>, 2015</time>
+<time datetime="2015-07-05T16:58:25-04:00" pubdate data-updated="true">Jul 5<span>th</span>, 2015</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>The dedicated and faithful reader of this old guy, would have noticed an extended
-silence in this corner of the web.  I have, as the automated voice message of my
-sons school would say, &ldquo;an unexcused absence.&rdquo;  While I won&rsquo;t make any excuses, I
-would like to share what has kept me away from my writing.</p>
+<div class="entry-content"><p>This week I attended the school of Hard Knocks &ndash; a course in JavaScript. The application
+that I am working on for the day job does validation in both JavaScript and in Ruby. One
+of my recent tasks was to add form input text boxes, zero to many, so that an Administrator
+could add URL for resources available to the users.</p>
 
-<p>Back in March I started to learn Swift by attending the Udacity iOS online program.
-Udacity has partnered with the company I work at.  After successful completion of
-the course, my company will reimburse me for the tuition.  About two weeks into
-my training, the family and I went on a cruise.  Though I brought my laptop and
-study material, I didn&rsquo;t spend much time Swift.</p>
+<p>These new input boxes would be included an existing form which first was validated using
+JavaScript.  When I first added the new input boxes I received a flash message saying that
+my new input box needed to have an integer value greater than zero. So I dug into the existing
+JavaScript to see how the validation was setup.  What I found was that we had a switch with
+several cases and a default which would display the error I received.  My new input boxes
+for a url file path obviously do not need to be a non-zero integer.  So I updated the code
+with something similar to:  case &lsquo;url_file_path&rsquo;.</p>
 
-<p>After our trip, and a hop-skip-jump over a week, it was time for Ancient City Ruby.
-I enjoyed this years ACR conference, though I would have preferred a bit more
-technical meat and less of the social fluffy stuff.  However, the most significant
-part of ACR for me was meeting with another Ruby developer and getting accepted to
-work part-time on a neat project.</p>
+<p>This update worked fine so long as we only had one input box for url_file_path.  But the
+requirement was that we provide zero to many input boxes based on a certain criteria.  My
+thought was that I could use a regular expression within my Switch-Case code.  But I ran
+into an issue.  Below is a simplified version of the existing code:</p>
 
-<p>The part-time project is my first &ldquo;real-world&rdquo; Ruby app that I&rsquo;ve been a part of.
-Though I&rsquo;ve worked on some training apps or personal Rails apps, they have all been
-small in scale compared to this new gig.  Being new to the project, and not knowing
-much outside my experience with smaller apps, I&rsquo;ve been spending a lot of time
-looking around and trying to get familiar with the applications structure.</p>
-
-<p>And then came Rails Conference!  This year the conference was held in Atlanta, GA
-which is not too bad a drive from Jacksonville, FL.  I hadn&rsquo;t yet been to a Rails
-Conference, so of course I had to go.  Overall I enjoyed the time in Atlanta.  I
-ran into a guy, David, who I had meet in Miami at Ruby Conf 2013.  Also, I got to
-spend time with another developer that is working on the same project that I mentioned
-above.</p>
-
-<p>After the conference, I have been spending most of my evenings working on the
-part-time project.  There is a lot to learn, but I am enjoying every minute of it.
-The best part of my day is seeing my tests go green and being able to merge and
-push my changes.</p>
-
-<p>And that is my excuse, uh I mean my reasons, for not being active here for a while.
-I had set a personal goal to publish a new post each month, and I&rsquo;m working to
-raise the bar and publish twice a month.  Keep me honest &ndash; smack me via Twitter
-if you feel I&rsquo;m slacking.  :)</p>
-
-<p>Ok, now I&rsquo;d like to share a little snippet of code that illustrates something neat
-I have learned while working on the part-time gig.  A great benefit of working on
-a project with a mentor.  The first example is my original code before refactoring
-to make it better and look a lot more &lsquo;Ruby-ish&rsquo;.</p>
+<p><em>Original Javascript:</em></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -156,30 +131,58 @@ to make it better and look a lot more &lsquo;Ruby-ish&rsquo;.</p>
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def is_valid?(product)
-</span><span class='line'>  return true if @errors.nil?
-</span><span class='line'>  @errors.each do |error|
-</span><span class='line'>    if error.has_key?(product)
-</span><span class='line'>      return false
-</span><span class='line'>    end
-</span><span class='line'>  end
-</span><span class='line'>  return true
-</span><span class='line'>end
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// Actual, but commented out for this example:
+</span><span class='line'>// var id = $thisInput.attr('name');
 </span><span class='line'>
-</span><span class='line'>def errored_price(product)
-</span><span class='line'>  return nil if @errors.nil?
-</span><span class='line'>  @errors.each do |error|
-</span><span class='line'>    if error.has_key?(product)
-</span><span class='line'>      return error[product]
-</span><span class='line'>    end
-</span><span class='line'>  end
-</span><span class='line'>  return nil
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>var id = 'url_file_path';  //simulated
+</span><span class='line'>switch (id) {
+</span><span class='line'>  case 'file_title':
+</span><span class='line'>    //validation logic would go here
+</span><span class='line'>    alert('This is the file title'); //sample for testing
+</span><span class='line'>    break;
+</span><span class='line'>  case 'file_description':
+</span><span class='line'>    //validation logic would go here
+</span><span class='line'>    alert('This is the file description'); //sample for testing
+</span><span class='line'>    break;
+</span><span class='line'>  case 'url_file_path':
+</span><span class='line'>    //validation logic would go here
+</span><span class='line'>    alert('This is the file description'); //sample for testing
+</span><span class='line'>    break;
+</span><span class='line'>  default:
+</span><span class='line'>    alert('We hit the default');
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
 
-<p>And now the reveal &ndash; the pretty version which accomplishes the same thing.  Note
-that during the refactor we re-named a few things, but the overall result was the
-same.</p>
+<p>I utilized the JSBin site to help me work through possible solutions.  You can find
+that site by clicking <a href="http://jsbin.com/">here</a></p>
+
+<p>The above javascript worked fine, so long as had only one input for the file path url.<br/>
+But we had the need to support zero to many url_file_path inputs.  For this discussion,
+let&rsquo;s assume we have three:</p>
+
+<ul>
+<li>url_file_path_001</li>
+<li>url_file_path_002</li>
+<li>url_file_path_003</li>
+</ul>
+
+
+<p>Well now I have a problem with my javascript.  If you run the above example, passing in
+url_file_path_00n as the simulated id, then the default alert of &lsquo;We hit the default&rsquo;
+will occur.</p>
+
+<p>What I needed was a way to use a regular expression with my case statement.  I struggled
+with different attempts.  I thought I was going crazy.  I tried out my regular expression
+logic on its own, and it worked fine. (Tip: RegEx web tool: <a href="https://regex101.com/#javascript">click here</a>)</p>
+
+<p>I researched online for a solution, as well as referred to some JavaScripts book that I have,
+but I couldn&rsquo;t figure out what was going on.  While getting ready for bed, I came across an
+item on Stack Overflow, one that I think I saw a few times but discarded.  Their example
+kept referring to using switch (true)&hellip;  But I needed to switch on the id of the form input.</p>
+
+<p>Then the light bulb went off in my head.  I made a mental note and got a good nights sleep.
+The next day, I put the puzzle pieces together and came up with the following solution:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -191,17 +194,31 @@ same.</p>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def is_valid?(product)
-</span><span class='line'>  return true if @errors.nil?
-</span><span class='line'>  return false if @errors.include?(product)
-</span><span class='line'>  return true
-</span><span class='line'>end
-</span><span class='line'>
-</span><span class='line'>def clock_price(product, eor_price)
-</span><span class='line'>  return price if @new_prices.nil?
-</span><span class='line'>  return @new_prices[product]
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var id = 'url_file_path_002';  //simulated
+</span><span class='line'>switch (true) {
+</span><span class='line'>  case /file_title/.test(id):
+</span><span class='line'>    alert('This is the file title'); 
+</span><span class='line'>    break;
+</span><span class='line'>  case /file_description/.test(id):
+</span><span class='line'>    alert('This is the file description'); 
+</span><span class='line'>    break;
+</span><span class='line'>  case /url_file_path_(\d)+/.test(id):
+</span><span class='line'>    alert('This is the file description');
+</span><span class='line'>    break;
+</span><span class='line'>  default:
+</span><span class='line'>    alert('We hit the default');
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
+
+<p>The above code could be tweaked a little bit since the validation for file_title
+and file_description are the same.  Why don&rsquo;t you take a crack at it and let me
+know how you would refactor?</p>
+
+<p>Oh, I think I hear the bell &ndash; school is out for today!</p>
 
 <p><em>Learn Something New Every Day</em></p>
 </div>
@@ -226,12 +243,12 @@ same.</p>
   
 
 
-<time datetime="2015-05-05T10:15:14-04:00" pubdate data-updated="true">May 5<span>th</span>, 2015</time>
+<time datetime="2015-07-05T16:58:25-04:00" pubdate data-updated="true">Jul 5<span>th</span>, 2015</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/blog/'>Blog</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+    <a class='category' href='/blog/categories/blog/'>Blog</a>, <a class='category' href='/blog/categories/javascript/'>Javascript</a>
   
 </span>
 
@@ -240,7 +257,7 @@ same.</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2015/05/05/unexcused-absence/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2015/05/05/unexcused-absence/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2015/07/05/a-case-for-truth/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2015/07/05/a-case-for-truth/" >Tweet</a>
   
   
   
@@ -249,10 +266,8 @@ same.</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2015/03/31/simple-form-simply-confused/" title="Previous Post: Simple Form, Simply Confused">&laquo; Simple Form, Simply Confused</a>
+        <a class="basic-alignment left" href="/blog/2015/06/23/learnings-from-the-front/" title="Previous Post: Learnings from the Front">&laquo; Learnings from the Front</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2015/06/02/breaking-up-is-hard/" title="Next Post: Breaking Up Is Hard To Do">Breaking Up Is Hard To Do &raquo;</a>
       
     </p>
     <div id="disqus_thread"></div>

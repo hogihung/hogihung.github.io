@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Javascript | Old Guy, New Trick]]></title>
+  <link href="http://hogihung.github.io/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://hogihung.github.io/"/>
+  <updated>2015-07-05T16:00:29-04:00</updated>
+  <id>http://hogihung.github.io/</id>
+  <author>
+    <name><![CDATA[Ho Gi Hung]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[A Case for the Truth]]></title>
+    <link href="http://hogihung.github.io/blog/2015/07/05/a-case-for-truth/"/>
+    <updated>2015-07-05T16:58:25-04:00</updated>
+    <id>http://hogihung.github.io/blog/2015/07/05/a-case-for-truth</id>
+    <content type="html"><![CDATA[<p>This week I attended the school of Hard Knocks &ndash; a course in JavaScript. The application
+that I am working on for the day job does validation in both JavaScript and in Ruby. One
+of my recent tasks was to add form input text boxes, zero to many, so that an Administrator
+could add URL for resources available to the users.</p>
+
+<p>These new input boxes would be included an existing form which first was validated using
+JavaScript.  When I first added the new input boxes I received a flash message saying that
+my new input box needed to have an integer value greater than zero. So I dug into the existing
+JavaScript to see how the validation was setup.  What I found was that we had a switch with
+several cases and a default which would display the error I received.  My new input boxes
+for a url file path obviously do not need to be a non-zero integer.  So I updated the code
+with something similar to:  case &lsquo;url_file_path&rsquo;.</p>
+
+<p>This update worked fine so long as we only had one input box for url_file_path.  But the
+requirement was that we provide zero to many input boxes based on a certain criteria.  My
+thought was that I could use a regular expression within my Switch-Case code.  But I ran
+into an issue.  Below is a simplified version of the existing code:</p>
+
+<p><em>Original Javascript:</em></p>
+
+<p>```
+// Actual, but commented out for this example:
+// var id = $thisInput.attr(&lsquo;name&rsquo;);</p>
+
+<p>var id = &lsquo;url_file_path&rsquo;;  //simulated
+switch (id) {
+  case &lsquo;file_title&rsquo;:</p>
+
+<pre><code>//validation logic would go here
+alert('This is the file title'); //sample for testing
+break;
+</code></pre>
+
+<p>  case &lsquo;file_description&rsquo;:</p>
+
+<pre><code>//validation logic would go here
+alert('This is the file description'); //sample for testing
+break;
+</code></pre>
+
+<p>  case &lsquo;url_file_path&rsquo;:</p>
+
+<pre><code>//validation logic would go here
+alert('This is the file description'); //sample for testing
+break;
+</code></pre>
+
+<p>  default:</p>
+
+<pre><code>alert('We hit the default');
+</code></pre>
+
+<p>}
+```</p>
+
+<p>I utilized the JSBin site to help me work through possible solutions.  You can find
+that site by clicking <a href="http://jsbin.com/">here</a></p>
+
+<p>The above javascript worked fine, so long as had only one input for the file path url.<br/>
+But we had the need to support zero to many url_file_path inputs.  For this discussion,
+let&rsquo;s assume we have three:</p>
+
+<ul>
+<li>url_file_path_001</li>
+<li>url_file_path_002</li>
+<li>url_file_path_003</li>
+</ul>
+
+
+<p>Well now I have a problem with my javascript.  If you run the above example, passing in
+url_file_path_00n as the simulated id, then the default alert of &lsquo;We hit the default&rsquo;
+will occur.</p>
+
+<p>What I needed was a way to use a regular expression with my case statement.  I struggled
+with different attempts.  I thought I was going crazy.  I tried out my regular expression
+logic on its own, and it worked fine. (Tip: RegEx web tool: <a href="https://regex101.com/#javascript">click here</a>)</p>
+
+<p>I researched online for a solution, as well as referred to some JavaScripts book that I have,
+but I couldn&rsquo;t figure out what was going on.  While getting ready for bed, I came across an
+item on Stack Overflow, one that I think I saw a few times but discarded.  Their example
+kept referring to using switch (true)&hellip;  But I needed to switch on the id of the form input.</p>
+
+<p>Then the light bulb went off in my head.  I made a mental note and got a good nights sleep.
+The next day, I put the puzzle pieces together and came up with the following solution:</p>
+
+<p>```
+var id = &lsquo;url_file_path_002&rsquo;;  //simulated
+switch (true) {
+  case /file_title/.test(id):</p>
+
+<pre><code>alert('This is the file title'); 
+break;
+</code></pre>
+
+<p>  case /file_description/.test(id):</p>
+
+<pre><code>alert('This is the file description'); 
+break;
+</code></pre>
+
+<p>  case /url_file_path_(\d)+/.test(id):</p>
+
+<pre><code>alert('This is the file description');
+break;
+</code></pre>
+
+<p>  default:</p>
+
+<pre><code>alert('We hit the default');
+</code></pre>
+
+<p>}
+```</p>
+
+<p>The above code could be tweaked a little bit since the validation for file_title
+and file_description are the same.  Why don&rsquo;t you take a crack at it and let me
+know how you would refactor?</p>
+
+<p>Oh, I think I hear the bell &ndash; school is out for today!</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
+  
+</feed>
