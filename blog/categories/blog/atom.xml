@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blog | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/blog/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-07-05T20:16:57-04:00</updated>
+  <updated>2015-07-05T20:19:06-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -24,7 +24,7 @@ of my recent tasks was to add form input text boxes, zero to many, so that an Ad
 could add URLs for resources available to the users.</p>
 
 <p>These new input boxes would be included in an existing form, which is first validated using
-JavaScript.  When I added the new input boxes I received a flash message saying that my new
+JavaScript.  When I added the new input boxes, I received a flash message saying that my new
 input box needed to have an integer value greater than zero. So I dug into the existing
 JavaScript to see how the validation was setup.  What I found was that we had a switch with
 several cases and a default which would display the error I received.  My new input boxes
