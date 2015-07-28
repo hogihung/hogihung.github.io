@@ -9,8 +9,8 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="This week I attended the school of Hard Knocks &ndash; a course in JavaScript. The application
-that I am working on for the day job does validation &hellip;">
+  <meta name="description" content="Order is important, sometimes. Recently I was assigned a task passed on by QA. In the application that I am working on,
+users can download files from &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,120 @@ that I am working on for the day job does validation &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/07/28/order-is-important/">Order Is Important&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-07-28T09:15:14-04:00" pubdate data-updated="true">Jul 28<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Order is important, sometimes.  Recently I was assigned a task passed on by QA.  In the application that I am working on,
+users can download files from the &ldquo;Download&rdquo; section after they login.  Depending on their role, admin or client, the downloadable
+file links will have slightly different names.</p>
+
+<p>In an effort to keep things unified, QA felt that the order of those links is important &ndash; they need to match.  Prior to this
+revelation, our tests only confirmed that the links existed, were clickable, and the contents of the files was accurate.  Below
+is a sample of the new steps I created to get things going:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>When  I log in as user
+</span><span class='line'>And   I follow "Downloads"
+</span><span class='line'>Then  I confirm the following downloadable files:
+</span><span class='line'>  | order | description       |
+</span><span class='line'>  | 1     | My Bids           |
+</span><span class='line'>  | 2     | My Results        |
+</span><span class='line'>  | 3     | My Product Status |
+</span><span class='line'>  | 4     | My Bidder Status  |
+</span><span class='line'>And  I follow "Logout"
+</span><span class='line'>
+</span><span class='line'>When  I log in as admin
+</span><span class='line'>And   I follow "Downloads"
+</span><span class='line'>Then  I confirm the following downloadable files:
+</span><span class='line'>  | order | description        |
+</span><span class='line'>  | 1     | All Bids           |
+</span><span class='line'>  | 2     | All Results        |
+</span><span class='line'>  | 3     | All Product Status |
+</span><span class='line'>  | 4     | All Bidder Status  |
+</span><span class='line'>And  I follow "Logout"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I struggled for a bit to figure out, how can I write my Cucumber steps so that I verify the data, in the exact order as
+specified in the feature file.  My original steps above didn&rsquo;t have an order column.  But as I thought things through, I
+added the order attribute as seen above.  Now what?  How do I build my steps so that they can actually confirm the order
+of my rows in the download link table?  After some trial and errors, and many searches I put together the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Then /^I confirm the following downloadable files:$/ do |table|
+</span><span class='line'>  table.hashes.each do |line|
+</span><span class='line'>    within('tbody') do
+</span><span class='line'>      row_num = "tr:nth-child(#{line[:order]})"
+</span><span class='line'>      within(row_num) do
+</span><span class='line'>        expect(page).to have_text line[:description]
+</span><span class='line'>      end
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty neat, eh?  With this method, you do not need to ensure that your steps in the feature file are in the exact desired
+order.  Just be sure to have the correct value in the order column.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1003,168 +1117,6 @@ listen_addresses = '*'
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/01/06/custom-passwordless-ssh/">Custom Passwordless SSH Access</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-01-06T20:10:14-05:00" pubdate data-updated="true">Jan 6<span>th</span>, 2015</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>When I created my Digital Ocean VPS I setup SSH Keys for both my main laptop and desktop computers.  I grabbed the appropriate contents from my .pub file and pasted that information on the web form for &lsquo;Add SSH Key&rsquo; under the SSH Keys menu of my droplet.  However, I noticed that each time I would ssh to my server I would be required to input my password.</p>
-
-<p>In this blog posting I will illustrate how I solved this issue and why the word &lsquo;custom&rsquo; appears in the title.  There are many websites that cover how to setup passwordless ssh login.  For example, Digital Ocean has a nice posting: <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2">here</a></p>
-
-<p>However, those instructions, and other like it, assume a plain-vanilla setup.  Of course, I dare to be different.  For example, before I started to solve this puzzle, my ~/.ssh directory had the following:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>➜  .ssh  ls -la
-</span><span class='line'>total 88
-</span><span class='line'>drwx------  11 jfhogarty  staff   374 Jan  6 18:36 .
-</span><span class='line'>drwxr-xr-x+ 93 jfhogarty  staff  3162 Jan  6 20:10 ..
-</span><span class='line'>-rw-r--r--@  1 jfhogarty  staff  6148 Mar  9  2013 .DS_Store
-</span><span class='line'>-rw-------   1 jfhogarty  staff  1766 Mar  2  2013 id_rsa
-</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   400 Mar  2  2013 id_rsa.pub
-</span><span class='line'>-rw-------   1 jfhogarty  staff   668 Apr 20  2014 jh-mbp_id
-</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   614 Apr 20  2014 jh-mbp_id.pub
-</span><span class='line'>-rw-r--r--   1 jfhogarty  staff  7162 Jan  5 21:17 known_hosts
-</span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The id_rsa (private file) and the id_rsa.pub (public file,) are your normal files one would find.  But I&rsquo;ve implemented a &lsquo;best-practice&rsquo; adopted from my day job and I create specific key files for different types of access.  For example, following the instructions in the link above, from the Digital Ocean article, I created the following:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>-rw-------   1 jfhogarty  staff   668 Jan  5 21:11 do_id_dsa
-</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   614 Jan  5 21:11 do_id_dsa.pub</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you follow the steps from the link, there is one thing that you may need to do in addition to their steps.  Some systems require that you change the file permissions for the authorized_keys file located on your target computer.  For example, the following is how I have the permissions set on my VPS:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>➜  .ssh  ls -la
-</span><span class='line'>total 12
-</span><span class='line'>drwx------  2 jfhogarty jfhogarty 4096 Jan  5 21:16 .
-</span><span class='line'>drwxr-xr-x 11 jfhogarty jfhogarty 4096 Jan  6 20:14 ..
-</span><span class='line'>-rw-------  1 jfhogarty jfhogarty  614 Jan  5 21:14 authorized_keys
-</span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I adjusted the permissions using the following syntax:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>chmod 600 authorized_keys</span></code></pre></td></tr></table></div></figure>
-
-
-<p>After creating the new keys on my laptop, and updating the authorized_keys file on the remote server, I thought surely I should now be able to login without using a password.  I was wrong!  The remote server continued to prompt me for my password.  I decided to call it a night as it was getting late.</p>
-
-<p>While working on a VM issue today for my day job, my internal lightbulb went off and I realized what the problem was.  Lets take a fresh look at the .ssh directory of my laptop:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sh  ls -la
-</span><span class='line'>total 88
-</span><span class='line'>drwx------  11 jfhogarty  staff   374 Jan  6 18:36 .
-</span><span class='line'>drwxr-xr-x+ 93 jfhogarty  staff  3162 Jan  6 20:21 ..
-</span><span class='line'>-rw-r--r--@  1 jfhogarty  staff  6148 Mar  9  2013 .DS_Store
-</span><span class='line'>-rw-------   1 jfhogarty  staff   668 Jan  5 21:11 do_id_dsa
-</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   614 Jan  5 21:11 do_id_dsa.pub
-</span><span class='line'>-rw-------   1 jfhogarty  staff  1766 Mar  2  2013 id_rsa
-</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   400 Mar  2  2013 id_rsa.pub
-</span><span class='line'>-rw-------   1 jfhogarty  staff   668 Apr 20  2014 jh-mbp_id
-</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   614 Apr 20  2014 jh-mbp_id.pub
-</span><span class='line'>-rw-r--r--   1 jfhogarty  staff  7162 Jan  5 21:17 known_hosts
-</span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The keen eye might notice that I now have three sets of private/public keys.  However, when I was typing ssh myhostname.com ssh didn&rsquo;t know which files to use, if any.  I was able to prove my theory by trying the following:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -p 9986 -i ~/.ssh/do_id_dsa myhostname.com</span></code></pre></td></tr></table></div></figure>
-
-
-<p>And BAM!  No password required to login.  I was on to a solution.  When I had my lightbulb moment, I had remembered that I needed to create a config file in the .ssh directory on my laptop.  Lets take a look at it:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>➜  .ssh  cat config
-</span><span class='line'>Host 10.11.12.13
-</span><span class='line'>IdentityFile ~/.ssh/do_id_dsa
-</span><span class='line'>Protocol 2
-</span><span class='line'>
-</span><span class='line'>Host myhostname.com
-</span><span class='line'>IdentityFile ~/.ssh/do_id_dsa
-</span><span class='line'>Protocol 2
-</span><span class='line'>
-</span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
-
-
-<p>NOTE:  To protect the innocent, the IP Address and *.com name above are fake.  Please substitute those values for your real IP Address and/or domain name.</p>
-
-<p>And that is how I solved my customized passwordless ssh access to my VPS.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1180,6 +1132,10 @@ listen_addresses = '*'
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/07/28/order-is-important/">Order is Important&#8230;</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/07/05/a-case-for-truth/">A Case for the Truth</a>
       </li>
     
@@ -1193,10 +1149,6 @@ listen_addresses = '*'
     
       <li class="post">
         <a href="/blog/2015/05/05/unexcused-absence/">An Unexcused Absence</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/31/simple-form-simply-confused/">Simple Form, Simply Confused</a>
       </li>
     
   </ul>

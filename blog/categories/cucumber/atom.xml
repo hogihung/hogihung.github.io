@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Cucumber | Old Guy, New Trick]]></title>
+  <link href="http://hogihung.github.io/blog/categories/cucumber/atom.xml" rel="self"/>
+  <link href="http://hogihung.github.io/"/>
+  <updated>2015-07-28T08:16:38-04:00</updated>
+  <id>http://hogihung.github.io/</id>
+  <author>
+    <name><![CDATA[Ho Gi Hung]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Order is Important...]]></title>
+    <link href="http://hogihung.github.io/blog/2015/07/28/order-is-important/"/>
+    <updated>2015-07-28T09:15:14-04:00</updated>
+    <id>http://hogihung.github.io/blog/2015/07/28/order-is-important</id>
+    <content type="html"><![CDATA[<p>Order is important, sometimes.  Recently I was assigned a task passed on by QA.  In the application that I am working on,
+users can download files from the &ldquo;Download&rdquo; section after they login.  Depending on their role, admin or client, the downloadable
+file links will have slightly different names.</p>
+
+<p>In an effort to keep things unified, QA felt that the order of those links is important &ndash; they need to match.  Prior to this
+revelation, our tests only confirmed that the links existed, were clickable, and the contents of the files was accurate.  Below
+is a sample of the new steps I created to get things going:</p>
+
+<p>```
+When  I log in as user
+And   I follow &ldquo;Downloads&rdquo;
+Then  I confirm the following downloadable files:
+  | order | description       |
+  | 1     | My Bids           |
+  | 2     | My Results        |
+  | 3     | My Product Status |
+  | 4     | My Bidder Status  |
+And  I follow &ldquo;Logout&rdquo;</p>
+
+<p>When  I log in as admin
+And   I follow &ldquo;Downloads&rdquo;
+Then  I confirm the following downloadable files:
+  | order | description        |
+  | 1     | All Bids           |
+  | 2     | All Results        |
+  | 3     | All Product Status |
+  | 4     | All Bidder Status  |
+And  I follow &ldquo;Logout&rdquo;
+```</p>
+
+<p>I struggled for a bit to figure out, how can I write my Cucumber steps so that I verify the data, in the exact order as
+specified in the feature file.  My original steps above didn&rsquo;t have an order column.  But as I thought things through, I
+added the order attribute as seen above.  Now what?  How do I build my steps so that they can actually confirm the order
+of my rows in the download link table?  After some trial and errors, and many searches I put together the following:</p>
+
+<p>```
+Then /^I confirm the following downloadable files:$/ do |table|
+  table.hashes.each do |line|</p>
+
+<pre><code>within('tbody') do
+  row_num = "tr:nth-child(#{line[:order]})"
+  within(row_num) do
+    expect(page).to have_text line[:description]
+  end
+end
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>Pretty neat, eh?  With this method, you do not need to ensure that your steps in the feature file are in the exact desired
+order.  Just be sure to have the correct value in the order column.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
+  
+</feed>

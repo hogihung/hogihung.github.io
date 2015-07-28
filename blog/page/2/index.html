@@ -9,7 +9,7 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="I have been making progress with a personal application that I am working on. In the early days of development, I had deployed a version of the &hellip;">
+  <meta name="description" content="When I created my Digital Ocean VPS I setup SSH Keys for both my main laptop and desktop computers. I grabbed the appropriate contents from my .pub &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,168 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/01/06/custom-passwordless-ssh/">Custom Passwordless SSH Access</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-06T20:10:14-05:00" pubdate data-updated="true">Jan 6<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>When I created my Digital Ocean VPS I setup SSH Keys for both my main laptop and desktop computers.  I grabbed the appropriate contents from my .pub file and pasted that information on the web form for &lsquo;Add SSH Key&rsquo; under the SSH Keys menu of my droplet.  However, I noticed that each time I would ssh to my server I would be required to input my password.</p>
+
+<p>In this blog posting I will illustrate how I solved this issue and why the word &lsquo;custom&rsquo; appears in the title.  There are many websites that cover how to setup passwordless ssh login.  For example, Digital Ocean has a nice posting: <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2">here</a></p>
+
+<p>However, those instructions, and other like it, assume a plain-vanilla setup.  Of course, I dare to be different.  For example, before I started to solve this puzzle, my ~/.ssh directory had the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>➜  .ssh  ls -la
+</span><span class='line'>total 88
+</span><span class='line'>drwx------  11 jfhogarty  staff   374 Jan  6 18:36 .
+</span><span class='line'>drwxr-xr-x+ 93 jfhogarty  staff  3162 Jan  6 20:10 ..
+</span><span class='line'>-rw-r--r--@  1 jfhogarty  staff  6148 Mar  9  2013 .DS_Store
+</span><span class='line'>-rw-------   1 jfhogarty  staff  1766 Mar  2  2013 id_rsa
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   400 Mar  2  2013 id_rsa.pub
+</span><span class='line'>-rw-------   1 jfhogarty  staff   668 Apr 20  2014 jh-mbp_id
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   614 Apr 20  2014 jh-mbp_id.pub
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff  7162 Jan  5 21:17 known_hosts
+</span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The id_rsa (private file) and the id_rsa.pub (public file,) are your normal files one would find.  But I&rsquo;ve implemented a &lsquo;best-practice&rsquo; adopted from my day job and I create specific key files for different types of access.  For example, following the instructions in the link above, from the Digital Ocean article, I created the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-rw-------   1 jfhogarty  staff   668 Jan  5 21:11 do_id_dsa
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   614 Jan  5 21:11 do_id_dsa.pub</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you follow the steps from the link, there is one thing that you may need to do in addition to their steps.  Some systems require that you change the file permissions for the authorized_keys file located on your target computer.  For example, the following is how I have the permissions set on my VPS:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>➜  .ssh  ls -la
+</span><span class='line'>total 12
+</span><span class='line'>drwx------  2 jfhogarty jfhogarty 4096 Jan  5 21:16 .
+</span><span class='line'>drwxr-xr-x 11 jfhogarty jfhogarty 4096 Jan  6 20:14 ..
+</span><span class='line'>-rw-------  1 jfhogarty jfhogarty  614 Jan  5 21:14 authorized_keys
+</span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I adjusted the permissions using the following syntax:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chmod 600 authorized_keys</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After creating the new keys on my laptop, and updating the authorized_keys file on the remote server, I thought surely I should now be able to login without using a password.  I was wrong!  The remote server continued to prompt me for my password.  I decided to call it a night as it was getting late.</p>
+
+<p>While working on a VM issue today for my day job, my internal lightbulb went off and I realized what the problem was.  Lets take a fresh look at the .ssh directory of my laptop:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sh  ls -la
+</span><span class='line'>total 88
+</span><span class='line'>drwx------  11 jfhogarty  staff   374 Jan  6 18:36 .
+</span><span class='line'>drwxr-xr-x+ 93 jfhogarty  staff  3162 Jan  6 20:21 ..
+</span><span class='line'>-rw-r--r--@  1 jfhogarty  staff  6148 Mar  9  2013 .DS_Store
+</span><span class='line'>-rw-------   1 jfhogarty  staff   668 Jan  5 21:11 do_id_dsa
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   614 Jan  5 21:11 do_id_dsa.pub
+</span><span class='line'>-rw-------   1 jfhogarty  staff  1766 Mar  2  2013 id_rsa
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   400 Mar  2  2013 id_rsa.pub
+</span><span class='line'>-rw-------   1 jfhogarty  staff   668 Apr 20  2014 jh-mbp_id
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff   614 Apr 20  2014 jh-mbp_id.pub
+</span><span class='line'>-rw-r--r--   1 jfhogarty  staff  7162 Jan  5 21:17 known_hosts
+</span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The keen eye might notice that I now have three sets of private/public keys.  However, when I was typing ssh myhostname.com ssh didn&rsquo;t know which files to use, if any.  I was able to prove my theory by trying the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -p 9986 -i ~/.ssh/do_id_dsa myhostname.com</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And BAM!  No password required to login.  I was on to a solution.  When I had my lightbulb moment, I had remembered that I needed to create a config file in the .ssh directory on my laptop.  Lets take a look at it:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>➜  .ssh  cat config
+</span><span class='line'>Host 10.11.12.13
+</span><span class='line'>IdentityFile ~/.ssh/do_id_dsa
+</span><span class='line'>Protocol 2
+</span><span class='line'>
+</span><span class='line'>Host myhostname.com
+</span><span class='line'>IdentityFile ~/.ssh/do_id_dsa
+</span><span class='line'>Protocol 2
+</span><span class='line'>
+</span><span class='line'>➜  .ssh</span></code></pre></td></tr></table></div></figure>
+
+
+<p>NOTE:  To protect the innocent, the IP Address and *.com name above are fake.  Please substitute those values for your real IP Address and/or domain name.</p>
+
+<p>And that is how I solved my customized passwordless ssh access to my VPS.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1077,60 +1239,6 @@ cd instantclient_11_2</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/07/24/wrap-up-bloc/">Wrap Up - Bloc Experience</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-24T12:05:14-04:00" pubdate data-updated="true">Jul 24<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&rsquo;ve been bad.  I let myself get consumed by my attendance of the on-line course at Bloc, and spending a lot of after-work-hours working on my personal project.  I have neglected my writing, and I apologize for my absence.</p>
-
-<p>Earlier today I received notification from Disquis that someone, Nalani, had submitted a comment.  I am grateful for that comment as it reminded me of absence from this blog.  So with that nice kick-in-the-pants, let&rsquo;s move forward.</p>
-
-<p>I completed my on-line training of the Bloc.io course on June 9th 2014.  Overall I was satisfied with the training and can confidently recommend it to others, depending on their situation.  What?</p>
-
-<p>Bloc is not for everyone.  The first barrier to overcome is the cost.  I believe I got in before the price increase so the tuition was around $4250 if memory serves me correctly.  I believe the price to be fair for what you get.  However, I would not suggest that anyone plop down that money if they are currently struggling financially.</p>
-
-<p>Depending on your employment needs, Bloc may not be for you.  For me, I took the course to better my programming skills and to assist me move forward with my personal project.  But I would not say that what I learned would allow me to get a job similar to what I have now, at my current pay rate.  I think the education would help one land a junior-developer job or an internship at a dev shop.</p>
-
-<p>I&rsquo;m not an expert, but from my experience with local dev shops here, there is a heavy emphasis on testing and Test-Drive-Development(TDD.)  And when I took the Bloc course, that area was lacking.  You can see my previous post for more information.</p>
-
-<p>Yesterday I received an email from Bloc that indicated that they improving the Full Stack program by adding more testing to the course.  Not sure if it was my feedback, or feedback from many of us past students, but I&rsquo;m glad to see that they continuously improve on their product.</p>
-
-<p>Is Bloc for you?  Maybe.  If you are like me, someone who has a day job and wanted to improve their programming skills, while trying to bring your product idea to life, then yes.  Maybe you are someone with a great idea, a founder, and want to get a better grip on what it will take to produce your product.  I think Bloc can help you there.  If you are trying to break ground in the industry and land your first job or internship, then yes, I think Bloc is for you.  If you need the extra hand holding while learning the basics, then yes I think you will get value from the Bloc program.</p>
-
-<p>I do want to end with a note about the mentorship, and you may have read into my words at the end of the last paragraph.  If you are seeking what I consider advance knowledge and/or assistance, you may be dissapointed.  While I found the mentorship to be very helpful at the beginning and middle of my training, I was dissapointed at the end when it came to my capstone project.  Fortunately for me, about 8 weeks in to my Bloc training, I met a guy, Shaun, who became my &lsquo;external-mentor.&rsquo;  If not for him, I would not have been able to complete some of the Bloc assignments the way I wanted &ndash; via TDD.  Sure I could have completed them, but I want to develop by writing tests first.  Shaun has also helped me with my personal project and taken it so much farther than I could have done on my own.  What I&rsquo;m trying to end with is this &ndash; no matter if you take the training at Bloc or else where, find a mentor who will spend the time with you to help you learn.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1148,6 +1256,10 @@ cd instantclient_11_2</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/07/28/order-is-important/">Order is Important&#8230;</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/07/05/a-case-for-truth/">A Case for the Truth</a>
       </li>
     
@@ -1161,10 +1273,6 @@ cd instantclient_11_2</p>
     
       <li class="post">
         <a href="/blog/2015/05/05/unexcused-absence/">An Unexcused Absence</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/31/simple-form-simply-confused/">Simple Form, Simply Confused</a>
       </li>
     
   </ul>

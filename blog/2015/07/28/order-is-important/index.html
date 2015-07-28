@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Error Deploying to Production on Heroku - Old Guy, New Trick</title>
+  <title>Order is Important... - Old Guy, New Trick</title>
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="I have been making progress with a personal application that I am working on. In the early days of development, I had deployed a version of the &hellip;">
+  <meta name="description" content="Order is important, sometimes. Recently I was assigned a task passed on by QA. In the application that I am working on,
+users can download files from &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hogihung.github.io/blog/2014/12/30/deploy-error-heroku/">
+  <link rel="canonical" href="http://hogihung.github.io/blog/2015/07/28/order-is-important/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -68,7 +69,7 @@
   
   <header>
     
-      <h1 class="entry-title">Error Deploying to Production on Heroku</h1>
+      <h1 class="entry-title">Order Is Important...</h1>
     
     
       <p class="meta">
@@ -84,28 +85,20 @@
   
 
 
-<time datetime="2014-12-30T08:00:25-05:00" pubdate data-updated="true">Dec 30<span>th</span>, 2014</time>
+<time datetime="2015-07-28T09:15:14-04:00" pubdate data-updated="true">Jul 28<span>th</span>, 2015</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>I have been making progress with a personal application that I am working on.  In the early days of development, I had deployed a version of the application to Heroku &ndash; and it worked fine at that time.  Fast forward 6 months or so and lots of changes.  I deployed to Heroku and received an error when trying to view the website:</p>
+<div class="entry-content"><p>Order is important, sometimes.  Recently I was assigned a task passed on by QA.  In the application that I am working on,
+users can download files from the &ldquo;Download&rdquo; section after they login.  Depending on their role, admin or client, the downloadable
+file links will have slightly different names.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>heroku logs
-</span><span class='line'>
-</span><span class='line'>2014-12-25T01:17:54.017424+00:00 heroku[web.1]: State changed from starting to crashed
-</span><span class='line'>2014-12-25T01:17:55.195360+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=example.herokuapp.com request_id=0c587d48-ac93-4bce-91bc-9d2de62e6a86 fwd="73.53.247.100" dyno= connect= service= status=503 bytes=
-</span><span class='line'>2014-12-25T01:17:55.719076+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/favicon.ico" host=example.herokuapp.com request_id=d586d82a-8c27-4f57-b5f1-cf2b55c155d7 fwd="73.53.247.100" dyno= connect= service= status=503 bytes=</span></code></pre></td></tr></table></div></figure>
-
-
-<p>That error made no sense to me.  What the heck, I know the favicon.ico file exists, and why can&rsquo;t I get to the root path?  So I went to the rails console via heroku:</p>
+<p>In an effort to keep things unified, QA felt that the order of those links is important &ndash; they need to match.  Prior to this
+revelation, our tests only confirmed that the links existed, were clickable, and the contents of the files was accurate.  Below
+is a sample of the new steps I created to get things going:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -113,21 +106,44 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>heroku run rails console
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>When  I log in as user
+</span><span class='line'>And   I follow "Downloads"
+</span><span class='line'>Then  I confirm the following downloadable files:
+</span><span class='line'>  | order | description       |
+</span><span class='line'>  | 1     | My Bids           |
+</span><span class='line'>  | 2     | My Results        |
+</span><span class='line'>  | 3     | My Product Status |
+</span><span class='line'>  | 4     | My Bidder Status  |
+</span><span class='line'>And  I follow "Logout"
 </span><span class='line'>
-</span><span class='line'>Running `rails console` attached to terminal... up, run.9397
-</span><span class='line'>/app/app/models/connexion.rb:1:in `&lt;top (required)&gt;': superclass mismatch for class Nurny (TypeError)
-</span><span class='line'>  from /app/vendor/bundle/ruby/2.1.0/gems/activesupport-4.1.7/lib/active_support/dependencies.rb:247:in `require'
-</span><span class='line'>  from /app/vendor/bundle/ruby/2.1.0/gems/activesupport-4.1.7/lib/active_support/dependencies.rb:247:in `block in require'</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>When  I log in as admin
+</span><span class='line'>And   I follow "Downloads"
+</span><span class='line'>Then  I confirm the following downloadable files:
+</span><span class='line'>  | order | description        |
+</span><span class='line'>  | 1     | All Bids           |
+</span><span class='line'>  | 2     | All Results        |
+</span><span class='line'>  | 3     | All Product Status |
+</span><span class='line'>  | 4     | All Bidder Status  |
+</span><span class='line'>And  I follow "Logout"</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Note that I am substituting my real class name with a bogus one, &lsquo;Nurny&rsquo;, for this example.</p>
-
-<p>Ok, now I get an error that looks like a real error, though I didn&rsquo;t understand it.  Luckily this all occurred the night before our weekly morning Code and Coffee.  So I brought the issue up and Micah gave me a hand for a while, having me try different things.</p>
-
-<p>The conflict only shows when trying to run in a production environment.  I had a model for &lsquo;Nurny&rsquo; that had a class defined of Nurny.  However, I also have a model concern, for queries, with a class of &lsquo;Nurny&rsquo; which was the cause of the issue.</p>
-
-<p>So, now how can I fix this?  I tried a simple rename of the concern, changing the line:</p>
+<p>I struggled for a bit to figure out, how can I write my Cucumber steps so that I verify the data, in the exact order as
+specified in the feature file.  My original steps above didn&rsquo;t have an order column.  But as I thought things through, I
+added the order attribute as seen above.  Now what?  How do I build my steps so that they can actually confirm the order
+of my rows in the download link table?  After some trial and errors, and many searches I put together the following:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -135,29 +151,24 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>BEFORE
-</span><span class='line'>class Nurny
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>AFTER
-</span><span class='line'>class NurnyQry</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Then /^I confirm the following downloadable files:$/ do |table|
+</span><span class='line'>  table.hashes.each do |line|
+</span><span class='line'>    within('tbody') do
+</span><span class='line'>      row_num = "tr:nth-child(#{line[:order]})"
+</span><span class='line'>      within(row_num) do
+</span><span class='line'>        expect(page).to have_text line[:description]
+</span><span class='line'>      end
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<p>But that spurred a flurry of new problems.  Luckily I found another solution while thinking through this issue.  Why did the app work fine in a development rails environment, but not in production.  Now I must confess I&rsquo;m not sure if my solution will have a profound negative effect, but so far I have not encountered any issues.  The solution lies in the config/environments/production.rb file:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>BEFORE:
-</span><span class='line'>config.eager_load = true
-</span><span class='line'>
-</span><span class='line'>AFTER:
-</span><span class='line'>config.eager_load = false</span></code></pre></td></tr></table></div></figure>
-
-
-<p>And that simple configuration change fixed my issue!</p>
+<p>Pretty neat, eh?  With this method, you do not need to ensure that your steps in the feature file are in the exact desired
+order.  Just be sure to have the correct value in the order column.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 </div>
@@ -182,12 +193,12 @@
   
 
 
-<time datetime="2014-12-30T08:00:25-05:00" pubdate data-updated="true">Dec 30<span>th</span>, 2014</time>
+<time datetime="2015-07-28T09:15:14-04:00" pubdate data-updated="true">Jul 28<span>th</span>, 2015</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/blog/'>Blog</a>, <a class='category' href='/blog/categories/heroku/'>Heroku</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>
+    <a class='category' href='/blog/categories/cucumber/'>Cucumber</a>, <a class='category' href='/blog/categories/testing/'>Testing</a>, <a class='category' href='/blog/categories/tip/'>Tip</a>
   
 </span>
 
@@ -196,7 +207,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2014/12/30/deploy-error-heroku/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2014/12/30/deploy-error-heroku/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2015/07/28/order-is-important/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2015/07/28/order-is-important/" >Tweet</a>
   
   
   
@@ -205,10 +216,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/11/18/aint-your-ruby/" title="Previous Post: Aint Your Ruby">&laquo; Aint Your Ruby</a>
+        <a class="basic-alignment left" href="/blog/2015/07/05/a-case-for-truth/" title="Previous Post: A Case for the Truth">&laquo; A Case for the Truth</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2015/01/06/custom-passwordless-ssh/" title="Next Post: Custom Passwordless SSH Access">Custom Passwordless SSH Access &raquo;</a>
       
     </p>
     <div id="disqus_thread"></div>

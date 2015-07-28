@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-07-05T20:19:06-04:00</updated>
+  <updated>2015-07-28T08:16:38-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,93 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Order is Important...]]></title>
+    <link href="http://hogihung.github.io/blog/2015/07/28/order-is-important/"/>
+    <updated>2015-07-28T09:15:14-04:00</updated>
+    <id>http://hogihung.github.io/blog/2015/07/28/order-is-important</id>
+    <content type="html"><![CDATA[<p>Order is important, sometimes.  Recently I was assigned a task passed on by QA.  In the application that I am working on,
+users can download files from the &ldquo;Download&rdquo; section after they login.  Depending on their role, admin or client, the downloadable
+file links will have slightly different names.</p>
+
+<p>In an effort to keep things unified, QA felt that the order of those links is important &ndash; they need to match.  Prior to this
+revelation, our tests only confirmed that the links existed, were clickable, and the contents of the files was accurate.  Below
+is a sample of the new steps I created to get things going:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>When  I log in as user
+</span><span class='line'>And   I follow "Downloads"
+</span><span class='line'>Then  I confirm the following downloadable files:
+</span><span class='line'>  | order | description       |
+</span><span class='line'>  | 1     | My Bids           |
+</span><span class='line'>  | 2     | My Results        |
+</span><span class='line'>  | 3     | My Product Status |
+</span><span class='line'>  | 4     | My Bidder Status  |
+</span><span class='line'>And  I follow "Logout"
+</span><span class='line'>
+</span><span class='line'>When  I log in as admin
+</span><span class='line'>And   I follow "Downloads"
+</span><span class='line'>Then  I confirm the following downloadable files:
+</span><span class='line'>  | order | description        |
+</span><span class='line'>  | 1     | All Bids           |
+</span><span class='line'>  | 2     | All Results        |
+</span><span class='line'>  | 3     | All Product Status |
+</span><span class='line'>  | 4     | All Bidder Status  |
+</span><span class='line'>And  I follow "Logout"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I struggled for a bit to figure out, how can I write my Cucumber steps so that I verify the data, in the exact order as
+specified in the feature file.  My original steps above didn&rsquo;t have an order column.  But as I thought things through, I
+added the order attribute as seen above.  Now what?  How do I build my steps so that they can actually confirm the order
+of my rows in the download link table?  After some trial and errors, and many searches I put together the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Then /^I confirm the following downloadable files:$/ do |table|
+</span><span class='line'>  table.hashes.each do |line|
+</span><span class='line'>    within('tbody') do
+</span><span class='line'>      row_num = "tr:nth-child(#{line[:order]})"
+</span><span class='line'>      within(row_num) do
+</span><span class='line'>        expect(page).to have_text line[:description]
+</span><span class='line'>      end
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty neat, eh?  With this method, you do not need to ensure that your steps in the feature file are in the exact desired
+order.  Just be sure to have the correct value in the order column.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[A Case for the Truth]]></title>
@@ -1604,33 +1691,6 @@ cd instantclient_11_2</p>
 <p>You should be able to connect now, though I have made a huge assumption.  I have assumed that your Oracle DB is currently configured to accept remote connections.</p>
 
 <p>Well that wraps up todays episode.  Get out there and &hellip;</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Wrap Up - Bloc Experience]]></title>
-    <link href="http://hogihung.github.io/blog/2014/07/24/wrap-up-bloc/"/>
-    <updated>2014-07-24T12:05:14-04:00</updated>
-    <id>http://hogihung.github.io/blog/2014/07/24/wrap-up-bloc</id>
-    <content type="html"><![CDATA[<p>I&rsquo;ve been bad.  I let myself get consumed by my attendance of the on-line course at Bloc, and spending a lot of after-work-hours working on my personal project.  I have neglected my writing, and I apologize for my absence.</p>
-
-<p>Earlier today I received notification from Disquis that someone, Nalani, had submitted a comment.  I am grateful for that comment as it reminded me of absence from this blog.  So with that nice kick-in-the-pants, let&rsquo;s move forward.</p>
-
-<p>I completed my on-line training of the Bloc.io course on June 9th 2014.  Overall I was satisfied with the training and can confidently recommend it to others, depending on their situation.  What?</p>
-
-<p>Bloc is not for everyone.  The first barrier to overcome is the cost.  I believe I got in before the price increase so the tuition was around $4250 if memory serves me correctly.  I believe the price to be fair for what you get.  However, I would not suggest that anyone plop down that money if they are currently struggling financially.</p>
-
-<p>Depending on your employment needs, Bloc may not be for you.  For me, I took the course to better my programming skills and to assist me move forward with my personal project.  But I would not say that what I learned would allow me to get a job similar to what I have now, at my current pay rate.  I think the education would help one land a junior-developer job or an internship at a dev shop.</p>
-
-<p>I&rsquo;m not an expert, but from my experience with local dev shops here, there is a heavy emphasis on testing and Test-Drive-Development(TDD.)  And when I took the Bloc course, that area was lacking.  You can see my previous post for more information.</p>
-
-<p>Yesterday I received an email from Bloc that indicated that they improving the Full Stack program by adding more testing to the course.  Not sure if it was my feedback, or feedback from many of us past students, but I&rsquo;m glad to see that they continuously improve on their product.</p>
-
-<p>Is Bloc for you?  Maybe.  If you are like me, someone who has a day job and wanted to improve their programming skills, while trying to bring your product idea to life, then yes.  Maybe you are someone with a great idea, a founder, and want to get a better grip on what it will take to produce your product.  I think Bloc can help you there.  If you are trying to break ground in the industry and land your first job or internship, then yes, I think Bloc is for you.  If you need the extra hand holding while learning the basics, then yes I think you will get value from the Bloc program.</p>
-
-<p>I do want to end with a note about the mentorship, and you may have read into my words at the end of the last paragraph.  If you are seeking what I consider advance knowledge and/or assistance, you may be dissapointed.  While I found the mentorship to be very helpful at the beginning and middle of my training, I was dissapointed at the end when it came to my capstone project.  Fortunately for me, about 8 weeks in to my Bloc training, I met a guy, Shaun, who became my &lsquo;external-mentor.&rsquo;  If not for him, I would not have been able to complete some of the Bloc assignments the way I wanted &ndash; via TDD.  Sure I could have completed them, but I want to develop by writing tests first.  Shaun has also helped me with my personal project and taken it so much farther than I could have done on my own.  What I&rsquo;m trying to end with is this &ndash; no matter if you take the training at Bloc or else where, find a mentor who will spend the time with you to help you learn.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>
