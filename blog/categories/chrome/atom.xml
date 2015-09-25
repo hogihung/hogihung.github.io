@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: JavaScript | Old Guy, New Trick]]></title>
-  <link href="http://hogihung.github.io/blog/categories/javascript/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Chrome | Old Guy, New Trick]]></title>
+  <link href="http://hogihung.github.io/blog/categories/chrome/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
   <updated>2015-09-25T12:45:49-04:00</updated>
   <id>http://hogihung.github.io/</id>

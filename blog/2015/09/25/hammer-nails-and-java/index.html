@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Hammer, N(R)ails, and some Java(Script) - Old Guy, New Trick</title>
+  <meta name="author" content="Ho Gi Hung">
+
+  
+  <meta name="description" content="Although at times I feel like taking a hammer and some nails to bang some sense into my code, what I actually will be discussing today is related to &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hogihung.github.io/blog/2015/09/25/hammer-nails-and-java/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Old Guy, New Trick" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Old Guy, New Trick</a></h1>
+  
+    <h2>An old guys journey to learn how to code</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hogihung.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+	<li><a href="/">Blog</a></li>
+  <li><a href="/about/">About</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Hammer, N(R)ails, and Some Java(Script)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-09-25T13:45:14-04:00" pubdate data-updated="true">Sep 25<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Although at times I feel like taking a hammer and some nails to bang some sense into my code, what I actually will be discussing today is related to a feature I was working on that required some updates to our Ruby/Rails code and JavaScript.  I typically find myself using pry to help me work through issues with the ruby code.  But for this feature, I needed to grab my hammer, make that Chrome&rsquo;s Developer tools, to assist in my debugging.</p>
+
+<p>A little background first &ndash; assume we have a view that has a form on it.  A new requirement has been requested for us to add an upload file feature to that same view.  No problem, I can use form_tag to accomplish this task.  After making some changes, I was able to confirm that the view in question displayed the original form with a submit button, and a form to handle choosing a file to upload and its&#8217; corresponding upload button.  Below is an example of the first form_tag, and the second new form_tag:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ORIGINAL
+</span><span class='line'>  = form_tag({action: 'update'}, id: "original-form") do
+</span><span class='line'>    = button_tag 'Submit', id: 'confirm-button', type: 'button', disabled: @nurny.disable_submit_button?
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>ADDITIONAL
+</span><span class='line'>  = form_tag({action: :upload}, multipart: :true, id: "upload-file") do
+</span><span class='line'>    = file_field_tag 'upload_file'
+</span><span class='line'>    = button_tag 'Upload', id: "upload-button", class: "good", type: 'button', disabled: false</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Something to keep in mind, when you have multiple forms on the same page, is to be sure you have a way to uniquely identify each form.  With the code updated, I went to test the forms.  To my surprise, when clicking either the Submit button or the Update button, nothing seemed to happen.  For the submit button, I could see Rails going through the motions of hitting the controller and associated update action, but the page didn&rsquo;t refresh with the data as I was expecting.</p>
+
+<p>Well, this would be interesting.  I couldn&rsquo;t pry my way into seeing what was happening.  So I viewed my problem page in Chrome and pulled up the Developer Tools.  After a little digging, and cursing, I saw that my new form, &lsquo;upload-file&rsquo;, was nested under the original form.  This was causing my issue with neither form being able to properly set their data.  What makes this new request a bit of a challenge is that we are building a view by using partials.  So I didn&rsquo;t initially catch that I was nesting my new form inside the original one.</p>
+
+<p>How did I notice the new form was nested?  Using the Developer Tools, View Source, I observed something like the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{--SNIP--}
+</span><span class='line'>&lt;div class='original'&gt;
+</span><span class='line'>  &lt;form id="original-form" action="/CONTROLLER/update" accept-charset="UTF-8" method="post"&gt;&lt;input name="utf8" type="hidden" value="&#x2713;" /&gt;&lt;input type="hidden" name="authenticity_token" value="SOMERANDOMESTUFFHERE" /&gt;
+</span><span class='line'>
+</span><span class='line'>{--SNIP--}
+</span><span class='line'>
+</span><span class='line'>    &lt;div class='upload'&gt;
+</span><span class='line'>      &lt;form id="upload-file" enctype="multipart/form-data" action="/CONTROLLER/upload" accept-charset="UTF-8" method="post"&gt;&lt;input name="utf8" type="hidden" value="&#x2713;" /&gt;&lt;input type="hidden" name="authenticity_token" value="SOMERANDOMOTHERSTUFFHERE==" /&gt;
+</span><span class='line'>        &lt;input type="file" name="upload_file" id="upload_file"/&gt;
+</span><span class='line'>        &lt;button name="button" type="button" id="upload-button" class="good"&gt;Upload&lt;/button&gt;
+</span><span class='line'>      &lt;/form&gt;
+</span><span class='line'>
+</span><span class='line'>{--SNIP--}
+</span><span class='line'>
+</span><span class='line'>    &lt;/div&gt;
+</span><span class='line'>  &lt;/form&gt;
+</span><span class='line'>&lt;/div&gt;
+</span><span class='line'>{--SNIP--}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I snipped out all of the surrounding HTML so we can focus on the problem &ndash; my new form, &lsquo;upload-file&rsquo;, was nested inside the &lsquo;original&rsquo; form.</p>
+
+<p>NOTE: You may notice that I take the liberty to substitute actual syntax with filler syntax &ndash; just look for the all capitalized words.  I also like to use nurny and bobots as a substitute when needed.</p>
+
+<p>With the nested forms issue resolved, my original form was now working. But my second form still had an issue. I could click on the Choose File button, select and file, and then click on the Upload button.  However, nothing happened.  At this point I need to grab my cup of JavaScript.</p>
+
+<p>For my initial attack, let&rsquo;s write just enough javascript to get things working &ndash; no validation:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>app/assets/javascript/nurny/validation.js
+</span><span class='line'>function uploadFile() {
+</span><span class='line'>  $('#upload-button').click(function() {
+</span><span class='line'>    var $form = $('#upload-file');
+</span><span class='line'>
+</span><span class='line'>    $form.submit();
+</span><span class='line'>    return true;
+</span><span class='line'>  });
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>app/assets/javascript/nurny/bobots.js
+</span><span class='line'>$(document).ready(function() {
+</span><span class='line'>  nurnyBobotter();
+</span><span class='line'>  setUnsubmit();
+</span><span class='line'>  uploadFile();
+</span><span class='line'>)};</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With the above code in place, I was successful in choosing a file to upload, and by clicking the upload button, getting my data processed as planned.  In my ruby code I am validating that the user actually choose a file, else I present an error.  However, we would like to catch the &lsquo;no file chosen&rsquo; issue before being processed by our controller.  Yup, you guessed it &ndash; we need some more javascript.</p>
+
+<p>I updated my previously created function, uploadFile() with the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>app/assets/javascript/nurny/validation.js
+</span><span class='line'>function uploadFile() {
+</span><span class='line'>  $('#upload-button').click(function() {
+</span><span class='line'>    var $form = $('#upload-file');
+</span><span class='line'>    var $uploadedFiles = $('#upload_file');
+</span><span class='line'>
+</span><span class='line'>    if ($uploadedFiles.length &lt;= 0) {
+</span><span class='line'>      displayFlashError("You have not chosen a file.");
+</span><span class='line'>      return false;
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    $form.submit();
+</span><span class='line'>    return true;
+</span><span class='line'>  });
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To my surprise, nothing happened.  In fact, now my Upload File form wouldn&rsquo;t work at all.  Argh!  Back to Chrome and the Developer Tools.  Using the console feature, I tried out a few things to see what going on:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[no file chosen]
+</span><span class='line'>var $uploadedFiles = $('#upload_file');
+</span><span class='line'>undefined
+</span><span class='line'>$uploadedFiles
+</span><span class='line'>[&lt;input type=​"file" name=​"upload_file" id=​"upload_file" tabindex=​"3017"&gt;​]
+</span><span class='line'>$uploadedFiles.length
+</span><span class='line'>1
+</span><span class='line'>
+</span><span class='line'>[a file was chosen]
+</span><span class='line'>var $uploadedFiles = $('#upload_file');
+</span><span class='line'>undefined
+</span><span class='line'>[&lt;input type=​"file" name=​"upload_file" id=​"upload_file" tabindex=​"3017"&gt;​]
+</span><span class='line'>$uploadedFiles.length
+</span><span class='line'>1</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hmmm, whether a file has been selected or not, I am getting a length of 1.  Obviously I&rsquo;m doing somethign wrong.  Off to the net to search for possible solutions.  I like to give credit to the following Stack Overflow <a href="http://stackoverflow.com/questions/833012/how-to-validate-a-file-upload-field-using-javascript-jquery">entry</a></p>
+
+<p>Using what I learned from the above link, and first testing it in Chromes Developer Tools, I updated my code as illustrated below:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[console - Development Tools]
+</span><span class='line'>var $uploadedFiles = $('#upload_file').val();
+</span><span class='line'>undefined
+</span><span class='line'>$uploadedFiles
+</span><span class='line'>"C:\fakepath\sample_file_good-info.csv"
+</span><span class='line'>$uploadedFiles.length
+</span><span class='line'>44</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>app/assets/javascript/nurny/validation.js
+</span><span class='line'>function uploadFile() {
+</span><span class='line'>  $('#upload-button').click(function() {
+</span><span class='line'>    var $form = $('#upload-file');
+</span><span class='line'>    var $uploadedFiles = $('#upload_file').val();
+</span><span class='line'>
+</span><span class='line'>    if ($uploadedFiles.length &lt;= 0) {
+</span><span class='line'>      displayFlashError("You have not chosen a file.");
+</span><span class='line'>      return false;
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    $form.submit();
+</span><span class='line'>    return true;
+</span><span class='line'>  });
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This wraps up today&rsquo;s post, but hopefully you will find it useful.  I have spent a lot time recently, debugging using pry, that I had to dust off another very valuable tool in my tool box.  No, not my hammer, but the handy Developer Tools in Chrome.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ho Gi Hung</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-09-25T13:45:14-04:00" pubdate data-updated="true">Sep 25<span>th</span>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/blog/'>Blog</a>, <a class='category' href='/blog/categories/chrome/'>Chrome</a>, <a class='category' href='/blog/categories/javascript/'>JavaScript</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2015/09/25/hammer-nails-and-java/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2015/09/25/hammer-nails-and-java/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/07/28/order-is-important/" title="Previous Post: Order is Important...">&laquo; Order is Important...</a>
+      
+      
+    </p>
+    <div id="disqus_thread"></div>
+      <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          var disqus_shortname = 'oldguynewtrickcom'; // required: replace example with your forum shortname
+
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/09/25/hammer-nails-and-java/">Hammer, N(R)ails, and some Java(Script)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/28/order-is-important/">Order is Important...</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/05/a-case-for-truth/">A Case for the Truth</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/23/learnings-from-the-front/">Learnings from the Front</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/02/breaking-up-is-hard/">Breaking Up Is Hard To Do</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("hogihung", , );
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <p>Follow <a href="http://twitter.com/hogihung">@hogihung</a></p>
+  
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Ho Gi Hung -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.Background image by Ho Gi Hung</span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
