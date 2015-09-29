@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-09-25T12:45:49-04:00</updated>
+  <updated>2015-09-29T15:04:18-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -18,7 +18,7 @@
     <link href="http://hogihung.github.io/blog/2015/09/25/hammer-nails-and-java/"/>
     <updated>2015-09-25T13:45:14-04:00</updated>
     <id>http://hogihung.github.io/blog/2015/09/25/hammer-nails-and-java</id>
-    <content type="html"><![CDATA[<p>Although at times I feel like taking a hammer and some nails to bang some sense into my code, what I actually will be discussing today is related to a feature I was working on that required some updates to our Ruby/Rails code and JavaScript.  I typically find myself using pry to help me work through issues with the ruby code.  But for this feature, I needed to grab my hammer, make that Chrome&rsquo;s Developer tools, to assist in my debugging.</p>
+    <content type="html"><![CDATA[<p>Although at times I feel like taking a hammer and some nails to bang some sense into my code, what I actually will be discussing today is related to a feature I was working on that required some updates to our Ruby/Rails code and JavaScript.  I typically find myself using pry to help me work through issues with the ruby code.  But for this feature, I needed to grab my hammer, make that Chromes&#8217; Developer tools, to assist in my debugging.</p>
 
 <p>A little background first &ndash; assume we have a view that has a form on it.  A new requirement has been requested for us to add an upload file feature to that same view.  No problem, I can use form_tag to accomplish this task.  After making some changes, I was able to confirm that the view in question displayed the original form with a submit button, and a form to handle choosing a file to upload and its&#8217; corresponding upload button.  Below is an example of the first form_tag, and the second new form_tag:</p>
 
@@ -198,9 +198,9 @@
 </span><span class='line'>1</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Hmmm, whether a file has been selected or not, I am getting a length of 1.  Obviously I&rsquo;m doing somethign wrong.  Off to the net to search for possible solutions.  I like to give credit to the following Stack Overflow <a href="http://stackoverflow.com/questions/833012/how-to-validate-a-file-upload-field-using-javascript-jquery">entry</a></p>
+<p>Hmmm, whether a file has been selected or not, I am getting a length of 1.  Obviously I&rsquo;m doing something wrong.  Off to the net to search for possible solutions.  I like to give credit to the following Stack Overflow <a href="http://stackoverflow.com/questions/833012/how-to-validate-a-file-upload-field-using-javascript-jquery">entry</a></p>
 
-<p>Using what I learned from the above link, and first testing it in Chromes Developer Tools, I updated my code as illustrated below:</p>
+<p>Using what I learned from the above link, and first testing it in Chromes&#8217; Developer Tools, I updated my code as illustrated below:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
