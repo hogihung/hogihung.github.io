@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: vim | Old Guy, New Trick]]></title>
-  <link href="http://hogihung.github.io/blog/categories/vim/atom.xml" rel="self"/>
+  <title><![CDATA[Category: macro | Old Guy, New Trick]]></title>
+  <link href="http://hogihung.github.io/blog/categories/macro/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
   <updated>2015-10-27T09:02:42-04:00</updated>
   <id>http://hogihung.github.io/</id>

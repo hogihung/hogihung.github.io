@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-09-29T15:04:18-04:00</updated>
+  <updated>2015-10-27T09:02:42-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,251 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Macro VimOnomics]]></title>
+    <link href="http://hogihung.github.io/blog/2015/10/27/macro-vimonomics/"/>
+    <updated>2015-10-27T10:01:14-04:00</updated>
+    <id>http://hogihung.github.io/blog/2015/10/27/macro-vimonomics</id>
+    <content type="html"><![CDATA[<p>Today I would like to share a productivity tip that I learned from my pair/lead developer partner.  Vim continues to surprise me on what seems to be a daily basis.  I know that with my neophyte knowledge with vim, that I&rsquo;m barely scratching the surface.  Ok, let&rsquo;s get down with some Macro Econom&hellip;, I mean VimOnomics.</p>
+
+<p>Recently I was tasked with changing a handful of our fixture *.csv files.  In case you have not yet worked with these types of files, they are a simple text file which use a delimiter, commonly the comma.  For example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>phone_prefix,phone_num,city,state,postal_code
+</span><span class='line'>914,2251976,Carmel,New York,10134</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now image a file in the above format, but with hundreds of rows and that we need to change the phone_prefix from 914 to 944.  Also, imagine that we have a dozen or so fixture files that require this update.  Using the power of macros in vim, this can be a relatively easy task.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[Open all of our fixture files]
+</span><span class='line'>vim spec/fixtures/*/*.csv
+</span><span class='line'>
+</span><span class='line'>[Record the macro]
+</span><span class='line'>qq
+</span><span class='line'>:1,$s/^914,/944,/
+</span><span class='line'>:w
+</span><span class='line'>:n
+</span><span class='line'>q</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To review what the above steps are doing, first we tell vim to start recording using the command qq.  Next, we define our replace command telling vim that we want to replace 914, with 944, and then we write the file using :w to save our changes.  The :n command tells vim to move to the next file and q stops the recording.</p>
+
+<p>With the macro ready to go, we can use @q to launch the macro.  This should bring the next file in the buffer into focus and perform the steps outlined in the macro.  Repeat the @q command until all of your files have been updated.  After feeling the pain of doing manual updates for a while, this tip was much welcomed.</p>
+
+<p>However, we are are not done yet.  We need to address this change of 914 to 944 in our related feature file(s).  Continuing onwards with our example, we will assume that we have an existing feature file with some steps similar to the following (picture dozens if not hundes of lines):</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  And   I download the csv file report "Phone-Records" as admin
+</span><span class='line'>  Then  the contents of the downloaded "Phone-Records" report contain:
+</span><span class='line'>    | text                                          |
+</span><span class='line'>    | phone_prefix,phone_num,city,state,postal_code |
+</span><span class='line'>    | 914,2251976,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2251981,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2251376,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2252946,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2253976,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2251376,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2254576,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2258986,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2259176,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2257326,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2251974,Carmel,New York,10134             |</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For our example, assume we have our new data in the file new_phone_prefix.csv:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>phone_prefix,phone_num,city,state,postal_code
+</span><span class='line'>944,2251976,Carmel,New York,10134
+</span><span class='line'>944,2251981,Carmel,New York,10134
+</span><span class='line'>944,2251376,Carmel,New York,10134
+</span><span class='line'>944,2252946,Carmel,New York,10134
+</span><span class='line'>944,2253976,Carmel,New York,10134
+</span><span class='line'>944,2251376,Carmel,New York,10134
+</span><span class='line'>944,2254576,Carmel,New York,10134
+</span><span class='line'>944,2258986,Carmel,New York,10134
+</span><span class='line'>944,2259176,Carmel,New York,10134
+</span><span class='line'>944,2257326,Carmel,New York,10134
+</span><span class='line'>944,2251974,Carmel,New York,10134</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And we want to replace our data with new data, or perhaps we are creating the feature steps from scratch.  For our first step, let&rsquo;s create/edit our feature file to have the basics:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  And   I download the csv file report "Phone-Records" as admin
+</span><span class='line'>  Then  the contents of the downloaded "Phone-Records" report contain:
+</span><span class='line'>    | text                                          |
+</span><span class='line'>    | phone_prefix,phone_num,city,state,postal_code |</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next, we will yank (y) the new data from the new_phone_prefix.csv file and place (p) them under what we just did:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  And   I download the csv file report "Phone-Records" as admin
+</span><span class='line'>  Then  the contents of the downloaded "Phone-Records" report contain:
+</span><span class='line'>    | text                                          |
+</span><span class='line'>    | phone_prefix,phone_num,city,state,postal_code |
+</span><span class='line'>
+</span><span class='line'>944,2251976,Carmel,New York,10134
+</span><span class='line'>944,2251981,Carmel,New York,10134
+</span><span class='line'>944,2251376,Carmel,New York,10134
+</span><span class='line'>944,2252946,Carmel,New York,10134
+</span><span class='line'>944,2253976,Carmel,New York,10134
+</span><span class='line'>944,2251376,Carmel,New York,10134
+</span><span class='line'>944,2254576,Carmel,New York,10134
+</span><span class='line'>944,2258986,Carmel,New York,10134
+</span><span class='line'>944,2259176,Carmel,New York,10134
+</span><span class='line'>944,2257326,Carmel,New York,10134
+</span><span class='line'>944,2251974,Carmel,New York,10134</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we need to move the data to line up with the left hand pipe (|) character.  I will place my cursor over the 9 on the first row of data, then use Cntrl+v to visual select a column, and press j until I have all the records covered.  Then I&rsquo;ll use shift+i to insert and press my space bar 4 times then the | key.  Lastly, remove that line break between our column headers and the data.  You should have something similar to:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  And   I download the csv file report "Phone-Records" as admin
+</span><span class='line'>  Then  the contents of the downloaded "Phone-Records" report contain:
+</span><span class='line'>    | text                                          |
+</span><span class='line'>    | phone_prefix,phone_num,city,state,postal_code |
+</span><span class='line'>    |944,2251976,Carmel,New York,10134
+</span><span class='line'>    |944,2251981,Carmel,New York,10134
+</span><span class='line'>    |944,2251376,Carmel,New York,10134
+</span><span class='line'>    |944,2252946,Carmel,New York,10134
+</span><span class='line'>    |944,2253976,Carmel,New York,10134
+</span><span class='line'>    |944,2251376,Carmel,New York,10134
+</span><span class='line'>    |944,2254576,Carmel,New York,10134
+</span><span class='line'>    |944,2258986,Carmel,New York,10134
+</span><span class='line'>    |944,2259176,Carmel,New York,10134
+</span><span class='line'>    |944,2257326,Carmel,New York,10134
+</span><span class='line'>    |944,2251974,Carmel,New York,10134</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hang in there, we are almost done.  To wrap this up, we return to using a macro.  I will position my cursor on the first line of data, build a macro, then execute it as follow:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>qq
+</span><span class='line'>shift+a
+</span><span class='line'>|
+</span><span class='line'>esc
+</span><span class='line'>j
+</span><span class='line'>q
+</span><span class='line'>10 @q</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Assuming you were successful, we should have something similar to:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  And   I download the csv file report "Phone-Records" as admin
+</span><span class='line'>  Then  the contents of the downloaded "Phone-Records" report contain:
+</span><span class='line'>    | text                                          |
+</span><span class='line'>    | phone_prefix,phone_num,city,state,postal_code |
+</span><span class='line'>    | 944,2251976,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2251981,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2251376,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2252946,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2253976,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2251376,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2254576,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2258986,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2259176,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2257326,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2251974,Carmel,New York,10134             |</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The clever eye may have noticed that we executed our macro in a slightly different manner this time &ndash; 10 @q.  After recording the macro for our first row of data, we tell vim to execute the macro ten times by using:  10 @q.</p>
+
+<p>I use this second example, of editting a feature file, more frequently that the first example.  After updating the feature files manually for too many times that I&rsquo;d like to admit to, I finally asked my pair if he knew a better way.  Of course he did, what a silly question.  He showed me the above techniques which saves me a lot of cycles &ndash; time which can be better spent on actual code.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Hammer, N(R)ails, and some Java(Script)]]></title>
@@ -1659,89 +1904,6 @@ listen_addresses = '*'
 <p>The keen eye may have caught something interesting in the to_csv method.  I&rsquo;m using an option, col_sep: &lsquo;:&rsquo; which allows me to use the : character as the delimiter instead of the default comma.</p>
 
 <p>With the test in place, and passing, I felt better about the code in my to_csv method.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Reflecting on Rails Inflections]]></title>
-    <link href="http://hogihung.github.io/blog/2014/09/16/reflect-on-inflectors/"/>
-    <updated>2014-09-16T08:26:35-04:00</updated>
-    <id>http://hogihung.github.io/blog/2014/09/16/reflect-on-inflectors</id>
-    <content type="html"><![CDATA[<p>Recently I re-discovered an issue I ran into about 8 months ago.  I am re-writing an application I created for work.  The first version was written in Ruby 1.9.x and Rails 3.x.  I built the app using sticks and glue &ndash; no testing.</p>
-
-<p>We are migrating to Ruby 2.1.x and Rails 4.1.x and rather than copy over the app and tweak it, I wanted to take a better approach, a TDD approach.</p>
-
-<p>It is a pretty simple application, with two main models &ndash; Baytech and Device.  A Baytech can have zero to many devices, and a device should only belong to one baytech.</p>
-
-<p>To frameout my two models I used the following:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rails g model baytech
-</span><span class='line'>rails g model device</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Everything seemed fine at first.  Until I started writing tests and code then I re-discovered a blast from the past.  What I didn&rsquo;t catch was that Rails, with its vast knowledge, pluralized both baytech and device as:</p>
-
-<blockquote><ul>
-<li>bayteches</li>
-<li>devices</li>
-</ul>
-</blockquote>
-
-<p>Now, all is cool with the plural version of device as devices.  But the plural of baytech is baytechs.  Oh crap, what do I do?</p>
-
-<p>The first time this happened to me, it took me a while to figure out what the heck was going on.  Eventually all roads led me to the file config/initializers/inflections.rb</p>
-
-<p>Taking a look inside this file, I found the following, or something similar:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># Be sure to restart your server when you modify this file.
-</span><span class='line'>
-</span><span class='line'># Add new inflection rules using the following format. Inflections
-</span><span class='line'># are locale specific, and you may define rules for as many different
-</span><span class='line'># locales as you wish. All of these examples are active by default:
-</span><span class='line'># ActiveSupport::Inflector.inflections(:en) do |inflect|
-</span><span class='line'>#   inflect.plural /^(ox)$/i, '\1en'
-</span><span class='line'>#   inflect.singular /^(ox)en/i, '\1'
-</span><span class='line'>#   inflect.irregular 'person', 'people'
-</span><span class='line'>#   inflect.uncountable %w( fish sheep )
-</span><span class='line'># end
-</span><span class='line'>
-</span><span class='line'># These inflection rules are supported but not enabled by default:
-</span><span class='line'># ActiveSupport::Inflector.inflections(:en) do |inflect|
-</span><span class='line'>#   inflect.acronym 'RESTful'
-</span><span class='line'># end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To cure my issue, I had to make one small change to this file, making use of inflect.irregular:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ActiveSupport::Inflector.inflections do |inflect|
-</span><span class='line'>  inflect.irregular 'baytech', 'baytechs'
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Once that change was made, anytime there was a need for the plural version of baytech, Rails knew to use baytechs.  Yeah!</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>

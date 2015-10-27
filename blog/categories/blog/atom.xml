@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blog | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/blog/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-09-29T15:04:18-04:00</updated>
+  <updated>2015-10-27T09:02:42-04:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,178 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Macro VimOnomics]]></title>
+    <link href="http://hogihung.github.io/blog/2015/10/27/macro-vimonomics/"/>
+    <updated>2015-10-27T10:01:14-04:00</updated>
+    <id>http://hogihung.github.io/blog/2015/10/27/macro-vimonomics</id>
+    <content type="html"><![CDATA[<p>Today I would like to share a productivity tip that I learned from my pair/lead developer partner.  Vim continues to surprise me on what seems to be a daily basis.  I know that with my neophyte knowledge with vim, that I&rsquo;m barely scratching the surface.  Ok, let&rsquo;s get down with some Macro Econom&hellip;, I mean VimOnomics.</p>
+
+<p>Recently I was tasked with changing a handful of our fixture *.csv files.  In case you have not yet worked with these types of files, they are a simple text file which use a delimiter, commonly the comma.  For example:</p>
+
+<p><code>
+phone_prefix,phone_num,city,state,postal_code
+914,2251976,Carmel,New York,10134
+</code></p>
+
+<p>Now image a file in the above format, but with hundreds of rows and that we need to change the phone_prefix from 914 to 944.  Also, imagine that we have a dozen or so fixture files that require this update.  Using the power of macros in vim, this can be a relatively easy task.</p>
+
+<p>```
+[Open all of our fixture files]
+vim spec/fixtures/<em>/</em>.csv</p>
+
+<p>[Record the macro]
+qq
+:1,$s/^914,/944,/
+:w
+:n
+q
+```
+To review what the above steps are doing, first we tell vim to start recording using the command qq.  Next, we define our replace command telling vim that we want to replace 914, with 944, and then we write the file using :w to save our changes.  The :n command tells vim to move to the next file and q stops the recording.</p>
+
+<p>With the macro ready to go, we can use @q to launch the macro.  This should bring the next file in the buffer into focus and perform the steps outlined in the macro.  Repeat the @q command until all of your files have been updated.  After feeling the pain of doing manual updates for a while, this tip was much welcomed.</p>
+
+<p>However, we are are not done yet.  We need to address this change of 914 to 944 in our related feature file(s).  Continuing onwards with our example, we will assume that we have an existing feature file with some steps similar to the following (picture dozens if not hundes of lines):</p>
+
+<p>```
+  And   I download the csv file report &ldquo;Phone-Records&rdquo; as admin
+  Then  the contents of the downloaded &ldquo;Phone-Records&rdquo; report contain:</p>
+
+<pre><code>| text                                          |
+| phone_prefix,phone_num,city,state,postal_code |
+| 914,2251976,Carmel,New York,10134             |
+| 914,2251981,Carmel,New York,10134             |
+| 914,2251376,Carmel,New York,10134             |
+| 914,2252946,Carmel,New York,10134             |
+| 914,2253976,Carmel,New York,10134             |
+| 914,2251376,Carmel,New York,10134             |
+| 914,2254576,Carmel,New York,10134             |
+| 914,2258986,Carmel,New York,10134             |
+| 914,2259176,Carmel,New York,10134             |
+| 914,2257326,Carmel,New York,10134             |
+| 914,2251974,Carmel,New York,10134             |
+</code></pre>
+
+<p>```</p>
+
+<p>For our example, assume we have our new data in the file new_phone_prefix.csv:</p>
+
+<p><code>
+phone_prefix,phone_num,city,state,postal_code
+944,2251976,Carmel,New York,10134
+944,2251981,Carmel,New York,10134
+944,2251376,Carmel,New York,10134
+944,2252946,Carmel,New York,10134
+944,2253976,Carmel,New York,10134
+944,2251376,Carmel,New York,10134
+944,2254576,Carmel,New York,10134
+944,2258986,Carmel,New York,10134
+944,2259176,Carmel,New York,10134
+944,2257326,Carmel,New York,10134
+944,2251974,Carmel,New York,10134
+</code></p>
+
+<p>And we want to replace our data with new data, or perhaps we are creating the feature steps from scratch.  For our first step, let&rsquo;s create/edit our feature file to have the basics:</p>
+
+<p>```
+  And   I download the csv file report &ldquo;Phone-Records&rdquo; as admin
+  Then  the contents of the downloaded &ldquo;Phone-Records&rdquo; report contain:</p>
+
+<pre><code>| text                                          |
+| phone_prefix,phone_num,city,state,postal_code |
+</code></pre>
+
+<p>```</p>
+
+<p>Next, we will yank (y) the new data from the new_phone_prefix.csv file and place (p) them under what we just did:</p>
+
+<p>```
+  And   I download the csv file report &ldquo;Phone-Records&rdquo; as admin
+  Then  the contents of the downloaded &ldquo;Phone-Records&rdquo; report contain:</p>
+
+<pre><code>| text                                          |
+| phone_prefix,phone_num,city,state,postal_code |
+</code></pre>
+
+<p>944,2251976,Carmel,New York,10134
+944,2251981,Carmel,New York,10134
+944,2251376,Carmel,New York,10134
+944,2252946,Carmel,New York,10134
+944,2253976,Carmel,New York,10134
+944,2251376,Carmel,New York,10134
+944,2254576,Carmel,New York,10134
+944,2258986,Carmel,New York,10134
+944,2259176,Carmel,New York,10134
+944,2257326,Carmel,New York,10134
+944,2251974,Carmel,New York,10134
+```</p>
+
+<p>Now we need to move the data to line up with the left hand pipe (|) character.  I will place my cursor over the 9 on the first row of data, then use Cntrl+v to visual select a column, and press j until I have all the records covered.  Then I&rsquo;ll use shift+i to insert and press my space bar 4 times then the | key.  Lastly, remove that line break between our column headers and the data.  You should have something similar to:</p>
+
+<p>```
+  And   I download the csv file report &ldquo;Phone-Records&rdquo; as admin
+  Then  the contents of the downloaded &ldquo;Phone-Records&rdquo; report contain:</p>
+
+<pre><code>| text                                          |
+| phone_prefix,phone_num,city,state,postal_code |
+|944,2251976,Carmel,New York,10134
+|944,2251981,Carmel,New York,10134
+|944,2251376,Carmel,New York,10134
+|944,2252946,Carmel,New York,10134
+|944,2253976,Carmel,New York,10134
+|944,2251376,Carmel,New York,10134
+|944,2254576,Carmel,New York,10134
+|944,2258986,Carmel,New York,10134
+|944,2259176,Carmel,New York,10134
+|944,2257326,Carmel,New York,10134
+|944,2251974,Carmel,New York,10134
+</code></pre>
+
+<p>```</p>
+
+<p>Hang in there, we are almost done.  To wrap this up, we return to using a macro.  I will position my cursor on the first line of data, build a macro, then execute it as follow:</p>
+
+<p><code>
+qq
+shift+a
+|
+esc
+j
+q
+10 @q
+</code></p>
+
+<p>Assuming you were successful, we should have something similar to:</p>
+
+<p>```
+  And   I download the csv file report &ldquo;Phone-Records&rdquo; as admin
+  Then  the contents of the downloaded &ldquo;Phone-Records&rdquo; report contain:</p>
+
+<pre><code>| text                                          |
+| phone_prefix,phone_num,city,state,postal_code |
+| 944,2251976,Carmel,New York,10134             |
+| 944,2251981,Carmel,New York,10134             |
+| 944,2251376,Carmel,New York,10134             |
+| 944,2252946,Carmel,New York,10134             |
+| 944,2253976,Carmel,New York,10134             |
+| 944,2251376,Carmel,New York,10134             |
+| 944,2254576,Carmel,New York,10134             |
+| 944,2258986,Carmel,New York,10134             |
+| 944,2259176,Carmel,New York,10134             |
+| 944,2257326,Carmel,New York,10134             |
+| 944,2251974,Carmel,New York,10134             |
+</code></pre>
+
+<p>```</p>
+
+<p>The clever eye may have noticed that we executed our macro in a slightly different manner this time &ndash; 10 @q.  After recording the macro for our first row of data, we tell vim to execute the macro ten times by using:  10 @q.</p>
+
+<p>I use this second example, of editting a feature file, more frequently that the first example.  After updating the feature files manually for too many times that I&rsquo;d like to admit to, I finally asked my pair if he knew a better way.  Of course he did, what a silly question.  He showed me the above techniques which saves me a lot of cycles &ndash; time which can be better spent on actual code.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Hammer, N(R)ails, and some Java(Script)]]></title>
@@ -402,105 +574,6 @@ about anywhere, at anytime.</p>
 <p>Once I&rsquo;ve been at the new job for about a month, I will write again about how things
 are going.  Hopefully I will not come back and utter the words of Gob, from &lsquo;Arrested
 Development&rsquo;, and say: <em>&ldquo;I&rsquo;ve made a huge mistake.&rdquo;</em></p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[An Unexcused Absence]]></title>
-    <link href="http://hogihung.github.io/blog/2015/05/05/unexcused-absence/"/>
-    <updated>2015-05-05T10:15:14-04:00</updated>
-    <id>http://hogihung.github.io/blog/2015/05/05/unexcused-absence</id>
-    <content type="html"><![CDATA[<p>The dedicated and faithful reader of this old guy, would have noticed an extended
-silence in this corner of the web.  I have, as the automated voice message of my
-sons school would say, &ldquo;an unexcused absence.&rdquo;  While I won&rsquo;t make any excuses, I
-would like to share what has kept me away from my writing.</p>
-
-<p>Back in March I started to learn Swift by attending the Udacity iOS online program.
-Udacity has partnered with the company I work at.  After successful completion of
-the course, my company will reimburse me for the tuition.  About two weeks into
-my training, the family and I went on a cruise.  Though I brought my laptop and
-study material, I didn&rsquo;t spend much time Swift.</p>
-
-<p>After our trip, and a hop-skip-jump over a week, it was time for Ancient City Ruby.
-I enjoyed this years ACR conference, though I would have preferred a bit more
-technical meat and less of the social fluffy stuff.  However, the most significant
-part of ACR for me was meeting with another Ruby developer and getting accepted to
-work part-time on a neat project.</p>
-
-<p>The part-time project is my first &ldquo;real-world&rdquo; Ruby app that I&rsquo;ve been a part of.
-Though I&rsquo;ve worked on some training apps or personal Rails apps, they have all been
-small in scale compared to this new gig.  Being new to the project, and not knowing
-much outside my experience with smaller apps, I&rsquo;ve been spending a lot of time
-looking around and trying to get familiar with the applications structure.</p>
-
-<p>And then came Rails Conference!  This year the conference was held in Atlanta, GA
-which is not too bad a drive from Jacksonville, FL.  I hadn&rsquo;t yet been to a Rails
-Conference, so of course I had to go.  Overall I enjoyed the time in Atlanta.  I
-ran into a guy, David, who I had meet in Miami at Ruby Conf 2013.  Also, I got to
-spend time with another developer that is working on the same project that I mentioned
-above.</p>
-
-<p>After the conference, I have been spending most of my evenings working on the
-part-time project.  There is a lot to learn, but I am enjoying every minute of it.
-The best part of my day is seeing my tests go green and being able to merge and
-push my changes.</p>
-
-<p>And that is my excuse, uh I mean my reasons, for not being active here for a while.
-I had set a personal goal to publish a new post each month, and I&rsquo;m working to
-raise the bar and publish twice a month.  Keep me honest &ndash; smack me via Twitter
-if you feel I&rsquo;m slacking.  :)</p>
-
-<p>Ok, now I&rsquo;d like to share a little snippet of code that illustrates something neat
-I have learned while working on the part-time gig.  A great benefit of working on
-a project with a mentor.  The first example is my original code before refactoring
-to make it better and look a lot more &lsquo;Ruby-ish&rsquo;.</p>
-
-<p>```
-def is_valid?(product)
-  return true if @errors.nil?
-  @errors.each do |error|</p>
-
-<pre><code>if error.has_key?(product)
-  return false
-end
-</code></pre>
-
-<p>  end
-  return true
-end</p>
-
-<p>def errored_price(product)
-  return nil if @errors.nil?
-  @errors.each do |error|</p>
-
-<pre><code>if error.has_key?(product)
-  return error[product]
-end
-</code></pre>
-
-<p>  end
-  return nil
-end
-```</p>
-
-<p>And now the reveal &ndash; the pretty version which accomplishes the same thing.  Note
-that during the refactor we re-named a few things, but the overall result was the
-same.</p>
-
-<p>```
-def is_valid?(product)
-  return true if @errors.nil?
-  return false if @errors.include?(product)
-  return true
-end</p>
-
-<p>def clock_price(product, eor_price)
-  return price if @new_prices.nil?
-  return @new_prices[product]
-end
-```</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>

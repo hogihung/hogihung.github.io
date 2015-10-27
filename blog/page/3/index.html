@@ -9,7 +9,7 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="I recently had the joy of installing Oracle 11g Express Edition on my home server. That server runs CentOS 6.x as that is the flavor of Linux we use &hellip;">
+  <meta name="description" content="Recently I re-discovered an issue I ran into about 8 months ago. I am re-writing an application I created for work. The first version was written in &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,116 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/16/reflect-on-inflectors/">Reflecting on Rails Inflections</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-16T08:26:35-04:00" pubdate data-updated="true">Sep 16<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recently I re-discovered an issue I ran into about 8 months ago.  I am re-writing an application I created for work.  The first version was written in Ruby 1.9.x and Rails 3.x.  I built the app using sticks and glue &ndash; no testing.</p>
+
+<p>We are migrating to Ruby 2.1.x and Rails 4.1.x and rather than copy over the app and tweak it, I wanted to take a better approach, a TDD approach.</p>
+
+<p>It is a pretty simple application, with two main models &ndash; Baytech and Device.  A Baytech can have zero to many devices, and a device should only belong to one baytech.</p>
+
+<p>To frameout my two models I used the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rails g model baytech
+</span><span class='line'>rails g model device</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Everything seemed fine at first.  Until I started writing tests and code then I re-discovered a blast from the past.  What I didn&rsquo;t catch was that Rails, with its vast knowledge, pluralized both baytech and device as:</p>
+
+<blockquote><ul>
+<li>bayteches</li>
+<li>devices</li>
+</ul>
+</blockquote>
+
+<p>Now, all is cool with the plural version of device as devices.  But the plural of baytech is baytechs.  Oh crap, what do I do?</p>
+
+<p>The first time this happened to me, it took me a while to figure out what the heck was going on.  Eventually all roads led me to the file config/initializers/inflections.rb</p>
+
+<p>Taking a look inside this file, I found the following, or something similar:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># Be sure to restart your server when you modify this file.
+</span><span class='line'>
+</span><span class='line'># Add new inflection rules using the following format. Inflections
+</span><span class='line'># are locale specific, and you may define rules for as many different
+</span><span class='line'># locales as you wish. All of these examples are active by default:
+</span><span class='line'># ActiveSupport::Inflector.inflections(:en) do |inflect|
+</span><span class='line'>#   inflect.plural /^(ox)$/i, '\1en'
+</span><span class='line'>#   inflect.singular /^(ox)en/i, '\1'
+</span><span class='line'>#   inflect.irregular 'person', 'people'
+</span><span class='line'>#   inflect.uncountable %w( fish sheep )
+</span><span class='line'># end
+</span><span class='line'>
+</span><span class='line'># These inflection rules are supported but not enabled by default:
+</span><span class='line'># ActiveSupport::Inflector.inflections(:en) do |inflect|
+</span><span class='line'>#   inflect.acronym 'RESTful'
+</span><span class='line'># end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To cure my issue, I had to make one small change to this file, making use of inflect.irregular:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ActiveSupport::Inflector.inflections do |inflect|
+</span><span class='line'>  inflect.irregular 'baytech', 'baytechs'
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once that change was made, anytime there was a need for the plural version of baytech, Rails knew to use baytechs.  Yeah!</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -818,64 +928,6 @@ cd instantclient_11_2</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/29/week-2-and-a-half-at-bloc/">Week 2 and a Half at Bloc</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-29T10:02:23-04:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The first week of my training at Bloc went by very fast. For the most part it was a review of information/knowledge I had already gained, but was still worth it.  I had wanted to create another blog post earlier, but the completion of the second block took longer than I had anticipated.</p>
-
-<p>So here we are, about about 2.5 weeks in. The second block, titled Rails Foundation, should take one about 40 hours.  At least that is the estimated time for completion.  If I wasn&rsquo;t working full-time, maybe I could have completed this block in one week.</p>
-
-<p>The Rails Foundation block is composed of 20 checkpoints.  We learned a lot of concepts, and habits in those checkpoints.  There was some review for me, for example the lesson introduced the Devise gem.  I&rsquo;ve played with this a little bit so had some comfort with that checkpoint.  Though I did learn some new things related to Devise.</p>
-
-<p>A totally new experience for me was when did the Authorization checkpoint, and was introduced to the Pundit gem.  I would say that Pundit is a little bit like CanCan.  I&rsquo;ve dabbled with CanCan a little bit, but I find Pundit to be pretty good.  I&rsquo;ll have a tough choice to make when it comes time for my Capstone project.  Should I go with Pundit, or revist CanCan (or CanCanCan.)</p>
-
-<p>Another topic that I found useful, because it helped me with a task at my day job, was the lesson on Seeding.  While our main environment at work is Perl, I&rsquo;m slowing trying to sneak in some Ruby and Rails.  Leveraging some of the knowledge gained in the Seeding lesson, I was able to expand on that knowledge and compose my first rake task for populating my models with data in CSV files.  Ok, I&rsquo;m a bit off topic, steer back John!</p>
-
-<p>There were two area where my progress slowed to a crawl in the second block.  The first was related to uploading images.  Recently Bloc added a Rails 4.x track and it looks like some of the lesson code examples are missing.  I wasn&rsquo;t able to see my Choose File option for uploading an image.  A trip to the Chat Room and a small wait for my turn, and my issue was solved by Xander.  Xander is great!  Everytime I&rsquo;ve had a question, he seems to be in the chat room and helps me out.</p>
-
-<p>The second area I had trouble with was nesting.  I&rsquo;ll admit that I&rsquo;m still 100% solid with what I&rsquo;ve learned about nesting, but I&rsquo;m confident things will become clearer as I see and utilize more code.  During one of the lessons related to this nesting of Topics, Posts and Comments, I got stuck real bad.  I went to the chat room for help, but it was just at the time for that shift to end for the day.  Xander stayed for a few minutes and helped a lot.  But I was still stuck.</p>
-
-<p>I was worried that all the changes I had made may have broken something.  So I fired off an email to my mentor to let him know I was stuck and to be prepared for a nice long chat the next day when we were scheduled to meet.  We meet the next day and he helped get me fixed in less than 5 minutes.  My eyes were so focused around the code and didn&rsquo;t &ldquo;see&rdquo; the code.  I had several silly mistakes.  For example I used the plural version instead of singular for a particular item/method.  Or I had a misplaced period.  And other issue, I had the order of a ) and a period mixed up.  Simple things for the trained eye.  It was great to have the mentor there to help me through what I thought was a major <em>fsk</em> up on my part.</p>
-
-<p>Needless to say, I made some more punctuation type mistakes on the remaing checkpoints in this block.  But since I suffered so much earlier in the block, I was much more aware of what to look for.  The hard part for me now is when I see an error message, and know basically what is wrong, I don&rsquo;t yet have the experience to provide the solution.  But I&rsquo;m eagerly working at improving my problem solution skills.  :)</p>
-
-<p>As I write this post, again about 2.5, well maybe 2.75 weeks in, I&rsquo;m now on the third Block &ndash; Features / Testing / Javascript.  This block is also estimated to take 40 hours.  There are 10 checkpoints and I&rsquo;ve completed the first 4 so far.  But now I&rsquo;m really entering an area of unfamiliarity.  Upcoming in this block is RSpec and Ajax.  Two areas that have close to zero amount of knowledge and experience.</p>
-
-<p>Stay tuned for my next update.  This coming week I will be going to Ancient City Ruby so I&rsquo;m not sure if I&rsquo;ll have the time to complete the third block.  But once I have completed it, I will post my thoughts here.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -893,6 +945,10 @@ cd instantclient_11_2</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/10/27/macro-vimonomics/">Macro VimOnomics</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/09/25/hammer-nails-and-java/">Hammer, N(R)ails, and some Java(Script)</a>
       </li>
     
@@ -906,10 +962,6 @@ cd instantclient_11_2</p>
     
       <li class="post">
         <a href="/blog/2015/06/23/learnings-from-the-front/">Learnings from the Front</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/06/02/breaking-up-is-hard/">Breaking Up Is Hard To Do</a>
       </li>
     
   </ul>

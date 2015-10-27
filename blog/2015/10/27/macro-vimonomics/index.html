@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Macro VimOnomics - Old Guy, New Trick</title>
+  <meta name="author" content="Ho Gi Hung">
+
+  
+  <meta name="description" content="Today I would like to share a productivity tip that I learned from my pair/lead developer partner. Vim continues to surprise me on what seems to be a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hogihung.github.io/blog/2015/10/27/macro-vimonomics/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Old Guy, New Trick" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Old Guy, New Trick</a></h1>
+  
+    <h2>An old guys journey to learn how to code</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hogihung.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+	<li><a href="/">Blog</a></li>
+  <li><a href="/about/">About</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Macro VimOnomics</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-10-27T10:01:14-04:00" pubdate data-updated="true">Oct 27<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Today I would like to share a productivity tip that I learned from my pair/lead developer partner.  Vim continues to surprise me on what seems to be a daily basis.  I know that with my neophyte knowledge with vim, that I&rsquo;m barely scratching the surface.  Ok, let&rsquo;s get down with some Macro Econom&hellip;, I mean VimOnomics.</p>
+
+<p>Recently I was tasked with changing a handful of our fixture *.csv files.  In case you have not yet worked with these types of files, they are a simple text file which use a delimiter, commonly the comma.  For example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>phone_prefix,phone_num,city,state,postal_code
+</span><span class='line'>914,2251976,Carmel,New York,10134</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now image a file in the above format, but with hundreds of rows and that we need to change the phone_prefix from 914 to 944.  Also, imagine that we have a dozen or so fixture files that require this update.  Using the power of macros in vim, this can be a relatively easy task.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[Open all of our fixture files]
+</span><span class='line'>vim spec/fixtures/*/*.csv
+</span><span class='line'>
+</span><span class='line'>[Record the macro]
+</span><span class='line'>qq
+</span><span class='line'>:1,$s/^914,/944,/
+</span><span class='line'>:w
+</span><span class='line'>:n
+</span><span class='line'>q</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To review what the above steps are doing, first we tell vim to start recording using the command qq.  Next, we define our replace command telling vim that we want to replace 914, with 944, and then we write the file using :w to save our changes.  The :n command tells vim to move to the next file and q stops the recording.</p>
+
+<p>With the macro ready to go, we can use @q to launch the macro.  This should bring the next file in the buffer into focus and perform the steps outlined in the macro.  Repeat the @q command until all of your files have been updated.  After feeling the pain of doing manual updates for a while, this tip was much welcomed.</p>
+
+<p>However, we are are not done yet.  We need to address this change of 914 to 944 in our related feature file(s).  Continuing onwards with our example, we will assume that we have an existing feature file with some steps similar to the following (picture dozens if not hundes of lines):</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  And   I download the csv file report "Phone-Records" as admin
+</span><span class='line'>  Then  the contents of the downloaded "Phone-Records" report contain:
+</span><span class='line'>    | text                                          |
+</span><span class='line'>    | phone_prefix,phone_num,city,state,postal_code |
+</span><span class='line'>    | 914,2251976,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2251981,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2251376,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2252946,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2253976,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2251376,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2254576,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2258986,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2259176,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2257326,Carmel,New York,10134             |
+</span><span class='line'>    | 914,2251974,Carmel,New York,10134             |</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For our example, assume we have our new data in the file new_phone_prefix.csv:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>phone_prefix,phone_num,city,state,postal_code
+</span><span class='line'>944,2251976,Carmel,New York,10134
+</span><span class='line'>944,2251981,Carmel,New York,10134
+</span><span class='line'>944,2251376,Carmel,New York,10134
+</span><span class='line'>944,2252946,Carmel,New York,10134
+</span><span class='line'>944,2253976,Carmel,New York,10134
+</span><span class='line'>944,2251376,Carmel,New York,10134
+</span><span class='line'>944,2254576,Carmel,New York,10134
+</span><span class='line'>944,2258986,Carmel,New York,10134
+</span><span class='line'>944,2259176,Carmel,New York,10134
+</span><span class='line'>944,2257326,Carmel,New York,10134
+</span><span class='line'>944,2251974,Carmel,New York,10134</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And we want to replace our data with new data, or perhaps we are creating the feature steps from scratch.  For our first step, let&rsquo;s create/edit our feature file to have the basics:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  And   I download the csv file report "Phone-Records" as admin
+</span><span class='line'>  Then  the contents of the downloaded "Phone-Records" report contain:
+</span><span class='line'>    | text                                          |
+</span><span class='line'>    | phone_prefix,phone_num,city,state,postal_code |</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next, we will yank (y) the new data from the new_phone_prefix.csv file and place (p) them under what we just did:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  And   I download the csv file report "Phone-Records" as admin
+</span><span class='line'>  Then  the contents of the downloaded "Phone-Records" report contain:
+</span><span class='line'>    | text                                          |
+</span><span class='line'>    | phone_prefix,phone_num,city,state,postal_code |
+</span><span class='line'>
+</span><span class='line'>944,2251976,Carmel,New York,10134
+</span><span class='line'>944,2251981,Carmel,New York,10134
+</span><span class='line'>944,2251376,Carmel,New York,10134
+</span><span class='line'>944,2252946,Carmel,New York,10134
+</span><span class='line'>944,2253976,Carmel,New York,10134
+</span><span class='line'>944,2251376,Carmel,New York,10134
+</span><span class='line'>944,2254576,Carmel,New York,10134
+</span><span class='line'>944,2258986,Carmel,New York,10134
+</span><span class='line'>944,2259176,Carmel,New York,10134
+</span><span class='line'>944,2257326,Carmel,New York,10134
+</span><span class='line'>944,2251974,Carmel,New York,10134</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we need to move the data to line up with the left hand pipe (|) character.  I will place my cursor over the 9 on the first row of data, then use Cntrl+v to visual select a column, and press j until I have all the records covered.  Then I&rsquo;ll use shift+i to insert and press my space bar 4 times then the | key.  Lastly, remove that line break between our column headers and the data.  You should have something similar to:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  And   I download the csv file report "Phone-Records" as admin
+</span><span class='line'>  Then  the contents of the downloaded "Phone-Records" report contain:
+</span><span class='line'>    | text                                          |
+</span><span class='line'>    | phone_prefix,phone_num,city,state,postal_code |
+</span><span class='line'>    |944,2251976,Carmel,New York,10134
+</span><span class='line'>    |944,2251981,Carmel,New York,10134
+</span><span class='line'>    |944,2251376,Carmel,New York,10134
+</span><span class='line'>    |944,2252946,Carmel,New York,10134
+</span><span class='line'>    |944,2253976,Carmel,New York,10134
+</span><span class='line'>    |944,2251376,Carmel,New York,10134
+</span><span class='line'>    |944,2254576,Carmel,New York,10134
+</span><span class='line'>    |944,2258986,Carmel,New York,10134
+</span><span class='line'>    |944,2259176,Carmel,New York,10134
+</span><span class='line'>    |944,2257326,Carmel,New York,10134
+</span><span class='line'>    |944,2251974,Carmel,New York,10134</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hang in there, we are almost done.  To wrap this up, we return to using a macro.  I will position my cursor on the first line of data, build a macro, then execute it as follow:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>qq
+</span><span class='line'>shift+a
+</span><span class='line'>|
+</span><span class='line'>esc
+</span><span class='line'>j
+</span><span class='line'>q
+</span><span class='line'>10 @q</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Assuming you were successful, we should have something similar to:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  And   I download the csv file report "Phone-Records" as admin
+</span><span class='line'>  Then  the contents of the downloaded "Phone-Records" report contain:
+</span><span class='line'>    | text                                          |
+</span><span class='line'>    | phone_prefix,phone_num,city,state,postal_code |
+</span><span class='line'>    | 944,2251976,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2251981,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2251376,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2252946,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2253976,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2251376,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2254576,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2258986,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2259176,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2257326,Carmel,New York,10134             |
+</span><span class='line'>    | 944,2251974,Carmel,New York,10134             |</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The clever eye may have noticed that we executed our macro in a slightly different manner this time &ndash; 10 @q.  After recording the macro for our first row of data, we tell vim to execute the macro ten times by using:  10 @q.</p>
+
+<p>I use this second example, of editting a feature file, more frequently that the first example.  After updating the feature files manually for too many times that I&rsquo;d like to admit to, I finally asked my pair if he knew a better way.  Of course he did, what a silly question.  He showed me the above techniques which saves me a lot of cycles &ndash; time which can be better spent on actual code.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ho Gi Hung</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-10-27T10:01:14-04:00" pubdate data-updated="true">Oct 27<span>th</span>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/blog/'>Blog</a>, <a class='category' href='/blog/categories/macro/'>macro</a>, <a class='category' href='/blog/categories/vim/'>vim</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2015/10/27/macro-vimonomics/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2015/10/27/macro-vimonomics/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/09/25/hammer-nails-and-java/" title="Previous Post: Hammer, N(R)ails, and some Java(Script)">&laquo; Hammer, N(R)ails, and some Java(Script)</a>
+      
+      
+    </p>
+    <div id="disqus_thread"></div>
+      <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          var disqus_shortname = 'oldguynewtrickcom'; // required: replace example with your forum shortname
+
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/27/macro-vimonomics/">Macro VimOnomics</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/09/25/hammer-nails-and-java/">Hammer, N(R)ails, and some Java(Script)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/28/order-is-important/">Order is Important...</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/05/a-case-for-truth/">A Case for the Truth</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/23/learnings-from-the-front/">Learnings from the Front</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("hogihung", , );
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <p>Follow <a href="http://twitter.com/hogihung">@hogihung</a></p>
+  
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Ho Gi Hung -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.Background image by Ho Gi Hung</span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
