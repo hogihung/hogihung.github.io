@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: macvim | Old Guy, New Trick]]></title>
+  <link href="http://hogihung.github.io/blog/categories/macvim/atom.xml" rel="self"/>
+  <link href="http://hogihung.github.io/"/>
+  <updated>2015-11-04T19:29:28-05:00</updated>
+  <id>http://hogihung.github.io/</id>
+  <author>
+    <name><![CDATA[Ho Gi Hung]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Gooey Vim]]></title>
+    <link href="http://hogihung.github.io/blog/2015/11/04/gooey-vim/"/>
+    <updated>2015-11-04T19:06:14-05:00</updated>
+    <id>http://hogihung.github.io/blog/2015/11/04/gooey-vim</id>
+    <content type="html"><![CDATA[<p>Today I&rsquo;d to visit vims' cousing, MacVim.  While I do spend most of my time in what I will call &ldquo;normal&rdquo; vim, that is vim executed from the command line of my terminal (iTerm), there are times when I want to work in MacVim.  I tend to reserve MacVim to acts as my general use notepad.  The main reason I treat it as a scratch/notepad instead of vim, is that I find copying and pasting to be more user friendly with MacVim.  There are some other aspects I like, for example being able to scroll using the trackpad on my laptop or via the scroll wheel on a mouse.</p>
+
+<p>While watching some episodes of Elixir Sips and LearnElixir I noticed that the presenters had a pretty cool setup in vim.  I did a little research and found that they use a plugin similar to Airline.  The plugin, and ones similar to it, dress up your vim environment.  So I installed one of the plugins, <em>bling/vim-airline</em> and ran into issues with the display &ndash; it was a little bit off.  Through more research, I discovered that I needed to install the Powerline family of fonts.  Once that was completed my vim environment looked awesome.</p>
+
+<p>However, when I launched MacVim, I was having issues.  Back to the web and more reading.  I found that I needed to update my gvimrc file to setup the use of a guifont. Initially I tried updating the gvimrc and set the following:</p>
+
+<p><code>
+set guifont=Source\ Code\ Pro\ Powerline:14
+</code></p>
+
+<p>I tried a few different combinations, with out success.  So I decided to play around a bit.  First I launched MacVim (mvim).  Then I tried to manually set the font using:</p>
+
+<p><code>
+:set guifont=SourceCodeProforPowerline -&gt; didn't work
+:set guifont=Source\ Code\ Pro\ for\ Powerline:14  -&gt; didn't work
+</code></p>
+
+<p>I stumbled upon a answer over at StackOverflow and noticed that the poster included an &lsquo;h&rsquo; just before the font size.  So I gave that a try:</p>
+
+<p><code>
+:set guifont=Source\ Code\ Pro\ for\ Powerline:h14  -&gt; WORKED!
+</code></p>
+
+<p>Cool, I got that to work.  But dang, I don&rsquo;t want to have to type that everytime I launch MacVim and want my environment to be all gooey-fied.  So I decided to make a modification to my .vimrc file:</p>
+
+<p>```
+&ldquo; set a guifont for MacVim and Powerline Font support
+&rdquo; You can now use Cntrl+g to turn on the font setting below
+nnoremap &lt;C-g> :set guifont=Source\ Code\ Pro\ for\ Powerline:h14<cr></p>
+
+<p>Tip: You can also use this format:
+set guifont=Source_Code_Pro_for_Powerline:h14
+```</p>
+
+<p>While I like, and use the Cntrl+g option as indicated above, my stubbornish really wanted to get the font working via an update to the gvimrc file.  Once I saw, through my trial and errors above, what MacVim was looking for in the ways of proper syntax, I re-visited updating the gvimrc file.  So I added the following to my gvimrc file and restarted MacVim:</p>
+
+<p><code>
+set guifont=Source_Code_Pro_for_Powerline:h14
+</code></p>
+
+<p>And BAM! my nice gooey font setting was applied.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
+  
+</feed>

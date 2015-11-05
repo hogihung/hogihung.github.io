@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-10-27T09:02:42-04:00</updated>
+  <updated>2015-11-04T19:29:28-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -12,6 +12,63 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Gooey Vim]]></title>
+    <link href="http://hogihung.github.io/blog/2015/11/04/gooey-vim/"/>
+    <updated>2015-11-04T19:06:14-05:00</updated>
+    <id>http://hogihung.github.io/blog/2015/11/04/gooey-vim</id>
+    <content type="html"><![CDATA[<p>Today I&rsquo;d to visit vims&#8217; cousing, MacVim.  While I do spend most of my time in what I will call &ldquo;normal&rdquo; vim, that is vim executed from the command line of my terminal (iTerm), there are times when I want to work in MacVim.  I tend to reserve MacVim to acts as my general use notepad.  The main reason I treat it as a scratch/notepad instead of vim, is that I find copying and pasting to be more user friendly with MacVim.  There are some other aspects I like, for example being able to scroll using the trackpad on my laptop or via the scroll wheel on a mouse.</p>
+
+<p>While watching some episodes of Elixir Sips and LearnElixir I noticed that the presenters had a pretty cool setup in vim.  I did a little research and found that they use a plugin similar to Airline.  The plugin, and ones similar to it, dress up your vim environment.  So I installed one of the plugins, <em>bling/vim-airline</em> and ran into issues with the display &ndash; it was a little bit off.  Through more research, I discovered that I needed to install the Powerline family of fonts.  Once that was completed my vim environment looked awesome.</p>
+
+<p>However, when I launched MacVim, I was having issues.  Back to the web and more reading.  I found that I needed to update my gvimrc file to setup the use of a guifont. Initially I tried updating the gvimrc and set the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>set guifont=Source\ Code\ Pro\ Powerline:14</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I tried a few different combinations, with out success.  So I decided to play around a bit.  First I launched MacVim (mvim).  Then I tried to manually set the font using:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>:set guifont=SourceCodeProforPowerline -&gt; didn't work
+</span><span class='line'>:set guifont=Source\ Code\ Pro\ for\ Powerline:14  -&gt; didn't work</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I stumbled upon a answer over at StackOverflow and noticed that the poster included an &lsquo;h&rsquo; just before the font size.  So I gave that a try:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>:set guifont=Source\ Code\ Pro\ for\ Powerline:h14  -&gt; WORKED!</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cool, I got that to work.  But dang, I don&rsquo;t want to have to type that everytime I launch MacVim and want my environment to be all gooey-fied.  So I decided to make a modification to my .vimrc file:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>" set a guifont for MacVim and Powerline Font support
+</span><span class='line'>" You can now use Cntrl+g to turn on the font setting below
+</span><span class='line'>nnoremap &lt;C-g&gt; :set guifont=Source\ Code\ Pro\ for\ Powerline:h14&lt;cr&gt;
+</span><span class='line'>
+</span><span class='line'>Tip: You can also use this format:
+</span><span class='line'>set guifont=Source_Code_Pro_for_Powerline:h14 </span></code></pre></td></tr></table></div></figure>
+
+
+<p>While I like, and use the Cntrl+g option as indicated above, my stubbornish really wanted to get the font working via an update to the gvimrc file.  Once I saw, through my trial and errors above, what MacVim was looking for in the ways of proper syntax, I re-visited updating the gvimrc file.  So I added the following to my gvimrc file and restarted MacVim:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>set guifont=Source_Code_Pro_for_Powerline:h14 </span></code></pre></td></tr></table></div></figure>
+
+
+<p>And BAM! my nice gooey font setting was applied.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Macro VimOnomics]]></title>
@@ -1811,99 +1868,6 @@ listen_addresses = '*'
 <a href="https://github.com/thoughtbot/paperclip/issues/1205">https://github.com/thoughtbot/paperclip/issues/1205</a>
 <a href="http://www.imagemagick.org/script/convert.php">http://www.imagemagick.org/script/convert.php</a>
 <a href="http://stackoverflow.com/questions/7412208/imagemagick-and-os-x-lion-trouble">http://stackoverflow.com/questions/7412208/imagemagick-and-os-x-lion-trouble</a></p>
-
-<p><em>Learn Something New Every Day</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Testing to_csv Method]]></title>
-    <link href="http://hogihung.github.io/blog/2014/09/23/testing-to-csv-method/"/>
-    <updated>2014-09-23T09:32:37-04:00</updated>
-    <id>http://hogihung.github.io/blog/2014/09/23/testing-to-csv-method</id>
-    <content type="html"><![CDATA[<p>Last week I covered a topic that resurfaced while I am in the process of upgrading one of our apps from Ruby 1.9 and Rails 3.x. When I wrote that application I was a raw recruit &ndash; fresh to Ruby and Rails and just trying to get the idea to work.</p>
-
-<p>But as I&rsquo;ve been improving my skills and expanding the ole grey matter, I wanted to write this new version, fully tested.  In the application there is a need to be able to export the data to a CSV formatted file.  I had the code from the old version of the app, and migrated it over.  However, I challenged myself to figure out how to write a test for the to_csv method in Baytech model.</p>
-
-<p>Below is the code from the Baytech model:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def self.to_csv
-</span><span class='line'>  CSV.generate(col_sep: ':') do |csv|
-</span><span class='line'>    all.each do |baytech|
-</span><span class='line'>      port = "X"
-</span><span class='line'>      csv &lt;&lt; [baytech.name, baytech.phone_num, baytech.ip_addr, port, baytech.modem_type, port]
-</span><span class='line'>  end
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I know the method works, as it has been working fine for 9 months or so now.  But I really wanted to figure out how to write a test for this method.  After much trial and error, along with research via books and google, I came up with the following solution:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>describe Baytech, '#to_csv' do
-</span><span class='line'>  let(:baytech) { FactoryGirl.create(:baytech) }
-</span><span class='line'>
-</span><span class='line'>  before do
-</span><span class='line'>    baytech
-</span><span class='line'>  end
-</span><span class='line'>
-</span><span class='line'>  it { expect(Baytech.to_csv).to match /#{baytech.name}:#{baytech.phone_num}:#{baytech.ip_addr}:X:1:X/ }
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You may notice in the above code that I am referencing a Factory.  Here is a short version of that factory file:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>FactoryGirl.define do
-</span><span class='line'>  factory :baytech do
-</span><span class='line'>    sequence(:name) {|n| "jaxfl0#{n}b9" }
-</span><span class='line'>    sequence(:ip_addr) {|n| "10.1.2.#{n}" }
-</span><span class='line'>    phone_num "7091234384"
-</span><span class='line'>    region "USA"
-</span><span class='line'>    modem_type "1"
-</span><span class='line'>    ip_method "ssh"
-</span><span class='line'>    active true
-</span><span class='line'>    has_modem_line true
-</span><span class='line'>    updated_by "cd1234"
-</span><span class='line'>
-</span><span class='line'>    {-snip-}
-</span><span class='line'>
-</span><span class='line'>  end
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The keen eye may have caught something interesting in the to_csv method.  I&rsquo;m using an option, col_sep: &lsquo;:&rsquo; which allows me to use the : character as the delimiter instead of the default comma.</p>
-
-<p>With the test in place, and passing, I felt better about the code in my to_csv method.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 ]]></content>

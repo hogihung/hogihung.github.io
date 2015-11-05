@@ -9,7 +9,7 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="Today I would like to share a productivity tip that I learned from my pair/lead developer partner. Vim continues to surprise me on what seems to be a &hellip;">
+  <meta name="description" content="Today I&rsquo;d to visit vims&#8217; cousing, MacVim. While I do spend most of my time in what I will call &ldquo;normal&rdquo; vim, that is vim &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,90 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/11/04/gooey-vim/">Gooey Vim</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-11-04T19:06:14-05:00" pubdate data-updated="true">Nov 4<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Today I&rsquo;d to visit vims&#8217; cousing, MacVim.  While I do spend most of my time in what I will call &ldquo;normal&rdquo; vim, that is vim executed from the command line of my terminal (iTerm), there are times when I want to work in MacVim.  I tend to reserve MacVim to acts as my general use notepad.  The main reason I treat it as a scratch/notepad instead of vim, is that I find copying and pasting to be more user friendly with MacVim.  There are some other aspects I like, for example being able to scroll using the trackpad on my laptop or via the scroll wheel on a mouse.</p>
+
+<p>While watching some episodes of Elixir Sips and LearnElixir I noticed that the presenters had a pretty cool setup in vim.  I did a little research and found that they use a plugin similar to Airline.  The plugin, and ones similar to it, dress up your vim environment.  So I installed one of the plugins, <em>bling/vim-airline</em> and ran into issues with the display &ndash; it was a little bit off.  Through more research, I discovered that I needed to install the Powerline family of fonts.  Once that was completed my vim environment looked awesome.</p>
+
+<p>However, when I launched MacVim, I was having issues.  Back to the web and more reading.  I found that I needed to update my gvimrc file to setup the use of a guifont. Initially I tried updating the gvimrc and set the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>set guifont=Source\ Code\ Pro\ Powerline:14</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I tried a few different combinations, with out success.  So I decided to play around a bit.  First I launched MacVim (mvim).  Then I tried to manually set the font using:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>:set guifont=SourceCodeProforPowerline -&gt; didn't work
+</span><span class='line'>:set guifont=Source\ Code\ Pro\ for\ Powerline:14  -&gt; didn't work</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I stumbled upon a answer over at StackOverflow and noticed that the poster included an &lsquo;h&rsquo; just before the font size.  So I gave that a try:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>:set guifont=Source\ Code\ Pro\ for\ Powerline:h14  -&gt; WORKED!</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cool, I got that to work.  But dang, I don&rsquo;t want to have to type that everytime I launch MacVim and want my environment to be all gooey-fied.  So I decided to make a modification to my .vimrc file:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>" set a guifont for MacVim and Powerline Font support
+</span><span class='line'>" You can now use Cntrl+g to turn on the font setting below
+</span><span class='line'>nnoremap &lt;C-g&gt; :set guifont=Source\ Code\ Pro\ for\ Powerline:h14&lt;cr&gt;
+</span><span class='line'>
+</span><span class='line'>Tip: You can also use this format:
+</span><span class='line'>set guifont=Source_Code_Pro_for_Powerline:h14 </span></code></pre></td></tr></table></div></figure>
+
+
+<p>While I like, and use the Cntrl+g option as indicated above, my stubbornish really wanted to get the font working via an update to the gvimrc file.  Once I saw, through my trial and errors above, what MacVim was looking for in the ways of proper syntax, I re-visited updating the gvimrc file.  So I added the following to my gvimrc file and restarted MacVim:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>set guifont=Source_Code_Pro_for_Powerline:h14 </span></code></pre></td></tr></table></div></figure>
+
+
+<p>And BAM! my nice gooey font setting was applied.</p>
+
+<p><em>Learn Something New Every Day</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1385,140 +1469,6 @@ same.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/02/17/learning-from-test-suite-aggrevation/">Learning From Test Suite Aggravation</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-02-17T07:55:00-05:00" pubdate data-updated="true">Feb 17<span>th</span>, 2015</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>In my previous <a href="http://oldguynewtrick.com/blog/2015/02/03/gathering-of-some-newbs/">post</a> I spoke about the Flex Blogger project.  Josh introduced us to a new component called ckeditor.  Ckeditor is a javascript based gui text editor.  After using ckeditor I thought it would be beneficial to add it to another application I created for my day job &ndash; HarePD.</p>
-
-<p>Before starting on new features, I will fire off my test suite to make sure everything is still green.  For me I just type:  rspec</p>
-
-<p>I love seeing all that green!  Next, I created a branch to work on this new feature, and updated my Gemfile:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git checkout -b add_ckeditor
-</span><span class='line'>vim Gemfile
-</span><span class='line'>
-</span><span class='line'>{added}
-</span><span class='line'>gem 'ckeditor'</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You can get more information regarding how to setup ckeditor in your rails application by visiting <a href="https://github.com/galetahub/ckeditor">here</a></p>
-
-<p>With the new gem added, and minor updates made in the appropriate view file, _form.html.slim, it was time to re-run my test suite.  Things were looking good as I saw green, green, green.  Then, as my tests executed on the scenarios that used ckeditor, I started to see red.  No big deal I thought, probably a simple change.  Below is an example of one of my tests that was failing:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>spec/support/issues_helper.rb
-</span><span class='line'>
-</span><span class='line'>def create_issue
-</span><span class='line'>  click_link 'Add Issue'
-</span><span class='line'>  fill_in 'Title', with: 'Cert Expiration'
-</span><span class='line'>  fill_in 'Description', with: 'SSL Cert Expiration'
-</span><span class='line'>  select('2', :from =&gt; 'User level')
-</span><span class='line'>  select('Linux', :from =&gt; 'Os')
-</span><span class='line'>  click_button 'Submit'
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Ok, this should be an easy fix.  I inspected the ckeditor element on my webpage using the Chrome Dev Tools, and got the new name &ndash; issue_description.  So I updated the tests that were using &lsquo;Description&rsquo; and replaced with &lsquo;issue_description.&rsquo;  I ran a focused test, on just one scenario and it went green.  Next, I ran all the tests in that particular spec file and again I had a combination of green and red.  Argh!  I took notice of all the failed tests and ran them each one-by-one.  They all passed &ndash; they were all green when executed on their own.  Argh f#@% damnit!</p>
-
-<p>Many hours passed as well as changes here and there to try and get things working.  To keep this post fairly short, I&rsquo;m going to jump to the solution.  After some research and trying different solutions, I stumbled upon the following:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Create a new file:
-</span><span class='line'>spec/support/ckeditor_helper.rb
-</span><span class='line'>
-</span><span class='line'>def fill_in_ckeditor(locator, params = {})
-</span><span class='line'>  locator = find('label', text: locator)[:for] if page.has_css?('label', text: locator)
-</span><span class='line'>  page.execute_script &lt;&lt;-SCRIPT
-</span><span class='line'>      var ckeditor = CKEDITOR.instances.#{locator}
-</span><span class='line'>      ckeditor.setData('#{params[:with]}')
-</span><span class='line'>      ckeditor.focus()
-</span><span class='line'>      ckeditor.updateElement()
-</span><span class='line'>  SCRIPT
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>With the above in place, I refactored my create_issue method from above to read as follows:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def create_issue
-</span><span class='line'>  click_link 'Add Issue'
-</span><span class='line'>  fill_in 'Title', with: 'Cert Expiration'
-</span><span class='line'>  fill_in_ckeditor 'Description', with: 'SSL Cert Expiration'
-</span><span class='line'>  select('2', :from =&gt; 'User level')
-</span><span class='line'>  select('Linux', :from =&gt; 'Os')
-</span><span class='line'>  click_button 'Submit'
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>After making the above changes, I ran my tests for the single spec file and to my delight, everything was green.  Now the real moment of truth &ndash; run the entire test suite.  A smile slowly expanded on my face as all the green scrolled by without a single pixel of red!</p>
-
-<p>Although this issue aggravated me for a bit, the end result was much happiness and joy.  Not to mention I learned a few cool new things here and there in the process.</p>
-
-<p><em>Learn Something New Every Day</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1534,6 +1484,10 @@ same.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/11/04/gooey-vim/">Gooey Vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/10/27/macro-vimonomics/">Macro VimOnomics</a>
       </li>
     
@@ -1547,10 +1501,6 @@ same.</p>
     
       <li class="post">
         <a href="/blog/2015/07/05/a-case-for-truth/">A Case for the Truth</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/06/23/learnings-from-the-front/">Learnings from the Front</a>
       </li>
     
   </ul>

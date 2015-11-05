@@ -9,7 +9,7 @@
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="The first week of my training at Bloc went by very fast. For the most part it was a review of information/knowledge I had already gained, but was &hellip;">
+  <meta name="description" content="At my day job we primarly use Perl for both our scripting and tool type applications as well as using it with a splatter of PHP for some of our web &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,122 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/29/my-first-rake-task/">My First Rake Task</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-29T20:13:12-04:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>At my day job we primarly use Perl for both our scripting and tool type applications as well as using it with a splatter of PHP for some of our web page applications.  I&rsquo;m trying to get Ruby, and Rails, in the door and see if I can convert others over to Ruby.  I must confess, it is a steep upward battle.</p>
+
+<p>However, I do have a web application on our development server and am preparing to deploy it to production.  It is a fairly simple web application that has three models and will enable us to manage the data elements of our Out-of-Band equipment and the connected devices.</p>
+
+<p>When I first started the development, I manually created some test records.  Then I added a handful more via the seeds.rb file.  But when it came time to populating the database with real data, I needed a better solution.  I had compiled some data in Excel files with over 400 out-of-band devices and over 5,000 connected devices.  No way I was going to manually enter all of those.</p>
+
+<p>This was earlier in the week, and luckily I was able to ask some of the gurus at our weekly Code &amp; Coffee how I could tackle this.  Micah suggested I use the CSV library in Ruby and see about populating the data that way.  He gave me a great nudge in the right direction.</p>
+
+<p>I was fumbling around looking for answers when I saw some information about creating rake tasks.  So I studied up, and created the following rake file:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require 'csv'
+</span><span class='line'>
+</span><span class='line'>oobs_file = "/path/to/file/oob_devices.CSV"
+</span><span class='line'>devices_file = "/path/to/file/connected_devices.CSV"
+</span><span class='line'>
+</span><span class='line'>namespace :oob_import do
+</span><span class='line'>  task :oobs =&gt; :environment do
+</span><span class='line'>    Oob.delete_all
+</span><span class='line'>    CSV.foreach(oobs_file, headers: true) do |row|
+</span><span class='line'>      p row
+</span><span class='line'>      Oob.create!(row.to_hash)
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  task :devices =&gt; :environment do
+</span><span class='line'>    Device.delete_all
+</span><span class='line'>    CSV.foreach(devices_file, headers: true) do |row|
+</span><span class='line'>      oob = Oob.find_by_name("#{row[0]}")
+</span><span class='line'>      oob.devices.create!(name: "#{row[1]}", pri_port: "#{row[2]}", active: "#{row[3]}", updated_by: "#{row[4]}")
+</span><span class='line'>
+</span><span class='line'>      p "Oob_ID: #{oob.id}, name: #{row[1]}, pri_port: #{row[2]}, active: #{row[3]}, updated_by: #{row[4]}"
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  task :all =&gt; [:oobs, :devices] do
+</span><span class='line'>    puts "Refreshing Oob and Device Models"
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To import my data, I executed the rake task as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake oob_import:oobs
+</span><span class='line'>rake oob_import:devices</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I could have used the taks, <em>oob_import:all</em> but I wanted to work in two steps so I could watch for errors and fix things while I was building this file.</p>
+
+<p>I can&rsquo;t properly convey the joy and happiness I felt when I saw this new tool work!  It really made my day, especially as it took me a couple of hours of research, trial and error.  But this will make things really easy for me when I move the application to production.</p>
+
+<p>Note that I have the code that starts with &ldquo;p&rdquo; in there so I have a nice visual of how the task is running.  If you don&rsquo;t need that visual confirmation, you could remove those two lines of code.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -602,50 +718,6 @@ I felt like I left things hanging.  So I&rsquo;m going to try and clear things u
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/18/Coffee_And_Code/">Code & Coffee (2)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-18T19:10:15-05:00" pubdate data-updated="true">Feb 18<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>My journey to learn Ruby and Rails started almost one year ago.  I&rsquo;m embarrased to admit, aside from a couple of lunch meetings, I&rsquo;ve been traveling down this road on my own.  Being new to the language and community, plus the fact that I&rsquo;m an introvert, I found it hard to get out and meet fellow programmers.</p>
-
-<p>Near the end of last year I decided to try and conquer my fear and looking back on it, I probably should have started with a smaller introduction to the Ruby community.  In November of last year I attended Ruby Conf 2013 in Miami, Florida.  Don&rsquo;t get me wrong, I enjoyed almost everything about my experience there.  But I felt so out of place.  I went by myself and had no clue on what to expect.</p>
-
-<p>After my experience with Ruby Conf, I decided that I need to take a more gentle approach to entering the fabulous programming community.  I looked up RubyJax since I live in Jacksonville, FL.  I saw that they host many events &ndash; most at the Hash Rocket office at Jax Beach.</p>
-
-<p>So I&rsquo;ve signed up for as many meet ups as I could, which include <em>&ldquo;Code and Coffee.&rdquo;</em>  This was hard for me on a couple of levels.  First, I still feel inadequate as new member of the Ruby community.  Second, I work from home and am really not a morning person.  To get up at 6:15am so I have time to shower and drive to Jax Beach is a bit tough.  It was especially tough for me today, my second Code &amp; Coffee, because I was not feeling 100%.  I enjoyed going last week but in my mind it was clear I was the new guy and I felt really dumb as I was surrounded by so many great programmers.</p>
-
-<p>Then something happened.  At this second Code &amp; Coffee, I wasn&rsquo;t the new guy anymore.  A new member showed up, I believe his name was Michael, and I was able to talk with him and give some advice based on my experience as a new person to the Ruby community.  I hadn&rsquo;t realized how far I have come in my journey.  Don&rsquo;t get me wrong, I still have far to go, but when that light bulb went off in my head, it really brightened my day.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -663,6 +735,10 @@ I felt like I left things hanging.  So I&rsquo;m going to try and clear things u
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/11/04/gooey-vim/">Gooey Vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/10/27/macro-vimonomics/">Macro VimOnomics</a>
       </li>
     
@@ -676,10 +752,6 @@ I felt like I left things hanging.  So I&rsquo;m going to try and clear things u
     
       <li class="post">
         <a href="/blog/2015/07/05/a-case-for-truth/">A Case for the Truth</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/06/23/learnings-from-the-front/">Learnings from the Front</a>
       </li>
     
   </ul>

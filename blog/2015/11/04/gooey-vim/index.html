@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Order is Important... - Old Guy, New Trick</title>
+  <title>Gooey Vim - Old Guy, New Trick</title>
   <meta name="author" content="Ho Gi Hung">
 
   
-  <meta name="description" content="Order is important, sometimes. Recently I was assigned a task passed on by QA. In the application that I am working on,
-users can download files from &hellip;">
+  <meta name="description" content="Today I&rsquo;d to visit vims&#8217; cousing, MacVim. While I do spend most of my time in what I will call &ldquo;normal&rdquo; vim, that is vim &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ users can download files from &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hogihung.github.io/blog/2015/07/28/order-is-important/">
+  <link rel="canonical" href="http://hogihung.github.io/blog/2015/11/04/gooey-vim/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -69,7 +68,7 @@ users can download files from &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Order Is Important...</h1>
+      <h1 class="entry-title">Gooey Vim</h1>
     
     
       <p class="meta">
@@ -85,20 +84,38 @@ users can download files from &hellip;">
   
 
 
-<time datetime="2015-07-28T09:15:14-04:00" pubdate data-updated="true">Jul 28<span>th</span>, 2015</time>
+<time datetime="2015-11-04T19:06:14-05:00" pubdate data-updated="true">Nov 4<span>th</span>, 2015</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Order is important, sometimes.  Recently I was assigned a task passed on by QA.  In the application that I am working on,
-users can download files from the &ldquo;Download&rdquo; section after they login.  Depending on their role, admin or client, the downloadable
-file links will have slightly different names.</p>
+<div class="entry-content"><p>Today I&rsquo;d to visit vims&#8217; cousing, MacVim.  While I do spend most of my time in what I will call &ldquo;normal&rdquo; vim, that is vim executed from the command line of my terminal (iTerm), there are times when I want to work in MacVim.  I tend to reserve MacVim to acts as my general use notepad.  The main reason I treat it as a scratch/notepad instead of vim, is that I find copying and pasting to be more user friendly with MacVim.  There are some other aspects I like, for example being able to scroll using the trackpad on my laptop or via the scroll wheel on a mouse.</p>
 
-<p>In an effort to keep things unified, QA felt that the order of those links is important &ndash; they need to match.  Prior to this
-revelation, our tests only confirmed that the links existed, were clickable, and the contents of the files was accurate.  Below
-is a sample of the new steps I created to get things going:</p>
+<p>While watching some episodes of Elixir Sips and LearnElixir I noticed that the presenters had a pretty cool setup in vim.  I did a little research and found that they use a plugin similar to Airline.  The plugin, and ones similar to it, dress up your vim environment.  So I installed one of the plugins, <em>bling/vim-airline</em> and ran into issues with the display &ndash; it was a little bit off.  Through more research, I discovered that I needed to install the Powerline family of fonts.  Once that was completed my vim environment looked awesome.</p>
+
+<p>However, when I launched MacVim, I was having issues.  Back to the web and more reading.  I found that I needed to update my gvimrc file to setup the use of a guifont. Initially I tried updating the gvimrc and set the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>set guifont=Source\ Code\ Pro\ Powerline:14</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I tried a few different combinations, with out success.  So I decided to play around a bit.  First I launched MacVim (mvim).  Then I tried to manually set the font using:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>:set guifont=SourceCodeProforPowerline -&gt; didn't work
+</span><span class='line'>:set guifont=Source\ Code\ Pro\ for\ Powerline:14  -&gt; didn't work</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I stumbled upon a answer over at StackOverflow and noticed that the poster included an &lsquo;h&rsquo; just before the font size.  So I gave that a try:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>:set guifont=Source\ Code\ Pro\ for\ Powerline:h14  -&gt; WORKED!</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cool, I got that to work.  But dang, I don&rsquo;t want to have to type that everytime I launch MacVim and want my environment to be all gooey-fied.  So I decided to make a modification to my .vimrc file:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -106,69 +123,21 @@ is a sample of the new steps I created to get things going:</p>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>When  I log in as user
-</span><span class='line'>And   I follow "Downloads"
-</span><span class='line'>Then  I confirm the following downloadable files:
-</span><span class='line'>  | order | description       |
-</span><span class='line'>  | 1     | My Bids           |
-</span><span class='line'>  | 2     | My Results        |
-</span><span class='line'>  | 3     | My Product Status |
-</span><span class='line'>  | 4     | My Bidder Status  |
-</span><span class='line'>And  I follow "Logout"
+</pre></td><td class='code'><pre><code class=''><span class='line'>" set a guifont for MacVim and Powerline Font support
+</span><span class='line'>" You can now use Cntrl+g to turn on the font setting below
+</span><span class='line'>nnoremap &lt;C-g&gt; :set guifont=Source\ Code\ Pro\ for\ Powerline:h14&lt;cr&gt;
 </span><span class='line'>
-</span><span class='line'>When  I log in as admin
-</span><span class='line'>And   I follow "Downloads"
-</span><span class='line'>Then  I confirm the following downloadable files:
-</span><span class='line'>  | order | description        |
-</span><span class='line'>  | 1     | All Bids           |
-</span><span class='line'>  | 2     | All Results        |
-</span><span class='line'>  | 3     | All Product Status |
-</span><span class='line'>  | 4     | All Bidder Status  |
-</span><span class='line'>And  I follow "Logout"</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>Tip: You can also use this format:
+</span><span class='line'>set guifont=Source_Code_Pro_for_Powerline:h14 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>I struggled for a bit to figure out, how can I write my Cucumber steps so that I verify the data, in the exact order as
-specified in the feature file.  My original steps above didn&rsquo;t have an order column.  But as I thought things through, I
-added the order attribute as seen above.  Now what?  How do I build my steps so that they can actually confirm the order
-of my rows in the download link table?  After some trial and errors, and many searches I put together the following:</p>
+<p>While I like, and use the Cntrl+g option as indicated above, my stubbornish really wanted to get the font working via an update to the gvimrc file.  Once I saw, through my trial and errors above, what MacVim was looking for in the ways of proper syntax, I re-visited updating the gvimrc file.  So I added the following to my gvimrc file and restarted MacVim:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Then /^I confirm the following downloadable files:$/ do |table|
-</span><span class='line'>  table.hashes.each do |line|
-</span><span class='line'>    within('tbody') do
-</span><span class='line'>      row_num = "tr:nth-child(#{line[:order]})"
-</span><span class='line'>      within(row_num) do
-</span><span class='line'>        expect(page).to have_text line[:description]
-</span><span class='line'>      end
-</span><span class='line'>    end
-</span><span class='line'>  end
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>set guifont=Source_Code_Pro_for_Powerline:h14 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Pretty neat, eh?  With this method, you do not need to ensure that your steps in the feature file are in the exact desired
-order.  Just be sure to have the correct value in the order column.</p>
+<p>And BAM! my nice gooey font setting was applied.</p>
 
 <p><em>Learn Something New Every Day</em></p>
 </div>
@@ -193,12 +162,12 @@ order.  Just be sure to have the correct value in the order column.</p>
   
 
 
-<time datetime="2015-07-28T09:15:14-04:00" pubdate data-updated="true">Jul 28<span>th</span>, 2015</time>
+<time datetime="2015-11-04T19:06:14-05:00" pubdate data-updated="true">Nov 4<span>th</span>, 2015</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/cucumber/'>Cucumber</a>, <a class='category' href='/blog/categories/testing/'>Testing</a>, <a class='category' href='/blog/categories/tip/'>Tip</a>
+    <a class='category' href='/blog/categories/macvim/'>macvim</a>, <a class='category' href='/blog/categories/vim/'>vim</a>
   
 </span>
 
@@ -207,7 +176,7 @@ order.  Just be sure to have the correct value in the order column.</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2015/07/28/order-is-important/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2015/07/28/order-is-important/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hogihung.github.io/blog/2015/11/04/gooey-vim/" data-via="hogihung" data-counturl="http://hogihung.github.io/blog/2015/11/04/gooey-vim/" >Tweet</a>
   
   
   
@@ -216,10 +185,8 @@ order.  Just be sure to have the correct value in the order column.</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2015/07/05/a-case-for-truth/" title="Previous Post: A Case for the Truth">&laquo; A Case for the Truth</a>
+        <a class="basic-alignment left" href="/blog/2015/10/27/macro-vimonomics/" title="Previous Post: Macro VimOnomics">&laquo; Macro VimOnomics</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2015/09/25/hammer-nails-and-java/" title="Next Post: Hammer, N(R)ails, and some Java(Script)">Hammer, N(R)ails, and some Java(Script) &raquo;</a>
       
     </p>
     <div id="disqus_thread"></div>
