@@ -4,7 +4,7 @@
   <title><![CDATA[Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-11-04T19:29:28-05:00</updated>
+  <updated>2015-11-07T16:09:45-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -85,7 +85,7 @@
 </span><span class='line'>914,2251976,Carmel,New York,10134</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Now image a file in the above format, but with hundreds of rows and that we need to change the phone_prefix from 914 to 944.  Also, imagine that we have a dozen or so fixture files that require this update.  Using the power of macros in vim, this can be a relatively easy task.</p>
+<p>Now imagine a file in the above format, but with hundreds of rows and that we need to change the phone_prefix from 914 to 944.  Also, imagine that we have a dozen or so fixture files that require this update.  Using the power of macros in vim, this can be a relatively easy task.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -111,7 +111,7 @@
 
 <p>With the macro ready to go, we can use @q to launch the macro.  This should bring the next file in the buffer into focus and perform the steps outlined in the macro.  Repeat the @q command until all of your files have been updated.  After feeling the pain of doing manual updates for a while, this tip was much welcomed.</p>
 
-<p>However, we are are not done yet.  We need to address this change of 914 to 944 in our related feature file(s).  Continuing onwards with our example, we will assume that we have an existing feature file with some steps similar to the following (picture dozens if not hundes of lines):</p>
+<p>However, we are are not done yet.  We need to address this change of 914 to 944 in our related feature file(s).  Continuing onwards with our example, we will assume that we have an existing feature file with some steps similar to the following (picture dozens if not hundreds of lines):</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
