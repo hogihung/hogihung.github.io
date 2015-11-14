@@ -4,7 +4,7 @@
   <title><![CDATA[Category: macvim | Old Guy, New Trick]]></title>
   <link href="http://hogihung.github.io/blog/categories/macvim/atom.xml" rel="self"/>
   <link href="http://hogihung.github.io/"/>
-  <updated>2015-11-07T16:09:45-05:00</updated>
+  <updated>2015-11-13T20:02:11-05:00</updated>
   <id>http://hogihung.github.io/</id>
   <author>
     <name><![CDATA[Ho Gi Hung]]></name>
@@ -18,7 +18,7 @@
     <link href="http://hogihung.github.io/blog/2015/11/04/gooey-vim/"/>
     <updated>2015-11-04T19:06:14-05:00</updated>
     <id>http://hogihung.github.io/blog/2015/11/04/gooey-vim</id>
-    <content type="html"><![CDATA[<p>Today I&rsquo;d to visit vims' cousing, MacVim.  While I do spend most of my time in what I will call &ldquo;normal&rdquo; vim, that is vim executed from the command line of my terminal (iTerm), there are times when I want to work in MacVim.  I tend to reserve MacVim to acts as my general use notepad.  The main reason I treat it as a scratch/notepad instead of vim, is that I find copying and pasting to be more user friendly with MacVim.  There are some other aspects I like, for example being able to scroll using the trackpad on my laptop or via the scroll wheel on a mouse.</p>
+    <content type="html"><![CDATA[<p>Today I&rsquo;d to visit vims' cousin, MacVim.  While I do spend most of my time in what I will call &ldquo;normal&rdquo; vim, that is vim executed from the command line of my terminal (iTerm), there are times when I want to work in MacVim.  I tend to reserve MacVim to acts as my general use notepad.  The main reason I treat it as a scratch/notepad instead of vim, is that I find copying and pasting to be more user friendly with MacVim.  There are some other aspects I like, for example being able to scroll using the trackpad on my laptop or via the scroll wheel on a mouse.</p>
 
 <p>While watching some episodes of Elixir Sips and LearnElixir I noticed that the presenters had a pretty cool setup in vim.  I did a little research and found that they use a plugin similar to Airline.  The plugin, and ones similar to it, dress up your vim environment.  So I installed one of the plugins, <em>bling/vim-airline</em> and ran into issues with the display &ndash; it was a little bit off.  Through more research, I discovered that I needed to install the Powerline family of fonts.  Once that was completed my vim environment looked awesome.</p>
 
